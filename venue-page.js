@@ -54,7 +54,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #venue-page .vp-fact strong{font-family:var(--vp-display);font-weight:400;font-size:24px;color:var(--vp-brass)}\
 #venue-page .vp-btn{display:inline-block;margin-left:auto;text-decoration:none;font-weight:500;letter-spacing:.04em;padding:14px 26px;border-radius:999px;background:var(--vp-brass);color:#273030;border:0}\
 #venue-page .vp-btn:focus-visible,#venue-page button:focus-visible{outline:2px solid var(--vp-brass);outline-offset:3px}\
-#venue-page .vp-body{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:56px;align-items:start;max-width:1240px;margin:0 auto;padding-top:72px;padding-bottom:72px}\
+#venue-page .vp-body{display:grid;grid-template-columns:minmax(0,1fr) clamp(340px,26vw,400px);gap:clamp(40px,4vw,72px);align-items:start;max-width:none;margin:0;padding-top:72px;padding-bottom:72px}\
 #venue-page .vp-main{display:grid;gap:72px;min-width:0;container-type:inline-size}\
 #venue-page .vp-aside{position:sticky;top:var(--vp-sticky-top,24px);min-width:0}\
 #venue-page .vp-main h2{font-size:clamp(28px,4vw,40px);margin:0 0 20px;color:var(--vp-ink)}\
@@ -84,6 +84,16 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #venue-page .vp-vwrap.vp-playing .vp-play{display:none}\
 #venue-page .vp-video figcaption{font-size:13px;color:var(--vp-muted)}\
 #venue-page .vp-loc p{margin-bottom:12px;color:var(--vp-muted)}\
+#venue-page .vp-similar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}\
+#venue-page .vp-card{display:grid;gap:10px;text-decoration:none;color:inherit;min-width:0}\
+#venue-page .vp-card-img{aspect-ratio:4/3;border-radius:var(--vp-radius);overflow:hidden;background:var(--vp-line)}\
+#venue-page .vp-card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}\
+#venue-page .vp-card:hover .vp-card-img img{transform:scale(1.04)}\
+#venue-page .vp-card h3{font-size:22px;margin:0}\
+#venue-page .vp-card p{margin:0;color:var(--vp-muted);font-size:14px}\
+#venue-page .vp-card .vp-cap{margin-top:-4px}\
+#venue-page .vp-card:focus-visible{outline:2px solid var(--vp-brass);outline-offset:4px;border-radius:var(--vp-radius)}\
+@container (max-width:460px){#venue-page .vp-similar{grid-template-columns:1fr}}\
 #venue-page .vp-loc a{color:var(--vp-accent-text);font-weight:500}\
 #venue-page .vp-map{width:100%;max-width:640px;height:300px;border:1px solid var(--vp-line);border-radius:var(--vp-radius);display:block;margin-bottom:12px;background:var(--vp-line)}\
 #venue-page .vp-form{background:var(--vp-surface);border:1px solid var(--vp-line);border-radius:20px;padding:20px 22px;display:grid;gap:9px;scroll-margin-top:24px}\
@@ -96,6 +106,13 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #venue-page .vp-field input,#venue-page .vp-field select,#venue-page .vp-field textarea{font:inherit;font-size:15px;width:100%;padding:7px 13px;border:1px solid var(--vp-line);border-radius:var(--vp-radius-sm);background:var(--vp-bg);color:var(--vp-ink);color-scheme:dark}\
 #venue-page[data-theme="light"] .vp-field input,#venue-page[data-theme="light"] .vp-field select,#venue-page[data-theme="light"] .vp-field textarea{color-scheme:light}\
 #venue-page .vp-field textarea{min-height:58px;resize:vertical}\
+#venue-page .vp-field input,#venue-page .vp-field select{display:block;height:40px;min-height:40px;line-height:22px;margin:0;-webkit-appearance:none;-moz-appearance:none;appearance:none}\
+#venue-page .vp-field input[type=date]{text-align:left;min-width:0}\
+#venue-page .vp-field input[type=date]::-webkit-date-and-time-value{text-align:left;margin:0}\
+#venue-page .vp-field input[type=date]::-webkit-datetime-edit{padding:0;line-height:22px}\
+#venue-page .vp-field input[type=date]::-webkit-calendar-picker-indicator{opacity:.7;cursor:pointer;filter:invert(1)}\
+#venue-page[data-theme="light"] .vp-field input[type=date]::-webkit-calendar-picker-indicator{filter:none}\
+#venue-page .vp-field select{padding-right:36px;cursor:pointer;background-repeat:no-repeat;background-position:right 13px center;background-size:12px;background-image:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 12 8%27%3E%3Cpath d=%27M1 1l5 5 5-5%27 fill=%27none%27 stroke=%27%233dc2bb%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E")}\
 #venue-page .vp-field input:focus,#venue-page .vp-field select:focus,#venue-page .vp-field textarea:focus{outline:2px solid var(--vp-brass);outline-offset:0;border-color:transparent}\
 #venue-page .vp-form .vp-btn{padding-top:12px;padding-bottom:12px;margin:4px 0 0;width:100%;font:inherit;font-weight:500;cursor:pointer}\
 #venue-page .vp-form .vp-btn[disabled]{opacity:.6;cursor:wait}\
@@ -218,6 +235,23 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     h += '<section class="vp-loc"><h2>Location</h2><p>' + esc(v.name) + ', ' + esc(area) + '</p>';
     h += '<iframe class="vp-map" title="Map showing ' + esc(v.name) + '" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=' + q + '&z=15&output=embed"></iframe>';
     h += '</section>';
+
+    // Similar venues: two other live venues, closest in guest numbers, same food style first.
+    var others = DATA.venues.filter(function (o) { return o.live && o.url && o.slug !== v.slug; });
+    others.sort(function (a, b) {
+      var da = Math.abs(a.capacity - v.capacity) + (a.foodStyle === v.foodStyle ? 0 : 60);
+      var db = Math.abs(b.capacity - v.capacity) + (b.foodStyle === v.foodStyle ? 0 : 60);
+      return da - db;
+    });
+    others = others.slice(0, 2);
+    if (others.length) {
+      h += '<section><h2>Similar venues</h2><div class="vp-similar">';
+      others.forEach(function (o) {
+        h += '<a class="vp-card" href="' + esc(o.url) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(o.heroImg || o.cardImg, 750) + '" alt="' + esc(o.name) + '"></div>'
+          + '<h3>' + esc(o.name) + '</h3><p>' + esc(o.area || ('Co. ' + o.county)) + '</p><div class="vp-cap">Up to ' + esc(o.capacity) + ' guests</div></a>';
+      });
+      h += '</div></section>';
+    }
 
     h += '</div>';  // end of main column
 
