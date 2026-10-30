@@ -7,6 +7,7 @@
 (function () {
   var DATA_URL = 'https://raw.githubusercontent.com/conorclmurphy/wd2-venues/main/venues.json';
   var HLS_URL = 'https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js';
+  var FORM_URL = 'https://api.web3forms.com/submit';
   var root = document.getElementById('venue-page');
   if (!root) return;
   var slug = (root.getAttribute('data-venue') || '').trim().toLowerCase();
@@ -53,7 +54,9 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #venue-page .vp-fact strong{font-family:var(--vp-display);font-weight:400;font-size:24px;color:var(--vp-brass)}\
 #venue-page .vp-btn{display:inline-block;margin-left:auto;text-decoration:none;font-weight:500;letter-spacing:.04em;padding:14px 24px;border-radius:2px;background:var(--vp-brass);color:#273030;border:0}\
 #venue-page .vp-btn:focus-visible,#venue-page button:focus-visible{outline:2px solid var(--vp-brass);outline-offset:3px}\
-#venue-page .vp-main{display:grid;gap:72px;padding-top:72px;padding-bottom:72px;max-width:1080px;margin:0 auto}\
+#venue-page .vp-body{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:56px;align-items:start;max-width:1240px;margin:0 auto;padding-top:72px;padding-bottom:72px}\
+#venue-page .vp-main{display:grid;gap:72px;min-width:0;container-type:inline-size}\
+#venue-page .vp-aside{position:sticky;top:var(--vp-sticky-top,110px);min-width:0;max-height:calc(100vh - var(--vp-sticky-top,110px) - 16px);overflow-y:auto;overscroll-behavior:contain}\
 #venue-page .vp-main h2{font-size:clamp(28px,4vw,40px);margin:0 0 20px;color:var(--vp-ink)}\
 #venue-page .vp-about p{font-size:20px;max-width:62ch}\
 #venue-page .vp-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:24px 48px;align-items:start}\
@@ -83,10 +86,27 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #venue-page .vp-loc p{margin-bottom:12px;color:var(--vp-muted)}\
 #venue-page .vp-loc a{color:var(--vp-accent-text);font-weight:500}\
 #venue-page .vp-map{width:100%;max-width:640px;height:300px;border:1px solid var(--vp-line);display:block;margin-bottom:12px;background:var(--vp-line)}\
-#venue-page .vp-enq{background:var(--vp-surface);border:1px solid var(--vp-line);padding:40px;display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justify-content:space-between}\
-#venue-page .vp-enq h2{margin:0 0 6px}\
-#venue-page .vp-enq p{color:var(--vp-muted);max-width:48ch}\
-#venue-page .vp-enq .vp-btn{margin-left:0}\
+#venue-page .vp-form{background:var(--vp-surface);border:1px solid var(--vp-line);padding:22px 24px;display:grid;gap:11px;scroll-margin-top:var(--vp-sticky-top,110px)}\
+#venue-page .vp-form h2{font-size:24px;margin:0}\
+#venue-page .vp-form .vp-sub{color:var(--vp-muted);font-size:14px;margin-top:-6px}\
+#venue-page .vp-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}\
+#venue-page .vp-field{display:grid;gap:5px;min-width:0}\
+#venue-page .vp-field label{font-size:13px;font-weight:500;color:var(--vp-ink)}\
+#venue-page .vp-field label i{font-style:normal;color:var(--vp-muted);font-weight:400}\
+#venue-page .vp-field input,#venue-page .vp-field select,#venue-page .vp-field textarea{font:inherit;font-size:15px;width:100%;padding:8px 11px;border:1px solid var(--vp-line);border-radius:2px;background:var(--vp-bg);color:var(--vp-ink);color-scheme:dark}\
+#venue-page[data-theme="light"] .vp-field input,#venue-page[data-theme="light"] .vp-field select,#venue-page[data-theme="light"] .vp-field textarea{color-scheme:light}\
+#venue-page .vp-field textarea{min-height:72px;resize:vertical}\
+#venue-page .vp-field input:focus,#venue-page .vp-field select:focus,#venue-page .vp-field textarea:focus{outline:2px solid var(--vp-brass);outline-offset:0;border-color:transparent}\
+#venue-page .vp-form .vp-btn{margin:4px 0 0;width:100%;font:inherit;font-weight:500;cursor:pointer}\
+#venue-page .vp-form .vp-btn[disabled]{opacity:.6;cursor:wait}\
+#venue-page .vp-status{font-size:14px;margin:0}\
+#venue-page .vp-status a{color:inherit;text-decoration:underline}\
+#venue-page .vp-status.vp-err{color:#f0a48c}\
+#venue-page .vp-done{display:grid;gap:8px}\
+#venue-page .vp-done h2{color:var(--vp-brass)}\
+#venue-page .vp-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}\
+@container (max-width:640px){#venue-page .vp-space.vp-has-video,#venue-page .vp-split{grid-template-columns:1fr}}\
+@media (max-width:1000px){#venue-page .vp-body{grid-template-columns:1fr}#venue-page .vp-aside{position:static;max-height:none;overflow:visible}}\
 #venue-page .vp-lb{position:fixed;inset:0;z-index:99999;background:rgba(39,48,48,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px}\
 #venue-page .vp-lb[hidden]{display:none}\
 #venue-page .vp-lb img{max-height:78vh;max-width:100%;object-fit:contain}\
@@ -94,7 +114,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #venue-page .vp-lb-bar button{font:inherit;background:none;border:1px solid rgba(234,230,221,.4);color:var(--vp-on-dark);padding:8px 14px;cursor:pointer}\
 #venue-page .vp-msg{padding:40px 16px;color:var(--vp-muted)}\
 @media (max-width:760px){#venue-page .vp-space.vp-has-video,#venue-page .vp-split{grid-template-columns:1fr}}\
-@media (max-width:640px){#venue-page .vp-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}#venue-page .vp-play{width:60px;height:60px}#venue-page .vp-enq{padding:28px 20px}#venue-page .vp-main{gap:56px;padding-top:52px;padding-bottom:52px}#venue-page .vp-btn{margin-left:0}}';
+@media (max-width:640px){#venue-page .vp-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}#venue-page .vp-play{width:60px;height:60px}#venue-page .vp-form{padding:22px 18px}#venue-page .vp-row{grid-template-columns:1fr}#venue-page .vp-main{gap:56px}#venue-page .vp-body{padding-top:52px;padding-bottom:52px;gap:56px}#venue-page .vp-btn{margin-left:0}}';
   var st = document.createElement('style');
   st.textContent = css;
   document.head.appendChild(st);
@@ -139,7 +159,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
     h += '<div class="vp-facts vp-pad">';
     facts.forEach(function (f) { h += '<div class="vp-fact"><span>' + f[0] + '</span><strong>' + esc(f[1]) + '</strong></div>'; });
-    h += '<a class="vp-btn" href="' + enq + '">Get a quote</a></div>';
+    h += '<a class="vp-btn" href="#vp-enquire">Get a quote</a></div>';
 
     var allVideos = [];
     function videoTag(x, label) {
@@ -161,7 +181,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       return g;
     }
 
-    h += '<div class="vp-main vp-pad">';
+    h += '<div class="vp-body vp-pad"><div class="vp-main">';
     if (v.intro) {
       if (vids.length) h += '<section class="vp-about vp-split"><div><h2>About the venue</h2><p>' + esc(v.intro) + '</p></div>' + videoTag(vids[0], v.name) + '</section>';
       else h += '<section class="vp-about"><h2>About the venue</h2><p>' + esc(v.intro) + '</p></section>';
@@ -186,9 +206,24 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     h += '<iframe class="vp-map" title="Map showing ' + esc(v.name) + '" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=' + q + '&z=15&output=embed"></iframe>';
     h += '</section>';
 
-    h += '<section class="vp-enq"><div><h2>Planning your Day 2 here?</h2><p>Tell us your date and guest numbers and we will check availability at ' + esc(v.name) + ' and put together your entertainment.</p></div>';
-    h += '<a class="vp-btn" href="' + enq + '">Enquire about this venue</a></section>';
-    h += '</div>';
+    h += '</div>';  // end of main column
+
+    // Enquiry form: stays in view beside the content on wide screens, sits at the end on phones.
+    var today = new Date(); today = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+    h += '<aside class="vp-aside"><form class="vp-form" id="vp-enquire" novalidate>'
+      + '<h2>Enquire about ' + esc(v.name) + '</h2><p class="vp-sub">Tell us your date and we will check availability and put together your entertainment.</p>'
+      + '<div class="vp-row"><div class="vp-field"><label for="vp-fname">First name</label><input id="vp-fname" name="First name" autocomplete="given-name" required></div>'
+      + '<div class="vp-field"><label for="vp-lname">Last name</label><input id="vp-lname" name="Last name" autocomplete="family-name" required></div></div>'
+      + '<div class="vp-field"><label for="vp-email">Email</label><input id="vp-email" name="email" type="email" autocomplete="email" required></div>'
+      + '<div class="vp-field"><label for="vp-date">Event date <i>(optional)</i></label><input id="vp-date" name="Event date" type="date" min="' + today + '"></div>'
+      + '<div class="vp-field"><label for="vp-venue">Venue(s) you are interested in</label><input id="vp-venue" name="Venue" value="' + esc(v.name) + '"></div>'
+      + '<div class="vp-field"><label for="vp-music">Interested in our live music or karaoke options?</label><select id="vp-music" name="Live music / karaoke"><option value="">Select an option</option><option>Yes</option><option>No</option></select></div>'
+      + '<div class="vp-field"><label for="vp-heard">How did you hear about us?</label><select id="vp-heard" name="How they heard about us"><option value="">Select an option</option><option>Instagram</option><option>Google Search</option><option>Musician referral</option><option>Friends or family</option><option>Other</option></select></div>'
+      + '<div class="vp-field"><label for="vp-msg">Let us know how we can help <i>(optional)</i></label><textarea id="vp-msg" name="Message" placeholder="Guest numbers, questions, anything else"></textarea></div>'
+      + '<input type="checkbox" name="botcheck" class="vp-hp" tabindex="-1" autocomplete="off" aria-hidden="true">'
+      + '<button class="vp-btn" type="submit">Send enquiry</button><p class="vp-status" role="status" aria-live="polite"></p>'
+      + '</form></aside>';
+    h += '</div>';  // end of body
 
     h += '<div class="vp-lb" hidden><img alt=""><div class="vp-lb-bar"><button type="button" data-a="prev">Previous</button><span class="vp-count"></span><button type="button" data-a="next">Next</button><button type="button" data-a="close">Close</button></div></div>';
 
@@ -211,6 +246,34 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       if (e.key === 'Escape') lb.hidden = true; else if (e.key === 'ArrowRight') open(idx + 1); else if (e.key === 'ArrowLeft') open(idx - 1);
     };
     document.addEventListener('keydown', keyHandler);
+
+    // Enquiry form
+    var form = root.querySelector('.vp-form'), status = form.querySelector('.vp-status'), sendBtn = form.querySelector('button[type=submit]');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      status.className = 'vp-status'; status.textContent = '';
+      var missing = [];
+      ['vp-fname', 'vp-lname', 'vp-email'].forEach(function (id) { var f = form.querySelector('#' + id); if (!f.value.trim()) missing.push(f); });
+      var em = form.querySelector('#vp-email');
+      if (missing.length) { status.className = 'vp-status vp-err'; status.textContent = 'Please fill in your first name, last name and email.'; missing[0].focus(); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())) { status.className = 'vp-status vp-err'; status.textContent = 'Please check your email address.'; em.focus(); return; }
+      if (!DATA.formAccessKey) { status.className = 'vp-status vp-err'; status.innerHTML = 'Online enquiries are not switched on yet. Please use our <a href="' + enq + '">enquiry page</a>.'; return; }
+      var payload = { access_key: DATA.formAccessKey, subject: 'Venue enquiry: ' + v.name, from_name: 'Wedding Day 2 website', page: location.href };
+      Array.prototype.forEach.call(form.elements, function (f) { if (f.name && f.type !== 'checkbox') payload[f.name] = f.value; });
+      payload.botcheck = form.querySelector('[name=botcheck]').checked;
+      sendBtn.disabled = true; sendBtn.textContent = 'Sending…';
+      fetch(FORM_URL, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (!res.success) throw new Error(res.message || 'failed');
+          form.innerHTML = '<div class="vp-done"><h2>Thanks, ' + esc(payload['First name']) + '</h2><p>We have your enquiry about ' + esc(v.name) + ' and will be in touch soon by email.</p></div>';
+        })
+        .catch(function () {
+          sendBtn.disabled = false; sendBtn.textContent = 'Send enquiry';
+          status.className = 'vp-status vp-err';
+          status.innerHTML = 'Your enquiry did not send. Please try again, or use our <a href="' + enq + '">enquiry page</a>.';
+        });
+    });
 
     // Videos: stream with hls.js where needed; the video only downloads once someone presses play.
     if (allVideos.length) {

@@ -1,5 +1,5 @@
 {
-  "_notes": "Venue data for weddingday2.ie only. Pulled from the live venue pages and the /venues search widget on 30 Oct 2026. Image URLs are stored without ?format so the widget/page can request the size it needs. 'enquireUrl' is the shared enquiry page on every venue page. Videos are Squarespace video IDs (a room's 'video' is its walk-around; a venue's 'videos' are whole-venue clips): play from videoBase + id + '/playlist.m3u8', thumbnail at videoBase + id + '/thumbnail'. 'mapQuery' is what the map searches for; replace it with the full street address if a map pin is wrong. 'heroImg' is the top banner photo; each room has its own 'gallery'; a venue-level 'gallery' is only used for venues without separate rooms.",
+  "_notes": "Venue data for weddingday2.ie only. Pulled from the live venue pages and the /venues search widget on 30 Oct 2026. Image URLs are stored without ?format so the widget/page can request the size it needs. 'enquireUrl' is the shared enquiry page on every venue page. Videos are Squarespace video IDs (a room's 'video' is its walk-around; a venue's 'videos' are whole-venue clips): play from videoBase + id + '/playlist.m3u8', thumbnail at videoBase + id + '/thumbnail'. 'mapQuery' is what the map searches for; replace it with the full street address if a map pin is wrong. 'heroImg' is the top banner photo; each room has its own 'gallery'; a venue-level 'gallery' is only used for venues without separate rooms. 'formAccessKey' is the Web3Forms access key that emails venue enquiries to you.",
   "imageBase": "https://images.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "enquireUrl": "https://weddingday2.ie/venueenquiry",
   "venues": [
@@ -378,5 +378,6 @@
       "videos": []
     }
   ],
-  "videoBase": "https://video.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/"
+  "videoBase": "https://video.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
+  "formAccessKey": "e22edaa4-9aee-4226-a8fc-120ab344273d"
 }
