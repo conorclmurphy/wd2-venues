@@ -1,7 +1,12 @@
 /* Wedding Day 2 venue page
    Usage in a Squarespace Code block:
      <div id="venue-page" data-venue="oneills"></div>
-     <script src="https://cdn.jsdelivr.net/gh/conorclmurphy/wd2-venues@main/venue-page.js"></script>
+     <script>
+     fetch('https://raw.githubusercontent.com/conorclmurphy/wd2-venues/main/venue-page.js', {cache: 'no-cache'})
+       .then(function (r) { return r.text(); })
+       .then(function (t) { var s = document.createElement('script'); s.textContent = t; document.body.appendChild(s); });
+     </script>
+   Loading straight from GitHub means updates show on the site within about 5 minutes.
    Change data-venue to the venue's "slug" from venues.json.
    The page is dark by default; add data-theme="light" to the div for the light sand version. */
 (function () {
@@ -42,9 +47,10 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #venue-page h1,#venue-page h2,#venue-page h3{font-family:var(--vp-display);font-weight:400;letter-spacing:-.01em;text-transform:none;color:inherit;text-wrap:balance}\
 #venue-page p{margin:0}\
 #venue-page .vp-pad{padding-left:max(16px,4vw);padding-right:max(16px,4vw)}\
-#venue-page .vp-hero{position:relative;min-height:min(70vh,600px);display:flex;align-items:flex-end;color:var(--vp-on-dark);background:#273030;overflow:hidden}\
+#venue-page .vp-hero{position:relative;z-index:0;min-height:min(70vh,600px);display:flex;align-items:flex-end;color:var(--vp-on-dark);background:#273030;overflow:hidden}\
 #venue-page .vp-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}\
 #venue-page .vp-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(39,48,48,0) 35%,rgba(39,48,48,.85) 100%)}\
+#venue-page .vp-hero:before{content:"";position:absolute;left:0;right:0;top:0;height:35%;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(29,37,37,.6) 0%,rgba(29,37,37,0) 100%)}\
 #venue-page .vp-hero-in{position:relative;z-index:1;width:100%;padding-top:48px;padding-bottom:40px}\
 #venue-page .vp-eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:500}\
 #venue-page .vp-hero h1{font-size:clamp(40px,7vw,76px);line-height:1.02;margin:10px 0 12px;color:var(--vp-on-dark)}\
@@ -74,6 +80,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #venue-page .vp-gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}\
 #venue-page .vp-gallery button:hover img{transform:scale(1.04)}\
 #venue-page .vp-space-gallery{grid-column:1/-1;min-width:0}\
+#venue-page .vp-gallery.vp-g6{grid-template-columns:repeat(3,minmax(0,1fr))}\
 #venue-page .vp-more{margin-top:16px;font:inherit;font-weight:500;background:none;border:1px solid var(--vp-ink);border-radius:999px;color:var(--vp-ink);padding:10px 18px;cursor:pointer}\
 #venue-page .vp-video{margin:0;display:grid;gap:8px;min-width:0}\
 #venue-page .vp-vwrap{position:relative}\
@@ -144,7 +151,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #venue-page .vp-lb-bar button{font:inherit;border-radius:999px;background:none;border:1px solid rgba(234,230,221,.4);color:var(--vp-on-dark);padding:8px 14px;cursor:pointer}\
 #venue-page .vp-msg{padding:40px 16px;color:var(--vp-muted)}\
 @media (max-width:760px){#venue-page .vp-space.vp-has-video,#venue-page .vp-split{grid-template-columns:1fr}}\
-@media (max-width:640px){#venue-page .vp-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}#venue-page .vp-play{width:60px;height:60px}#venue-page .vp-row{gap:10px}#venue-page .vp-main{gap:56px}#venue-page .vp-body{padding-top:52px;padding-bottom:52px;gap:56px}#venue-page .vp-btn{margin-left:0}}';
+@media (max-width:640px){#venue-page .vp-gallery,#venue-page .vp-gallery.vp-g6{grid-template-columns:repeat(2,minmax(0,1fr))}#venue-page .vp-play{width:60px;height:60px}#venue-page .vp-row{gap:10px}#venue-page .vp-main{gap:56px}#venue-page .vp-body{padding-top:52px;padding-bottom:52px;gap:56px}#venue-page .vp-btn{margin-left:0}}';
   var st = document.createElement('style');
   st.textContent = css;
   document.head.appendChild(st);
@@ -201,8 +208,9 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
     function galleryTag(list, label) {
       if (!list || !list.length) return '';
-      var si = sets.push(list) - 1, shown = list.slice(0, 8);
-      var g = '<div class="vp-gallery" data-set="' + si + '">';
+      var n = list.length >= 6 ? 6 : list.length >= 4 ? 4 : list.length;  // even grids: 6, or 4 for smaller sets
+      var si = sets.push(list) - 1, shown = list.slice(0, n);
+      var g = '<div class="vp-gallery' + (n === 6 ? ' vp-g6' : '') + '" data-set="' + si + '">';
       shown.forEach(function (p, i) {
         g += '<button type="button" data-set="' + si + '" data-i="' + i + '" aria-label="Open photo ' + (i + 1) + ' of ' + list.length + ' of ' + esc(label) + '"><img loading="lazy" src="' + img(p, 750) + '" alt="' + esc(label) + ' photo ' + (i + 1) + '"></button>';
       });
@@ -279,6 +287,18 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
     root.innerHTML = h;
 
+    // Slide the main photo up to the very top of the page, underneath the site's see-through header.
+    var hero = root.querySelector('.vp-hero');
+    function pullUp() {
+      hero.style.marginTop = ''; hero.style.paddingTop = '';
+      var gap = Math.round(hero.getBoundingClientRect().top + window.pageYOffset);
+      if (gap > 0 && gap < 400) { hero.style.marginTop = -gap + 'px'; hero.style.paddingTop = gap + 'px'; }
+    }
+    pullUp();
+    setTimeout(pullUp, 600);
+    window.__vpPull = pullUp;
+    if (!window.__vpPullBound) { window.__vpPullBound = true; window.addEventListener('load', function () { if (window.__vpPull) window.__vpPull(); }); window.addEventListener('resize', function () { if (window.__vpPull) window.__vpPull(); }); }
+
     // Lightbox
     var lb = root.querySelector('.vp-lb'), lbImg = lb.querySelector('img'), count = lb.querySelector('.vp-count'), idx = 0, cur = [];
     function open(i) { if (!cur.length) return; idx = (i + cur.length) % cur.length; lbImg.src = img(cur[idx], 2500); count.textContent = (idx + 1) + ' / ' + cur.length; lb.hidden = false; }
@@ -354,6 +374,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var setup = function () {
         allVideos.forEach(function (x, i) {
           var el = root.querySelector('video[data-v="' + i + '"]'), src = DATA.videoBase + x.id + '/playlist.m3u8';
+          if (!el || el.getAttribute('data-ready')) return;  // page re-drawn or already set up
+          el.setAttribute('data-ready', '1');
           var wrap = el.parentNode, btn = wrap.querySelector('.vp-play');
           btn.addEventListener('click', function () { var pr = el.play(); if (pr && pr.catch) pr.catch(function () {}); });
           el.addEventListener('play', function () { wrap.classList.add('vp-playing'); });
