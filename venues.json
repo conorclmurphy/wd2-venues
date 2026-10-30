@@ -94,7 +94,7 @@
       "rooms": [
         {
           "name": "The Beer Garden",
-          "capacity": "",
+          "capacity": "Up to 120 guests",
           "description": "The Beer Garden at D One 5 offers a stylish and secluded outdoor setting, perfect for a relaxed Wedding Day 2 celebration. Beautifully enclosed and surrounded by lush planting, it combines comfort and atmosphere with a premium finish throughout. Featuring a large widescreen LED display, ample seating, and a vibrant yet intimate feel, it's an ideal space for any event.",
           "video": {
             "id": "1d693d12-5a58-426a-acad-e572d9c0ff5d",
@@ -130,7 +130,7 @@
       "rooms": [
         {
           "name": "Upstairs at Lottie's",
-          "capacity": "",
+          "capacity": "Up to 120 guests",
           "description": "The upstairs private area features a beautiful outdoor terrace that's perfect for relaxing and socialising, while the private bar area provides an elegant setting for dining, speeches and live music.",
           "video": {
             "id": "24f51a7a-97fe-4599-a081-883b39aeaa78",
@@ -164,7 +164,7 @@
       "rooms": [
         {
           "name": "The Cocktail Bar",
-          "capacity": "",
+          "capacity": "Up to 200 guests",
           "description": "Café en Seine's Cocktail Bar is a stunning wide open space, perfect for both seated dining and standing receptions. With its bright, airy atmosphere, soaring ceilings, and beautifully designed interiors, this elegant room creates a truly unforgettable setting for private events.",
           "video": {
             "id": "512ecdea-692f-4bf0-a84c-deedb6520799",
@@ -183,7 +183,7 @@
         },
         {
           "name": "Balcony Bar",
-          "capacity": "",
+          "capacity": "Up to 60 guests",
           "description": "This stunning private space is ideal for intimate private events. With stylish interiors, a private bar, a dedicated photo booth, and views overlooking the iconic Garden Bar, the Balcony Bar provides the perfect setting for unforgettable private events.",
           "video": {
             "id": "c502bb6d-c202-4add-8216-978d2bb84a15",
