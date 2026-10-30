@@ -1,5 +1,5 @@
 {
-  "_notes": "Venue data for weddingday2.ie only. Pulled from the live venue pages and the /venues search widget on 30 Oct 2026. Image URLs are stored without ?format so the widget/page can request the size it needs. 'enquireUrl' is the shared enquiry page on every venue page. Videos are Squarespace video IDs (a room's 'video' is its walk-around; a venue's 'videos' are whole-venue clips): play from videoBase + id + '/playlist.m3u8', thumbnail at videoBase + id + '/thumbnail'. 'mapQuery' is what the map searches for; replace it with the full street address if a map pin is wrong.",
+  "_notes": "Venue data for weddingday2.ie only. Pulled from the live venue pages and the /venues search widget on 30 Oct 2026. Image URLs are stored without ?format so the widget/page can request the size it needs. 'enquireUrl' is the shared enquiry page on every venue page. Videos are Squarespace video IDs (a room's 'video' is its walk-around; a venue's 'videos' are whole-venue clips): play from videoBase + id + '/playlist.m3u8', thumbnail at videoBase + id + '/thumbnail'. 'mapQuery' is what the map searches for; replace it with the full street address if a map pin is wrong. 'heroImg' is the top banner photo; each room has its own 'gallery'; a venue-level 'gallery' is only used for venues without separate rooms.",
   "imageBase": "https://images.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "enquireUrl": "https://weddingday2.ie/venueenquiry",
   "venues": [
@@ -22,7 +22,14 @@
           "video": {
             "id": "76871436-ff44-42ac-bf91-516a0364b259",
             "seconds": 44
-          }
+          },
+          "gallery": [
+            "8311a4a8-42cb-40da-8e11-d18a248378fa/IMG_4399.JPG",
+            "51b3bd84-9588-44a7-8ff9-4d26259f43b3/IMG_4404.JPG",
+            "e9aac044-c484-4760-8b14-ae49c4291148/IMG_4411.JPG",
+            "31c413eb-a2ca-40c4-afe3-7c948979c0d5/IMG_4420.JPG",
+            "703d8721-b50c-4a9a-9ba8-792aa93baf41/IMG_4365.JPG"
+          ]
         },
         {
           "name": "The Loft",
@@ -31,24 +38,20 @@
           "video": {
             "id": "ddd9d81b-6c17-4e47-9eea-78d79d084dea",
             "seconds": 28
-          }
+          },
+          "gallery": [
+            "9b62d927-a5ce-4f39-9dc1-670b12094b4c/IMG_4384.JPG",
+            "a95bc94b-012a-4b1c-9bca-4299a898b64b/IMG_4369.JPG",
+            "2bfab68d-d362-45ca-b4ef-5e2acc834838/IMG_4372.JPG",
+            "dbfd5721-29e4-4e60-bd90-9e879be95442/IMG_4374.JPG",
+            "7e40b0db-a577-4fa5-b92b-45556ff0bcfe/IMG_4371.JPG"
+          ]
         }
       ],
-      "gallery": [
-        "78a1fb1c-e3f1-4531-b8b9-a49ac34227f7/IMG_4421.JPG",
-        "8311a4a8-42cb-40da-8e11-d18a248378fa/IMG_4399.JPG",
-        "51b3bd84-9588-44a7-8ff9-4d26259f43b3/IMG_4404.JPG",
-        "e9aac044-c484-4760-8b14-ae49c4291148/IMG_4411.JPG",
-        "31c413eb-a2ca-40c4-afe3-7c948979c0d5/IMG_4420.JPG",
-        "703d8721-b50c-4a9a-9ba8-792aa93baf41/IMG_4365.JPG",
-        "9b62d927-a5ce-4f39-9dc1-670b12094b4c/IMG_4384.JPG",
-        "a95bc94b-012a-4b1c-9bca-4299a898b64b/IMG_4369.JPG",
-        "2bfab68d-d362-45ca-b4ef-5e2acc834838/IMG_4372.JPG",
-        "dbfd5721-29e4-4e60-bd90-9e879be95442/IMG_4374.JPG",
-        "7e40b0db-a577-4fa5-b92b-45556ff0bcfe/IMG_4371.JPG"
-      ],
+      "gallery": [],
       "videos": [],
-      "mapQuery": "J.L. O'Neills, Baggot Street, Dublin"
+      "mapQuery": "J.L. O'Neills, Baggot Street, Dublin",
+      "heroImg": "78a1fb1c-e3f1-4531-b8b9-a49ac34227f7/IMG_4421.JPG"
     },
     {
       "slug": "charlottequay",
@@ -63,7 +66,6 @@
       "intro": "Charlotte Quay, Dublin Docklands' most stylish waterfront venue. Set in the heart of the city's vibrant business district, Charlotte Quay overlooks the stunning Grand Canal Dock, offering panoramic waterside views and a relaxed atmosphere that's perfect for your wedding day 2. Its spacious terrace, complete with a retractable roof, lets guests enjoy the outdoors whatever the Irish weather decides to do.",
       "rooms": [],
       "gallery": [
-        "4d687fa4-5990-4201-8a89-e06908ba5207/IMG_4614.jpg",
         "c040edea-9745-41f2-8ce7-d287ee14fe35/IMG_4585.jpg",
         "d01f849d-4040-482f-bcaf-3c129df82a78/IMG_4592.jpg",
         "052a0a8e-694b-4ab3-9f98-042c5b99c94b/IMG_4597.jpg",
@@ -75,7 +77,8 @@
           "seconds": 52
         }
       ],
-      "mapQuery": "Charlotte Quay, Grand Canal Dock, Dublin"
+      "mapQuery": "Charlotte Quay, Grand Canal Dock, Dublin",
+      "heroImg": "4d687fa4-5990-4201-8a89-e06908ba5207/IMG_4614.jpg"
     },
     {
       "slug": "done5",
@@ -96,20 +99,22 @@
           "video": {
             "id": "1d693d12-5a58-426a-acad-e572d9c0ff5d",
             "seconds": 46
-          }
+          },
+          "gallery": [
+            "5afb0efa-40a5-46f1-a104-79d97bfbbee0/IMG_5175.jpeg",
+            "182d39fe-a347-4162-8ab2-4e1a7772c3ec/IMG_5170.jpeg",
+            "349a0308-6a92-48fa-b2f5-10c2dbd032a8/IMG_5109.jpeg",
+            "5c841d5d-c99e-4d93-b0f3-9d9a9bac9ef2/IMG_5091.jpeg",
+            "7f125934-55b5-422f-a653-151a1b27f06a/IMG_5127.jpeg",
+            "6cdf9aa0-891c-4d88-aacc-9ed6df566671/IMG_5148.jpeg",
+            "3d347f84-ad39-4d25-841a-16a121fd20f9/IMG_5133.jpeg"
+          ]
         }
       ],
-      "gallery": [
-        "5afb0efa-40a5-46f1-a104-79d97bfbbee0/IMG_5175.jpeg",
-        "182d39fe-a347-4162-8ab2-4e1a7772c3ec/IMG_5170.jpeg",
-        "349a0308-6a92-48fa-b2f5-10c2dbd032a8/IMG_5109.jpeg",
-        "5c841d5d-c99e-4d93-b0f3-9d9a9bac9ef2/IMG_5091.jpeg",
-        "7f125934-55b5-422f-a653-151a1b27f06a/IMG_5127.jpeg",
-        "6cdf9aa0-891c-4d88-aacc-9ed6df566671/IMG_5148.jpeg",
-        "3d347f84-ad39-4d25-841a-16a121fd20f9/IMG_5133.jpeg"
-      ],
+      "gallery": [],
       "videos": [],
-      "mapQuery": "D One 5, Castleknock, Dublin 15"
+      "mapQuery": "D One 5, Castleknock, Dublin 15",
+      "heroImg": "5afb0efa-40a5-46f1-a104-79d97bfbbee0/IMG_5175.jpeg"
     },
     {
       "slug": "lotties",
@@ -130,18 +135,20 @@
           "video": {
             "id": "24f51a7a-97fe-4599-a081-883b39aeaa78",
             "seconds": 45
-          }
+          },
+          "gallery": [
+            "2a61ea1e-94c7-483a-8359-02ee130c96cf/Lotties-11.JPG",
+            "8979a2d6-e39d-41ca-b37f-1433d9569a8c/Lotties-64.JPG",
+            "af088849-0b92-423f-a6c2-b640175c6c6e/IMG_5349.JPG",
+            "9f3b94c3-a5df-4541-97e1-e3da0401b411/terrace+4.JPG",
+            "73b8db6c-b36b-4cd4-945d-9142ea3e9829/IMG_4421%281%29.JPG"
+          ]
         }
       ],
-      "gallery": [
-        "2a61ea1e-94c7-483a-8359-02ee130c96cf/Lotties-11.JPG",
-        "8979a2d6-e39d-41ca-b37f-1433d9569a8c/Lotties-64.JPG",
-        "9f3b94c3-a5df-4541-97e1-e3da0401b411/terrace+4.JPG",
-        "af088849-0b92-423f-a6c2-b640175c6c6e/IMG_5349.JPG",
-        "73b8db6c-b36b-4cd4-945d-9142ea3e9829/IMG_4421%281%29.JPG"
-      ],
+      "gallery": [],
       "videos": [],
-      "mapQuery": "Lottie's, Rathmines, Dublin"
+      "mapQuery": "Lottie's, Rathmines, Dublin",
+      "heroImg": "2a61ea1e-94c7-483a-8359-02ee130c96cf/Lotties-11.JPG"
     },
     {
       "slug": "cafeenseine",
@@ -162,7 +169,17 @@
           "video": {
             "id": "512ecdea-692f-4bf0-a84c-deedb6520799",
             "seconds": 54
-          }
+          },
+          "gallery": [
+            "80ca5aab-3305-4549-8d9b-b690d5bef89b/IMG_5423.jpeg",
+            "6a6b74fb-a4ff-4b19-a32a-bc165058e9c0/IMG_5342.jpg",
+            "cee331c9-494a-4c7b-a37c-fc376c5e6bb2/IMG_5349.jpg",
+            "b81b1b94-4ccd-4ad0-abcb-0086a8e918f1/IMG_5390.jpeg",
+            "6d0f05c5-d327-4982-b446-b715eb8e4dba/IMG_5395.jpeg",
+            "540d537d-3ad5-484e-b41c-07869f9553fe/IMG_5488.jpg",
+            "435659c5-0e7e-44e7-a0a9-362f620429fa/IMG_5465.jpg",
+            "22e157a8-859c-42b7-8909-36b315ef727a/IMG_5495.jpeg"
+          ]
         },
         {
           "name": "Balcony Bar",
@@ -171,26 +188,20 @@
           "video": {
             "id": "c502bb6d-c202-4add-8216-978d2bb84a15",
             "seconds": 44
-          }
+          },
+          "gallery": [
+            "8c8301d3-443a-49ea-9fab-27642e57bd7b/IMG_5330.jpeg",
+            "5409aa8b-ebe4-4ee4-a8e8-2839d6e141be/IMG_5449+2.jpeg",
+            "df4f343f-3799-4759-bb2c-9eaa0f094498/IMG_5409.jpeg",
+            "d9ad908b-94cd-4f84-9531-1fd63b13519b/IMG_5339.jpeg",
+            "c11c6c60-783d-4348-8d0f-3155f25cef20/IMG_5421.jpeg"
+          ]
         }
       ],
-      "gallery": [
-        "80ca5aab-3305-4549-8d9b-b690d5bef89b/IMG_5423.jpeg",
-        "6a6b74fb-a4ff-4b19-a32a-bc165058e9c0/IMG_5342.jpg",
-        "cee331c9-494a-4c7b-a37c-fc376c5e6bb2/IMG_5349.jpg",
-        "b81b1b94-4ccd-4ad0-abcb-0086a8e918f1/IMG_5390.jpeg",
-        "6d0f05c5-d327-4982-b446-b715eb8e4dba/IMG_5395.jpeg",
-        "540d537d-3ad5-484e-b41c-07869f9553fe/IMG_5488.jpg",
-        "435659c5-0e7e-44e7-a0a9-362f620429fa/IMG_5465.jpg",
-        "22e157a8-859c-42b7-8909-36b315ef727a/IMG_5495.jpeg",
-        "8c8301d3-443a-49ea-9fab-27642e57bd7b/IMG_5330.jpeg",
-        "5409aa8b-ebe4-4ee4-a8e8-2839d6e141be/IMG_5449+2.jpeg",
-        "df4f343f-3799-4759-bb2c-9eaa0f094498/IMG_5409.jpeg",
-        "d9ad908b-94cd-4f84-9531-1fd63b13519b/IMG_5339.jpeg",
-        "c11c6c60-783d-4348-8d0f-3155f25cef20/IMG_5421.jpeg"
-      ],
+      "gallery": [],
       "videos": [],
-      "mapQuery": "Café en Seine, Dawson Street, Dublin"
+      "mapQuery": "Café en Seine, Dawson Street, Dublin",
+      "heroImg": "80ca5aab-3305-4549-8d9b-b690d5bef89b/IMG_5423.jpeg"
     },
     {
       "slug": "dametavern",
@@ -211,18 +222,19 @@
           "video": {
             "id": "b385be96-1ca9-47af-b343-bcccb9364ab1",
             "seconds": 40
-          }
+          },
+          "gallery": [
+            "a838c3dc-e329-4b6c-a08b-08ef3bf7c544/IMG_4470.JPG",
+            "a0d75995-4e80-4545-af0c-6e8416ddaee2/IMG_4475.JPG",
+            "b1eace9d-137d-47cc-88f0-4df8cbb1b267/IMG_4478.JPG",
+            "4ff2a400-8ede-4cd6-be5f-463472f634c7/IMG_4488.JPG"
+          ]
         }
       ],
-      "gallery": [
-        "970619e7-0af2-4f37-8bdd-c672ac0f81b8/IMG_4489.JPG",
-        "a838c3dc-e329-4b6c-a08b-08ef3bf7c544/IMG_4470.JPG",
-        "a0d75995-4e80-4545-af0c-6e8416ddaee2/IMG_4475.JPG",
-        "b1eace9d-137d-47cc-88f0-4df8cbb1b267/IMG_4478.JPG",
-        "4ff2a400-8ede-4cd6-be5f-463472f634c7/IMG_4488.JPG"
-      ],
+      "gallery": [],
       "videos": [],
-      "mapQuery": "The Dame Tavern, Dublin"
+      "mapQuery": "The Dame Tavern, Dublin",
+      "heroImg": "970619e7-0af2-4f37-8bdd-c672ac0f81b8/IMG_4489.JPG"
     },
     {
       "slug": "jrmahons",
@@ -243,7 +255,17 @@
           "video": {
             "id": "7a69891c-0d11-4905-b71f-ad81bdb6318d",
             "seconds": 69
-          }
+          },
+          "gallery": [
+            "f4ef5930-c009-4993-86d8-cdb972e5f08b/IMG_6017.jpeg",
+            "000c1a81-a630-4031-ad16-31eb8018005c/IMG_5888.jpeg",
+            "5f15bc41-9aef-40c3-8958-76ffc15a0358/IMG_5901.jpeg",
+            "856583c1-ccb1-46ec-83d0-67d245b88756/IMG_5959.jpeg",
+            "150974c3-0bee-4799-a21f-40a58ca118f9/IMG_5909.jpeg",
+            "b610bb8d-b2c0-408b-8f24-e46c8ecc2cc0/IMG_5998.jpeg",
+            "ddd22531-6f4c-454c-814e-ac1fa1581201/IMG_6011.jpeg",
+            "fc13af1f-64f3-456f-b17a-49488ea62373/IMG_6018.jpeg"
+          ]
         },
         {
           "name": "The Brewery Bar",
@@ -252,29 +274,24 @@
           "video": {
             "id": "8ff94fe9-7704-48d2-a0b6-eecf1483b164",
             "seconds": 77
-          }
+          },
+          "gallery": [
+            "2a1372a7-1c83-4913-a594-5ca5aecba705/IMG_6015.jpeg",
+            "764980da-2fa6-4181-a508-9b83d1284fc9/IMG_6048.jpeg",
+            "4327d52e-aa06-4b26-88c8-fcb85c7732cb/IMG_6027.jpeg",
+            "816212ad-a0e3-4cbc-b12b-8289a4f135b6/IMG_6039.jpeg",
+            "c01accf1-c2a2-4ecb-96c6-482c21bcfe87/IMG_6050.jpeg",
+            "90328f82-c4d0-4387-8a39-d6f0728294d0/IMG_6038.jpeg",
+            "8bb97d1b-360f-497e-b998-cd9a1fcb1d12/IMG_6032.jpeg",
+            "f02d6cd2-e444-44ea-b4ef-14fc041150cc/IMG_6030.jpeg"
+          ]
         }
       ],
-      "gallery": [
-        "7ba40115-4ead-4ac4-bda1-ac98541b6f2f/IMG_5890.jpeg",
-        "000c1a81-a630-4031-ad16-31eb8018005c/IMG_5888.jpeg",
-        "5f15bc41-9aef-40c3-8958-76ffc15a0358/IMG_5901.jpeg",
-        "856583c1-ccb1-46ec-83d0-67d245b88756/IMG_5959.jpeg",
-        "150974c3-0bee-4799-a21f-40a58ca118f9/IMG_5909.jpeg",
-        "b610bb8d-b2c0-408b-8f24-e46c8ecc2cc0/IMG_5998.jpeg",
-        "fc13af1f-64f3-456f-b17a-49488ea62373/IMG_6018.jpeg",
-        "2a1372a7-1c83-4913-a594-5ca5aecba705/IMG_6015.jpeg",
-        "764980da-2fa6-4181-a508-9b83d1284fc9/IMG_6048.jpeg",
-        "4327d52e-aa06-4b26-88c8-fcb85c7732cb/IMG_6027.jpeg",
-        "816212ad-a0e3-4cbc-b12b-8289a4f135b6/IMG_6039.jpeg",
-        "c01accf1-c2a2-4ecb-96c6-482c21bcfe87/IMG_6050.jpeg",
-        "90328f82-c4d0-4387-8a39-d6f0728294d0/IMG_6038.jpeg",
-        "8bb97d1b-360f-497e-b998-cd9a1fcb1d12/IMG_6032.jpeg",
-        "f02d6cd2-e444-44ea-b4ef-14fc041150cc/IMG_6030.jpeg"
-      ],
+      "gallery": [],
       "videos": [],
       "capacityNote": "Book more than one floor for up to 300 guests.",
-      "mapQuery": "J.R. Mahon's, Dublin"
+      "mapQuery": "J.R. Mahon's, Dublin",
+      "heroImg": "7ba40115-4ead-4ac4-bda1-ac98541b6f2f/IMG_5890.jpeg"
     },
     {
       "slug": "oldfashionedsams",

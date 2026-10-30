@@ -59,19 +59,26 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #venue-page .vp-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:24px 48px;align-items:start}\
 #venue-page .vp-space{display:grid;grid-template-columns:minmax(0,1fr);gap:24px 48px;padding:36px 0;border-bottom:1px solid var(--vp-line);align-items:center}\
 #venue-page .vp-space.vp-has-video{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}\
+#venue-page .vp-space{align-items:start}\
 #venue-page .vp-space-text{display:grid;gap:10px;min-width:0}\
 #venue-page .vp-spaces{border-top:1px solid var(--vp-line)}\
 #venue-page .vp-space h3{font-size:24px;margin:0}\
 #venue-page .vp-cap{color:var(--vp-accent-text);font-size:14px;font-weight:500}\
 #venue-page .vp-space p{color:var(--vp-muted);max-width:62ch}\
 #venue-page .vp-capnote{margin-top:20px;font-weight:500;color:var(--vp-accent-text)}\
-#venue-page .vp-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}\
+#venue-page .vp-gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}\
 #venue-page .vp-gallery button{padding:0;border:0;background:var(--vp-line);cursor:zoom-in;aspect-ratio:4/3;overflow:hidden}\
-#venue-page .vp-gallery button:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}\
-#venue-page .vp-gallery img{width:100%;height:100%;object-fit:cover;display:block}\
+#venue-page .vp-gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}\
+#venue-page .vp-gallery button:hover img{transform:scale(1.04)}\
+#venue-page .vp-space-gallery{grid-column:1/-1;min-width:0}\
 #venue-page .vp-more{margin-top:16px;font:inherit;font-weight:500;background:none;border:1px solid var(--vp-ink);color:var(--vp-ink);padding:10px 18px;cursor:pointer}\
 #venue-page .vp-video{margin:0;display:grid;gap:8px;min-width:0}\
+#venue-page .vp-vwrap{position:relative}\
 #venue-page .vp-video video{width:100%;aspect-ratio:16/9;background:#1d2525;display:block;object-fit:cover}\
+#venue-page .vp-play{position:absolute;inset:0;margin:auto;width:76px;height:76px;border-radius:50%;border:0;padding:0;background:var(--vp-brass);color:#273030;display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 24px rgba(0,0,0,.35);transition:transform .15s}\
+#venue-page .vp-play:hover{transform:scale(1.08)}\
+#venue-page .vp-play svg{width:28px;height:28px;margin-left:4px}\
+#venue-page .vp-vwrap.vp-playing .vp-play{display:none}\
 #venue-page .vp-video figcaption{font-size:13px;color:var(--vp-muted)}\
 #venue-page .vp-loc p{margin-bottom:12px;color:var(--vp-muted)}\
 #venue-page .vp-loc a{color:var(--vp-accent-text);font-weight:500}\
@@ -87,7 +94,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #venue-page .vp-lb-bar button{font:inherit;background:none;border:1px solid rgba(234,230,221,.4);color:var(--vp-on-dark);padding:8px 14px;cursor:pointer}\
 #venue-page .vp-msg{padding:40px 16px;color:var(--vp-muted)}\
 @media (max-width:760px){#venue-page .vp-space.vp-has-video,#venue-page .vp-split{grid-template-columns:1fr}}\
-@media (max-width:640px){#venue-page .vp-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}#venue-page .vp-enq{padding:28px 20px}#venue-page .vp-main{gap:56px;padding-top:52px;padding-bottom:52px}#venue-page .vp-btn{margin-left:0}}';
+@media (max-width:640px){#venue-page .vp-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}#venue-page .vp-play{width:60px;height:60px}#venue-page .vp-enq{padding:28px 20px}#venue-page .vp-main{gap:56px;padding-top:52px;padding-bottom:52px}#venue-page .vp-btn{margin-left:0}}';
   var st = document.createElement('style');
   st.textContent = css;
   document.head.appendChild(st);
@@ -116,7 +123,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
   function render(DATA, v) {
     var img = function (p, w) { return DATA.imageBase + p + '?format=' + w + 'w'; };
-    var gal = v.gallery && v.gallery.length ? v.gallery : [v.cardImg];
+    var sets = [];  // each photo set (a room's gallery, or the venue's) gets its own viewer
     var rooms = v.rooms || [];
     var vids = v.videos || [];
     var enq = DATA.enquireUrl;
@@ -126,7 +133,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     if (rooms.length) facts.push(['Private spaces', String(rooms.length)]);
 
     var h = '';
-    h += '<header class="vp-hero"><img src="' + img(gal[0], 2500) + '" alt="' + esc(v.name) + '">';
+    h += '<header class="vp-hero"><img src="' + img(v.heroImg || v.cardImg, 2500) + '" alt="' + esc(v.name) + '">';
     h += '<div class="vp-hero-in vp-pad"><div class="vp-eyebrow">' + esc(area) + ' · Co. ' + esc(v.county) + '</div>';
     h += '<h1>' + esc(v.name) + '</h1><p class="vp-lede">' + esc(firstSentence(v.intro)) + '</p></div></header>';
 
@@ -138,7 +145,20 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     function videoTag(x, label) {
       var mm = Math.floor(x.seconds / 60) + ':' + ('0' + (x.seconds % 60)).slice(-2);
       allVideos.push(x);
-      return '<figure class="vp-video"><video data-v="' + (allVideos.length - 1) + '" controls playsinline preload="none" poster="' + DATA.videoBase + x.id + '/thumbnail" aria-label="Walk-around video of ' + esc(label) + '"></video><figcaption>Walk-around of ' + esc(label) + ' · ' + mm + '</figcaption></figure>';
+      return '<figure class="vp-video"><div class="vp-vwrap"><video data-v="' + (allVideos.length - 1) + '" controls playsinline preload="none" poster="' + DATA.videoBase + x.id + '/thumbnail" aria-label="Walk-around video of ' + esc(label) + '"></video>'
+        + '<button type="button" class="vp-play" aria-label="Play walk-around of ' + esc(label) + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 4l15 8-15 8z"/></svg></button></div><figcaption>Walk-around of ' + esc(label) + ' · ' + mm + '</figcaption></figure>';
+    }
+
+    function galleryTag(list, label) {
+      if (!list || !list.length) return '';
+      var si = sets.push(list) - 1, shown = list.slice(0, 8);
+      var g = '<div class="vp-gallery" data-set="' + si + '">';
+      shown.forEach(function (p, i) {
+        g += '<button type="button" data-set="' + si + '" data-i="' + i + '" aria-label="Open photo ' + (i + 1) + ' of ' + list.length + ' of ' + esc(label) + '"><img loading="lazy" src="' + img(p, 750) + '" alt="' + esc(label) + ' photo ' + (i + 1) + '"></button>';
+      });
+      g += '</div>';
+      if (list.length > shown.length) g += '<button class="vp-more" type="button" data-set="' + si + '" data-i="0">View all ' + list.length + ' photos</button>';
+      return g;
     }
 
     h += '<div class="vp-main vp-pad">';
@@ -153,16 +173,13 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         h += '<div class="vp-space' + (r.video ? ' vp-has-video' : '') + '"><div class="vp-space-text"><h3>' + esc(r.name) + '</h3>'
           + (r.capacity ? '<div class="vp-cap">' + esc(r.capacity) + '</div>' : '')
           + '<p>' + esc(r.description) + '</p></div>'
-          + (r.video ? videoTag(r.video, r.name) : '') + '</div>';
+          + (r.video ? videoTag(r.video, r.name) : '')
+          + (r.gallery && r.gallery.length ? '<div class="vp-space-gallery">' + galleryTag(r.gallery, r.name) + '</div>' : '') + '</div>';
       });
       h += '</div>' + (v.capacityNote ? '<p class="vp-capnote">' + esc(v.capacityNote) + '</p>' : '') + '</section>';
     }
 
-    h += '<section><h2>Gallery</h2><div class="vp-gallery">';
-    gal.slice(0, 7).forEach(function (p, i) {
-      h += '<button type="button" data-i="' + i + '" aria-label="Open photo ' + (i + 1) + ' of ' + gal.length + '"><img loading="lazy" src="' + img(p, i ? 750 : 1500) + '" alt="' + esc(v.name) + ' photo ' + (i + 1) + '"></button>';
-    });
-    h += '</div>' + (gal.length > 1 ? '<button class="vp-more" type="button">View all ' + gal.length + ' photos</button>' : '') + '</section>';
+    if (v.gallery && v.gallery.length) h += '<section><h2>Gallery</h2>' + galleryTag(v.gallery, v.name) + '</section>';
 
     var q = encodeURIComponent(v.mapQuery || (v.name + ', ' + (v.area || '') + ', ' + v.county));
     h += '<section class="vp-loc"><h2>Location</h2><p>' + esc(v.name) + ', ' + esc(area) + '</p>';
@@ -178,10 +195,12 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     root.innerHTML = h;
 
     // Lightbox
-    var lb = root.querySelector('.vp-lb'), lbImg = lb.querySelector('img'), count = lb.querySelector('.vp-count'), idx = 0;
-    function open(i) { idx = (i + gal.length) % gal.length; lbImg.src = img(gal[idx], 2500); count.textContent = (idx + 1) + ' / ' + gal.length; lb.hidden = false; }
-    root.querySelector('.vp-gallery').addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) open(+b.getAttribute('data-i')); });
-    var more = root.querySelector('.vp-more'); if (more) more.addEventListener('click', function () { open(0); });
+    var lb = root.querySelector('.vp-lb'), lbImg = lb.querySelector('img'), count = lb.querySelector('.vp-count'), idx = 0, cur = [];
+    function open(i) { if (!cur.length) return; idx = (i + cur.length) % cur.length; lbImg.src = img(cur[idx], 2500); count.textContent = (idx + 1) + ' / ' + cur.length; lb.hidden = false; }
+    root.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-set]');
+      if (b && root.contains(b)) { cur = sets[+b.getAttribute('data-set')] || []; open(+b.getAttribute('data-i')); }
+    });
     lb.addEventListener('click', function (e) {
       var a = e.target.getAttribute('data-a');
       if (a === 'prev') open(idx - 1); else if (a === 'next') open(idx + 1); else if (a === 'close' || e.target === lb) lb.hidden = true;
@@ -198,6 +217,10 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var setup = function () {
         allVideos.forEach(function (x, i) {
           var el = root.querySelector('video[data-v="' + i + '"]'), src = DATA.videoBase + x.id + '/playlist.m3u8';
+          var wrap = el.parentNode, btn = wrap.querySelector('.vp-play');
+          btn.addEventListener('click', function () { var pr = el.play(); if (pr && pr.catch) pr.catch(function () {}); });
+          el.addEventListener('play', function () { wrap.classList.add('vp-playing'); });
+          el.addEventListener('ended', function () { wrap.classList.remove('vp-playing'); });
           if (window.Hls && window.Hls.isSupported()) {
             var hls = new window.Hls({ autoStartLoad: false });
             hls.loadSource(src); hls.attachMedia(el);
