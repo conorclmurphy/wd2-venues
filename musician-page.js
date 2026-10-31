@@ -171,7 +171,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 @media (min-width:900px){#musician-page .vp-hero.vp-portrait{background:#000}#musician-page .vp-hero img{left:auto;right:0;width:60%;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 18%,#000 42%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 18%,#000 42%)}#musician-page .vp-hero:after{background:linear-gradient(180deg,rgba(39,48,48,0) 60%,rgba(39,48,48,.7) 100%)}#musician-page .vp-hero.vp-portrait:after{background:linear-gradient(180deg,rgba(0,0,0,0) 60%,rgba(0,0,0,.6) 100%)}#musician-page .vp-hero.vp-portrait:before{background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,.15) 30%,rgba(0,0,0,.15) 100%)}#musician-page .vp-hero:not(.vp-portrait){min-height:max(min(70vh,600px),min(85vh,calc(100vw * var(--vp-ar,0))))}#musician-page .vp-hero:not(.vp-portrait) img{width:100%;-webkit-mask-image:none;mask-image:none}#musician-page .vp-hero.vp-portrait img{width:75%;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 12%,#000 30%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 12%,#000 30%)}}\
 @media (max-width:899px){#musician-page .vp-hero{min-height:330px}#musician-page .vp-hero:not(.vp-portrait){min-height:max(330px,calc(100vw * var(--vp-ar,0)))}#musician-page .vp-hero-in{padding-top:24px;padding-bottom:20px}#musician-page .vp-hero h1{font-size:44px;margin-bottom:0}#musician-page .vp-facts{gap:10px 24px;padding-top:14px;padding-bottom:16px}#musician-page .vp-fact strong{font-size:17px;line-height:1.35}#musician-page .vp-fact span{font-size:10px;margin-bottom:2px}}\
 #musician-page .vp-hero:before{top:0;bottom:0;height:auto;background:linear-gradient(180deg,rgba(20,26,26,.55) 0%,rgba(20,26,26,.25) 30%,rgba(20,26,26,.25) 100%)}#musician-page .vp-facts{align-items:flex-end}#musician-page .vp-facts .vp-btn{margin-left:0}\
-@media (max-width:899px){#musician-page .vp-facts .vp-btn{padding:9px 18px;font-size:14px;letter-spacing:.02em}}';
+@media (max-width:899px){#musician-page .vp-facts .vp-btn{padding:9px 18px;font-size:14px;letter-spacing:.02em}}#musician-page .vp-hero .vp-facts{background:none;padding:0;margin-top:18px;text-shadow:0 1px 8px rgba(0,0,0,.55)}#musician-page .vp-hero .vp-facts .vp-btn{text-shadow:none}#musician-page .vp-hero h1{margin-bottom:0}';
   document.head.appendChild(st2);
 
   var keyHandler = null;
@@ -211,18 +211,18 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     var pos = m.photoPosition ? ' style="object-position:' + esc(m.photoPosition) + '"' : '';
     h += '<header class="vp-hero"><img src="' + img(m.photo, 2500) + '" alt="' + esc(m.name) + '"' + pos + '>';
     h += '<div class="vp-hero-in vp-pad"><div class="vp-eyebrow">Wedding Day 2 · Live musician</div>';
-    h += '<h1>' + esc(m.name) + '</h1></div></header>';
+    h += '<h1>' + esc(m.name) + '</h1>';
 
-    h += '<div class="vp-facts vp-pad">';
+    h += '<div class="vp-facts">';
     h += '<div class="vp-fact"><span>Plays at</span><strong>' + esc(events.map(function (e) { return L[e]; }).join(' · ') || 'Ask us') + '</strong></div>';
     if (extras.length) h += '<div class="vp-fact"><span>Also available</span><strong>' + esc(extras.join(' · ')) + '</strong></div>';
-    h += '<a class="vp-btn" href="#vp-enquire">Check availability</a></div>';
+    h += '<a class="vp-btn" href="#vp-enquire">Check availability</a></div></div></header>';
 
     var allVideos = [];
     function videoTag(x, label) {
       var mm = x.seconds ? Math.floor(x.seconds / 60) + ':' + ('0' + Math.round(x.seconds % 60)).slice(-2) : '';
       allVideos.push(x);
-      return '<figure class="vp-video' + (x.shape === 'tall' ? ' vp-tall' : '') + '"><div class="vp-vwrap"><video data-v="' + (allVideos.length - 1) + '" controls playsinline preload="none" poster="' + DATA.videoBase + x.id + '/thumbnail" aria-label="Video of ' + esc(label) + '"></video>'
+      return '<figure class="vp-video' + (x.shape === 'tall' ? ' vp-tall' : '') + '"><div class="vp-vwrap"><video data-v="' + (allVideos.length - 1) + '" playsinline preload="none" poster="' + DATA.videoBase + x.id + '/thumbnail" aria-label="Video of ' + esc(label) + '"></video>'
         + '<button type="button" class="vp-play" aria-label="Play video of ' + esc(label) + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 4l15 8-15 8z"/></svg></button></div><figcaption>' + esc(x.title || (label + ' live')) + (mm ? ' · ' + mm : '') + '</figcaption></figure>';
     }
     function galleryTag(list, label) {
@@ -262,7 +262,13 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       if (m.tradBand && o.tradBand) s += 2; if (m.duo && o.duo) s += 1; return s;
     }
     var seed = 0; for (var c = 0; c < m.slug.length; c++) seed += m.slug.charCodeAt(c);
-    others.sort(function (a, b) { return score(b) - score(a) || ((a.slug.charCodeAt(0) + seed) % 7) - ((b.slug.charCodeAt(0) + seed) % 7); });
+    // Remember which musicians this visitor has opened, and show ones they haven't seen first.
+    var seen = [];
+    try { seen = JSON.parse(localStorage.getItem('wd2SeenMusicians') || '[]'); } catch (e) {}
+    if (seen.indexOf(m.slug) === -1) seen.push(m.slug);
+    try { localStorage.setItem('wd2SeenMusicians', JSON.stringify(seen)); } catch (e) {}
+    function isSeen(o) { return seen.indexOf(o.slug) !== -1 ? 1 : 0; }
+    others.sort(function (a, b) { return isSeen(a) - isSeen(b) || score(b) - score(a) || ((a.slug.charCodeAt(0) + seed) % 7) - ((b.slug.charCodeAt(0) + seed) % 7); });
     others = others.slice(0, 3);
     if (others.length) {
       h += '<section><h2>Other musicians</h2><div class="vp-similar vp-three">';
@@ -320,14 +326,15 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       // Squarespace code blocks hide anything outside them; let the banner show above the block.
       for (var el = root.parentElement; el && el !== document.body && !(el.matches && el.matches('section')); el = el.parentElement) {
         var ov = getComputedStyle(el).overflowY;
-        if (ov === 'hidden' || ov === 'clip') el.style.overflow = 'visible';
+        if (el.classList) el.classList.remove('wd2-hover');  // the site's photo hover-ring script also clips and rounds blocks
+        if (ov === 'hidden' || ov === 'clip') el.style.setProperty('overflow', 'visible', 'important');
       }
       hero.style.marginTop = ''; hero.style.paddingTop = '';
       var gap = Math.round(hero.getBoundingClientRect().top + window.pageYOffset);
       if (gap > 0 && gap < 400) { hero.style.marginTop = -gap + 'px'; hero.style.paddingTop = gap + 'px'; }
     }
     pullUp();
-    setTimeout(pullUp, 600);
+    setTimeout(pullUp, 600); setTimeout(pullUp, 2000);
     window.__mpPull = pullUp;
     if (!window.__mpPullBound) { window.__mpPullBound = true; window.addEventListener('load', function () { if (window.__mpPull) window.__mpPull(); }); window.addEventListener('resize', function () { if (window.__mpPull) window.__mpPull(); }); }
 
@@ -421,7 +428,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           el.setAttribute('data-ready', '1');
           var wrap = el.parentNode, btn = wrap.querySelector('.vp-play');
           btn.addEventListener('click', function () { var pr = el.play(); if (pr && pr.catch) pr.catch(function () {}); });
-          el.addEventListener('play', function () { wrap.classList.add('vp-playing'); });
+          el.addEventListener('play', function () { wrap.classList.add('vp-playing'); el.setAttribute('controls', ''); });
           el.addEventListener('ended', function () { wrap.classList.remove('vp-playing'); });
           if (window.Hls && window.Hls.isSupported()) {
             var hls = new window.Hls({ autoStartLoad: false });
