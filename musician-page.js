@@ -96,7 +96,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #musician-page .vp-card h3{font-size:22px;margin:0}\
 #musician-page .vp-card p{margin:0;color:var(--vp-muted);font-size:14px}\
 #musician-page .vp-card .vp-cap{margin-top:-4px}\
-#musician-page .vp-card:focus-visible{outline:2px solid var(--vp-brass);outline-offset:4px;border-radius:var(--vp-radius)}\
+#musician-page .vp-card,#musician-page .vp-card.wd2-hover,#musician-page .vp-card.wd2-hover:hover{box-shadow:none!important;transform:none!important;border-radius:0!important;overflow:visible!important;outline:none}#musician-page .vp-card-img{transition:box-shadow .25s}#musician-page .vp-card:hover .vp-card-img,#musician-page .vp-card:focus-visible .vp-card-img{box-shadow:0 0 0 3px var(--vp-brass),0 8px 24px rgba(0,0,0,.35)}\
 @container (max-width:460px){#musician-page .vp-similar{grid-template-columns:1fr}}\
 #musician-page .vp-loc a{color:var(--vp-accent-text);font-weight:500}\
 #musician-page .vp-map{width:100%;max-width:640px;height:300px;border:1px solid var(--vp-line);border-radius:var(--vp-radius);display:block;margin-bottom:12px;background:var(--vp-line)}\

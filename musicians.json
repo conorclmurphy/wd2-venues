@@ -332,7 +332,8 @@
           "shape": "tall"
         }
       ],
-      "gallery": []
+      "gallery": [],
+      "photoPosition": "center 34%"
     },
     {
       "slug": "pauric",
