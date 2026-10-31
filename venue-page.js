@@ -398,7 +398,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           el.addEventListener('play', function () { wrap.classList.add('vp-playing'); el.setAttribute('controls', ''); });
           el.addEventListener('ended', function () { wrap.classList.remove('vp-playing'); });
           if (window.Hls && window.Hls.isSupported()) {
-            var hls = new window.Hls({ autoStartLoad: false });
+            var hls = new window.Hls({ autoStartLoad: false, abrEwmaDefaultEstimate: 6000000, capLevelToPlayerSize: false });  // start in good quality instead of the lowest
             hls.loadSource(src); hls.attachMedia(el);
             el.addEventListener('play', function () { hls.startLoad(); }, { once: true });
           } else { el.src = src; }
