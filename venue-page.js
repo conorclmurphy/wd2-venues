@@ -202,7 +202,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     function videoTag(x, label) {
       var mm = Math.floor(x.seconds / 60) + ':' + ('0' + (x.seconds % 60)).slice(-2);
       allVideos.push(x);
-      return '<figure class="vp-video"><div class="vp-vwrap"><video data-v="' + (allVideos.length - 1) + '" controls playsinline preload="none" poster="' + DATA.videoBase + x.id + '/thumbnail" aria-label="Walk-around video of ' + esc(label) + '"></video>'
+      return '<figure class="vp-video"><div class="vp-vwrap"><video data-v="' + (allVideos.length - 1) + '" playsinline preload="none" poster="' + DATA.videoBase + x.id + '/thumbnail" aria-label="Walk-around video of ' + esc(label) + '"></video>'
         + '<button type="button" class="vp-play" aria-label="Play walk-around of ' + esc(label) + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 4l15 8-15 8z"/></svg></button></div><figcaption>Walk-around of ' + esc(label) + ' · ' + mm + '</figcaption></figure>';
     }
 
@@ -293,14 +293,15 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       // Squarespace code blocks hide anything outside them; let the banner show above the block.
       for (var el = root.parentElement; el && el !== document.body && !(el.matches && el.matches('section')); el = el.parentElement) {
         var ov = getComputedStyle(el).overflowY;
-        if (ov === 'hidden' || ov === 'clip') el.style.overflow = 'visible';
+        if (el.classList) el.classList.remove('wd2-hover');  // the site's photo hover-ring script also clips and rounds blocks
+        if (ov === 'hidden' || ov === 'clip') el.style.setProperty('overflow', 'visible', 'important');
       }
       hero.style.marginTop = ''; hero.style.paddingTop = '';
       var gap = Math.round(hero.getBoundingClientRect().top + window.pageYOffset);
       if (gap > 0 && gap < 400) { hero.style.marginTop = -gap + 'px'; hero.style.paddingTop = gap + 'px'; }
     }
     pullUp();
-    setTimeout(pullUp, 600);
+    setTimeout(pullUp, 600); setTimeout(pullUp, 2000);
     window.__vpPull = pullUp;
     if (!window.__vpPullBound) { window.__vpPullBound = true; window.addEventListener('load', function () { if (window.__vpPull) window.__vpPull(); }); window.addEventListener('resize', function () { if (window.__vpPull) window.__vpPull(); }); }
 
@@ -394,7 +395,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           el.setAttribute('data-ready', '1');
           var wrap = el.parentNode, btn = wrap.querySelector('.vp-play');
           btn.addEventListener('click', function () { var pr = el.play(); if (pr && pr.catch) pr.catch(function () {}); });
-          el.addEventListener('play', function () { wrap.classList.add('vp-playing'); });
+          el.addEventListener('play', function () { wrap.classList.add('vp-playing'); el.setAttribute('controls', ''); });
           el.addEventListener('ended', function () { wrap.classList.remove('vp-playing'); });
           if (window.Hls && window.Hls.isSupported()) {
             var hls = new window.Hls({ autoStartLoad: false });
