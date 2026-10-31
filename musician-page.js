@@ -287,9 +287,11 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
     // Explore more: one venue (filled in once venues.json loads) and the DJ options
     var dj = DATA.djCard;
-    h += '<section><h2>Explore more</h2><div class="vp-similar vp-two">';
+    h += '<section><h2>Explore more</h2><div class="vp-similar vp-three">';
     h += '<a class="vp-card vp-venue-card" href="/venues" hidden><div class="vp-card-img"><img loading="lazy" alt=""></div><h3></h3><p></p></a>';
-    if (dj) h += '<a class="vp-card" href="' + esc(dj.url) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(dj.image, 750) + '" alt="' + esc(dj.title) + '"></div><h3>' + esc(dj.title) + '</h3><p>' + esc(dj.text) + '</p></a>';
+    var trad = DATA.tradCard;
+    if (trad) h += '<a class="vp-card" href="' + esc(trad.url) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(trad.image, 750) + '" alt="' + esc(trad.title) + '"></div><h3>' + esc(trad.title) + '</h3><p>' + esc(trad.text) + '</p></a>';
+    if (dj) h += '<a class="vp-card vp-dj-card" href="' + esc(dj.url) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(dj.image, 750) + '" alt="' + esc(dj.title) + '"></div><h3>' + esc(dj.title) + '</h3><p>' + esc(dj.text) + '</p></a>';
     h += '</div></section>';
     h += '</div>';  // end of main column
 
@@ -319,6 +321,15 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     h += '<div class="vp-lb" hidden><img alt=""><div class="vp-lb-bar"><button type="button" data-a="prev">Previous</button><span class="vp-count"></span><button type="button" data-a="next">Next</button><button type="button" data-a="close">Close</button></div></div>';
 
     root.innerHTML = h;
+
+    // DJ card opens the site's "DJ Packages" popup, like the home page (falls back to the DJs page)
+    var djCard = root.querySelector('.vp-dj-card');
+    if (djCard) djCard.addEventListener('click', function (e) {
+      var ov = document.querySelector('.wd2-overlay');
+      if (!ov || e.metaKey || e.ctrlKey) return;
+      e.preventDefault(); e.stopPropagation();
+      ov.classList.add('wd2-open'); document.body.style.overflow = 'hidden';
+    });
 
     // Pick one venue to show under "Explore more"
     fetch(VENUES_URL, { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (vd) {
