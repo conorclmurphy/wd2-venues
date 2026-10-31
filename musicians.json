@@ -1,5 +1,5 @@
 {
-  "_notes": "Musician data for weddingday2.ie. 'events' uses: ceremony (ceremony & drinks reception), day2, afterdinner. 'tradBand' and 'duo' are true/false. Add a musician's videos as {id, seconds} using the Squarespace video ID. Photos are Squarespace image paths after imageBase. Do not add prices here: this file is public. Optional 'photoPosition' (e.g. 'center 4%') moves the crop of a tall photo so the face stays in the wide banner. Each video has 'shape': 'tall' (filmed upright) or 'wide'.",
+  "_notes": "Musician data for weddingday2.ie. 'events' uses: ceremony (ceremony & drinks reception), day2, afterdinner. 'tradBand' and 'duo' are true/false. Add a musician's videos as {id, seconds} using the Squarespace video ID. Photos are Squarespace image paths after imageBase. Do not add prices here: this file is public. Optional 'photoPosition' (e.g. 'center 4%') moves the crop of a tall photo so the face stays in the wide banner. Each video has 'shape': 'tall' (filmed upright) or 'wide'. A video can have an optional 'poster' (a Squarespace image path) to replace its automatic thumbnail.",
   "imageBase": "https://images.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "videoBase": "https://video.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "formAccessKey": "e22edaa4-9aee-4226-a8fc-120ab344273d",
@@ -83,7 +83,8 @@
         {
           "id": "3d98c33f-2e03-412f-872d-777481423e36",
           "seconds": 89,
-          "shape": "wide"
+          "shape": "wide",
+          "poster": "5dc0516c-4af0-4318-aa6c-ce8ad8cbf1ea/vlcsnap-2025-02-13-18h04m19s550.png"
         },
         {
           "id": "1d061775-7f9f-49c8-b97b-b7ba8128aac2",
