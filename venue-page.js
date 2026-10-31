@@ -138,7 +138,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #venue-page .vp-sheet-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:15px 22px;border:0;border-radius:999px;background:var(--vp-brass);color:#273030;font:inherit;font-weight:600;font-size:16px;cursor:pointer;text-align:left}\
 #venue-page .vp-sheet-bar svg{width:20px;height:20px;flex:none;transition:transform .2s}\
 #venue-page .vp-sheet .vp-form{display:none}\
-#venue-page .vp-open .vp-sheet{background:var(--vp-surface);border:1px solid var(--vp-line);max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px)}\
+#venue-page .vp-open .vp-sheet{background:var(--vp-surface);border:1px solid var(--vp-line);max-height:calc(100vh - var(--vp-sheet-top,24px) - 12px);max-height:calc(100dvh - var(--vp-sheet-top,24px) - 12px)}\
 #venue-page .vp-open .vp-sheet-bar{border-radius:0;background:var(--vp-surface);color:var(--vp-ink);border-bottom:1px solid var(--vp-line);font-family:var(--vp-display);font-weight:400;font-size:20px}\
 #venue-page .vp-open .vp-sheet-bar svg{transform:rotate(180deg);color:var(--vp-brass)}\
 #venue-page .vp-open .vp-sheet .vp-form{display:grid;border:0;border-radius:0;overflow-y:auto;overscroll-behavior:contain}\
@@ -290,6 +290,11 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     // Slide the main photo up to the very top of the page, underneath the site's see-through header.
     var hero = root.querySelector('.vp-hero');
     function pullUp() {
+      // Squarespace code blocks hide anything outside them; let the banner show above the block.
+      for (var el = root.parentElement; el && el !== document.body && !(el.matches && el.matches('section')); el = el.parentElement) {
+        var ov = getComputedStyle(el).overflowY;
+        if (ov === 'hidden' || ov === 'clip') el.style.overflow = 'visible';
+      }
       hero.style.marginTop = ''; hero.style.paddingTop = '';
       var gap = Math.round(hero.getBoundingClientRect().top + window.pageYOffset);
       if (gap > 0 && gap < 400) { hero.style.marginTop = -gap + 'px'; hero.style.paddingTop = gap + 'px'; }
@@ -326,6 +331,17 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     // Phones: a bar pinned to the bottom opens and closes the form.
     var sheetBar = aside.querySelector('.vp-sheet-bar'), sheetLabel = sheetBar.querySelector('span'), openLabel = sheetLabel.textContent;
     function setSheet(open) {
+      if (open) {
+        // Keep the open form below the site's logo and menu button.
+        var hd = document.querySelector('#header') || document.querySelector('header'), top = 24;
+        if (hd) {
+          var r = hd.getBoundingClientRect();
+          if (r.bottom > 0) top = Math.max(top, Math.round(r.bottom) + 8);
+          var logo = hd.querySelector('.header-title, .header-burger, .header-display-mobile');
+          if (logo) { var lr = logo.getBoundingClientRect(); if (lr.bottom > 0 && lr.height) top = Math.max(top, Math.round(lr.bottom) + 8); }
+        }
+        root.style.setProperty('--vp-sheet-top', Math.min(top, Math.round(window.innerHeight * 0.4)) + 'px');
+      }
       aside.classList.toggle('vp-open', open);
       sheetBar.setAttribute('aria-expanded', open ? 'true' : 'false');
       sheetBar.setAttribute('aria-label', open ? 'Close the enquiry form' : openLabel);
