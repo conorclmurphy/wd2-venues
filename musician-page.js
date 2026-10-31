@@ -10,6 +10,7 @@
    Same look as the venue pages. */
 (function () {
   var DATA_URL = 'https://raw.githubusercontent.com/conorclmurphy/wd2-venues/main/musicians.json';
+  var VENUES_URL = 'https://raw.githubusercontent.com/conorclmurphy/wd2-venues/main/venues.json';
   var HLS_URL = 'https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js';
   var FORM_URL = 'https://api.web3forms.com/submit';
   var FALLBACK_ENQUIRY = 'https://weddingday2.ie/home#enquiremain';
@@ -175,7 +176,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 @media (min-width:900px){#musician-page .vp-hero.vp-portrait{background:#000}#musician-page .vp-hero img{left:auto;right:0;width:60%;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 18%,#000 42%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 18%,#000 42%)}#musician-page .vp-hero:after{background:linear-gradient(180deg,rgba(39,48,48,0) 60%,rgba(39,48,48,.7) 100%)}#musician-page .vp-hero.vp-portrait:after{background:linear-gradient(180deg,rgba(0,0,0,0) 60%,rgba(0,0,0,.6) 100%)}#musician-page .vp-hero.vp-portrait:before{background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,.15) 30%,rgba(0,0,0,.15) 100%)}#musician-page .vp-hero:not(.vp-portrait) img{width:100%;-webkit-mask-image:none;mask-image:none}#musician-page .vp-hero.vp-portrait img{width:75%;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 12%,#000 30%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 12%,#000 30%)}}\
 @media (max-width:899px){#musician-page .vp-hero{min-height:330px}#musician-page .vp-hero-in{padding-top:24px;padding-bottom:20px}#musician-page .vp-hero h1{font-size:44px;margin-bottom:0}#musician-page .vp-facts{gap:10px 24px;padding-top:14px;padding-bottom:16px}#musician-page .vp-fact strong{font-size:17px;line-height:1.35}#musician-page .vp-fact span{font-size:10px;margin-bottom:2px}}\
 #musician-page .vp-hero:before,#musician-page .vp-hero.vp-portrait:before{top:0;bottom:0;height:auto;background:linear-gradient(90deg,rgba(10,14,14,.55) 0%,rgba(10,14,14,.2) 55%,rgba(10,14,14,0) 80%),linear-gradient(180deg,rgba(10,14,14,.55) 0%,rgba(10,14,14,.3) 30%,rgba(10,14,14,.4) 70%,rgba(10,14,14,.7) 100%)}#musician-page .vp-facts{align-items:flex-end}#musician-page .vp-facts .vp-btn{margin-left:0}\
-@media (max-width:899px){#musician-page .vp-facts .vp-btn{padding:9px 18px;font-size:14px;letter-spacing:.02em}}#musician-page .vp-hero .vp-facts{background:none;padding:0;margin-top:18px;text-shadow:0 1px 8px rgba(0,0,0,.55)}#musician-page .vp-hero .vp-facts .vp-btn{text-shadow:none}#musician-page .vp-hero h1{margin-bottom:0}@container (min-width:461px){#musician-page .vp-split.vp-split-tall{grid-template-columns:minmax(0,1fr) minmax(200px,260px)!important;gap:24px 32px;align-items:center}#musician-page .vp-split.vp-split-tall .vp-video.vp-tall{justify-self:end;max-width:260px}}';
+@media (max-width:899px){#musician-page .vp-facts .vp-btn{padding:9px 18px;font-size:14px;letter-spacing:.02em}}#musician-page .vp-hero .vp-facts{background:none;padding:0;margin-top:18px;text-shadow:0 1px 8px rgba(0,0,0,.55)}#musician-page .vp-hero .vp-facts .vp-btn{text-shadow:none}#musician-page .vp-hero h1{margin-bottom:0}#musician-page .vp-similar.vp-two{grid-template-columns:repeat(2,minmax(0,1fr))}#musician-page .vp-card[hidden]{display:none}@container (min-width:461px){#musician-page .vp-split.vp-split-tall{grid-template-columns:minmax(0,1fr) minmax(200px,260px)!important;gap:24px 32px;align-items:center}#musician-page .vp-split.vp-split-tall .vp-video.vp-tall{justify-self:end;max-width:260px}}';
   document.head.appendChild(st2);
 
   var keyHandler = null;
@@ -283,6 +284,13 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       });
       h += '</div></section>';
     }
+
+    // Explore more: one venue (filled in once venues.json loads) and the DJ options
+    var dj = DATA.djCard;
+    h += '<section><h2>Explore more</h2><div class="vp-similar vp-two">';
+    h += '<a class="vp-card vp-venue-card" href="/venues" hidden><div class="vp-card-img"><img loading="lazy" alt=""></div><h3></h3><p></p></a>';
+    if (dj) h += '<a class="vp-card" href="' + esc(dj.url) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(dj.image, 750) + '" alt="' + esc(dj.title) + '"></div><h3>' + esc(dj.title) + '</h3><p>' + esc(dj.text) + '</p></a>';
+    h += '</div></section>';
     h += '</div>';  // end of main column
 
     // Enquiry form, same questions as the home page form, with the musician filled in
@@ -311,6 +319,20 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     h += '<div class="vp-lb" hidden><img alt=""><div class="vp-lb-bar"><button type="button" data-a="prev">Previous</button><span class="vp-count"></span><button type="button" data-a="next">Next</button><button type="button" data-a="close">Close</button></div></div>';
 
     root.innerHTML = h;
+
+    // Pick one venue to show under "Explore more"
+    fetch(VENUES_URL, { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (vd) {
+      var vs = (vd.venues || []).filter(function (v) { return v.live && v.url && (v.cardImg || v.heroImg); });
+      if (!vs.length) return;
+      var v = vs[Math.floor(Math.random() * vs.length)], card = root.querySelector('.vp-venue-card');
+      if (!card) return;
+      card.href = v.url;
+      card.querySelector('img').src = vd.imageBase + (v.cardImg || v.heroImg) + '?format=750w';
+      card.querySelector('img').alt = v.name;
+      card.querySelector('h3').textContent = 'Venue: ' + v.name;
+      card.querySelector('p').textContent = [v.area, v.county].filter(Boolean).join(', ') + ' · Check out this venue';
+      card.hidden = false;
+    }).catch(function () {});
 
     // Upright photos get a narrower panel on wide screens, so more of the photo shows.
     var heroPic = root.querySelector('.vp-hero img');
