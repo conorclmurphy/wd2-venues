@@ -168,7 +168,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #musician-page .vp-split.vp-split-tall .vp-video.vp-tall{justify-self:end}\
 @container (max-width:640px){#musician-page .vp-similar.vp-three{grid-template-columns:repeat(2,minmax(0,1fr))}#musician-page .vp-videos{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}#musician-page .vp-videos .vp-video:not(.vp-tall){grid-column:1/-1}#musician-page .vp-split.vp-split-tall{grid-template-columns:1fr}#musician-page .vp-split.vp-split-tall .vp-video.vp-tall{justify-self:center;max-width:320px}}\
 @container (max-width:380px){#musician-page .vp-similar.vp-three{grid-template-columns:1fr}}\
-@media (min-width:900px){#musician-page .vp-hero img{left:auto;right:0;width:60%}#musician-page .vp-hero:after{background:linear-gradient(90deg,#273030 40%,rgba(39,48,48,.75) 48%,rgba(39,48,48,0) 66%),linear-gradient(180deg,rgba(39,48,48,0) 60%,rgba(39,48,48,.7) 100%)}}\
+@media (min-width:900px){#musician-page .vp-hero{background:#000}#musician-page .vp-hero img{left:auto;right:0;width:60%;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 18%,#000 42%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 18%,#000 42%)}#musician-page .vp-hero:after{background:linear-gradient(180deg,rgba(0,0,0,0) 60%,rgba(0,0,0,.6) 100%)}#musician-page .vp-hero:before{background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,.15) 30%,rgba(0,0,0,.15) 100%)}#musician-page .vp-hero.vp-portrait img{width:max(40%,520px)}}\
 @media (max-width:899px){#musician-page .vp-hero{min-height:330px}#musician-page .vp-hero-in{padding-top:24px;padding-bottom:20px}#musician-page .vp-hero h1{font-size:44px;margin-bottom:0}#musician-page .vp-facts{gap:10px 24px;padding-top:14px;padding-bottom:16px}#musician-page .vp-fact strong{font-size:17px;line-height:1.35}#musician-page .vp-fact span{font-size:10px;margin-bottom:2px}}\
 #musician-page .vp-hero:before{top:0;bottom:0;height:auto;background:linear-gradient(180deg,rgba(20,26,26,.55) 0%,rgba(20,26,26,.25) 30%,rgba(20,26,26,.25) 100%)}#musician-page .vp-facts{align-items:flex-end}#musician-page .vp-facts .vp-btn{margin-left:0}\
 @media (max-width:899px){#musician-page .vp-facts .vp-btn{padding:9px 18px;font-size:14px;letter-spacing:.02em}}';
@@ -301,6 +301,16 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     h += '<div class="vp-lb" hidden><img alt=""><div class="vp-lb-bar"><button type="button" data-a="prev">Previous</button><span class="vp-count"></span><button type="button" data-a="next">Next</button><button type="button" data-a="close">Close</button></div></div>';
 
     root.innerHTML = h;
+
+    // Upright photos get a narrower panel on wide screens, so more of the photo shows.
+    var heroPic = root.querySelector('.vp-hero img');
+    function checkShape() {
+      if (!heroPic.naturalWidth) return;
+      var tall = heroPic.naturalHeight > heroPic.naturalWidth * 1.05;
+      root.querySelector('.vp-hero').classList.toggle('vp-portrait', tall);
+      if (tall && !m.photoPosition) heroPic.style.objectPosition = 'center 20%';
+    }
+    if (heroPic.complete) checkShape(); else heroPic.addEventListener('load', checkShape);
 
     // Slide the main photo up to the very top of the page, underneath the site's see-through header.
     var hero = root.querySelector('.vp-hero');
