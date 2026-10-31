@@ -1,5 +1,5 @@
 {
-  "_notes": "Musician data for weddingday2.ie. 'events' uses: ceremony (ceremony & drinks reception), day2, afterdinner. 'tradBand' and 'duo' are true/false. Add a musician's videos as {id, seconds} using the Squarespace video ID. Photos are Squarespace image paths after imageBase. Do not add prices here: this file is public.",
+  "_notes": "Musician data for weddingday2.ie. 'events' uses: ceremony (ceremony & drinks reception), day2, afterdinner. 'tradBand' and 'duo' are true/false. Add a musician's videos as {id, seconds} using the Squarespace video ID. Photos are Squarespace image paths after imageBase. Do not add prices here: this file is public. Optional 'photoPosition' (e.g. 'center 4%') moves the crop of a tall photo so the face stays in the wide banner.",
   "imageBase": "https://images.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "videoBase": "https://video.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "formAccessKey": "e22edaa4-9aee-4226-a8fc-120ab344273d",
@@ -14,7 +14,7 @@
       "name": "Lee",
       "live": true,
       "url": "https://weddingday2.ie/lee",
-      "photo": "afaa0fb9-3402-4f18-9c3b-5c4e0782f763/0303%282%29.jpg",
+      "photo": "1395aa16-009f-4ba4-8e68-8cd5112cd820/329bc0df-e30c-448a-b291-45c8c34c03a2.JPG",
       "bio": [
         "Lee is a professional singer-guitarist specialising in weddings and private events. Blending modern hits, classic anthems and Irish favourites, he delivers high-energy, singalong sets tailored to each event.",
         "Known for seamless medleys and having fun with the crowd, he keeps the dance floor full from start to finish and happily takes requests."
@@ -32,7 +32,8 @@
           "seconds": 62
         }
       ],
-      "gallery": []
+      "gallery": [],
+      "photoPosition": "center 4%"
     },
     {
       "slug": "mathew",

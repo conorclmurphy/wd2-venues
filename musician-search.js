@@ -89,7 +89,7 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
       var L = DATA.eventLabels || { ceremony: 'Ceremony & drinks reception', day2: 'Day 2', afterdinner: 'After dinner' };
       var MUSICIANS = DATA.musicians.map(function (m) {
         return {
-          name: m.name, events: m.events || [], tradBand: !!m.tradBand, duo: !!m.duo,
+          name: m.name, events: m.events || [], tradBand: !!m.tradBand, duo: !!m.duo, pos: m.photoPosition || '',
           live: !!(m.live && m.url), url: m.url,
           img: m.photo ? DATA.imageBase + m.photo + '?format=500w' : ''
         };
@@ -160,7 +160,7 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
       els.empty.style.display = results.length ? 'none' : 'block';
       els.grid.innerHTML = results.map(function (m) {
         var imgBlock = '<div class="wdms-card-imgwrap">' + (m.img
-          ? '<img class="wdms-card-img" src="' + esc(m.img) + '" alt="' + esc(m.name) + '" loading="lazy" onerror="this.outerHTML=\'<div class=&quot;wdms-card-img-fallback&quot;>' + esc(m.name.charAt(0)) + '</div>\'" />'
+          ? '<img class="wdms-card-img" src="' + esc(m.img) + '" alt="' + esc(m.name) + '"' + (m.pos ? ' style="object-position:' + esc(m.pos) + '"' : '') + ' loading="lazy" onerror="this.outerHTML=\'<div class=&quot;wdms-card-img-fallback&quot;>' + esc(m.name.charAt(0)) + '</div>\'" />'
           : '<div class="wdms-card-img-fallback">' + esc(m.name.charAt(0)) + '</div>') + '</div>';
         var tags = ORDER.filter(function (e) { return m.events.indexOf(e) !== -1; })
           .map(function (e) { return '<span class="wdms-tag wdms-tag-ev">' + esc(short[e]) + '</span>'; }).join('') +

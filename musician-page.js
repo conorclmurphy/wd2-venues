@@ -199,7 +199,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     if (m.duo) extras.push('Duo');
 
     var h = '';
-    h += '<header class="vp-hero"><img src="' + img(m.photo, 2500) + '" alt="' + esc(m.name) + '">';
+    var pos = m.photoPosition ? ' style="object-position:' + esc(m.photoPosition) + '"' : '';
+    h += '<header class="vp-hero"><img src="' + img(m.photo, 2500) + '" alt="' + esc(m.name) + '"' + pos + '>';
     h += '<div class="vp-hero-in vp-pad"><div class="vp-eyebrow">Wedding Day 2 · Live musician</div>';
     h += '<h1>' + esc(m.name) + '</h1></div></header>';
 
@@ -258,7 +259,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       h += '<section><h2>Other musicians</h2><div class="vp-similar vp-three">';
       others.forEach(function (o) {
         var oe = ORDER.filter(function (e) { return (o.events || []).indexOf(e) !== -1; }).map(function (e) { return L[e]; });
-        h += '<a class="vp-card" href="' + esc(o.url) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(o.photo, 750) + '" alt="' + esc(o.name) + '"></div>'
+        h += '<a class="vp-card" href="' + esc(o.url) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(o.photo, 750) + '" alt="' + esc(o.name) + '"' + (o.photoPosition ? ' style="object-position:' + esc(o.photoPosition) + '"' : '') + '></div>'
           + '<h3>' + esc(o.name) + '</h3><p>' + esc(oe.join(' · ')) + '</p></a>';
       });
       h += '</div></section>';
