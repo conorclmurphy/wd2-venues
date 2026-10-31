@@ -1,5 +1,5 @@
 {
-  "_notes": "Musician data for weddingday2.ie. 'events' uses: ceremony (ceremony & drinks reception), day2, afterdinner. 'tradBand' and 'duo' are true/false. Add a musician's videos as {id, seconds} using the Squarespace video ID. Photos are Squarespace image paths after imageBase. Do not add prices here: this file is public. Optional 'photoPosition' (e.g. 'center 4%') moves the crop of a tall photo so the face stays in the wide banner.",
+  "_notes": "Musician data for weddingday2.ie. 'events' uses: ceremony (ceremony & drinks reception), day2, afterdinner. 'tradBand' and 'duo' are true/false. Add a musician's videos as {id, seconds} using the Squarespace video ID. Photos are Squarespace image paths after imageBase. Do not add prices here: this file is public. Optional 'photoPosition' (e.g. 'center 4%') moves the crop of a tall photo so the face stays in the wide banner. Each video has 'shape': 'tall' (filmed upright) or 'wide'.",
   "imageBase": "https://images.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "videoBase": "https://video.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "formAccessKey": "e22edaa4-9aee-4226-a8fc-120ab344273d",
@@ -29,11 +29,12 @@
       "videos": [
         {
           "id": "a7a7547c-3e3c-4462-9ea4-cc33e04ef0f2",
-          "seconds": 62
+          "seconds": 62,
+          "shape": "wide"
         }
       ],
       "gallery": [],
-      "photoPosition": "center 4%"
+      "photoPosition": "center 10%"
     },
     {
       "slug": "mathew",
@@ -55,7 +56,8 @@
       "videos": [
         {
           "id": "d00741c7-4c31-47c5-8156-3486c44b0f6b",
-          "seconds": 38
+          "seconds": 38,
+          "shape": "tall"
         }
       ],
       "gallery": []
@@ -80,11 +82,13 @@
       "videos": [
         {
           "id": "3d98c33f-2e03-412f-872d-777481423e36",
-          "seconds": 89
+          "seconds": 89,
+          "shape": "wide"
         },
         {
           "id": "1d061775-7f9f-49c8-b97b-b7ba8128aac2",
-          "seconds": 55
+          "seconds": 55,
+          "shape": "tall"
         }
       ],
       "gallery": []
@@ -109,15 +113,18 @@
       "videos": [
         {
           "id": "ed375d2d-902f-4370-be46-1efa8f2ea102",
-          "seconds": 16
+          "seconds": 16,
+          "shape": "wide"
         },
         {
           "id": "115f937b-b8b3-4d09-afaa-3d5605c6fdde",
-          "seconds": 40
+          "seconds": 40,
+          "shape": "tall"
         },
         {
           "id": "bc6bf4f3-c725-45e8-9cd2-6a2363a1046a",
-          "seconds": 66
+          "seconds": 66,
+          "shape": "tall"
         }
       ],
       "gallery": []
@@ -142,11 +149,13 @@
       "videos": [
         {
           "id": "25d8d523-7bb5-4c8a-8fc7-441decd1dec0",
-          "seconds": 168
+          "seconds": 168,
+          "shape": "wide"
         },
         {
           "id": "ba1602d2-c5b4-4a35-99ca-2b4aa81ae503",
-          "seconds": 169
+          "seconds": 169,
+          "shape": "tall"
         }
       ],
       "gallery": []
@@ -171,15 +180,18 @@
       "videos": [
         {
           "id": "133e93e5-7872-4d34-813f-18910fabfb8d",
-          "seconds": 39
+          "seconds": 39,
+          "shape": "tall"
         },
         {
           "id": "702e1304-65e4-4dd5-96fc-34cb949d29f2",
-          "seconds": 19
+          "seconds": 19,
+          "shape": "tall"
         },
         {
           "id": "db831090-1818-4d8a-8e5e-d977765b1fc3",
-          "seconds": 20
+          "seconds": 20,
+          "shape": "tall"
         }
       ],
       "gallery": []
@@ -203,7 +215,8 @@
       "videos": [
         {
           "id": "4f4674c0-958a-4f66-ac87-22bfaa2bb81f",
-          "seconds": 52
+          "seconds": 52,
+          "shape": "tall"
         }
       ],
       "gallery": []
@@ -229,7 +242,8 @@
       "videos": [
         {
           "id": "8bb5b79f-f84e-4cbe-89b9-79487f42dc79",
-          "seconds": 121
+          "seconds": 121,
+          "shape": "tall"
         }
       ],
       "gallery": []
@@ -253,7 +267,8 @@
       "videos": [
         {
           "id": "d549bf60-a639-498c-a53c-863492d67493",
-          "seconds": 53
+          "seconds": 53,
+          "shape": "tall"
         }
       ],
       "gallery": []
@@ -277,15 +292,18 @@
       "videos": [
         {
           "id": "7ccb33e1-1c37-4196-af95-c87e21d7570a",
-          "seconds": 67
+          "seconds": 67,
+          "shape": "tall"
         },
         {
           "id": "6a3e1f39-7a3c-4aed-a2d0-a3833c0ae75b",
-          "seconds": 107
+          "seconds": 107,
+          "shape": "tall"
         },
         {
           "id": "36673017-ca12-44bf-acee-8d731451d18c",
-          "seconds": 46
+          "seconds": 46,
+          "shape": "tall"
         }
       ],
       "gallery": []
@@ -310,7 +328,8 @@
       "videos": [
         {
           "id": "0952979f-f248-4f01-9d57-84ace0e3b8a0",
-          "seconds": 67
+          "seconds": 67,
+          "shape": "tall"
         }
       ],
       "gallery": []
@@ -335,7 +354,8 @@
       "videos": [
         {
           "id": "ac73e3e6-20a5-4936-9e65-dc81f07b5fad",
-          "seconds": 59
+          "seconds": 59,
+          "shape": "tall"
         }
       ],
       "gallery": []
@@ -360,11 +380,13 @@
       "videos": [
         {
           "id": "856aaebc-02e6-4cc5-b6e2-846878013b8a",
-          "seconds": 59
+          "seconds": 59,
+          "shape": "tall"
         },
         {
           "id": "81b4cba9-43aa-434a-ad3f-73da55e7594d",
-          "seconds": 56
+          "seconds": 56,
+          "shape": "tall"
         }
       ],
       "gallery": []
@@ -390,11 +412,13 @@
       "videos": [
         {
           "id": "da9b93ca-a77e-4769-8d2b-52fb9f060cb5",
-          "seconds": 48
+          "seconds": 48,
+          "shape": "tall"
         },
         {
           "id": "e8213c6b-8de6-4ae4-93b8-39ffecb65705",
-          "seconds": 71
+          "seconds": 71,
+          "shape": "tall"
         }
       ],
       "gallery": []
@@ -415,7 +439,8 @@
       "videos": [
         {
           "id": "c67eda82-18ed-459f-a684-caff551a16b6",
-          "seconds": 90
+          "seconds": 90,
+          "shape": "tall"
         }
       ],
       "gallery": []
@@ -439,7 +464,8 @@
       "videos": [
         {
           "id": "74671359-6f8f-49b1-b740-8bbb6542a940",
-          "seconds": 32
+          "seconds": 32,
+          "shape": "wide"
         }
       ],
       "gallery": []
