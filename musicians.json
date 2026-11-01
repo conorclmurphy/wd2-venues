@@ -557,7 +557,7 @@
       "aboutTitle": "How it works",
       "photo": "4607cdf0-49f9-4c37-93e1-52bb721c9d54/unsplash-image-1h-64bCdVUI.jpg",
       "bio": [
-        "Choose your solo musician (or skip to a trad band or DJ), then add any extras. As you go, we'll show you the package that matches and its starting price. Your choices drop straight into the booking form, so all that's left is to send it."
+        "Choose your solo musician (or skip to a duo, trio or DJ), then add any extras. As you go, we'll show you the package that matches and its starting price. Your choices drop straight into the booking form, so all that's left is to send it."
       ],
       "facts": [
         {
@@ -566,7 +566,7 @@
         },
         {
           "label": "Packages",
-          "value": "From €1,500"
+          "value": "From €1,300"
         }
       ],
       "events": [
@@ -585,28 +585,31 @@
           {
             "id": "second",
             "title": "Second solo musician",
-            "text": "Two musicians back to back, 4 hours of live music."
+            "text": "Two musicians back to back, 4 hours of live music.",
+            "image": "17755a54-0b89-43df-a009-d892e7f6c446/IMG_5769.jpeg"
           },
           {
             "id": "trad",
-            "title": "Modern trad band",
-            "text": "Add fiddle (duo) or fiddle and banjo (three-piece)."
+            "title": "Make it a trad band",
+            "text": "Your solo musician is joined by fiddle (duo) or fiddle and banjo (three-piece). Not an extra act on top.",
+            "image": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG"
           },
           {
             "id": "dj",
             "title": "DJ",
-            "text": "Keep the party going after the live music."
+            "text": "Keep the party going after the live music.",
+            "image": "1790686604144-1P7VD3AVMOQO8IB957TI/unsplash-image-ttv1pX6tk7o.jpg"
           }
         ],
         "lineups": [
           {
             "title": "Duo",
-            "text": "Musician plus a fiddle player.",
+            "text": "Your musician + a fiddle player.",
             "price": "On its own from €1,150"
           },
           {
             "title": "Three-piece",
-            "text": "Musician plus fiddle and banjo.",
+            "text": "Your musician + fiddle and banjo.",
             "price": "On its own from €1,500"
           }
         ],
@@ -614,13 +617,15 @@
           {
             "title": "Karaoke",
             "price": 250,
-            "text": "Hand the mic to your guests."
+            "text": "Hand the mic to your guests.",
+            "image": "1790699848604-H16VA8BSP7PD0RD8C0KQ/unsplash-image-6_1tYvLLZqo.jpg"
           },
           {
             "title": "Saxophone",
             "price": 650,
             "priceFrom": true,
-            "text": "A live sax player alongside the DJ."
+            "text": "A live sax player alongside the DJ.",
+            "image": "cca93cb1-94fe-4860-a650-152bf3cd2039/sax+dj%281%29.jpg"
           }
         ],
         "list": [
@@ -628,8 +633,8 @@
             "id": "double-trouble",
             "title": "Double Trouble",
             "hours": "4 hours of live music",
-            "text": "Solo musician + solo musician",
-            "from": 1500,
+            "text": "Solo musician + solo musician (2 × €650)",
+            "from": 1300,
             "extras": [
               "second"
             ],
@@ -651,7 +656,7 @@
             "id": "party",
             "title": "The Party",
             "hours": "4 hours of live music",
-            "text": "Solo musician + trad band",
+            "text": "Solo musician + trad band (they join your musician)",
             "from": 2250,
             "extras": [
               "trad"
@@ -671,21 +676,41 @@
             "image": "fafe5387-96fe-4348-b492-b14472244729/Cian+Morrin+Photo.jpeg"
           }
         ],
-        "note": "Prices are a starting guide. Additional travel fees may apply based on your event location.",
+        "note": "Prices are a starting guide and vary depending on the musicians you choose and the extras you add. Additional travel fees may apply based on your event location.",
         "duoFrom": 1150,
         "trioFrom": 1500,
         "alts": [
           {
-            "id": "trad",
-            "title": "Modern trad band",
-            "text": "A duo (musician + fiddle) or three-piece (musician + fiddle + banjo).",
+            "id": "duo",
+            "title": "Duo",
+            "text": "Trad, contemporary or jazz.",
             "price": "From €1,150"
+          },
+          {
+            "id": "trio",
+            "title": "Trio",
+            "text": "Trad, contemporary or jazz.",
+            "price": "From €1,500"
           },
           {
             "id": "dj",
             "title": "DJ",
             "text": "A DJ set with professional audio and lighting. Add karaoke or sax.",
             "price": "From €750"
+          }
+        ],
+        "styles": [
+          {
+            "title": "Trad",
+            "text": "Fiddle, banjo and Irish favourites."
+          },
+          {
+            "title": "Contemporary",
+            "text": "Modern hits and singalong classics."
+          },
+          {
+            "title": "Jazz",
+            "text": "Smooth, relaxed and elegant."
           }
         ]
       },
