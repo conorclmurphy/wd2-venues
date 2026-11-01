@@ -592,15 +592,18 @@
         "whens": [
           {
             "id": "ceremony",
-            "short": "Ceremony",
             "title": "Ceremony & reception",
-            "text": "Music for the ceremony and drinks reception."
+            "text": "Your ceremony and drinks reception."
           },
           {
-            "id": "evening",
-            "short": "Day 2 & evening",
-            "title": "Day 2 & evening",
-            "text": "Music for your Day 2 or the evening after dinner."
+            "id": "day2",
+            "title": "Day 2",
+            "text": "Your Day 2 celebration."
+          },
+          {
+            "id": "afterdinner",
+            "title": "After dinner",
+            "text": "The evening after your meal."
           }
         ],
         "list": [
@@ -654,35 +657,29 @@
             "group": "single",
             "title": "Solo performer",
             "text": "One of our singer-guitarists.",
-            "prices": {
-              "ceremony": 650,
-              "evening": 750
-            },
-            "performers": 1
+            "performers": 1,
+            "from": 650,
+            "askWhen": true
           },
           {
             "id": "duo",
             "group": "single",
             "title": "Duo",
             "text": "Trad, contemporary or jazz.",
-            "prices": {
-              "ceremony": 1150,
-              "evening": 1350
-            },
             "performers": 1,
-            "needs": "duo"
+            "needs": "duo",
+            "from": 1150,
+            "askWhen": true
           },
           {
             "id": "trio",
             "group": "single",
             "title": "Trio",
             "text": "Trad, contemporary or jazz.",
-            "prices": {
-              "ceremony": 1500,
-              "evening": 1750
-            },
             "performers": 1,
-            "needs": "tradBand"
+            "needs": "tradBand",
+            "from": 1500,
+            "askWhen": true
           },
           {
             "id": "dj",
@@ -715,16 +712,18 @@
           },
           {
             "title": "Karaoke",
-            "text": "Hand the mic to your guests. Added to a DJ.",
+            "text": "Hand the mic to your guests. Choose karaoke or sax.",
             "price": 250,
-            "needsDJ": true
+            "needsDJ": true,
+            "oneOf": "dj-extra"
           },
           {
             "title": "Saxophone",
-            "text": "A live sax player alongside the DJ.",
+            "text": "A live sax player alongside the DJ. Choose sax or karaoke.",
             "price": 650,
             "priceFrom": true,
-            "needsDJ": true
+            "needsDJ": true,
+            "oneOf": "dj-extra"
           }
         ],
         "note": "Prices are a starting guide. Additional travel fees may apply based on your event location.",
