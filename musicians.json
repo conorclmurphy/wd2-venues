@@ -557,16 +557,16 @@
       "aboutTitle": "How it works",
       "photo": "4607cdf0-49f9-4c37-93e1-52bb721c9d54/unsplash-image-1h-64bCdVUI.jpg",
       "bio": [
-        "Pick one of our packages or a single act, choose the musicians you'd love to have, and add any extras. You'll see a starting price as you go, and your choices drop straight into the booking form, so all that's left is to send it and we'll come back to you with availability."
+        "Start with one of our solo musicians, pick your favourites, then add any extras. As you add them, we'll show you the package that matches and its starting price. Your choices drop straight into the booking form, so all that's left is to send it."
       ],
       "facts": [
         {
-          "label": "Packages",
-          "value": "From €1,500"
+          "label": "Solo musicians",
+          "value": "From €650"
         },
         {
-          "label": "Solo performers",
-          "value": "From €650"
+          "label": "Packages",
+          "value": "From €1,500"
         }
       ],
       "events": [
@@ -577,157 +577,99 @@
       "tradBand": false,
       "duo": false,
       "packages": {
-        "groups": [
+        "soloFrom": 650,
+        "djFrom": 750,
+        "soloText": "One of our singer-guitarists. Includes a 2-hour performance plus professional audio and lighting.",
+        "whenHint": "When do you need music? Tap all that apply.",
+        "extras": [
           {
-            "id": "package",
-            "title": "Packages"
+            "id": "second",
+            "title": "Second solo musician",
+            "text": "Two musicians back to back, 4 hours of live music."
           },
           {
-            "id": "single",
-            "title": "Or book a single act",
-            "text": "Prices include a 2-hour performance plus professional audio and lighting.",
-            "small": true
-          }
-        ],
-        "whens": [
-          {
-            "id": "ceremony",
-            "title": "Ceremony & reception",
-            "text": "Your ceremony and drinks reception."
-          },
-          {
-            "id": "day2",
-            "title": "Day 2",
-            "text": "Your Day 2 celebration."
-          },
-          {
-            "id": "afterdinner",
-            "title": "After dinner",
-            "text": "The evening after your meal."
-          }
-        ],
-        "list": [
-          {
-            "id": "double-trouble",
-            "group": "package",
-            "title": "Double Trouble",
-            "hours": "4 hours of live music",
-            "text": "Two solo performers, back to back.",
-            "from": 1500,
-            "performers": 2,
-            "image": "1395aa16-009f-4ba4-8e68-8cd5112cd820/329bc0df-e30c-448a-b291-45c8c34c03a2.JPG",
-            "imagePosition": "center 25%"
-          },
-          {
-            "id": "celebration",
-            "group": "package",
-            "title": "The Celebration",
-            "hours": "4 hours of live music",
-            "text": "A solo performer plus a DJ.",
-            "from": 1650,
-            "performers": 1,
-            "dj": true,
-            "image": "1790686604144-1P7VD3AVMOQO8IB957TI/unsplash-image-ttv1pX6tk7o.jpg"
-          },
-          {
-            "id": "party",
-            "group": "package",
-            "title": "The Party",
-            "hours": "4 hours of live music",
-            "text": "A solo performer plus our modern trad band.",
-            "from": 2250,
-            "performers": 1,
-            "trad": true,
-            "image": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG"
-          },
-          {
-            "id": "full-experience",
-            "group": "package",
-            "title": "The Full Experience",
-            "hours": "6 hours of live music",
-            "text": "A solo performer, our modern trad band and a DJ.",
-            "from": 3250,
-            "performers": 1,
-            "trad": true,
-            "dj": true,
-            "image": "fafe5387-96fe-4348-b492-b14472244729/Cian+Morrin+Photo.jpeg"
-          },
-          {
-            "id": "solo",
-            "group": "single",
-            "title": "Solo performer",
-            "text": "One of our singer-guitarists.",
-            "performers": 1,
-            "from": 650,
-            "askWhen": true
-          },
-          {
-            "id": "duo",
-            "group": "single",
-            "title": "Duo",
-            "text": "Trad, contemporary or jazz.",
-            "performers": 1,
-            "needs": "duo",
-            "from": 1150,
-            "askWhen": true
-          },
-          {
-            "id": "trio",
-            "group": "single",
-            "title": "Trio",
-            "text": "Trad, contemporary or jazz.",
-            "performers": 1,
-            "needs": "tradBand",
-            "from": 1500,
-            "askWhen": true
+            "id": "trad",
+            "title": "Modern trad band",
+            "text": "Add fiddle (duo) or fiddle and banjo (three-piece)."
           },
           {
             "id": "dj",
-            "group": "single",
             "title": "DJ",
-            "text": "For Day 2 and evening.",
-            "performers": 0,
-            "dj": true,
-            "from": 750
+            "text": "Keep the party going after the live music."
           }
         ],
         "lineups": [
           {
             "title": "Duo",
-            "needs": "duo",
-            "text": "Your solo performer plus a fiddle player."
+            "text": "Your solo musician plus a fiddle player."
           },
           {
             "title": "Three-piece",
-            "needs": "tradBand",
-            "text": "Your solo performer plus fiddle and banjo."
+            "text": "Your solo musician plus fiddle and banjo."
           }
         ],
-        "addons": [
-          {
-            "title": "DJ",
-            "text": "Keep the party going after the live music.",
-            "price": 750,
-            "priceFrom": true
-          },
+        "djExtras": [
           {
             "title": "Karaoke",
-            "text": "Hand the mic to your guests. Choose karaoke or sax.",
             "price": 250,
-            "needsDJ": true,
-            "oneOf": "dj-extra"
+            "text": "Hand the mic to your guests."
           },
           {
             "title": "Saxophone",
-            "text": "A live sax player alongside the DJ. Choose sax or karaoke.",
             "price": 650,
             "priceFrom": true,
-            "needsDJ": true,
-            "oneOf": "dj-extra"
+            "text": "A live sax player alongside the DJ."
           }
         ],
-        "note": "Prices are a starting guide. Additional travel fees may apply based on your event location.",
-        "title": "Choose what you'd like"
+        "list": [
+          {
+            "id": "double-trouble",
+            "title": "Double Trouble",
+            "hours": "4 hours of live music",
+            "text": "Solo musician + solo musician",
+            "from": 1500,
+            "extras": [
+              "second"
+            ],
+            "image": "1395aa16-009f-4ba4-8e68-8cd5112cd820/329bc0df-e30c-448a-b291-45c8c34c03a2.JPG",
+            "imagePosition": "center 25%"
+          },
+          {
+            "id": "celebration",
+            "title": "The Celebration",
+            "hours": "4 hours of live music",
+            "text": "Solo musician + DJ",
+            "from": 1650,
+            "extras": [
+              "dj"
+            ],
+            "image": "1790686604144-1P7VD3AVMOQO8IB957TI/unsplash-image-ttv1pX6tk7o.jpg"
+          },
+          {
+            "id": "party",
+            "title": "The Party",
+            "hours": "4 hours of live music",
+            "text": "Solo musician + trad band",
+            "from": 2250,
+            "extras": [
+              "trad"
+            ],
+            "image": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG"
+          },
+          {
+            "id": "full-experience",
+            "title": "The Full Experience",
+            "hours": "6 hours of live music",
+            "text": "Solo musician + trad band + DJ",
+            "from": 3250,
+            "extras": [
+              "trad",
+              "dj"
+            ],
+            "image": "fafe5387-96fe-4348-b492-b14472244729/Cian+Morrin+Photo.jpeg"
+          }
+        ],
+        "note": "Prices are a starting guide. Additional travel fees may apply based on your event location."
       },
       "videos": [],
       "gallery": [],
