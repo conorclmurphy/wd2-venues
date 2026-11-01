@@ -435,7 +435,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         if (!noSolo) { alt = ''; style = ''; }
         step('alt').hidden = !noSolo;
         var lt = $('.vp-pk-ltitle'), ln = $('.vp-pk-lnote');
-        if (has('solo')) { lt.textContent = 'Turn your solo musician into a trad band'; ln.textContent = 'Your solo musician stays at the heart of it and is joined by our trad players. Choose who joins them:'; }
+        if (has('solo')) { lt.textContent = 'Choose your trad band line-up'; ln.textContent = 'Your solo musician plays first, followed by a separate trad band. Choose the size of the band:'; }
         else { lt.textContent = 'Choose your trad band line-up'; ln.textContent = ''; }
         step('style').hidden = !(noSolo && start === 'trad');
         step('lineup').hidden = !trad || (noSolo && start === 'trad');
@@ -447,8 +447,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         // musician step
         $('.vp-pk-mtitle').textContent = two ? 'Choose your solo musicians' : 'Choose your solo musician';
         $('.vp-pk-mnote').textContent = (two ? 'You need 2 musicians. ' : '') + 'Pick a few favourites in case your first choice isn\'t available on your date, or choose No preference and we\'ll match you with someone great.'
-          + (trad && !noSolo ? ' Only musicians who play with the ' + (line || 'trad band') + ' are shown.' : '');
-        var need = trad && !noSolo ? (line === 'Three-piece' ? 'tradband' : 'duo') : '';
+;
+        var need = '';  // the trad band is a separate act, so any solo musician can be chosen
         $$('.vp-performer').forEach(function (c) {
           if (c.classList.contains('vp-any-card')) return;
           var ok = !need || c.getAttribute('data-' + need) === '1' || (need === 'duo' && c.getAttribute('data-tradband') === '1');
@@ -476,8 +476,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         if (r.pk && r.pk.hours) items.push(r.pk.hours.charAt(0).toUpperCase() + r.pk.hours.slice(1));
         if (has('solo')) items.push((two ? 'Two solo musicians, back to back' : 'Solo musician (singer-guitarist)') + (who ? ': ' + who : ''));
         if (trad) {
-          var lead = has('solo') ? (anyPick || !picked.length ? 'your solo musician' : picked[0]) : 'our musician';
-          var tl = line === 'Three-piece' ? 'Trad band three-piece: ' + lead + ' joined by fiddle and banjo' : 'Trad band duo: ' + lead + ' joined by a fiddle player';
+          var tl = (has('solo') ? 'Followed by a separate ' : 'Modern ') + (line === 'Three-piece' ? 'trad band three-piece (musician, fiddle and banjo)' : 'trad band duo (musician and fiddle)');
           if (noSolo && style) tl = (line === 'Three-piece' ? 'Trio' : 'Duo') + ', ' + style.toLowerCase() + ' style';
           items.push(line || noSolo ? tl : 'Modern trad band (choose duo or three-piece)');
         }

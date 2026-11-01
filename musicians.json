@@ -590,8 +590,8 @@
           },
           {
             "id": "trad",
-            "title": "Make it a trad band",
-            "text": "Your solo musician is joined by fiddle (duo) or fiddle and banjo (three-piece). Not an extra act on top.",
+            "title": "Add a trad band",
+            "text": "Your solo musician, followed by a separate trad duo or three-piece.",
             "image": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG"
           },
           {
@@ -604,12 +604,12 @@
         "lineups": [
           {
             "title": "Duo",
-            "text": "Your musician + a fiddle player.",
+            "text": "Musician + fiddle player.",
             "price": "On its own from €1,150"
           },
           {
             "title": "Three-piece",
-            "text": "Your musician + fiddle and banjo.",
+            "text": "Musician + fiddle + banjo.",
             "price": "On its own from €1,500"
           }
         ],
@@ -656,7 +656,7 @@
             "id": "party",
             "title": "The Party",
             "hours": "4 hours of live music",
-            "text": "Solo musician + trad band (they join your musician)",
+            "text": "Solo musician, followed by a trad band",
             "from": 2250,
             "extras": [
               "trad"
@@ -667,7 +667,7 @@
             "id": "full-experience",
             "title": "The Full Experience",
             "hours": "6 hours of live music",
-            "text": "Solo musician + trad band + DJ",
+            "text": "Solo musician, followed by a trad band, then a DJ",
             "from": 3250,
             "extras": [
               "trad",
