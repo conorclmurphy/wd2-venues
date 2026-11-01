@@ -557,7 +557,7 @@
       "aboutTitle": "How it works",
       "photo": "4607cdf0-49f9-4c37-93e1-52bb721c9d54/unsplash-image-1h-64bCdVUI.jpg",
       "bio": [
-        "Start with a solo musician, our modern trad band or a DJ, then add any extras. As you go, we'll show you the package that matches and its starting price. Your choices drop straight into the booking form, so all that's left is to send it."
+        "Choose your solo musician (or skip to a trad band or DJ), then add any extras. As you go, we'll show you the package that matches and its starting price. Your choices drop straight into the booking form, so all that's left is to send it."
       ],
       "facts": [
         {
@@ -582,11 +582,6 @@
         "soloText": "One of our singer-guitarists. Includes a 2-hour performance plus professional audio and lighting.",
         "whenHint": "When do you need music? Tap all that apply.",
         "extras": [
-          {
-            "id": "solo",
-            "title": "Solo musician",
-            "text": "Add one of our singer-guitarists."
-          },
           {
             "id": "second",
             "title": "Second solo musician",
@@ -679,13 +674,7 @@
         "note": "Prices are a starting guide. Additional travel fees may apply based on your event location.",
         "duoFrom": 1150,
         "trioFrom": 1500,
-        "starts": [
-          {
-            "id": "solo",
-            "title": "Solo musician",
-            "text": "One of our singer-guitarists. Includes a 2-hour performance plus professional audio and lighting.",
-            "price": "From €650"
-          },
+        "alts": [
           {
             "id": "trad",
             "title": "Modern trad band",
