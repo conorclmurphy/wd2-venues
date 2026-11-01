@@ -176,7 +176,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 @media (min-width:900px){#musician-page .vp-hero.vp-portrait{background:#000}#musician-page .vp-hero img{left:auto;right:0;width:60%;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 18%,#000 42%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 18%,#000 42%)}#musician-page .vp-hero:after{background:linear-gradient(180deg,rgba(39,48,48,0) 60%,rgba(39,48,48,.7) 100%)}#musician-page .vp-hero.vp-portrait:after{background:linear-gradient(180deg,rgba(0,0,0,0) 60%,rgba(0,0,0,.6) 100%)}#musician-page .vp-hero.vp-portrait:before{background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,.15) 30%,rgba(0,0,0,.15) 100%)}#musician-page .vp-hero:not(.vp-portrait) img{width:100%;-webkit-mask-image:none;mask-image:none}#musician-page .vp-hero.vp-portrait img{width:75%;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 12%,#000 30%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 12%,#000 30%)}}\
 @media (max-width:899px){#musician-page .vp-hero{min-height:330px}#musician-page .vp-hero-in{padding-top:24px;padding-bottom:20px}#musician-page .vp-hero h1{font-size:44px;margin-bottom:0}#musician-page .vp-facts{gap:10px 24px;padding-top:14px;padding-bottom:16px}#musician-page .vp-fact strong{font-size:17px;line-height:1.35}#musician-page .vp-fact span{font-size:10px;margin-bottom:2px}}\
 #musician-page .vp-hero:before,#musician-page .vp-hero.vp-portrait:before{top:0;bottom:0;height:auto;background:linear-gradient(90deg,rgba(10,14,14,.55) 0%,rgba(10,14,14,.2) 55%,rgba(10,14,14,0) 80%),linear-gradient(180deg,rgba(10,14,14,.55) 0%,rgba(10,14,14,.3) 30%,rgba(10,14,14,.4) 70%,rgba(10,14,14,.7) 100%)}#musician-page .vp-facts{align-items:flex-end}#musician-page .vp-facts .vp-btn{margin-left:0}\
-@media (max-width:899px){#musician-page .vp-facts .vp-btn{padding:9px 18px;font-size:14px;letter-spacing:.02em}}#musician-page .vp-hero .vp-facts{background:none;padding:0;margin-top:18px;text-shadow:0 1px 8px rgba(0,0,0,.55)}#musician-page .vp-hero .vp-facts .vp-btn{text-shadow:none}#musician-page .vp-hero h1{margin-bottom:0}#musician-page .vp-similar.vp-two{grid-template-columns:repeat(2,minmax(0,1fr))}#musician-page .vp-card[hidden]{display:none}@container (min-width:461px){#musician-page .vp-split.vp-split-tall{grid-template-columns:minmax(0,1fr) minmax(200px,260px)!important;gap:24px 32px;align-items:center}#musician-page .vp-split.vp-split-tall .vp-video.vp-tall{justify-self:end;max-width:260px}}';
+@media (max-width:899px){#musician-page .vp-facts .vp-btn{padding:9px 18px;font-size:14px;letter-spacing:.02em}}#musician-page .vp-hero .vp-facts{background:none;padding:0;margin-top:18px;text-shadow:0 1px 8px rgba(0,0,0,.55)}#musician-page .vp-hero .vp-facts .vp-btn{text-shadow:none}#musician-page .vp-hero h1{margin-bottom:0}#musician-page .vp-similar.vp-two{grid-template-columns:repeat(2,minmax(0,1fr))}#musician-page .vp-card[hidden]{display:none}#musician-page .vp-step{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--vp-brass);margin-bottom:6px}#musician-page .vp-build h2{margin-bottom:18px}#musician-page .vp-build .vp-h2row{margin-bottom:6px}#musician-page .vp-build .vp-h2row h2{margin-bottom:0}#musician-page .vp-build-note{margin:-6px 0 18px;color:var(--vp-muted)}#musician-page .vp-lineups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}#musician-page .vp-lineup{font:inherit;text-align:left;cursor:pointer;display:grid;gap:6px;padding:22px 24px;border-radius:var(--vp-radius);background:rgba(234,230,221,.05);border:2px solid rgba(234,230,221,.18);color:var(--vp-on-dark);transition:border-color .2s,background .2s}#musician-page .vp-lineup strong{font-family:var(--vp-display);font-weight:400;font-size:26px;color:var(--vp-on-dark)}#musician-page .vp-lineup span{color:var(--vp-muted);font-size:15px;line-height:1.45}#musician-page .vp-lineup:hover{border-color:var(--vp-brass)}#musician-page .vp-lineup.vp-picked{border-color:var(--vp-brass);background:rgba(61,194,187,.12)}#musician-page .vp-performers{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 14px}#musician-page .vp-performer{gap:6px}#musician-page .vp-pick{font:inherit;color:inherit;background:none;border:0;padding:0;text-align:left;cursor:pointer;display:grid;gap:8px}#musician-page .vp-pick h3{font-size:19px}#musician-page .vp-performer a{font-size:13px;color:var(--vp-brass);text-decoration:none}#musician-page .vp-pick .vp-card-img{position:relative;transition:box-shadow .2s}#musician-page .vp-pick:hover .vp-card-img{box-shadow:0 0 0 3px var(--vp-brass)}#musician-page .vp-tick{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;background:var(--vp-brass);color:#273030;display:none;place-items:center;font-weight:700}#musician-page .vp-pick.vp-picked .vp-card-img{box-shadow:0 0 0 3px var(--vp-brass)}#musician-page .vp-pick.vp-picked .vp-tick{display:grid}@container (max-width:640px){#musician-page .vp-performers{grid-template-columns:repeat(2,minmax(0,1fr))}#musician-page .vp-lineups{grid-template-columns:1fr}}@container (min-width:461px){#musician-page .vp-split.vp-split-tall{grid-template-columns:minmax(0,1fr) minmax(200px,260px)!important;gap:24px 32px;align-items:center}#musician-page .vp-split.vp-split-tall .vp-video.vp-tall{justify-self:end;max-width:260px}}';
   document.head.appendChild(st2);
 
   var keyHandler = null;
@@ -215,12 +215,15 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     var h = '';
     var pos = m.photoPosition ? ' style="object-position:' + esc(m.photoPosition) + '"' : '';
     h += '<header class="vp-hero"><img src="' + img(m.photo, 2500) + '" alt="' + esc(m.name) + '"' + pos + '>';
-    h += '<div class="vp-hero-in vp-pad"><div class="vp-eyebrow">Wedding Day 2 · Live musician</div>';
+    h += '<div class="vp-hero-in vp-pad"><div class="vp-eyebrow">Wedding Day 2 · ' + esc(m.eyebrow || 'Live musician') + '</div>';
     h += '<h1>' + esc(m.name) + '</h1>';
 
     h += '<div class="vp-facts">';
-    h += '<div class="vp-fact"><span>Plays at</span><strong>' + esc(events.map(function (e) { return L[e]; }).join(' · ') || 'Ask us') + '</strong></div>';
-    if (extras.length) h += '<div class="vp-fact"><span>Also available</span><strong>' + esc(extras.join(' · ')) + '</strong></div>';
+    if (m.facts) m.facts.forEach(function (f) { h += '<div class="vp-fact"><span>' + esc(f.label) + '</span><strong>' + esc(f.value) + '</strong></div>'; });
+    else {
+      h += '<div class="vp-fact"><span>Plays at</span><strong>' + esc(events.map(function (e) { return L[e]; }).join(' · ') || 'Ask us') + '</strong></div>';
+      if (extras.length) h += '<div class="vp-fact"><span>Also available</span><strong>' + esc(extras.join(' · ')) + '</strong></div>';
+    }
     h += '<a class="vp-btn" href="#vp-enquire">Check availability</a></div></div></header>';
 
     var allVideos = [];
@@ -247,7 +250,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
     // About, with the first video beside it when there is one
     var tags = '<div class="vp-tags">' + events.map(function (e) { return '<span class="vp-tag">' + esc(L[e]) + '</span>'; }).join('')
-      + extras.map(function (x) { return '<span class="vp-tag">' + esc(x) + '</span>'; }).join('') + '</div>';
+      + extras.concat(m.tags || []).map(function (x) { return '<span class="vp-tag">' + esc(x) + '</span>'; }).join('') + '</div>';
     var aboutText = '<h2>About ' + esc(m.name) + '</h2>' + (bio.length ? bio.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') : '<p>' + esc(m.name) + ' is one of the live musicians on the Wedding Day 2 roster. Get in touch to hear more and check availability for your date.</p>') + tags;
     if (vids.length) h += '<section class="vp-about vp-split' + (vids[0].shape === 'tall' ? ' vp-split-tall' : '') + '"><div>' + aboutText + '</div>' + videoTag(vids[0], m.name) + '</section>';
     else h += '<section class="vp-about">' + aboutText + '</section>';
@@ -260,8 +263,26 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
     if (m.gallery && m.gallery.length) h += '<section><h2>Gallery</h2>' + galleryTag(m.gallery, m.name) + '</section>';
 
+    // Build-your-band pages (the trad band): step 1 pick the line-up, step 2 pick the solo performer
+    if (m.builder) {
+      var b = m.builder;
+      h += '<section class="vp-build"><span class="vp-step">Step 1</span><h2>' + esc(b.step1 || 'Choose your line-up') + '</h2><div class="vp-lineups">';
+      b.lineups.forEach(function (x) {
+        h += '<button type="button" class="vp-lineup" data-lineup="' + esc(x.title) + '"><strong>' + esc(x.title) + '</strong><span>' + esc(x.text) + '</span></button>';
+      });
+      h += '</div></section>';
+      var pool = DATA.musicians.filter(function (o) { return o.live && o.url && o.listed !== false && o.slug !== m.slug; });
+      h += '<section class="vp-build"><span class="vp-step">Step 2</span><div class="vp-h2row"><h2>' + esc(b.step2 || 'Pick your solo performer') + '</h2></div>'
+        + (b.step2Text ? '<p class="vp-build-note">' + esc(b.step2Text) + '</p>' : '') + '<div class="vp-similar vp-performers">';
+      pool.forEach(function (o) {
+        h += '<div class="vp-card vp-performer"><button type="button" class="vp-pick" data-name="' + esc(o.name) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(o.photo, 500) + '" alt="' + esc(o.name) + '"' + (o.photoPosition ? ' style="object-position:' + esc(o.photoPosition) + '"' : '') + '><span class="vp-tick" aria-hidden="true">✓</span></div><h3>' + esc(o.name) + '</h3></button>'
+          + '<a href="' + esc(o.url) + '">View profile →</a></div>';
+      });
+      h += '</div></section>';
+    }
+
     // Other musicians: three who cover the most of the same events and extras
-    var others = DATA.musicians.filter(function (o) { return o.live && o.url && o.slug !== m.slug; });
+    var others = DATA.musicians.filter(function (o) { return o.live && o.url && o.slug !== m.slug && o.listed !== false; });
     function score(o) {
       var s = 0; (o.events || []).forEach(function (e) { if (events.indexOf(e) !== -1) s += 2; });
       if (m.tradBand && o.tradBand) s += 2; if (m.duo && o.duo) s += 1; return s;
@@ -275,7 +296,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     function isSeen(o) { return seen.indexOf(o.slug) !== -1 ? 1 : 0; }
     others.sort(function (a, b) { return isSeen(a) - isSeen(b) || score(b) - score(a) || ((a.slug.charCodeAt(0) + seed) % 7) - ((b.slug.charCodeAt(0) + seed) % 7); });
     others = others.slice(0, 3);
-    if (others.length) {
+    if (others.length && !m.builder) {
       h += '<section><div class="vp-h2row"><h2>Other musicians</h2><a class="vp-btn vp-btn-ghost" href="/musicians">← All musicians</a></div><div class="vp-similar vp-three">';
       others.forEach(function (o) {
         var oe = ORDER.filter(function (e) { return (o.events || []).indexOf(e) !== -1; }).map(function (e) { return L[e]; });
@@ -290,7 +311,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     h += '<section><h2>Explore more</h2><div class="vp-similar vp-three">';
     h += '<a class="vp-card vp-venue-card" href="/venues" hidden><div class="vp-card-img"><img loading="lazy" alt=""></div><h3></h3><p></p></a>';
     var trad = DATA.tradCard;
-    if (trad) h += '<a class="vp-card" href="' + esc(trad.url) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(trad.image, 750) + '" alt="' + esc(trad.title) + '"></div><h3>' + esc(trad.title) + '</h3><p>' + esc(trad.text) + '</p></a>';
+    if (trad && trad.url !== m.url) h += '<a class="vp-card" href="' + esc(trad.url) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(trad.image, 750) + '" alt="' + esc(trad.title) + '"></div><h3>' + esc(trad.title) + '</h3><p>' + esc(trad.text) + '</p></a>';
     if (dj) h += '<a class="vp-card vp-dj-card" href="' + esc(dj.url) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(dj.image, 750) + '" alt="' + esc(dj.title) + '"></div><h3>' + esc(dj.title) + '</h3><p>' + esc(dj.text) + '</p></a>';
     h += '</div></section>';
     h += '</div>';  // end of main column
@@ -308,7 +329,10 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       + '<div class="vp-field"><label for="vp-email">Email</label><input id="vp-email" name="email" type="email" autocomplete="email" required></div>'
       + '<div class="vp-row"><div class="vp-field"><label for="vp-date">Event date</label><input id="vp-date" name="Event date" type="date" min="' + today + '" required></div>'
       + '<div class="vp-field"><label for="vp-time">Start time</label><input id="vp-time" name="Time" type="time" required></div></div>'
-      + '<div class="vp-field"><label for="vp-musician">Musician</label><input id="vp-musician" name="Musician" value="' + esc(m.name) + '"></div>'
+      + (m.builder
+        ? '<div class="vp-field"><label for="vp-lineup">Line-up</label><select id="vp-lineup" name="Line-up">' + opt(m.builder.lineups.map(function (x) { return x.title; })) + '</select></div>'
+          + '<div class="vp-field"><label for="vp-musician">Solo performer</label><select id="vp-musician" name="Musician">' + opt(DATA.musicians.filter(function (o) { return o.live && o.listed !== false && o.slug !== m.slug; }).map(function (o) { return o.name; }).concat(['Not sure yet'])) + '</select></div>'
+        : '<div class="vp-field"><label for="vp-musician">Musician</label><input id="vp-musician" name="Musician" value="' + esc(m.name) + '"></div>')
       + '<div class="vp-field"><label for="vp-type">Event type</label><select id="vp-type" name="Event type">' + opt(['Wedding Day 2', 'Ceremony', 'Drinks Reception', 'Wedding Day After Dinner', 'Corporate', 'Other']) + '</select></div>'
       + '<div class="vp-field"><label for="vp-venue">Venue <i>(if chosen)</i></label><input id="vp-venue" name="Venue"></div>'
       + '<div class="vp-field"><label for="vp-heard">How did you hear about us?</label><select id="vp-heard" name="How they heard about us">' + opt(['Instagram', 'Google Search', 'Musician referral', 'Venue recommendation', 'Friends or family', 'Other']) + '</select></div>'
@@ -320,7 +344,27 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
     h += '<div class="vp-lb" hidden><img alt=""><div class="vp-lb-bar"><button type="button" data-a="prev">Previous</button><span class="vp-count"></span><button type="button" data-a="next">Next</button><button type="button" data-a="close">Close</button></div></div>';
 
+    // The site's photo-link script turns a whole block into a link when it spots a known photo in it.
+    // Mark this block as already handled so clicks inside it work normally.
+    for (var blk = root; blk && blk !== document.body; blk = blk.parentElement) {
+      if (blk.classList && blk.classList.contains('sqs-block')) { blk.wd2Wired = true; break; }
+    }
     root.innerHTML = h;
+
+    // Build-your-band: picking a line-up or performer highlights it and fills in the form
+    if (m.builder) {
+      var pickIn = function (sel, attr, field) {
+        root.querySelectorAll(sel).forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            root.querySelectorAll(sel).forEach(function (x) { x.classList.remove('vp-picked'); x.setAttribute('aria-pressed', 'false'); });
+            btn.classList.add('vp-picked'); btn.setAttribute('aria-pressed', 'true');
+            var f = root.querySelector(field); if (f) f.value = btn.getAttribute(attr);
+          });
+        });
+      };
+      pickIn('.vp-lineup', 'data-lineup', '#vp-lineup');
+      pickIn('.vp-pick', 'data-name', '#vp-musician');
+    }
 
     // DJ card opens the site's "DJ Packages" popup, like the home page (falls back to the DJs page)
     var djCard = root.querySelector('.vp-dj-card');
