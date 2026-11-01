@@ -176,7 +176,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 @media (min-width:900px){#musician-page .vp-hero.vp-portrait{background:#000}#musician-page .vp-hero img{left:auto;right:0;width:60%;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 18%,#000 42%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 18%,#000 42%)}#musician-page .vp-hero:after{background:linear-gradient(180deg,rgba(39,48,48,0) 60%,rgba(39,48,48,.7) 100%)}#musician-page .vp-hero.vp-portrait:after{background:linear-gradient(180deg,rgba(0,0,0,0) 60%,rgba(0,0,0,.6) 100%)}#musician-page .vp-hero.vp-portrait:before{background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,.15) 30%,rgba(0,0,0,.15) 100%)}#musician-page .vp-hero:not(.vp-portrait) img{width:100%;-webkit-mask-image:none;mask-image:none}#musician-page .vp-hero.vp-portrait img{width:75%;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 12%,#000 30%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.6) 12%,#000 30%)}}\
 @media (max-width:899px){#musician-page .vp-hero{min-height:330px}#musician-page .vp-hero-in{padding-top:24px;padding-bottom:20px}#musician-page .vp-hero h1{font-size:44px;margin-bottom:0}#musician-page .vp-facts{gap:10px 24px;padding-top:14px;padding-bottom:16px}#musician-page .vp-fact strong{font-size:17px;line-height:1.35}#musician-page .vp-fact span{font-size:10px;margin-bottom:2px}}\
 #musician-page .vp-hero:before,#musician-page .vp-hero.vp-portrait:before{top:0;bottom:0;height:auto;background:linear-gradient(90deg,rgba(10,14,14,.55) 0%,rgba(10,14,14,.2) 55%,rgba(10,14,14,0) 80%),linear-gradient(180deg,rgba(10,14,14,.55) 0%,rgba(10,14,14,.3) 30%,rgba(10,14,14,.4) 70%,rgba(10,14,14,.7) 100%)}#musician-page .vp-facts{align-items:flex-end}#musician-page .vp-facts .vp-btn{margin-left:0}\
-@media (max-width:899px){#musician-page .vp-facts .vp-btn{padding:9px 18px;font-size:14px;letter-spacing:.02em}}#musician-page .vp-hero .vp-facts{background:none;padding:0;margin-top:18px;text-shadow:0 1px 8px rgba(0,0,0,.55)}#musician-page .vp-hero .vp-facts .vp-btn{text-shadow:none}#musician-page .vp-hero h1{margin-bottom:0}#musician-page .vp-similar.vp-two{grid-template-columns:repeat(2,minmax(0,1fr))}#musician-page .vp-card[hidden]{display:none}#musician-page .vp-step{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--vp-brass);margin-bottom:6px}#musician-page .vp-build h2{margin-bottom:18px}#musician-page .vp-build .vp-h2row{margin-bottom:6px}#musician-page .vp-build .vp-h2row h2{margin-bottom:0}#musician-page .vp-build-note{margin:-6px 0 18px;color:var(--vp-muted)}#musician-page .vp-lineups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}#musician-page .vp-lineup{font:inherit;text-align:left;cursor:pointer;display:grid;gap:6px;padding:22px 24px;border-radius:var(--vp-radius);background:rgba(234,230,221,.05);border:2px solid rgba(234,230,221,.18);color:var(--vp-on-dark);transition:border-color .2s,background .2s}#musician-page .vp-lineup strong{font-family:var(--vp-display);font-weight:400;font-size:26px;color:var(--vp-on-dark)}#musician-page .vp-lineup span{color:var(--vp-muted);font-size:15px;line-height:1.45}#musician-page .vp-lineup:hover{border-color:var(--vp-brass)}#musician-page .vp-lineup.vp-picked{border-color:var(--vp-brass);background:rgba(61,194,187,.12)}#musician-page .vp-performers{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 14px}#musician-page .vp-performer{gap:6px}#musician-page .vp-pick{font:inherit;color:inherit;background:none;border:0;padding:0;text-align:left;cursor:pointer;display:grid;gap:8px}#musician-page .vp-pick h3{font-size:19px}#musician-page .vp-performer a{font-size:13px;color:var(--vp-brass);text-decoration:none}#musician-page .vp-pick .vp-card-img{position:relative;transition:box-shadow .2s}#musician-page .vp-pick:hover .vp-card-img{box-shadow:0 0 0 3px var(--vp-brass)}#musician-page .vp-tick{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;background:var(--vp-brass);color:#273030;display:none;place-items:center;font-weight:700}#musician-page .vp-pick.vp-picked .vp-card-img{box-shadow:0 0 0 3px var(--vp-brass)}#musician-page .vp-pick.vp-picked .vp-tick{display:grid}@container (max-width:640px){#musician-page .vp-performers{grid-template-columns:repeat(2,minmax(0,1fr))}#musician-page .vp-lineups{grid-template-columns:1fr}}@container (min-width:461px){#musician-page .vp-split.vp-split-tall{grid-template-columns:minmax(0,1fr) minmax(200px,260px)!important;gap:24px 32px;align-items:center}#musician-page .vp-split.vp-split-tall .vp-video.vp-tall{justify-self:end;max-width:260px}}';
+@media (max-width:899px){#musician-page .vp-facts .vp-btn{padding:9px 18px;font-size:14px;letter-spacing:.02em}}#musician-page .vp-hero .vp-facts{background:none;padding:0;margin-top:18px;text-shadow:0 1px 8px rgba(0,0,0,.55)}#musician-page .vp-hero .vp-facts .vp-btn{text-shadow:none}#musician-page .vp-hero h1{margin-bottom:0}#musician-page .vp-similar.vp-two{grid-template-columns:repeat(2,minmax(0,1fr))}#musician-page .vp-card[hidden]{display:none}#musician-page .vp-pk-step[hidden],#musician-page .vp-field[hidden],#musician-page .vp-lineup[hidden]{display:none}#musician-page .vp-pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}#musician-page .vp-pk{font:inherit;color:var(--vp-on-dark);text-align:left;cursor:pointer;background:none;border:0;padding:0;display:grid;gap:6px}#musician-page .vp-pk .vp-card-img{position:relative;aspect-ratio:3/2;transition:box-shadow .2s}#musician-page .vp-pk:hover .vp-card-img,#musician-page .vp-pk.vp-picked .vp-card-img{box-shadow:0 0 0 3px var(--vp-brass)}#musician-page .vp-pk.vp-picked .vp-tick{display:grid}#musician-page .vp-pk strong{font-family:var(--vp-display);font-weight:400;font-size:20px;margin-top:4px}#musician-page .vp-pk>span:not(.vp-tick){color:var(--vp-muted);font-size:14px;line-height:1.45}#musician-page .vp-pk-go{margin-top:18px}#musician-page .vp-pk-meta{font-style:normal;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--vp-brass)}#musician-page .vp-pk-price{font-weight:600;color:var(--vp-on-dark);font-size:16px;margin-top:2px}#musician-page .vp-pk-add small{font-family:var(--vp-body);font-size:14px;color:var(--vp-brass);margin-left:6px}#musician-page .vp-pk-total{margin-top:24px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}#musician-page .vp-pk-total[hidden]{display:none}#musician-page .vp-pk-total span{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--vp-muted)}#musician-page .vp-pk-total strong{font-family:var(--vp-display);font-weight:400;font-size:30px;color:var(--vp-on-dark)}#musician-page .vp-pk-foot{margin:16px 0 0;font-size:13px}#musician-page .vp-pk-group{font-size:22px;margin:30px 0 6px;color:var(--vp-on-dark)}#musician-page .vp-build h2+.vp-pk-group{margin-top:0}#musician-page .vp-pk-small{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}#musician-page .vp-pk-small .vp-pk{padding:18px;border-radius:var(--vp-radius);border:2px solid rgba(234,230,221,.18);background:rgba(234,230,221,.05);align-content:start}#musician-page .vp-pk-small .vp-pk:hover,#musician-page .vp-pk-small .vp-pk.vp-picked{border-color:var(--vp-brass)}#musician-page .vp-pk-small .vp-pk.vp-picked{background:rgba(61,194,187,.12)}#musician-page .vp-pk-small .vp-pk-price{font-size:13px;font-weight:500;color:var(--vp-brass)}@container (max-width:640px){#musician-page .vp-pk-small{grid-template-columns:repeat(2,minmax(0,1fr))}}@container (max-width:640px){#musician-page .vp-pk-grid{grid-template-columns:1fr}}#musician-page .vp-step{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--vp-brass);margin-bottom:6px}#musician-page .vp-build h2{margin-bottom:18px}#musician-page .vp-build .vp-h2row{margin-bottom:6px}#musician-page .vp-build .vp-h2row h2{margin-bottom:0}#musician-page .vp-build-note{margin:-6px 0 18px;color:var(--vp-muted)}#musician-page .vp-lineups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}#musician-page .vp-lineup{font:inherit;text-align:left;cursor:pointer;display:grid;gap:6px;padding:22px 24px;border-radius:var(--vp-radius);background:rgba(234,230,221,.05);border:2px solid rgba(234,230,221,.18);color:var(--vp-on-dark);transition:border-color .2s,background .2s}#musician-page .vp-lineup strong{font-family:var(--vp-display);font-weight:400;font-size:26px;color:var(--vp-on-dark)}#musician-page .vp-lineup span{color:var(--vp-muted);font-size:15px;line-height:1.45}#musician-page .vp-lineup:hover{border-color:var(--vp-brass)}#musician-page .vp-lineup.vp-picked{border-color:var(--vp-brass);background:rgba(61,194,187,.12)}#musician-page .vp-performers{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 14px}#musician-page .vp-performer{gap:6px}#musician-page .vp-pick{font:inherit;color:inherit;background:none;border:0;padding:0;text-align:left;cursor:pointer;display:grid;gap:8px}#musician-page .vp-pick h3{font-size:19px}#musician-page .vp-performer a{font-size:13px;color:var(--vp-brass);text-decoration:none}#musician-page .vp-pick .vp-card-img{position:relative;transition:box-shadow .2s}#musician-page .vp-pick:hover .vp-card-img{box-shadow:0 0 0 3px var(--vp-brass)}#musician-page .vp-tick{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;background:var(--vp-brass);color:#273030;display:none;place-items:center;font-weight:700}#musician-page .vp-pick.vp-picked .vp-card-img{box-shadow:0 0 0 3px var(--vp-brass)}#musician-page .vp-pick.vp-picked .vp-tick{display:grid}@container (max-width:640px){#musician-page .vp-performers{grid-template-columns:repeat(2,minmax(0,1fr))}#musician-page .vp-lineups{grid-template-columns:1fr}}@container (min-width:461px){#musician-page .vp-split.vp-split-tall{grid-template-columns:minmax(0,1fr) minmax(200px,260px)!important;gap:24px 32px;align-items:center}#musician-page .vp-split.vp-split-tall .vp-video.vp-tall{justify-self:end;max-width:260px}}';
   document.head.appendChild(st2);
 
   var keyHandler = null;
@@ -282,6 +282,44 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       h += '</div></section>';
     }
 
+    // Packages page: 1 choose a package, 2 trad line-up (trad packages), 3 pick musician(s), 4 add-ons
+    if (m.packages) {
+      var P = m.packages, euro = function (n) { return '€' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
+      var perf = DATA.musicians.filter(function (o) { return o.live && o.url && o.listed !== false && o.photo && o.slug !== m.slug && o.events; });
+      h += '<section class="vp-build vp-pk-step" data-step="package"><span class="vp-step"></span><h2>' + esc(P.title || 'Choose your package') + '</h2>';
+      var cardFor = function (x) {
+        h += '<button type="button" class="vp-pk" data-id="' + esc(x.id) + '">' + (x.image ? '<div class="vp-card-img"><img loading="lazy" src="' + img(x.image, 750) + '" alt="' + esc(x.title) + '"' + (x.imagePosition ? ' style="object-position:' + esc(x.imagePosition) + '"' : '') + '><span class="vp-tick" aria-hidden="true">✓</span></div>' : '')
+          + '<strong>' + esc(x.title) + '</strong>' + (x.hours ? '<em class="vp-pk-meta">' + esc(x.hours) + '</em>' : '') + '<span>' + esc(x.text) + '</span>' + (x.from ? '<b class="vp-pk-price">From ' + euro(x.from) + '</b>' : '')
+          + (x.prices ? '<b class="vp-pk-price">' + P.whens.map(function (w) { return esc(w.short) + ' from ' + euro(x.prices[w.id]); }).join('<br>') + '</b>' : '') + '</button>';
+      };
+      P.groups.forEach(function (g) {
+        h += (g.title ? '<h3 class="vp-pk-group">' + esc(g.title) + '</h3>' : '') + (g.text ? '<p class="vp-build-note">' + esc(g.text) + '</p>' : '') + '<div class="vp-pk-grid' + (g.small ? ' vp-pk-small' : '') + '">';
+        P.list.filter(function (x) { return x.group === g.id; }).forEach(cardFor);
+        h += '</div>';
+      });
+      h += '</section>';
+      h += '<section class="vp-build vp-pk-step" data-step="when" hidden><span class="vp-step"></span><h2>When is it for?</h2><div class="vp-lineups">';
+      P.whens.forEach(function (w) { h += '<button type="button" class="vp-lineup vp-pk-when" data-when="' + esc(w.id) + '"><strong>' + esc(w.title) + '</strong><span>' + esc(w.text) + '</span></button>'; });
+      h += '</div></section>';
+      h += '<section class="vp-build vp-pk-step" data-step="trad" hidden><span class="vp-step"></span><h2>Choose your trad line-up</h2><div class="vp-lineups">';
+      P.lineups.forEach(function (x) {
+        h += '<button type="button" class="vp-lineup vp-pk-line" data-lineup="' + esc(x.title) + '" data-needs="' + esc(x.needs) + '"><strong>' + esc(x.title) + '</strong><span>' + esc(x.text) + '</span></button>';
+      });
+      h += '</div></section>';
+      h += '<section class="vp-build vp-pk-step" data-step="musician" hidden><span class="vp-step"></span><h2 class="vp-pk-mtitle">Pick your solo musician</h2><p class="vp-build-note vp-pk-mnote"></p><div class="vp-similar vp-performers">';
+      perf.forEach(function (o) {
+        h += '<div class="vp-card vp-performer" data-duo="' + (o.duo ? 1 : 0) + '" data-tradband="' + (o.tradBand ? 1 : 0) + '"><button type="button" class="vp-pick vp-pk-pick" data-name="' + esc(o.name) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(o.photo, 500) + '" alt="' + esc(o.name) + '"' + (o.photoPosition ? ' style="object-position:' + esc(o.photoPosition) + '"' : '') + '><span class="vp-tick" aria-hidden="true">✓</span></div><h3>' + esc(o.name) + '</h3></button>'
+          + '<a href="' + esc(o.url) + '">View profile →</a></div>';
+      });
+      h += '</div></section>';
+      h += '<section class="vp-build vp-pk-step" data-step="addons" hidden><span class="vp-step"></span><h2>Any extras?</h2><p class="vp-build-note">Optional. Tap any you would like to add.</p><div class="vp-lineups vp-addons">';
+      P.addons.forEach(function (x) {
+        h += '<button type="button" class="vp-lineup vp-pk-add" data-add="' + esc(x.title) + '"><strong>' + esc(x.title) + (x.price ? ' <small>+' + (x.priceFrom ? 'from ' : '') + euro(x.price) + '</small>' : '') + '</strong><span>' + esc(x.text) + '</span></button>';
+      });
+      h += '</div><div class="vp-pk-total" hidden><span>Your package</span><strong></strong></div><a class="vp-btn vp-pk-go" href="#vp-enquire">Check availability</a>'
+        + (P.note ? '<p class="vp-build-note vp-pk-foot">' + esc(P.note) + '</p>' : '') + '</section>';
+    }
+
     // Other musicians: three who cover the most of the same events and extras
     var others = DATA.musicians.filter(function (o) { return o.live && o.url && o.slug !== m.slug && o.listed !== false; });
     function score(o) {
@@ -297,7 +335,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     function isSeen(o) { return seen.indexOf(o.slug) !== -1 ? 1 : 0; }
     others.sort(function (a, b) { return isSeen(a) - isSeen(b) || score(b) - score(a) || ((a.slug.charCodeAt(0) + seed) % 7) - ((b.slug.charCodeAt(0) + seed) % 7); });
     others = others.slice(0, 3);
-    if (others.length && !m.builder) {
+    if (others.length && !m.builder && !m.packages) {
       h += '<section><div class="vp-h2row"><h2>Other musicians</h2><a class="vp-btn vp-btn-ghost" href="/musicians">← All musicians</a></div><div class="vp-similar vp-three">';
       others.forEach(function (o) {
         var oe = ORDER.filter(function (e) { return (o.events || []).indexOf(e) !== -1; }).map(function (e) { return L[e]; });
@@ -321,16 +359,22 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     var today = new Date(); today = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
     var opt = function (list) { return '<option value="">Select an option</option>' + list.map(function (x) { return '<option value="' + esc(x) + '">' + esc(x) + '</option>'; }).join(''); };
     h += '<aside class="vp-aside"><div class="vp-sheet">'
-      + '<button type="button" class="vp-sheet-bar" aria-expanded="false" aria-controls="vp-enquire"><span>Book ' + esc(m.name) + '</span>'
+      + '<button type="button" class="vp-sheet-bar" aria-expanded="false" aria-controls="vp-enquire"><span>' + esc(m.formTitle || ('Book ' + m.name)) + '</span>'
       + '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M6 15l6-6 6 6"/></svg></button>'
       + '<form class="vp-form" id="vp-enquire" novalidate>'
-      + '<h2>Book ' + esc(m.name) + '</h2>'
+      + '<h2>' + esc(m.formTitle || ('Book ' + m.name)) + '</h2>'
       + '<div class="vp-row"><div class="vp-field"><label for="vp-fname">First name</label><input id="vp-fname" name="First name" autocomplete="given-name" required></div>'
       + '<div class="vp-field"><label for="vp-lname">Last name</label><input id="vp-lname" name="Last name" autocomplete="family-name" required></div></div>'
       + '<div class="vp-field"><label for="vp-email">Email</label><input id="vp-email" name="email" type="email" autocomplete="email" required></div>'
       + '<div class="vp-row"><div class="vp-field"><label for="vp-date">Event date</label><input id="vp-date" name="Event date" type="date" min="' + today + '" required></div>'
       + '<div class="vp-field"><label for="vp-time">Start time</label><input id="vp-time" name="Time" type="time" required></div></div>'
-      + (m.builder
+      + (m.packages
+        ? '<div class="vp-field"><label for="vp-package">Package</label><select id="vp-package" name="Package">' + opt(m.packages.list.map(function (x) { return x.title; })) + '</select></div>'
+          + '<div class="vp-field vp-pk-linefield" hidden><label for="vp-lineup">Trad line-up</label><select id="vp-lineup" name="Trad line-up">' + opt(m.packages.lineups.map(function (x) { return x.title; })) + '</select></div>'
+          + '<div class="vp-field"><label for="vp-musician">Musician(s)</label><input id="vp-musician" name="Musician" placeholder="Pick from the list, or leave blank"></div>'
+          + '<div class="vp-field"><label for="vp-addons">Extras</label><input id="vp-addons" name="Extras" placeholder="None"></div>'
+          + '<input type="hidden" id="vp-estimate" name="Estimated price"><input type="hidden" id="vp-when" name="Part of the day">'
+        : m.builder
         ? '<div class="vp-field"><label for="vp-lineup">Line-up</label><select id="vp-lineup" name="Line-up">' + opt(m.builder.lineups.map(function (x) { return x.title; })) + '</select></div>'
           + '<div class="vp-field"><label for="vp-musician">Solo performer</label><select id="vp-musician" name="Musician">' + opt(pool.map(function (o) { return o.name; }).concat(['Not sure yet'])) + '</select></div>'
         : '<div class="vp-field"><label for="vp-musician">Musician</label><input id="vp-musician" name="Musician" value="' + esc(m.name) + '"></div>')
@@ -351,6 +395,84 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       if (blk.classList && blk.classList.contains('sqs-block')) { blk.wd2Wired = true; break; }
     }
     root.innerHTML = h;
+
+    // Packages page behaviour
+    if (m.packages) (function () {
+      var P = m.packages, cur = null, picked = [], line = '', adds = [], when = '';
+      var $ = function (q) { return root.querySelector(q); }, $$ = function (q) { return Array.prototype.slice.call(root.querySelectorAll(q)); };
+      var step = function (name) { return $('.vp-pk-step[data-step="' + name + '"]'); };
+      function render() {
+        $$('.vp-pk').forEach(function (b) { b.classList.toggle('vp-picked', !!cur && b.getAttribute('data-id') === cur.id); });
+        step('trad').hidden = !(cur && cur.trad);
+        step('when').hidden = !(cur && cur.prices);
+        step('musician').hidden = !cur || cur.performers === 0;
+        step('addons').hidden = !cur;
+        var n = 1; $$('.vp-pk-step').forEach(function (sec) { if (!sec.hidden) sec.querySelector('.vp-step').textContent = 'Step ' + (n++); });
+        if (cur) {
+          var many = cur.performers === undefined ? 1 : cur.performers;
+          $('.vp-pk-mtitle').textContent = many > 1 ? 'Pick your ' + many + ' solo musicians' : 'Pick your solo musician';
+          $('.vp-pk-mnote').textContent = (many > 1 ? 'Tap ' + many + ' musicians.' : 'Tap one musician.') + (cur.trad ? ' Only musicians who play with the ' + (line || 'trad band') + ' are shown.' : cur.needs ? ' Only musicians who offer a ' + cur.title.toLowerCase() + ' are shown.' : '');
+          var need = cur.trad ? (line === 'Three-piece' ? 'tradband' : 'duo') : (cur.needs || '').toLowerCase();
+          $$('.vp-performer').forEach(function (c) {
+            var ok = !need || c.getAttribute('data-' + need) === '1' || (need === 'duo' && c.getAttribute('data-tradband') === '1');
+            c.hidden = !ok;
+            if (!ok) picked = picked.filter(function (x) { return x !== c.querySelector('.vp-pick').getAttribute('data-name'); });
+          });
+          picked = picked.slice(-many);
+          var hasDJ = !!cur.dj || adds.indexOf('DJ') !== -1;
+          P.addons.forEach(function (x) {
+            var b = root.querySelector('.vp-pk-add[data-add="' + x.title + '"]'); if (!b) return;
+            var no = (x.title === 'DJ' && cur.dj) || (x.needsDJ && !hasDJ);
+            b.hidden = no; if (no) adds = adds.filter(function (a) { return a !== x.title; });
+          });
+        }
+        $$('.vp-pk-pick').forEach(function (b) { b.classList.toggle('vp-picked', picked.indexOf(b.getAttribute('data-name')) !== -1); });
+        $$('.vp-pk-line').forEach(function (b) { b.classList.toggle('vp-picked', b.getAttribute('data-lineup') === line); });
+        $$('.vp-pk-when').forEach(function (b) { b.classList.toggle('vp-picked', b.getAttribute('data-when') === when); });
+        if ($('#vp-when')) { var wt = P.whens.filter(function (w) { return w.id === when; })[0]; $('#vp-when').value = cur && cur.prices && wt ? wt.title : ''; }
+        $$('.vp-pk-add').forEach(function (b) { b.classList.toggle('vp-picked', adds.indexOf(b.getAttribute('data-add')) !== -1); });
+        // running "from" price
+        var tot = $('.vp-pk-total');
+        if (tot) {
+          var sum = !cur ? 0 : cur.from ? cur.from : cur.prices && when ? cur.prices[when] : 0;
+          adds.forEach(function (a) { P.addons.forEach(function (x) { if (x.title === a && x.price) sum += x.price; }); });
+          tot.hidden = !sum;
+          tot.querySelector('strong').textContent = 'From ' + euro(sum);
+          if ($('#vp-estimate')) $('#vp-estimate').value = sum ? 'From ' + euro(sum) : '';
+        }
+        // fill the form
+        if ($('#vp-package')) $('#vp-package').value = cur ? cur.title : '';
+        var lf = $('.vp-pk-linefield'); if (lf) lf.hidden = !(cur && cur.trad);
+        if ($('#vp-lineup')) $('#vp-lineup').value = cur && cur.trad ? line : '';
+        if ($('#vp-musician')) $('#vp-musician').value = picked.join(', ');
+        if ($('#vp-addons')) $('#vp-addons').value = adds.join(', ');
+      }
+      $$('.vp-pk').forEach(function (b) { b.addEventListener('click', function () {
+        cur = P.list.filter(function (x) { return x.id === b.getAttribute('data-id'); })[0];
+        if (!cur.trad) line = ''; adds = []; render();
+        var nx = cur.trad ? step('trad') : cur.prices ? step('when') : cur.performers === 0 ? step('addons') : step('musician'); if (nx) nx.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }); });
+      $$('.vp-pk-line').forEach(function (b) { b.addEventListener('click', function () { line = b.getAttribute('data-lineup'); render(); }); });
+      $$('.vp-pk-when').forEach(function (b) { b.addEventListener('click', function () { when = b.getAttribute('data-when'); render(); }); });
+      $$('.vp-pk-pick').forEach(function (b) { b.addEventListener('click', function () {
+        var nm = b.getAttribute('data-name'), i = picked.indexOf(nm);
+        if (i !== -1) picked.splice(i, 1); else picked.push(nm);
+        render();
+      }); });
+      $$('.vp-pk-add').forEach(function (b) { b.addEventListener('click', function () {
+        var a = b.getAttribute('data-add'), i = adds.indexOf(a);
+        if (i !== -1) adds.splice(i, 1); else adds.push(a); render();
+      }); });
+      if ($('#vp-package')) $('#vp-package').addEventListener('change', function () {
+        var v = this.value; cur = P.list.filter(function (x) { return x.title === v; })[0] || null; render();
+      });
+      if ($('#vp-lineup')) $('#vp-lineup').addEventListener('change', function () { line = this.value; render(); });
+      var go = $('.vp-pk-go'); if (go) go.addEventListener('click', function (e) { if (mobileQ.matches) { e.preventDefault(); setSheet(true); } });
+      // ?package=<id> in the address picks that package straight away (for links from the home page)
+      var want = (location.search.match(/[?&]package=([^&]+)/) || [])[1];
+      if (want) { cur = P.list.filter(function (x) { return x.id === decodeURIComponent(want); })[0] || null; }
+      render();
+    })();
 
     // Build-your-band: picking a line-up or performer highlights it and fills in the form
     if (m.builder) {
@@ -505,7 +627,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       Array.prototype.forEach.call(form.elements, function (f) { if (f.name && f.type !== 'checkbox') payload[f.name] = f.value.trim(); });
       // Email subject reads like "Aoife Byrne - J.R. Mahon's Enquiry"; the sender shows as the person's name.
       var fullName = payload['First name'] + ' ' + payload['Last name'];
-      payload.subject = fullName + ' - ' + m.name + ' Enquiry';
+      payload.subject = fullName + ' - ' + (m.subjectName || m.name) + ' Enquiry';
       payload.from_name = fullName;
       payload.botcheck = form.querySelector('[name=botcheck]').checked;
       sendBtn.disabled = true; sendBtn.textContent = 'Sending…';

@@ -546,6 +546,194 @@
       ],
       "gallery": [],
       "aboutTitle": "About our Modern Trad Band"
+    },
+    {
+      "slug": "packages",
+      "name": "Build your package",
+      "live": true,
+      "listed": false,
+      "url": "https://weddingday2.ie/packages",
+      "eyebrow": "Packages",
+      "aboutTitle": "How it works",
+      "photo": "4607cdf0-49f9-4c37-93e1-52bb721c9d54/unsplash-image-1h-64bCdVUI.jpg",
+      "bio": [
+        "Pick one of our packages or a single act, choose the musicians you'd love to have, and add any extras. You'll see a starting price as you go, and your choices drop straight into the booking form, so all that's left is to send it and we'll come back to you with availability."
+      ],
+      "facts": [
+        {
+          "label": "Packages",
+          "value": "From €1,500"
+        },
+        {
+          "label": "Solo performers",
+          "value": "From €650"
+        }
+      ],
+      "events": [
+        "ceremony",
+        "day2",
+        "afterdinner"
+      ],
+      "tradBand": false,
+      "duo": false,
+      "packages": {
+        "groups": [
+          {
+            "id": "package",
+            "title": "Packages"
+          },
+          {
+            "id": "single",
+            "title": "Or book a single act",
+            "text": "Prices include a 2-hour performance plus professional audio and lighting.",
+            "small": true
+          }
+        ],
+        "whens": [
+          {
+            "id": "ceremony",
+            "short": "Ceremony",
+            "title": "Ceremony & reception",
+            "text": "Music for the ceremony and drinks reception."
+          },
+          {
+            "id": "evening",
+            "short": "Day 2 & evening",
+            "title": "Day 2 & evening",
+            "text": "Music for your Day 2 or the evening after dinner."
+          }
+        ],
+        "list": [
+          {
+            "id": "double-trouble",
+            "group": "package",
+            "title": "Double Trouble",
+            "hours": "4 hours of live music",
+            "text": "Two solo performers, back to back.",
+            "from": 1500,
+            "performers": 2,
+            "image": "1395aa16-009f-4ba4-8e68-8cd5112cd820/329bc0df-e30c-448a-b291-45c8c34c03a2.JPG",
+            "imagePosition": "center 25%"
+          },
+          {
+            "id": "celebration",
+            "group": "package",
+            "title": "The Celebration",
+            "hours": "4 hours of live music",
+            "text": "A solo performer plus a DJ.",
+            "from": 1650,
+            "performers": 1,
+            "dj": true,
+            "image": "1790686604144-1P7VD3AVMOQO8IB957TI/unsplash-image-ttv1pX6tk7o.jpg"
+          },
+          {
+            "id": "party",
+            "group": "package",
+            "title": "The Party",
+            "hours": "4 hours of live music",
+            "text": "A solo performer plus our modern trad band.",
+            "from": 2250,
+            "performers": 1,
+            "trad": true,
+            "image": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG"
+          },
+          {
+            "id": "full-experience",
+            "group": "package",
+            "title": "The Full Experience",
+            "hours": "6 hours of live music",
+            "text": "A solo performer, our modern trad band and a DJ.",
+            "from": 3250,
+            "performers": 1,
+            "trad": true,
+            "dj": true,
+            "image": "fafe5387-96fe-4348-b492-b14472244729/Cian+Morrin+Photo.jpeg"
+          },
+          {
+            "id": "solo",
+            "group": "single",
+            "title": "Solo performer",
+            "text": "One of our singer-guitarists.",
+            "prices": {
+              "ceremony": 650,
+              "evening": 750
+            },
+            "performers": 1
+          },
+          {
+            "id": "duo",
+            "group": "single",
+            "title": "Duo",
+            "text": "Trad, contemporary or jazz.",
+            "prices": {
+              "ceremony": 1150,
+              "evening": 1350
+            },
+            "performers": 1,
+            "needs": "duo"
+          },
+          {
+            "id": "trio",
+            "group": "single",
+            "title": "Trio",
+            "text": "Trad, contemporary or jazz.",
+            "prices": {
+              "ceremony": 1500,
+              "evening": 1750
+            },
+            "performers": 1,
+            "needs": "tradBand"
+          },
+          {
+            "id": "dj",
+            "group": "single",
+            "title": "DJ",
+            "text": "For Day 2 and evening.",
+            "performers": 0,
+            "dj": true,
+            "from": 750
+          }
+        ],
+        "lineups": [
+          {
+            "title": "Duo",
+            "needs": "duo",
+            "text": "Your solo performer plus a fiddle player."
+          },
+          {
+            "title": "Three-piece",
+            "needs": "tradBand",
+            "text": "Your solo performer plus fiddle and banjo."
+          }
+        ],
+        "addons": [
+          {
+            "title": "DJ",
+            "text": "Keep the party going after the live music.",
+            "price": 750,
+            "priceFrom": true
+          },
+          {
+            "title": "Karaoke",
+            "text": "Hand the mic to your guests. Added to a DJ.",
+            "price": 250,
+            "needsDJ": true
+          },
+          {
+            "title": "Saxophone",
+            "text": "A live sax player alongside the DJ.",
+            "price": 650,
+            "priceFrom": true,
+            "needsDJ": true
+          }
+        ],
+        "note": "Prices are a starting guide. Additional travel fees may apply based on your event location.",
+        "title": "Choose what you'd like"
+      },
+      "videos": [],
+      "gallery": [],
+      "formTitle": "Book your package",
+      "subjectName": "Package"
     }
   ],
   "djCard": {
