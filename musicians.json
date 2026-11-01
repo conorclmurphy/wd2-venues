@@ -474,6 +474,75 @@
         }
       ],
       "gallery": []
+    },
+    {
+      "slug": "trad",
+      "name": "Modern Trad Band",
+      "live": true,
+      "listed": false,
+      "url": "https://weddingday2.ie/trad",
+      "eyebrow": "Modern trad band",
+      "photo": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG",
+      "bio": [
+        "Bringing a fresh twist to traditional Irish music, our Modern Trad Band blends contemporary hits, much-loved Irish favourites and lively traditional instrumentals to create a unique sound that gets everyone involved.",
+        "Available as a dynamic duo or a lively three-piece, the band is completely customisable to suit your event. Whether you're looking for a standalone act or want to add an extra dimension to one of our solo musicians, we can create the perfect combination."
+      ],
+      "facts": [
+        {
+          "label": "Line-up",
+          "value": "Duo or three-piece"
+        },
+        {
+          "label": "Built around",
+          "value": "Any of our solo musicians"
+        }
+      ],
+      "tags": [
+        "Duo",
+        "Three-piece",
+        "Fiddle",
+        "Banjo"
+      ],
+      "events": [
+        "ceremony",
+        "day2",
+        "afterdinner"
+      ],
+      "tradBand": false,
+      "duo": false,
+      "builder": {
+        "step1": "Choose your line-up",
+        "step2": "Pick your solo performer",
+        "step2Text": "Your trad band is built around one of our solo musicians. Tap one to add them to your enquiry.",
+        "lineups": [
+          {
+            "title": "Duo",
+            "text": "Your chosen solo musician plus a fiddle player, for an authentic trad duo."
+          },
+          {
+            "title": "Three-piece",
+            "text": "Your chosen solo musician plus fiddle and banjo, for a vibrant three-piece."
+          }
+        ]
+      },
+      "videos": [
+        {
+          "id": "3162d84a-b047-404b-a97f-1a9dd6c04bc0",
+          "seconds": 41,
+          "shape": "wide"
+        },
+        {
+          "id": "89779ade-6140-426f-9f94-b3ade15c3a76",
+          "seconds": 22,
+          "shape": "tall"
+        },
+        {
+          "id": "28ec977b-4497-4907-ae72-026accbd7a9c",
+          "seconds": 38,
+          "shape": "tall"
+        }
+      ],
+      "gallery": []
     }
   ],
   "djCard": {
