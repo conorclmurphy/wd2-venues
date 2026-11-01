@@ -251,7 +251,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     // About, with the first video beside it when there is one
     var tags = '<div class="vp-tags">' + events.map(function (e) { return '<span class="vp-tag">' + esc(L[e]) + '</span>'; }).join('')
       + extras.concat(m.tags || []).map(function (x) { return '<span class="vp-tag">' + esc(x) + '</span>'; }).join('') + '</div>';
-    var aboutText = '<h2>About ' + esc(m.name) + '</h2>' + (bio.length ? bio.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') : '<p>' + esc(m.name) + ' is one of the live musicians on the Wedding Day 2 roster. Get in touch to hear more and check availability for your date.</p>') + tags;
+    var aboutText = '<h2>' + esc(m.aboutTitle || ('About ' + m.name)) + '</h2>' + (bio.length ? bio.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') : '<p>' + esc(m.name) + ' is one of the live musicians on the Wedding Day 2 roster. Get in touch to hear more and check availability for your date.</p>') + tags;
     if (vids.length) h += '<section class="vp-about vp-split' + (vids[0].shape === 'tall' ? ' vp-split-tall' : '') + '"><div>' + aboutText + '</div>' + videoTag(vids[0], m.name) + '</section>';
     else h += '<section class="vp-about">' + aboutText + '</section>';
 
@@ -268,14 +268,15 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var b = m.builder;
       h += '<section class="vp-build"><span class="vp-step">Step 1</span><h2>' + esc(b.step1 || 'Choose your line-up') + '</h2><div class="vp-lineups">';
       b.lineups.forEach(function (x) {
-        h += '<button type="button" class="vp-lineup" data-lineup="' + esc(x.title) + '"><strong>' + esc(x.title) + '</strong><span>' + esc(x.text) + '</span></button>';
+        h += '<button type="button" class="vp-lineup" data-lineup="' + esc(x.title) + '" data-needs="' + esc(x.needs || '') + '"><strong>' + esc(x.title) + '</strong><span>' + esc(x.text) + '</span></button>';
       });
       h += '</div></section>';
-      var pool = DATA.musicians.filter(function (o) { return o.live && o.url && o.listed !== false && o.slug !== m.slug; });
+      var needsAny = b.lineups.map(function (x) { return x.needs; }).filter(Boolean);
+      var pool = DATA.musicians.filter(function (o) { return o.live && o.url && o.listed !== false && o.slug !== m.slug && (!needsAny.length || needsAny.some(function (k) { return o[k]; })); });
       h += '<section class="vp-build"><span class="vp-step">Step 2</span><div class="vp-h2row"><h2>' + esc(b.step2 || 'Pick your solo performer') + '</h2></div>'
         + (b.step2Text ? '<p class="vp-build-note">' + esc(b.step2Text) + '</p>' : '') + '<div class="vp-similar vp-performers">';
       pool.forEach(function (o) {
-        h += '<div class="vp-card vp-performer"><button type="button" class="vp-pick" data-name="' + esc(o.name) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(o.photo, 500) + '" alt="' + esc(o.name) + '"' + (o.photoPosition ? ' style="object-position:' + esc(o.photoPosition) + '"' : '') + '><span class="vp-tick" aria-hidden="true">✓</span></div><h3>' + esc(o.name) + '</h3></button>'
+        h += '<div class="vp-card vp-performer" data-can="' + esc(needsAny.filter(function (k) { return o[k]; }).join(' ')) + '"><button type="button" class="vp-pick" data-name="' + esc(o.name) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(o.photo, 500) + '" alt="' + esc(o.name) + '"' + (o.photoPosition ? ' style="object-position:' + esc(o.photoPosition) + '"' : '') + '><span class="vp-tick" aria-hidden="true">✓</span></div><h3>' + esc(o.name) + '</h3></button>'
           + '<a href="' + esc(o.url) + '">View profile →</a></div>';
       });
       h += '</div></section>';
@@ -318,7 +319,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
     // Enquiry form, same questions as the home page form, with the musician filled in
     var today = new Date(); today = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
-    var opt = function (list) { return '<option value="">Select an option</option>' + list.map(function (x) { return '<option>' + esc(x) + '</option>'; }).join(''); };
+    var opt = function (list) { return '<option value="">Select an option</option>' + list.map(function (x) { return '<option value="' + esc(x) + '">' + esc(x) + '</option>'; }).join(''); };
     h += '<aside class="vp-aside"><div class="vp-sheet">'
       + '<button type="button" class="vp-sheet-bar" aria-expanded="false" aria-controls="vp-enquire"><span>Book ' + esc(m.name) + '</span>'
       + '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M6 15l6-6 6 6"/></svg></button>'
@@ -331,7 +332,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       + '<div class="vp-field"><label for="vp-time">Start time</label><input id="vp-time" name="Time" type="time" required></div></div>'
       + (m.builder
         ? '<div class="vp-field"><label for="vp-lineup">Line-up</label><select id="vp-lineup" name="Line-up">' + opt(m.builder.lineups.map(function (x) { return x.title; })) + '</select></div>'
-          + '<div class="vp-field"><label for="vp-musician">Solo performer</label><select id="vp-musician" name="Musician">' + opt(DATA.musicians.filter(function (o) { return o.live && o.listed !== false && o.slug !== m.slug; }).map(function (o) { return o.name; }).concat(['Not sure yet'])) + '</select></div>'
+          + '<div class="vp-field"><label for="vp-musician">Solo performer</label><select id="vp-musician" name="Musician">' + opt(pool.map(function (o) { return o.name; }).concat(['Not sure yet'])) + '</select></div>'
         : '<div class="vp-field"><label for="vp-musician">Musician</label><input id="vp-musician" name="Musician" value="' + esc(m.name) + '"></div>')
       + '<div class="vp-field"><label for="vp-type">Event type</label><select id="vp-type" name="Event type">' + opt(['Wedding Day 2', 'Ceremony', 'Drinks Reception', 'Wedding Day After Dinner', 'Corporate', 'Other']) + '</select></div>'
       + '<div class="vp-field"><label for="vp-venue">Venue <i>(if chosen)</i></label><input id="vp-venue" name="Venue"></div>'
@@ -363,6 +364,28 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         });
       };
       pickIn('.vp-lineup', 'data-lineup', '#vp-lineup');
+      // Only show performers who play with the chosen line-up
+      var showFor = function (need) {
+        root.querySelectorAll('.vp-performer').forEach(function (card) {
+          var ok = !need || (' ' + card.getAttribute('data-can') + ' ').indexOf(' ' + need + ' ') !== -1;
+          card.hidden = !ok;
+          var btn = card.querySelector('.vp-pick');
+          if (!ok && btn.classList.contains('vp-picked')) { btn.classList.remove('vp-picked'); var f = root.querySelector('#vp-musician'); if (f) f.value = ''; }
+          var o = root.querySelector('#vp-musician option[value="' + btn.getAttribute('data-name').replace(/"/g, '\\"') + '"]');
+          if (o) { o.hidden = !ok; o.disabled = !ok; }
+        });
+      };
+      root.querySelectorAll('.vp-lineup').forEach(function (btn) { btn.addEventListener('click', function () { showFor(btn.getAttribute('data-needs')); }); });
+      var lineSel = root.querySelector('#vp-lineup');
+      if (lineSel) lineSel.addEventListener('change', function () {
+        var hit = null;
+        root.querySelectorAll('.vp-lineup').forEach(function (x) { var on = x.getAttribute('data-lineup') === lineSel.value; x.classList.toggle('vp-picked', on); if (on) hit = x; });
+        showFor(hit ? hit.getAttribute('data-needs') : '');
+      });
+      var perfSel = root.querySelector('#vp-musician');
+      if (perfSel) perfSel.addEventListener('change', function () {
+        root.querySelectorAll('.vp-pick').forEach(function (x) { x.classList.toggle('vp-picked', x.getAttribute('data-name') === perfSel.value); });
+      });
       pickIn('.vp-pick', 'data-name', '#vp-musician');
     }
 

@@ -494,7 +494,7 @@
         },
         {
           "label": "Built around",
-          "value": "Any of our solo musicians"
+          "value": "Your choice of solo musician"
         }
       ],
       "tags": [
@@ -517,11 +517,13 @@
         "lineups": [
           {
             "title": "Duo",
-            "text": "Your chosen solo musician plus a fiddle player, for an authentic trad duo."
+            "text": "Your chosen solo musician plus a fiddle player, for an authentic trad duo.",
+            "needs": "duo"
           },
           {
             "title": "Three-piece",
-            "text": "Your chosen solo musician plus fiddle and banjo, for a vibrant three-piece."
+            "text": "Your chosen solo musician plus fiddle and banjo, for a vibrant three-piece.",
+            "needs": "tradBand"
           }
         ]
       },
@@ -542,7 +544,8 @@
           "shape": "tall"
         }
       ],
-      "gallery": []
+      "gallery": [],
+      "aboutTitle": "About our Modern Trad Band"
     }
   ],
   "djCard": {
