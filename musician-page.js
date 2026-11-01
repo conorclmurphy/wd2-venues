@@ -467,6 +467,18 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         $('#vp-addons').value = dx;
         $('#vp-estimate').value = started ? 'From ' + euro(r.price) : '';
         $('#vp-when').value = events.filter(function (e) { return when.indexOf(e) !== -1; }).map(function (e) { return L[e]; }).join(', ');
+        // Event type in the form follows the bubbles at the top
+        var et = $('#vp-type'), map = { ceremony: 'Ceremony', day2: 'Wedding Day 2', afterdinner: 'Wedding Day After Dinner' };
+        if (et) {
+          var picks = events.filter(function (e) { return when.indexOf(e) !== -1; });
+          var old = et.querySelector('option.vp-combo'); if (old) old.parentNode.removeChild(old);
+          if (picks.length === 1) et.value = map[picks[0]];
+          else if (picks.length > 1) {
+            var o = document.createElement('option'); o.className = 'vp-combo';
+            o.value = o.textContent = picks.map(function (e) { return map[e] === 'Ceremony' ? 'Ceremony & Drinks Reception' : map[e]; }).join(' + ');
+            et.appendChild(o); et.value = o.value;
+          } else et.value = '';
+        }
       }
       $$('.vp-pk-pick').forEach(function (b) { b.addEventListener('click', function () {
         var nm = b.getAttribute('data-name'), i = picked.indexOf(nm); anyPick = false; noSolo = false;
