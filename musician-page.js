@@ -476,7 +476,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         if (r.pk && r.pk.hours) items.push(r.pk.hours.charAt(0).toUpperCase() + r.pk.hours.slice(1));
         if (has('solo')) items.push((two ? 'Two solo musicians, back to back' : 'Solo musician (singer-guitarist)') + (who ? ': ' + who : ''));
         if (trad) {
-          var tl = (has('solo') ? 'Followed by a separate ' : 'Modern ') + (line === 'Three-piece' ? 'trad band three-piece (musician, fiddle and banjo)' : 'trad band duo (musician and fiddle)');
+          var tl = (has('solo') ? 'Followed by a separate ' : 'Modern ') + (line === 'Three-piece' ? 'trad band three-piece (musician, fiddle and banjo)' : 'trad band duo (musician plus fiddle or banjo)');
           if (noSolo && style) tl = (line === 'Three-piece' ? 'Trio' : 'Duo') + ', ' + style.toLowerCase() + ' style';
           items.push(line || noSolo ? tl : 'Modern trad band (choose duo or three-piece)');
         }
