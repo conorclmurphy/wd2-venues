@@ -128,7 +128,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #venue-page .vp-status.vp-err{color:#f0a48c}\
 #venue-page .vp-done{display:grid;gap:8px}\
 #venue-page .vp-done h2{color:var(--vp-brass)}\
-#venue-page .vp-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}\
+#venue-page .vp-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}#venue-page .vp-elist{border:1px dashed rgba(61,194,187,.5);background:rgba(61,194,187,.07);border-radius:14px;padding:10px 14px;margin:2px 0 6px}#venue-page .vp-elist[hidden]{display:none}#venue-page .vp-elist-t{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--vp-brass);margin-bottom:6px}#venue-page .vp-elist ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}#venue-page .vp-elist li{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;font-size:14px;color:var(--vp-on-dark);line-height:1.35}#venue-page .vp-elist li button{font:inherit;background:none;border:0;color:var(--vp-muted);cursor:pointer;padding:0 2px;font-size:13px}#venue-page .vp-add{font:inherit;cursor:pointer;width:100%;margin:0;padding:11px 18px;font-size:15px;text-align:center;background:transparent;color:var(--vp-brass);border:1.5px solid var(--vp-brass);border-radius:999px}#venue-page .vp-add-note{margin:0;font-size:13px;color:var(--vp-muted);line-height:1.45}#venue-page .vp-add-note a{color:var(--vp-brass)}#venue-page .vp-add-note[hidden]{display:none}\
 @container (max-width:640px){#venue-page .vp-space.vp-has-video,#venue-page .vp-split{grid-template-columns:1fr}}\
 #venue-page .vp-sheet-bar{display:none}\
 @media (max-width:1000px){\
@@ -270,6 +270,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       + '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M6 15l6-6 6 6"/></svg></button>'
       + '<form class="vp-form" id="vp-enquire" novalidate>'
       + '<h2>Enquire about ' + esc(v.name) + '</h2>'
+      + '<div class="vp-elist" hidden><span class="vp-elist-t">Also in your enquiry</span><ul></ul></div>'
       + '<div class="vp-row"><div class="vp-field"><label for="vp-fname">First name</label><input id="vp-fname" name="First name" autocomplete="given-name" required></div>'
       + '<div class="vp-field"><label for="vp-lname">Last name</label><input id="vp-lname" name="Last name" autocomplete="family-name" required></div></div>'
       + '<div class="vp-field"><label for="vp-email">Email</label><input id="vp-email" name="email" type="email" autocomplete="email" required></div>'
@@ -279,7 +280,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       + '<div class="vp-field"><label for="vp-heard">How did you hear about us?</label><select id="vp-heard" name="How they heard about us"><option value="">Select an option</option><option>Instagram</option><option>Google Search</option><option>Musician referral</option><option>Friends or family</option><option>Other</option></select></div>'
       + '<div class="vp-field"><label for="vp-msg">Let us know how we can help <i>(optional)</i></label><textarea id="vp-msg" name="Message" placeholder="Guest numbers, questions, anything else"></textarea></div>'
       + '<input type="checkbox" name="botcheck" class="vp-hp" tabindex="-1" autocomplete="off" aria-hidden="true">'
-      + '<button class="vp-btn" type="submit">Send enquiry</button><p class="vp-status" role="status" aria-live="polite"></p>'
+      + '<button class="vp-btn" type="submit">Send enquiry</button><button type="button" class="vp-btn vp-btn-ghost vp-add">+ Add to my enquiry and keep browsing</button><p class="vp-add-note" hidden></p><p class="vp-status" role="status" aria-live="polite"></p>'
       + '</form></div></aside>';
     h += '</div>';  // end of body
 
@@ -375,6 +376,36 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         f.addEventListener('input', keep); f.addEventListener('change', keep);
       });
     })();
+
+    // ===== Enquiry list: couples add several musicians / packages / venues and send ONE enquiry =====
+    var ELIST = 'wd2EnquiryList';
+    var getList = function () { try { return JSON.parse(localStorage.getItem(ELIST) || '[]') || []; } catch (e) { return []; } };
+    var setList = function (l) { try { localStorage.setItem(ELIST, JSON.stringify(l)); } catch (e) {} };
+    var curItem = function () { return { key: 'v:' + v.slug, label: 'Venue: ' + v.name, url: location.pathname }; };
+    var elistBox = root.querySelector('.vp-elist'), addBtn = root.querySelector('.vp-add'), addNote = root.querySelector('.vp-add-note');
+    var renderList = function () {
+      var me = curItem(), others = getList().filter(function (x) { return !me || x.key !== me.key; });
+      elistBox.hidden = !others.length;
+      elistBox.querySelector('ul').innerHTML = others.map(function (x) { return '<li><span>' + esc(x.label) + '</span><button type="button" data-key="' + esc(x.key) + '" aria-label="Remove ' + esc(x.label) + '">✕</button></li>'; }).join('');
+      Array.prototype.forEach.call(elistBox.querySelectorAll('button'), function (b) { b.addEventListener('click', function () { setList(getList().filter(function (x) { return x.key !== b.getAttribute('data-key'); })); renderList(); }); });
+      var inList = me && getList().some(function (x) { return x.key === me.key; });
+      addBtn.disabled = !me;
+      addBtn.textContent = inList ? '✓ In your enquiry. Keep browsing' : '+ Add to my enquiry and keep browsing';
+      var bar = root.querySelector('.vp-sheet-bar span');
+      if (bar && !bar.parentNode.classList.contains('vp-bar-msg')) {
+        var base = bar.getAttribute('data-base') || bar.textContent; bar.setAttribute('data-base', base);
+        bar.textContent = base + (others.length ? ' + ' + others.length + ' more' : ''); bar.setAttribute('data-label', bar.textContent);
+      }
+    };
+    addBtn.addEventListener('click', function () {
+      var me = curItem(); if (!me) return;
+      var l = getList().filter(function (x) { return x.key !== me.key; }); l.push(me); setList(l);
+      renderList();
+      addNote.hidden = false;
+      addNote.innerHTML = 'Added. Have a look at our other <a href="/musicians">musicians</a>, the <a href="/trad">trad band</a>, <a href="/packages">packages</a> or <a href="/venues">venues</a>, then send everything in one enquiry. Your details are saved.';
+    });
+    window.addEventListener('pageshow', renderList);
+    renderList();
     var form = root.querySelector('.vp-form'), status = form.querySelector('.vp-status'), sendBtn = form.querySelector('button[type=submit]');
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -393,7 +424,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       // what they asked about goes in the body instead.
       var tidy = fullName.replace(/\s+/g, ' ').trim().toLowerCase().replace(/(^|[\s'-])([a-z])/g, function (a, b, c) { return b + c.toUpperCase(); });
       payload.subject = tidy + ' - Wedding Day 2 Enquiry';
-      payload['Enquiry about'] = v.name;
+      var me = curItem(), all = getList().filter(function (x) { return x.key !== me.key; }); all.push(me);
+      payload['Enquiry about'] = all.map(function (x, i) { return (all.length > 1 ? (i + 1) + '. ' : '') + x.label; }).join('\n');
       payload.from_name = fullName;
       payload.botcheck = form.querySelector('[name=botcheck]').checked;
       sendBtn.disabled = true; sendBtn.textContent = 'Sending…';
@@ -402,7 +434,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         .then(function (res) {
           if (!res.success) throw new Error(res.message || 'failed');
           setTimeout(fitSticky, 0);
-          form.innerHTML = '<div class="vp-done"><h2>Thanks, ' + esc(payload['First name']) + '</h2><p>We have your enquiry about ' + esc(v.name) + ' and will be in touch soon by email.</p></div>';
+          setList([]);
+          form.innerHTML = '<div class="vp-done"><h2>Thanks, ' + esc(payload['First name']) + '</h2><p>We have your enquiry' + (all.length > 1 ? ' about ' + all.length + ' options' : ' about ' + esc(v.name)) + ' and will be in touch soon by email.</p></div>';
         })
         .catch(function () {
           sendBtn.disabled = false; sendBtn.textContent = 'Send enquiry';
