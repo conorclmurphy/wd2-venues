@@ -462,6 +462,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           if (!res.success) throw new Error(res.message || 'failed');
           setTimeout(fitSticky, 0);
           setList([]);
+          // tell the Meta pixel a lead came in (for Instagram/Facebook ads)
+          try { if (window.fbq) window.fbq('track', 'Lead', { content_name: v.name, content_category: 'Venue' }); } catch (x) {}
           form.innerHTML = '<div class="vp-done"><h2>Thanks, ' + esc(payload['First name']) + '</h2><p>We have your enquiry' + (all.length > 1 ? ' about ' + all.length + ' options' : ' about ' + esc(v.name)) + ' and will be in touch soon by email.</p></div>';
         })
         .catch(function () {
