@@ -732,5 +732,99 @@
     "image": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG",
     "title": "Modern trad band",
     "text": "Live trad for your wedding"
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "intro": "Everything couples usually ask us about booking live music for their Wedding Day 2, ceremony or evening. Can't find your answer? Send us a message and we'll get back to you.",
+    "groups": [
+      {
+        "title": "Why book with us",
+        "items": [
+          {
+            "q": "Why book with Wedding Day 2?",
+            "a": "Every musician on our roster is hand-picked for their live performance and experience at weddings. You deal with one team from enquiry to the last song, professional audio and lighting are included, and your day is protected by our musician replacement and deposit guarantees."
+          },
+          {
+            "q": "What happens if our musician is sick or can't make it?",
+            "a": "You're covered by our musician replacement guarantee. If your musician is ill or can't perform for any reason, we'll arrange a replacement of the same standard from our roster, so your day goes ahead with great live music."
+          },
+          {
+            "q": "Is our deposit protected?",
+            "a": "Yes. Your deposit is covered by our deposit guarantee. If we can't provide the music you've booked, you won't lose out."
+          }
+        ]
+      },
+      {
+        "title": "Booking & prices",
+        "items": [
+          {
+            "q": "How much does live music cost?",
+            "a": "Solo musicians start from €650, a duo from €1,150, a trio from €1,500 and a DJ from €750. Our packages start from €1,300. Prices vary depending on the musician you choose and include a 2-hour performance plus professional audio and lighting. You can build your own package and see an estimated price on our <a href=\"/packages\">packages page</a>."
+          },
+          {
+            "q": "How do we book?",
+            "a": "Send us an enquiry with your date and the musicians you like (or <a href=\"/packages\">build your package</a>). We'll check availability and come back to you by email. To secure your date we take a deposit, and the balance is paid on the day."
+          },
+          {
+            "q": "Can we choose a specific musician?",
+            "a": "Yes. Every musician has their own page with videos and a bio. We'd suggest picking a few favourites in case your first choice is already booked on your date, or choose \"No preference\" and we'll match you with someone great."
+          },
+          {
+            "q": "How far in advance should we book?",
+            "a": "As soon as you have your date. Weekends from May to September are our busiest and the most popular musicians get booked up early."
+          },
+          {
+            "q": "Do you charge for travel?",
+            "a": "Additional travel fees may apply depending on where your event is. We'll let you know the full price before you book."
+          },
+          {
+            "q": "Do you travel abroad?",
+            "a": "Yes. We play weddings all over Ireland and are happy to talk about destination weddings abroad. Just tell us where in your enquiry."
+          }
+        ]
+      },
+      {
+        "title": "The music",
+        "items": [
+          {
+            "q": "What kind of music do your musicians play?",
+            "a": "A mix of modern hits, classic singalongs and Irish favourites, tailored to your crowd. Whether you want a relaxed, laid-back set or the whole room up dancing, we'll match the music to the moment."
+          },
+          {
+            "q": "Can we request songs?",
+            "a": "Most of our musicians are happy to take requests. Let us know any must-play songs, or songs to avoid, when you enquire or in the lead-up to your day."
+          },
+          {
+            "q": "Do you play the ceremony and drinks reception?",
+            "a": "Yes. Many of our musicians play ceremonies and drinks receptions as well as Day 2s and after dinner. You can see what each musician plays on their profile."
+          },
+          {
+            "q": "What is the modern trad band?",
+            "a": "Our modern trad band blends contemporary hits, Irish favourites and lively trad instrumentals. Choose a duo (musician plus fiddle or banjo) or a trio (musician plus fiddle and banjo). It can be booked on its own or added after your solo musician. See the <a href=\"/trad\">trad band page</a>."
+          },
+          {
+            "q": "Can we add a DJ, karaoke or sax?",
+            "a": "Yes. A DJ starts from €750 and is a great way to keep the party going after the live music. You can add karaoke (€250) or a live saxophonist (from €650) to the DJ."
+          },
+          {
+            "q": "Can we have more than 2 hours of music?",
+            "a": "Absolutely. Our packages give you 4 or 6 hours of live music, for example two musicians back to back, or a solo musician followed by a trad band and DJ. Have a look at the <a href=\"/packages\">packages</a>."
+          }
+        ]
+      },
+      {
+        "title": "On the day",
+        "items": [
+          {
+            "q": "Do you bring your own sound and lighting?",
+            "a": "Yes. Every booking includes professional audio and lighting, so there's nothing extra for you or your venue to organise."
+          },
+          {
+            "q": "Do you work with our venue?",
+            "a": "We play venues all over Ireland. Have a look at our <a href=\"/venues\">venues</a> page for some of the places we love, and tell us your venue when you enquire."
+          }
+        ]
+      }
+    ]
   }
 }
