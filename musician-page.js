@@ -796,7 +796,11 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       Array.prototype.forEach.call(form.elements, function (f) { if (f.name && f.type !== 'checkbox') payload[f.name] = f.value.trim(); });
       // Email subject reads like "Aoife Byrne - J.R. Mahon's Enquiry"; the sender shows as the person's name.
       var fullName = payload['First name'] + ' ' + payload['Last name'];
-      payload.subject = fullName + ' - ' + (m.subjectName || m.name) + ' Enquiry';
+      // Same subject for every enquiry from the same couple, so their emails land in one thread;
+      // what they asked about goes in the body instead.
+      var tidy = fullName.replace(/\s+/g, ' ').trim().toLowerCase().replace(/(^|[\s'-])([a-z])/g, function (a, b, c) { return b + c.toUpperCase(); });
+      payload.subject = tidy + ' - Wedding Day 2 Enquiry';
+      payload['Enquiry about'] = (m.subjectName || m.name);
       payload.from_name = fullName;
       payload.botcheck = form.querySelector('[name=botcheck]').checked;
       sendBtn.disabled = true; sendBtn.textContent = 'Sending…';

@@ -285,6 +285,11 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
     h += '<div class="vp-lb" hidden><img alt=""><div class="vp-lb-bar"><button type="button" data-a="prev">Previous</button><span class="vp-count"></span><button type="button" data-a="next">Next</button><button type="button" data-a="close">Close</button></div></div>';
 
+    // The site's photo-link script turns a whole block into a link when it spots a known photo in it.
+    // Mark this block as already handled so clicks inside it work normally.
+    for (var blk = root; blk && blk !== document.body; blk = blk.parentElement) {
+      if (blk.classList && blk.classList.contains('sqs-block')) { blk.wd2Wired = true; break; }
+    }
     root.innerHTML = h;
 
     // Slide the main photo up to the very top of the page, underneath the site's see-through header.
@@ -334,7 +339,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     function setSheet(open) {
       if (open) {
         // Keep the open form below the site's logo and menu button.
-        var hd = document.querySelector('#header') || document.querySelector('header'), top = 24;
+        var hd = document.querySelector('#header') || document.querySelector('header:not(.vp-hero)'), top = 24;
         if (hd) {
           var r = hd.getBoundingClientRect();
           if (r.bottom > 0) top = Math.max(top, Math.round(r.bottom) + 8);
@@ -368,7 +373,11 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       Array.prototype.forEach.call(form.elements, function (f) { if (f.name && f.type !== 'checkbox') payload[f.name] = f.value.trim(); });
       // Email subject reads like "Aoife Byrne - J.R. Mahon's Enquiry"; the sender shows as the person's name.
       var fullName = payload['First name'] + ' ' + payload['Last name'];
-      payload.subject = fullName + ' - ' + v.name + ' Enquiry';
+      // Same subject for every enquiry from the same couple, so their emails land in one thread;
+      // what they asked about goes in the body instead.
+      var tidy = fullName.replace(/\s+/g, ' ').trim().toLowerCase().replace(/(^|[\s'-])([a-z])/g, function (a, b, c) { return b + c.toUpperCase(); });
+      payload.subject = tidy + ' - Wedding Day 2 Enquiry';
+      payload['Enquiry about'] = v.name;
       payload.from_name = fullName;
       payload.botcheck = form.querySelector('[name=botcheck]').checked;
       sendBtn.disabled = true; sendBtn.textContent = 'Sending…';
