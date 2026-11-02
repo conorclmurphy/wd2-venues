@@ -143,6 +143,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #venue-page .vp-open .vp-sheet-bar svg{transform:rotate(180deg);color:var(--vp-brass)}\
 #venue-page .vp-open .vp-sheet .vp-form{display:grid;border:0;border-radius:0;overflow-y:auto;overscroll-behavior:contain}\
 #venue-page .vp-sheet .vp-form h2{display:none}\
+#venue-page .vp-aside:not(.vp-open) .vp-sheet{max-width:300px;transition:max-width .25s}#venue-page .vp-aside:not(.vp-open) .vp-sheet-bar{padding:12px 20px;font-size:15px;justify-content:center;gap:10px}\
 }\
 #venue-page .vp-lb{position:fixed;inset:0;z-index:99999;background:rgba(39,48,48,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px}\
 #venue-page .vp-lb[hidden]{display:none}\
@@ -334,6 +335,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     var aside = root.querySelector('.vp-aside');
     var mobileQ = window.matchMedia('(max-width:1000px)');
     function fitSticky() { if (mobileQ.matches) return; var gap = 24; root.style.setProperty('--vp-sticky-top', Math.min(gap, window.innerHeight - aside.offsetHeight - gap) + 'px'); }
+    if ('ResizeObserver' in window) new ResizeObserver(function () { fitSticky(); }).observe(aside);
 
     // Phones: a bar pinned to the bottom opens and closes the form.
     var sheetBar = aside.querySelector('.vp-sheet-bar'), sheetLabel = sheetBar.querySelector('span'), openLabel = sheetLabel.textContent;
@@ -350,10 +352,28 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         root.style.setProperty('--vp-sheet-top', Math.min(top, Math.round(window.innerHeight * 0.4)) + 'px');
       }
       aside.classList.toggle('vp-open', open);
+      if (window.__vpKbFit) window.__vpKbFit();
       sheetBar.setAttribute('aria-expanded', open ? 'true' : 'false');
       sheetBar.setAttribute('aria-label', open ? 'Close the enquiry form' : openLabel);
     }
     sheetBar.addEventListener('click', function () { setSheet(!aside.classList.contains('vp-open')); });
+    // Phones: keep the open form sitting above the keyboard, and keep the box being typed in visible
+    (function () {
+      var vv = window.visualViewport;
+      var fit = function () {
+        if (!vv || !aside.classList.contains('vp-open')) { aside.style.removeProperty('bottom'); aside.style.removeProperty('top'); return; }
+        var kb = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+        aside.style.bottom = kb + 'px';
+        aside.style.top = (vv.offsetTop + (kb > 80 ? 8 : parseInt(getComputedStyle(root).getPropertyValue('--vp-sheet-top')) || 12)) + 'px';
+      };
+      if (vv) { vv.addEventListener('resize', fit); vv.addEventListener('scroll', fit); }
+      aside.addEventListener('focusin', function (e) {
+        if (!mobileQ.matches || !/INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return;
+        setTimeout(function () { fit(); try { e.target.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (x) { e.target.scrollIntoView(); } }, 320);
+      });
+      aside.addEventListener('focusout', function () { setTimeout(fit, 200); });
+      window.__vpKbFit = fit;
+    })();
     root.querySelector('.vp-facts .vp-btn').addEventListener('click', function (e) { if (mobileQ.matches) { e.preventDefault(); setSheet(true); } });
     fitSticky();
     if (!window.__vpFitBound) { window.__vpFitBound = true; window.addEventListener('resize', function () { if (window.__vpFit) window.__vpFit(); }); }
@@ -378,7 +398,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     })();
 
     // ===== Enquiry list: couples add several musicians / packages / venues and send ONE enquiry =====
-    var ELIST = 'wd2EnquiryList';
+    var ELIST = 'wd2VenueEnquiryList';  // venues have their own list, separate from musicians and packages
     var getList = function () { try { return JSON.parse(localStorage.getItem(ELIST) || '[]') || []; } catch (e) { return []; } };
     var setList = function (l) { try { localStorage.setItem(ELIST, JSON.stringify(l)); } catch (e) {} };
     var curItem = function () { return { key: 'v:' + v.slug, label: 'Venue: ' + v.name, url: location.pathname }; };
@@ -402,7 +422,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var l = getList().filter(function (x) { return x.key !== me.key; }); l.push(me); setList(l);
       renderList();
       addNote.hidden = false;
-      addNote.innerHTML = 'Added. Have a look at our other <a href="/musicians">musicians</a>, the <a href="/trad">trad band</a>, <a href="/packages">packages</a> or <a href="/venues">venues</a>, then send everything in one enquiry. Your details are saved.';
+      addNote.innerHTML = 'Added. Have a look at our other <a href="/venues">venues</a>, then send one enquiry for all of them. Your details are saved.';
     });
     window.addEventListener('pageshow', renderList);
     renderList();
