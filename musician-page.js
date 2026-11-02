@@ -126,7 +126,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #musician-page .vp-status.vp-err{color:#f0a48c}\
 #musician-page .vp-done{display:grid;gap:8px}\
 #musician-page .vp-done h2{color:var(--vp-brass)}\
-#musician-page .vp-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}\
+#musician-page .vp-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}@media (min-width:1001px){#musician-page .vp-aside .vp-form{max-height:calc(100vh - 48px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(61,194,187,.5) transparent}}@keyframes vpField{0%{box-shadow:0 0 0 0 rgba(61,194,187,0);background-color:inherit}30%{box-shadow:0 0 0 3px rgba(61,194,187,.7);background-color:rgba(61,194,187,.22)}100%{box-shadow:0 0 0 0 rgba(61,194,187,0)}}#musician-page .vp-form .vp-flashfield{animation:vpField 1.3s ease-out;border-color:var(--vp-brass)!important}\
 @container (max-width:640px){#musician-page .vp-space.vp-has-video,#musician-page .vp-split{grid-template-columns:1fr}}\
 #musician-page .vp-sheet-bar{display:none}\
 @media (max-width:1000px){\
@@ -469,7 +469,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         var ex = root.querySelector('.vp-explore'); if (ex) ex.hidden = !started;
         // the booking form only appears once they've chosen something
         var asideEl = root.querySelector('.vp-aside');
-        if (asideEl) { var off = !(started && formReady) && !window.wd2FormShown; if (asideEl.classList.contains('vp-aside-off') && !off) { asideEl.classList.add('vp-aside-in'); setTimeout(function () { asideEl.classList.remove('vp-aside-in'); }, 700); } asideEl.classList.toggle('vp-aside-off', off); }
+        if (asideEl) { var off = window.matchMedia('(max-width:1000px)').matches && !(started && formReady) && !window.wd2FormShown; /* desktop: always shown */ if (asideEl.classList.contains('vp-aside-off') && !off) { asideEl.classList.add('vp-aside-in'); setTimeout(function () { asideEl.classList.remove('vp-aside-in'); }, 700); } asideEl.classList.toggle('vp-aside-off', off); }
         $('.vp-pk-djwrap').hidden = !dj;
         $$('.vp-pk-x').forEach(function (b) { var id = b.getAttribute('data-x'); b.hidden = id === start || (id === 'second' && !has('solo')); });
         var sn = 1; $$('.vp-pk-step').forEach(function (sec) { if (sec.getAttribute('data-step') === 'result' || sec.hidden) return; sec.querySelector('.vp-step').textContent = 'Step ' + (sn++); });
@@ -519,7 +519,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         if (r.pk && r.pk.hours) items.push(r.pk.hours.charAt(0).toUpperCase() + r.pk.hours.slice(1));
         if (has('solo')) items.push((two ? 'Two solo musicians, back to back' : 'Solo musician (singer-guitarist)') + (who ? ': ' + who : ''));
         if (trad) {
-          var tl = (has('solo') ? 'Followed by a separate ' : 'Modern ') + (line === 'Trio' ? 'trad band trio (musician, fiddle and banjo)' : 'trad band duo (musician plus fiddle or banjo)');
+          var tl = (has('solo') ? 'Followed by a separate ' : 'Modern ') + (line === 'Trio' ? 'trad band trio (solo musician, fiddle and banjo)' : 'trad band duo (solo musician plus fiddle or banjo)');
           if (noSolo && style) tl = (line === 'Trio' ? 'Trio' : 'Duo') + ', ' + style.toLowerCase() + ' style';
           items.push(line || noSolo ? tl : 'Modern trad band (choose duo or trio)');
         }
@@ -557,6 +557,12 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         var snap = ['#vp-package', '#vp-lineup', '#vp-musician', '#vp-addons', '#vp-type'].map(function (q) { var f = $(q); return f ? f.value : ''; }).join('|');
         if (lastSnap !== null && snap !== lastSnap) {
           var was = lastSnap.split('|'), now = snap.split('|'), names = ['Package', 'Line-up', 'Musician', 'Extras', 'Event'], msg = '';
+          ['#vp-package', '#vp-lineup', '#vp-musician', '#vp-addons', '#vp-type'].forEach(function (q, k) {
+            var f = $(q); if (!f || now[k] === was[k]) return;
+            f.classList.remove('vp-flashfield'); void f.offsetWidth; f.classList.add('vp-flashfield');
+            // on desktop, bring the changed box into view inside the form
+            if (!window.matchMedia('(max-width:1000px)').matches) { var fm = $('.vp-form'), fr = f.getBoundingClientRect(), mr = fm.getBoundingClientRect(); if (fr.top < mr.top || fr.bottom > mr.bottom) fm.scrollTo({ top: fm.scrollTop + fr.top - mr.top - 60, behavior: 'smooth' }); }
+          });
           for (var k = now.length - 1; k >= 0; k--) if (now[k] !== was[k]) { msg = now[k] ? (k === 2 ? 'Added to your form: ' : names[k] + ': ') + now[k] : names[k] + ' removed'; break; }
           if (now[2] !== was[2] && now[2]) msg = 'Added to your form: ' + now[2];
           pulseForm(msg);
@@ -619,7 +625,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           btn.addEventListener('click', function () {
             root.querySelectorAll(sel).forEach(function (x) { x.classList.remove('vp-picked'); x.setAttribute('aria-pressed', 'false'); });
             btn.classList.add('vp-picked'); btn.setAttribute('aria-pressed', 'true');
-            var f = root.querySelector(field); if (f) { f.value = btn.getAttribute(attr); pulseForm('Added to your form: ' + btn.getAttribute(attr)); }
+            var f = root.querySelector(field); if (f) { f.value = btn.getAttribute(attr); f.classList.remove('vp-flashfield'); void f.offsetWidth; f.classList.add('vp-flashfield'); pulseForm('Added to your form: ' + btn.getAttribute(attr)); }
           });
         });
       };
@@ -728,7 +734,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     // Keep the whole form visible: if it is taller than the window, let it stick by its bottom edge.
     var aside = root.querySelector('.vp-aside');
     var mobileQ = window.matchMedia('(max-width:1000px)');
-    function fitSticky() { if (mobileQ.matches) return; var gap = 24; root.style.setProperty('--vp-sticky-top', Math.min(gap, window.innerHeight - aside.offsetHeight - gap) + 'px'); }
+    // Desktop: the form stays pinned near the top and fits the screen; if it's taller than the screen it scrolls inside itself, so nothing gets cut off
+    function fitSticky() { if (mobileQ.matches) return; root.style.setProperty('--vp-sticky-top', '24px'); }
 
     // Phones: a bar pinned to the bottom opens and closes the form.
     var sheetBar = aside.querySelector('.vp-sheet-bar'), sheetLabel = sheetBar.querySelector('span'), openLabel = sheetLabel.textContent;

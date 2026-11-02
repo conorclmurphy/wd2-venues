@@ -485,21 +485,25 @@
       "photo": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG",
       "bio": [
         "Bringing a fresh twist to traditional Irish music, our Modern Trad Band blends contemporary hits, much-loved Irish favourites and lively traditional instrumentals to create a unique sound that gets everyone involved.",
-        "Available as a dynamic duo or a lively three-piece, the band is completely customisable to suit your event. Whether you're looking for a standalone act or want to add an extra dimension to one of our solo musicians, we can create the perfect combination."
+        "Available as a dynamic duo or a lively trio, the band is completely customisable to suit your event. Whether you're looking for a standalone act or want to add an extra dimension to one of our solo musicians, we can create the perfect combination."
       ],
       "facts": [
         {
           "label": "Line-up",
-          "value": "Duo or three-piece"
+          "value": "Duo or trio"
         },
         {
-          "label": "Built around",
-          "value": "Your choice of solo musician"
+          "label": "Duo",
+          "value": "From €1,150"
+        },
+        {
+          "label": "Trio",
+          "value": "From €1,500"
         }
       ],
       "tags": [
         "Duo",
-        "Three-piece",
+        "Trio",
         "Fiddle",
         "Banjo"
       ],
@@ -512,18 +516,14 @@
       "duo": false,
       "builder": {
         "step1": "Choose your line-up",
-        "step2": "Pick your solo performer",
-        "step2Text": "Your trad band is built around one of our solo musicians. Tap one to add them to your enquiry.",
         "lineups": [
           {
             "title": "Duo",
-            "text": "Your chosen solo musician plus a fiddle player, for an authentic trad duo.",
-            "needs": "duo"
+            "text": "Solo musician plus a fiddle or banjo player. From €1,150."
           },
           {
-            "title": "Three-piece",
-            "text": "Your chosen solo musician plus fiddle and banjo, for a vibrant three-piece.",
-            "needs": "tradBand"
+            "title": "Trio",
+            "text": "Solo musician plus fiddle and banjo. From €1,500."
           }
         ]
       },
@@ -591,7 +591,7 @@
           {
             "id": "trad",
             "title": "Add a trad band",
-            "text": "Your solo musician, followed by a separate trad duo or three-piece.",
+            "text": "Your solo musician, followed by a separate trad duo or trio.",
             "image": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG"
           },
           {
@@ -604,12 +604,12 @@
         "lineups": [
           {
             "title": "Duo",
-            "text": "Musician + fiddle player.",
+            "text": "Solo musician + fiddle or banjo.",
             "price": "On its own from €1,150"
           },
           {
-            "title": "Three-piece",
-            "text": "Musician + fiddle + banjo.",
+            "title": "Trio",
+            "text": "Solo musician + fiddle + banjo.",
             "price": "On its own from €1,500"
           }
         ],
@@ -683,13 +683,13 @@
           {
             "id": "duo",
             "title": "Duo",
-            "text": "Trad, contemporary or jazz.",
+            "text": "Solo musician + fiddle or banjo. Trad, contemporary or jazz.",
             "price": "From €1,150"
           },
           {
             "id": "trio",
             "title": "Trio",
-            "text": "Trad, contemporary or jazz.",
+            "text": "Solo musician + fiddle + banjo. Trad, contemporary or jazz.",
             "price": "From €1,500"
           },
           {
@@ -702,7 +702,7 @@
         "styles": [
           {
             "title": "Trad",
-            "text": "Fiddle, banjo and Irish favourites."
+            "text": "Fiddle or banjo and Irish favourites."
           },
           {
             "title": "Contemporary",
