@@ -580,7 +580,7 @@
         "soloFrom": 650,
         "djFrom": 750,
         "soloText": "One of our singer-guitarists. Includes a 2-hour performance plus professional audio and lighting.",
-        "whenHint": "When do you need music? Tap all that apply.",
+        "whenHint": "When do you need music? Tap all that apply:",
         "extras": [
           {
             "id": "second",
