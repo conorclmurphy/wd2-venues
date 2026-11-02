@@ -143,7 +143,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #venue-page .vp-open .vp-sheet-bar svg{transform:rotate(180deg);color:var(--vp-brass)}\
 #venue-page .vp-open .vp-sheet .vp-form{display:grid;border:0;border-radius:0;overflow-y:auto;overscroll-behavior:contain}\
 #venue-page .vp-sheet .vp-form h2{display:none}\
-#venue-page .vp-aside:not(.vp-open) .vp-sheet{max-width:300px;transition:max-width .25s}#venue-page .vp-aside:not(.vp-open) .vp-sheet-bar{padding:12px 20px;font-size:15px;justify-content:center;gap:10px}\
+#venue-page .vp-aside:not(.vp-open) .vp-sheet{max-width:230px;transition:max-width .25s;overflow:visible;box-shadow:none}#venue-page .vp-aside:not(.vp-open) .vp-sheet-bar{padding:11px 18px;font-size:15px;justify-content:center;gap:8px;background:#1d2525;color:var(--vp-brass);border:1.5px solid var(--vp-brass);animation:vpTempt 2.8s ease-in-out infinite}#venue-page .vp-aside:not(.vp-open) .vp-sheet-bar svg{color:var(--vp-brass)}#venue-page .vp-aside:not(.vp-open) .vp-sheet-bar.vp-pulse{animation:vpPulse .9s ease-out 2}#venue-page .vp-aside:not(.vp-open) .vp-sheet:has(.vp-bar-msg){max-width:340px}@keyframes vpTempt{0%,100%{box-shadow:0 6px 20px rgba(0,0,0,.45),0 0 0 0 rgba(61,194,187,.45)}50%{box-shadow:0 6px 20px rgba(0,0,0,.45),0 0 0 9px rgba(61,194,187,0)}}@media (prefers-reduced-motion:reduce){#venue-page .vp-aside:not(.vp-open) .vp-sheet-bar{animation:none}}\
 }\
 #venue-page .vp-lb{position:fixed;inset:0;z-index:99999;background:rgba(39,48,48,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px}\
 #venue-page .vp-lb[hidden]{display:none}\
@@ -382,7 +382,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     // Enquiry form
     // Remember the couple's details on this device, so the form is already filled in on the next musician or venue page
     (function () {
-      var KEY = 'wd2EnquiryDetails', ids = ['vp-fname', 'vp-lname', 'vp-email', 'vp-date', 'vp-time', 'vp-heard'], saved = {};
+      var KEY = 'wd2EnquiryDetails', ids = ['vp-fname', 'vp-lname', 'vp-email', 'vp-date', 'vp-time', 'vp-heard', 'vp-msg'], saved = {};
       try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) {}
       ids.forEach(function (id) {
         var f = root.querySelector('#' + id); if (!f) return;
