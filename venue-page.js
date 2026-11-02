@@ -381,6 +381,12 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     window.__vpFit = fitSticky;
 
     // Enquiry form
+    // Visitors arriving from an Instagram link get "How did you hear about us?" filled in for them
+    (function () {
+      var src = (location.search.match(/[?&]utm_source=([^&]+)/) || [])[1] || '';
+      var heard = root.querySelector('#vp-heard');
+      if (heard && /instagram|^ig$/i.test(decodeURIComponent(src)) && !heard.value) heard.value = 'Instagram';
+    })();
     // Remember the couple's details on this device, so the form is already filled in on the next musician or venue page
     (function () {
       var KEY = 'wd2EnquiryDetails', ids = ['vp-fname', 'vp-lname', 'vp-email', 'vp-date', 'vp-time', 'vp-heard', 'vp-msg'], saved = {};
@@ -477,9 +483,15 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           el.addEventListener('play', function () { wrap.classList.add('vp-playing'); el.setAttribute('controls', ''); });
           el.addEventListener('ended', function () { wrap.classList.remove('vp-playing'); });
           if (window.Hls && window.Hls.isSupported()) {
-            var hls = new window.Hls({ autoStartLoad: false, abrEwmaDefaultEstimate: 6000000, capLevelToPlayerSize: false });  // start in good quality instead of the lowest
+            var hls = new window.Hls({ autoStartLoad: false, abrEwmaDefaultEstimate: 6000000, capLevelToPlayerSize: false, maxBufferLength: 10, startFragPrefetch: true });  // start in good quality instead of the lowest
             hls.loadSource(src); hls.attachMedia(el);
-            el.addEventListener('play', function () { hls.startLoad(); }, { once: true });
+            // Start buffering the first few seconds as the video scrolls near the screen, so it plays straight away when tapped
+            var started = false, kick = function () { if (!started) { started = true; hls.startLoad(); } };
+            el.addEventListener('play', kick, { once: true });
+            if ('IntersectionObserver' in window) {
+              var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { kick(); io.disconnect(); } }); }, { rootMargin: '300px 0px' });
+              io.observe(el);
+            }
           } else { el.src = src; }
         });
       };

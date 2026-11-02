@@ -625,7 +625,8 @@
             "price": 650,
             "priceFrom": true,
             "text": "A live sax player alongside the DJ.",
-            "image": "cca93cb1-94fe-4860-a650-152bf3cd2039/sax+dj%281%29.jpg"
+            "image": "cca93cb1-94fe-4860-a650-152bf3cd2039/sax+dj%281%29.jpg",
+            "imagePosition": "center 6%"
           }
         ],
         "list": [

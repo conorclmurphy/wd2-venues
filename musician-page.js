@@ -904,6 +904,12 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     window.__mpFit = fitSticky;
 
     // Enquiry form
+    // Visitors arriving from an Instagram link get "How did you hear about us?" filled in for them
+    (function () {
+      var src = (location.search.match(/[?&]utm_source=([^&]+)/) || [])[1] || '';
+      var heard = root.querySelector('#vp-heard');
+      if (heard && /instagram|^ig$/i.test(decodeURIComponent(src)) && !heard.value) heard.value = 'Instagram';
+    })();
     // Remember the couple's details on this device, so the form is already filled in on the next musician or venue page
     (function () {
       var KEY = 'wd2EnquiryDetails', ids = ['vp-fname', 'vp-lname', 'vp-email', 'vp-date', 'vp-time', 'vp-heard', 'vp-msg', 'vp-venue'], saved = {};
