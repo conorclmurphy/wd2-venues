@@ -359,6 +359,22 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     window.__vpFit = fitSticky;
 
     // Enquiry form
+    // Remember the couple's details on this device, so the form is already filled in on the next musician or venue page
+    (function () {
+      var KEY = 'wd2EnquiryDetails', ids = ['vp-fname', 'vp-lname', 'vp-email', 'vp-date', 'vp-time', 'vp-heard'], saved = {};
+      try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) {}
+      ids.forEach(function (id) {
+        var f = root.querySelector('#' + id); if (!f) return;
+        if (saved[id] && !f.value) {
+          if (f.tagName === 'SELECT') { if (Array.prototype.some.call(f.options, function (o) { return o.value === saved[id]; })) f.value = saved[id]; }
+          else if (!(f.type === 'date' && f.min && saved[id] < f.min)) f.value = saved[id];
+        }
+        var keep = function () {
+          try { var d = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; d[id] = f.value; localStorage.setItem(KEY, JSON.stringify(d)); } catch (e) {}
+        };
+        f.addEventListener('input', keep); f.addEventListener('change', keep);
+      });
+    })();
     var form = root.querySelector('.vp-form'), status = form.querySelector('.vp-status'), sendBtn = form.querySelector('button[type=submit]');
     form.addEventListener('submit', function (e) {
       e.preventDefault();
