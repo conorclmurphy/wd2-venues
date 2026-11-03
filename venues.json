@@ -298,13 +298,36 @@
       "county": "Dublin",
       "capacity": 300,
       "foodStyle": "both",
-      "live": false,
-      "url": "",
+      "live": true,
+      "url": "https://weddingday2.ie/oldfashionedsams",
       "cardImg": "83bd33c6-8404-4198-942a-1e1569e11cb7/sams3.jpg",
-      "intro": "",
-      "rooms": [],
+      "intro": "Old Fashioned Sam's is one of Dublin's newest and biggest night-out spots, right at the corner of Harcourt Street and Montague Street. Spread over several floors, it has a buzzing ground-floor bar, a heated courtyard with a retractable roof, a 1920s-style speakeasy in the basement and a restaurant upstairs. Each space has its own entrance, so you can take over one room for an intimate Day 2 or book more than one floor for a bigger party.",
+      "rooms": [
+        {
+          "name": "Ground Floor Bar & Courtyard",
+          "capacity": "Up to 200 guests",
+          "description": "A lively cocktail bar that opens out into one of the city centre's largest courtyards. With heaters and a fully retractable roof, it works rain or shine, and it's the natural home for a big Day 2 with live music.",
+          "gallery": []
+        },
+        {
+          "name": "Sam's Parlour",
+          "capacity": "Up to 120 guests (70 seated)",
+          "description": "Tucked away in the basement, Sam's Parlour is an intimate cocktail and whiskey bar with a 1920s speakeasy feel. Perfect for a smaller, cosier celebration with an acoustic set.",
+          "gallery": []
+        },
+        {
+          "name": "The Restaurant",
+          "capacity": "65–80 seated, plus a 25-seat terrace",
+          "description": "Upstairs, the restaurant has warm wood panelling, soft lighting and a relaxed brasserie feel, with its own terrace. Ideal for a sit-down meal before the music kicks off.",
+          "gallery": []
+        }
+      ],
       "gallery": [],
-      "videos": []
+      "videos": [],
+      "area": "Harcourt Street, Dublin 2",
+      "heroImg": "83bd33c6-8404-4198-942a-1e1569e11cb7/sams3.jpg",
+      "mapQuery": "Old Fashioned Sam's, Harcourt Street, Dublin 2",
+      "capacityNote": "Book more than one space for up to 300 guests."
     },
     {
       "slug": "fadestreetsocial",
