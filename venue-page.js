@@ -261,9 +261,12 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     }
 
     h += '<div class="vp-body vp-pad"><div class="vp-main">';
-    if (v.intro) {
-      if (vids.length) h += '<section class="vp-about vp-split"><div><h2>About the venue</h2><p>' + esc(v.intro) + '</p></div>' + videoTag(vids[0], v.name) + '</section>';
-      else h += '<section class="vp-about"><h2>About the venue</h2><p>' + esc(v.intro) + '</p></section>';
+    // The header already shows the first sentence, so "About the venue" only shows what comes after it
+    var aboutText = v.intro ? String(v.intro).slice(firstSentence(v.intro).length).trim() : '';
+    if (v.intro && (aboutText || vids.length)) {
+      var aboutP = aboutText ? '<p>' + esc(aboutText) + '</p>' : '';
+      if (vids.length) h += '<section class="vp-about vp-split"><div><h2>About the venue</h2>' + aboutP + '</div>' + videoTag(vids[0], v.name) + '</section>';
+      else h += '<section class="vp-about"><h2>About the venue</h2>' + aboutP + '</section>';
     }
 
     if (rooms.length) {
