@@ -161,6 +161,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #venue-page .vp-sl-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}\
 #venue-page .vp-sl-track::-webkit-scrollbar{display:none}\
 #venue-page .vp-sl-slide{position:relative;flex:0 0 100%;scroll-snap-align:start;aspect-ratio:16/10;padding:0;border:0;background:#171d1d;cursor:zoom-in}\
+@media (min-width:900px){#venue-page .vp-sl-track{gap:8px}#venue-page .vp-sl-slide{flex:0 0 calc((100% - 16px) / 3);aspect-ratio:4/3;border-radius:var(--vp-radius-sm,10px);overflow:hidden}#venue-page .vp-slider{background:none}}\
 #venue-page .vp-sl-slide>img:first-child{width:100%;height:100%;object-fit:cover;display:block}\
 #venue-page .vp-sl-slide .vp-wm{width:40px!important;right:12px;bottom:12px}\
 #venue-page .vp-sl-arr,#venue-page .vp-lb-arr{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:#eae6dd;background:rgba(0,0,0,.45);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(234,230,221,.35);transition:opacity .2s,background .2s}\
@@ -378,9 +379,12 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     // on-page sliders: arrows, counter
     Array.prototype.forEach.call(root.querySelectorAll('.vp-slider'), function (sl) {
       var tr = sl.querySelector('.vp-sl-track'), ct = sl.querySelector('.vp-sl-count'), n = tr.children.length;
-      var at = function () { return Math.round(tr.scrollLeft / tr.clientWidth); };
-      var go = function (d) { var i = Math.max(0, Math.min(n - 1, at() + d)); tr.scrollTo({ left: i * tr.clientWidth, behavior: 'smooth' }); };
-      var upd = function () { var i = at(); if (ct) ct.textContent = (i + 1) + ' / ' + n; var p = sl.querySelector('.vp-sl-prev'), q = sl.querySelector('.vp-sl-next'); if (p) p.disabled = i === 0; if (q) q.disabled = i >= n - 1; };
+      // one photo per step on phones, two side by side on desktop
+      var step = function () { var a = tr.children[0], b = tr.children[1]; return b ? b.offsetLeft - a.offsetLeft : tr.clientWidth; };
+      var per = function () { return Math.max(1, Math.round(tr.clientWidth / step())); };
+      var at = function () { return Math.round(tr.scrollLeft / step()); };
+      var go = function (d) { var i = Math.max(0, Math.min(n - per(), at() + d)); tr.scrollTo({ left: i * step(), behavior: 'smooth' }); };
+      var upd = function () { var i = at(), k = per(); if (ct) ct.textContent = (k > 1 ? (i + 1) + '–' + Math.min(n, i + k) : (i + 1)) + ' / ' + n; var p = sl.querySelector('.vp-sl-prev'), q = sl.querySelector('.vp-sl-next'); if (p) p.disabled = i === 0; if (q) q.disabled = i >= n - k; };
       var pv = sl.querySelector('.vp-sl-prev'), nx = sl.querySelector('.vp-sl-next');
       if (pv) pv.addEventListener('click', function () { go(-1); });
       if (nx) nx.addEventListener('click', function () { go(1); });
