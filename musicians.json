@@ -772,7 +772,8 @@
           "seconds": 89,
           "shape": "tall"
         }
-      ]
+      ],
+      "theme": "dj"
     },
     {
       "live": true,
@@ -798,7 +799,7 @@
       "photo": "1790689871080-8WIO3TGIE15KM4NU3JNM/sax+dj%281%29.jpg",
       "photoPosition": "center 6%",
       "cardPosition": "center 6%",
-      "aboutTitle": "About DJ & Sax",
+      "aboutTitle": "About our DJ & Sax option",
       "subjectName": "DJ & Sax",
       "formTitle": "Book DJ & Sax",
       "cardText": "DJ from €750 + sax from €650. A live twist on the party.",
@@ -828,7 +829,8 @@
           "seconds": 40,
           "shape": "tall"
         }
-      ]
+      ],
+      "theme": "dj"
     },
     {
       "live": true,
@@ -876,7 +878,8 @@
         "It includes fully licensed karaoke software with thousands of high-quality backing tracks across every genre, plus professional sound equipment, microphones and everything needed for a smooth, fun karaoke session.",
         "Karaoke is added to a DJ booking for €250."
       ],
-      "videos": []
+      "videos": [],
+      "theme": "dj"
     }
   ],
   "djCard": {
