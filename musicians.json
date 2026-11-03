@@ -719,6 +719,164 @@
       "gallery": [],
       "formTitle": "Book your package",
       "subjectName": "Package"
+    },
+    {
+      "live": true,
+      "listed": false,
+      "tradBand": false,
+      "duo": false,
+      "events": [
+        "day2",
+        "afterdinner"
+      ],
+      "related": [
+        "djs",
+        "saxdj",
+        "karaoke"
+      ],
+      "relatedTitle": "Our DJ options",
+      "fieldLabel": "Booking",
+      "gallery": [],
+      "slug": "djs",
+      "name": "DJ",
+      "url": "https://weddingday2.ie/djs",
+      "eyebrow": "DJ",
+      "photo": "1790686604144-1P7VD3AVMOQO8IB957TI/unsplash-image-ttv1pX6tk7o.jpg",
+      "aboutTitle": "About our DJs",
+      "subjectName": "DJ",
+      "formTitle": "Book a DJ",
+      "cardText": "From €750. Keep the dance floor full all night.",
+      "facts": [
+        {
+          "label": "DJ",
+          "value": "From €750"
+        },
+        {
+          "label": "Add-ons",
+          "value": "Karaoke · Sax"
+        }
+      ],
+      "tags": [
+        "Day 2",
+        "After dinner",
+        "Audio & lighting included"
+      ],
+      "bio": [
+        "Keep the celebrations going with a professional DJ who knows how to create an unforgettable party atmosphere.",
+        "Our experienced DJs read the room and keep the dance floor packed from the first song to the very last, picking up seamlessly where your live music leaves off. Every DJ set includes professional audio and lighting.",
+        "Want to take it further? Add a live saxophonist or karaoke to your DJ set."
+      ],
+      "videos": [
+        {
+          "id": "3719a3be-7f27-4c98-abc0-54cd6a3ad912",
+          "seconds": 89,
+          "shape": "tall"
+        }
+      ]
+    },
+    {
+      "live": true,
+      "listed": false,
+      "tradBand": false,
+      "duo": false,
+      "events": [
+        "day2",
+        "afterdinner"
+      ],
+      "related": [
+        "djs",
+        "saxdj",
+        "karaoke"
+      ],
+      "relatedTitle": "Our DJ options",
+      "fieldLabel": "Booking",
+      "gallery": [],
+      "slug": "saxdj",
+      "name": "DJ & Sax",
+      "url": "https://weddingday2.ie/saxdj",
+      "eyebrow": "DJ & Sax",
+      "photo": "1790689871080-8WIO3TGIE15KM4NU3JNM/sax+dj%281%29.jpg",
+      "photoPosition": "center 6%",
+      "cardPosition": "center 6%",
+      "aboutTitle": "About DJ & Sax",
+      "subjectName": "DJ & Sax",
+      "formTitle": "Book DJ & Sax",
+      "cardText": "DJ from €750 + sax from €650. A live twist on the party.",
+      "facts": [
+        {
+          "label": "DJ & Sax",
+          "value": "From €1,400"
+        },
+        {
+          "label": "Made up of",
+          "value": "DJ + live saxophonist"
+        }
+      ],
+      "tags": [
+        "Day 2",
+        "After dinner",
+        "Live saxophone"
+      ],
+      "bio": [
+        "Take your DJ set to the next level with one of our talented live saxophone players.",
+        "Combining the energy of a live sax performance with the seamless flow of a professional DJ set creates an unforgettable atmosphere for you and your guests. Our saxophonists blend effortlessly with the music and adapt to the mood of the evening.",
+        "It's the perfect way to add a unique, vibrant and sophisticated touch to your Day 2 or evening reception."
+      ],
+      "videos": [
+        {
+          "id": "cec12f91-062b-4faa-be14-882a92e0f88f",
+          "seconds": 40,
+          "shape": "tall"
+        }
+      ]
+    },
+    {
+      "live": true,
+      "listed": false,
+      "tradBand": false,
+      "duo": false,
+      "events": [
+        "day2",
+        "afterdinner"
+      ],
+      "related": [
+        "djs",
+        "saxdj",
+        "karaoke"
+      ],
+      "relatedTitle": "Our DJ options",
+      "fieldLabel": "Booking",
+      "gallery": [],
+      "slug": "karaoke",
+      "name": "Karaoke",
+      "url": "https://weddingday2.ie/karaoke",
+      "eyebrow": "Karaoke",
+      "photo": "1790691955224-RYJR38KHD66KUXJBYZWD/unsplash-image-6_1tYvLLZqo.jpg",
+      "aboutTitle": "About our karaoke",
+      "subjectName": "DJ & Karaoke",
+      "formTitle": "Book DJ & Karaoke",
+      "cardText": "DJ from €750 + karaoke €250. Hand the mic to your guests.",
+      "facts": [
+        {
+          "label": "DJ & Karaoke",
+          "value": "From €1,000"
+        },
+        {
+          "label": "Made up of",
+          "value": "DJ + karaoke set-up"
+        }
+      ],
+      "tags": [
+        "Day 2",
+        "After dinner",
+        "Thousands of songs"
+      ],
+      "bio": [
+        "Hand the mic to your guests with our karaoke add-on, run alongside your DJ.",
+        "It includes fully licensed karaoke software with thousands of high-quality backing tracks across every genre, plus professional sound equipment, microphones and everything needed for a smooth, fun karaoke session.",
+        "Karaoke is added to a DJ booking for €250."
+      ],
+      "videos": []
     }
   ],
   "djCard": {
