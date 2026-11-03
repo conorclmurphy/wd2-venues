@@ -290,10 +290,15 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     h += '</section>';
 
     // Similar venues: two other live venues, closest in guest numbers, same food style first.
+    // Venues this visitor has already opened go to the back of the queue
+    var seenV = [];
+    try { seenV = JSON.parse(localStorage.getItem('wd2SeenVenues') || '[]'); } catch (e) {}
+    if (seenV.indexOf(v.slug) === -1) seenV.push(v.slug);
+    try { localStorage.setItem('wd2SeenVenues', JSON.stringify(seenV)); } catch (e) {}
     var others = DATA.venues.filter(function (o) { return o.live && o.url && o.slug !== v.slug; });
     others.sort(function (a, b) {
-      var da = Math.abs(a.capacity - v.capacity) + (a.foodStyle === v.foodStyle ? 0 : 60);
-      var db = Math.abs(b.capacity - v.capacity) + (b.foodStyle === v.foodStyle ? 0 : 60);
+      var da = Math.abs(a.capacity - v.capacity) + (a.foodStyle === v.foodStyle ? 0 : 60) + (seenV.indexOf(a.slug) !== -1 ? 100000 : 0);
+      var db = Math.abs(b.capacity - v.capacity) + (b.foodStyle === v.foodStyle ? 0 : 60) + (seenV.indexOf(b.slug) !== -1 ? 100000 : 0);
       return da - db;
     });
     others = others.slice(0, 2);

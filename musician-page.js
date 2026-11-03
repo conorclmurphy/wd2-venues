@@ -815,6 +815,11 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     fetch(VENUES_URL, { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (vd) {
       var vs = (vd.venues || []).filter(function (v) { return v.live && v.url && (v.cardImg || v.heroImg); });
       if (!vs.length) return;
+      // skip venues this visitor has already looked at, unless they've seen them all
+      var seenV = [];
+      try { seenV = JSON.parse(localStorage.getItem('wd2SeenVenues') || '[]'); } catch (e) {}
+      var fresh = vs.filter(function (x) { return seenV.indexOf(x.slug) === -1; });
+      if (fresh.length) vs = fresh;
       var v = vs[Math.floor(Math.random() * vs.length)], card = root.querySelector('.vp-venue-card');
       if (!card) return;
       card.href = v.url;
