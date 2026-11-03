@@ -17,6 +17,14 @@
   var root = document.getElementById('wd2-venues-root');
   if (!root) return;
 
+  // Paint the whole page section black so the search runs right up to the top, with no patterned strip above it
+  var sec = root.closest('section');
+  if (sec) {
+    sec.style.backgroundColor = '#000';
+    var sb = sec.querySelector('.section-background');
+    if (sb) { sb.style.backgroundColor = '#000'; Array.prototype.forEach.call(sb.children, function (c) { c.style.opacity = '0'; }); }
+  }
+
   if (!document.getElementById('wdvs-search-fonts')) {
     var f = document.createElement('link');
     f.id = 'wdvs-search-fonts'; f.rel = 'stylesheet';
@@ -26,7 +34,7 @@
 
   var css = '\
 #wd2-venues-root{--ink:#f1ede2;--cream:#000000;--card:#191919;--sage:#3dc2bb;--sage-dark:#8adcd7;--brass:#ffffff;--rose:#d9a394;--line:#2e2e2e;--radius:14px;\
-font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color:var(--ink);background:var(--cream);padding:10px clamp(12px,2.5vw,32px) 56px;box-sizing:border-box;position:relative;overflow:hidden;border:1px solid var(--line);border-radius:24px}\
+font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color:var(--ink);background:var(--cream);padding:10px clamp(12px,2.5vw,32px) 56px;box-sizing:border-box;position:relative;overflow:hidden;border:0;border-radius:0}\
 #wd2-venues-root .wdvs-watermark{position:absolute;top:50%;left:50%;width:min(1100px,140vw);transform:translate(-50%,-50%);opacity:.05;filter:brightness(0) invert(1);pointer-events:none;z-index:0;user-select:none}\
 #wd2-venues-root>.wdvs-head,#wd2-venues-root>.wdvs-filters,#wd2-venues-root>.wdvs-reset,#wd2-venues-root>.wdvs-count,#wd2-venues-root>.wdvs-grid,#wd2-venues-root>.wdvs-empty{position:relative;z-index:1}\
 #wd2-venues-root *,#wd2-venues-root *::before,#wd2-venues-root *::after{box-sizing:border-box}\
