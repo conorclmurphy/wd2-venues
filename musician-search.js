@@ -81,7 +81,7 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
     });
   }
 
-  root.innerHTML = '<div class="wdms-count" style="text-align:center">Loading musicians…</div>';
+  root.innerHTML = '<style>@keyframes wd2Shim{0%{background-position:-400px 0}100%{background-position:400px 0}}.wd2-sk{background:#303b3b linear-gradient(90deg,rgba(234,230,221,0) 0,rgba(234,230,221,.07) 50%,rgba(234,230,221,0) 100%) no-repeat;background-size:400px 100%;animation:wd2Shim 1.3s ease-in-out infinite;border-radius:14px}@media (prefers-reduced-motion:reduce){.wd2-sk{animation:none}}</style><div style="display:grid;gap:12px"><div class="wd2-sk" style="height:46px;border-radius:999px"></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px"><div class="wd2-sk" style="aspect-ratio:3/4"></div><div class="wd2-sk" style="aspect-ratio:3/4"></div><div class="wd2-sk" style="aspect-ratio:3/4"></div><div class="wd2-sk" style="aspect-ratio:3/4"></div></div></div>';
 
   fetch(DATA_URL, { cache: 'no-cache' })
     .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
