@@ -62,7 +62,7 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
 #wd2-venues-root .wdvs-count{max-width:1600px;margin:0 auto 16px;font-size:13px;color:#b7b2a1}\
 #wd2-venues-root .wdvs-grid{max-width:1600px;margin:0 auto;display:grid;gap:22px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}\
 #wd2-venues-root .wdvs-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:transform .18s ease,box-shadow .18s ease;aspect-ratio:auto;max-width:none;margin:0;min-height:0;width:auto;position:relative}\
-@media (hover:hover){#wd2-venues-root .wdvs-card.wdvs-live:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(32,40,31,.12)}}\
+@media (hover:hover){#wd2-venues-root .wdvs-card.wdvs-live:hover{transform:translateY(-3px);border-color:#3dc2bb;box-shadow:0 0 0 2px #3dc2bb,0 12px 30px rgba(0,0,0,.45)}#wd2-venues-root .wdvs-card.wdvs-live:hover .wdvs-card-img{transform:scale(1.04)}}#wd2-venues-root .wdvs-card-img{transition:transform .5s}#wd2-venues-root .wdvs-card.wdvs-live:focus-visible{outline:none;box-shadow:0 0 0 3px #3dc2bb}\
 #wd2-venues-root .wdvs-card.wdvs-soon{cursor:default;opacity:.82}\
 #wd2-venues-root .wdvs-card>*{flex-shrink:0}\
 #wd2-venues-root .wdvs-card-imgwrap{position:relative;width:100%;height:0;padding-top:75%;overflow:hidden;background:linear-gradient(135deg,var(--sage) 0%,var(--sage-dark) 100%)}\
