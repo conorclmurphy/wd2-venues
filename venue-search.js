@@ -26,15 +26,15 @@
 
   var css = '\
 #wd2-venues-root{--ink:#f1ede2;--cream:#000000;--card:#191919;--sage:#3dc2bb;--sage-dark:#8adcd7;--brass:#ffffff;--rose:#d9a394;--line:#2e2e2e;--radius:14px;\
-font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color:var(--ink);background:var(--cream);padding:40px 20px 56px;box-sizing:border-box;position:relative;overflow:hidden;border:1px solid var(--line);border-radius:24px}\
+font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color:var(--ink);background:var(--cream);padding:10px clamp(12px,2.5vw,32px) 56px;box-sizing:border-box;position:relative;overflow:hidden;border:1px solid var(--line);border-radius:24px}\
 #wd2-venues-root .wdvs-watermark{position:absolute;top:50%;left:50%;width:min(1100px,140vw);transform:translate(-50%,-50%);opacity:.05;filter:brightness(0) invert(1);pointer-events:none;z-index:0;user-select:none}\
 #wd2-venues-root>.wdvs-head,#wd2-venues-root>.wdvs-filters,#wd2-venues-root>.wdvs-reset,#wd2-venues-root>.wdvs-count,#wd2-venues-root>.wdvs-grid,#wd2-venues-root>.wdvs-empty{position:relative;z-index:1}\
 #wd2-venues-root *,#wd2-venues-root *::before,#wd2-venues-root *::after{box-sizing:border-box}\
-#wd2-venues-root .wdvs-head{max-width:1040px;margin:0 auto 28px;text-align:center}\
+#wd2-venues-root .wdvs-head{max-width:1600px;margin:0 auto 18px;text-align:center}\
 #wd2-venues-root .wdvs-eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);font-weight:600;margin-bottom:8px}\
 #wd2-venues-root .wdvs-title{font-family:"Fraunces",serif;font-optical-sizing:auto;font-weight:500;font-size:clamp(28px,4vw,42px);margin:0 0 8px;color:var(--sage-dark)}\
 #wd2-venues-root .wdvs-sub{font-size:15px;color:#b7b2a1;margin:0}\
-#wd2-venues-root .wdvs-filters{max-width:1040px;margin:0 auto 30px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;display:grid;gap:16px;grid-template-columns:1.3fr 1fr 1fr}\
+#wd2-venues-root .wdvs-filters{max-width:1600px;margin:0 auto 30px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;display:grid;gap:16px;grid-template-columns:1.3fr 1fr 1fr}\
 @media (max-width:720px){#wd2-venues-root .wdvs-filters{grid-template-columns:1fr}}\
 #wd2-venues-root .wdvs-field label{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--sage-dark);margin-bottom:7px}\
 #wd2-venues-root .wdvs-field input[type="text"],#wd2-venues-root .wdvs-field select{width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:16px;background:var(--cream);color:var(--ink)}\
@@ -49,10 +49,10 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
 #wd2-venues-root .wdvs-capacity-row{display:flex;align-items:center;gap:10px}\
 #wd2-venues-root .wdvs-capacity-row input[type="range"]{flex:1;accent-color:var(--sage)}\
 #wd2-venues-root .wdvs-capacity-val{font-size:13px;font-weight:600;color:var(--sage-dark);min-width:74px;text-align:right}\
-#wd2-venues-root .wdvs-reset{max-width:1040px;margin:-14px auto 26px;text-align:right}\
+#wd2-venues-root .wdvs-reset{max-width:1600px;margin:-14px auto 26px;text-align:right}\
 #wd2-venues-root .wdvs-reset button{background:none;border:none;font-family:inherit;font-size:13px;color:var(--brass);cursor:pointer;text-decoration:underline}\
-#wd2-venues-root .wdvs-count{max-width:1040px;margin:0 auto 16px;font-size:13px;color:#b7b2a1}\
-#wd2-venues-root .wdvs-grid{max-width:1040px;margin:0 auto;display:grid;gap:22px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}\
+#wd2-venues-root .wdvs-count{max-width:1600px;margin:0 auto 16px;font-size:13px;color:#b7b2a1}\
+#wd2-venues-root .wdvs-grid{max-width:1600px;margin:0 auto;display:grid;gap:22px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}\
 #wd2-venues-root .wdvs-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:transform .18s ease,box-shadow .18s ease;aspect-ratio:auto;max-width:none;margin:0;min-height:0;width:auto;position:relative}\
 @media (hover:hover){#wd2-venues-root .wdvs-card.wdvs-live:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(32,40,31,.12)}}\
 #wd2-venues-root .wdvs-card.wdvs-soon{cursor:default;opacity:.82}\
@@ -65,14 +65,15 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
 #wd2-venues-root .wdvs-card-name{font-family:"Fraunces",serif;font-weight:500;font-size:19px;margin:0;color:var(--sage-dark)}\
 #wd2-venues-root .wdvs-card-county{font-size:12.5px;color:#9a9484;letter-spacing:.02em}\
 #wd2-venues-root .wdvs-tagrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}\
-#wd2-venues-root .wdvs-tag{font-size:11px;padding:4px 9px;border-radius:999px;font-weight:600;letter-spacing:.02em}\
-#wd2-venues-root .wdvs-tag-cap{background:#eef1e9;color:var(--sage-dark)}\
+#wd2-venues-root .wdvs-tag{font-size:11px;padding:4px 9px;border-radius:999px;font-weight:600;letter-spacing:.02em;color:#eae6dd!important;background:rgba(234,230,221,.1)!important;border:1px solid rgba(234,230,221,.3);-webkit-backdrop-filter:blur(10px) saturate(140%);backdrop-filter:blur(10px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.1);white-space:nowrap}\
+#wd2-venues-root .wdvs-tag-cap{border-color:rgba(61,194,187,.55)}\
 #wd2-venues-root .wdvs-tag-sitdown{background:#f3e6e2;color:#9a5646}\
 #wd2-venues-root .wdvs-tag-casual{background:#e9eef5;color:#3f5c80}\
 #wd2-venues-root .wdvs-tag-both{background:#f6ecd9;color:#8a6a2d}\
+@media (max-width:640px){#wd2-venues-root .wdvs-card-imgwrap{padding-top:52%}#wd2-venues-root .wdvs-card-body{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:12px;row-gap:4px;padding:12px 14px 14px}#wd2-venues-root .wdvs-card-name,#wd2-venues-root .wdvs-card-county,#wd2-venues-root .wdvs-view,#wd2-venues-root .wdvs-soon-badge{grid-column:1}#wd2-venues-root .wdvs-tagrow{grid-column:2;grid-row:1/span 3;flex-direction:column;align-items:flex-end;justify-content:center;margin:0}#wd2-venues-root .wdvs-grid{gap:14px}}\
 #wd2-venues-root .wdvs-soon-badge{margin-top:auto;font-size:12px;font-weight:600;color:var(--brass);letter-spacing:.04em;text-transform:uppercase;padding-top:6px}\
 #wd2-venues-root .wdvs-view{margin-top:auto;font-size:12.5px;font-weight:600;color:var(--sage);letter-spacing:.03em}\
-#wd2-venues-root .wdvs-empty{max-width:1040px;margin:40px auto;text-align:center;padding:40px 20px;color:#9a9484;font-size:15px}';
+#wd2-venues-root .wdvs-empty{max-width:1600px;margin:40px auto;text-align:center;padding:40px 20px;color:#9a9484;font-size:15px}';
   var st = document.createElement('style');
   st.textContent = css;
   document.head.appendChild(st);
