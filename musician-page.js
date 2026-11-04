@@ -549,7 +549,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       $$('.vp-pk-card').forEach(function (b) { b.addEventListener('click', function () {
         var id = b.getAttribute('data-o');
         if (!main) { main = id; render(); go(b.parentNode); return; }
-        if (id === main) { main = ''; adds = []; render(); return; }  // tap the main act again to deselect it
+        if (id === main) { main = adds.shift() || ''; render(); return; }  // tap the main act again to remove it; the first add-on (if any) becomes the main act
         var i = adds.indexOf(id); if (i === -1) adds.push(id); else adds.splice(i, 1);
         render();
       }); });
