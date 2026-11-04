@@ -491,14 +491,6 @@
         {
           "label": "Line-up",
           "value": "Duo or trio"
-        },
-        {
-          "label": "Duo",
-          "value": "From €1,150"
-        },
-        {
-          "label": "Trio",
-          "value": "From €1,500"
         }
       ],
       "tags": [
@@ -519,11 +511,11 @@
         "lineups": [
           {
             "title": "Duo",
-            "text": "Solo musician plus a fiddle or banjo player. From €1,150."
+            "text": "Solo musician plus a fiddle or banjo player."
           },
           {
             "title": "Trio",
-            "text": "Solo musician plus fiddle and banjo. From €1,500."
+            "text": "Solo musician plus fiddle and banjo."
           }
         ]
       },
@@ -745,12 +737,8 @@
       "aboutTitle": "About our DJs",
       "subjectName": "DJ",
       "formTitle": "Book a DJ",
-      "cardText": "From €750. Keep the dance floor full all night.",
+      "cardText": "Keep the dance floor full all night.",
       "facts": [
-        {
-          "label": "DJ",
-          "value": "From €750"
-        },
         {
           "label": "Add-ons",
           "value": "Karaoke · Sax"
@@ -802,12 +790,8 @@
       "aboutTitle": "About our DJ & Sax option",
       "subjectName": "DJ & Sax",
       "formTitle": "Book DJ & Sax",
-      "cardText": "DJ from €750 + sax from €650. A live twist on the party.",
+      "cardText": "A DJ with a live sax player. A live twist on the party.",
       "facts": [
-        {
-          "label": "DJ & Sax",
-          "value": "From €1,400"
-        },
         {
           "label": "Made up of",
           "value": "DJ + live saxophonist"
@@ -857,12 +841,8 @@
       "aboutTitle": "About our karaoke",
       "subjectName": "DJ & Karaoke",
       "formTitle": "Book DJ & Karaoke",
-      "cardText": "DJ from €750 + karaoke €250. Hand the mic to your guests.",
+      "cardText": "A DJ with karaoke. Hand the mic to your guests.",
       "facts": [
-        {
-          "label": "DJ & Karaoke",
-          "value": "From €1,000"
-        },
         {
           "label": "Made up of",
           "value": "DJ + karaoke set-up"
@@ -876,7 +856,7 @@
       "bio": [
         "Hand the mic to your guests with our karaoke add-on, run alongside your DJ.",
         "It includes fully licensed karaoke software with thousands of high-quality backing tracks across every genre, plus professional sound equipment, microphones and everything needed for a smooth, fun karaoke session.",
-        "Karaoke is added to a DJ booking for €250."
+        "Karaoke can be added to any DJ booking."
       ],
       "videos": [],
       "theme": "dj"
@@ -920,7 +900,7 @@
         "items": [
           {
             "q": "How much does live music cost?",
-            "a": "Solo musicians start from €650, a duo from €1,150, a trio from €1,500 and a DJ from €750. Our packages start from €1,300. Prices vary depending on the musician you choose and include a 2-hour performance plus professional audio and lighting. You can build your own package and see an estimated price on our <a href=\"/packages\">packages page</a>."
+            "a": "Prices depend on the musicians you choose and the extras you add. Every booking includes a 2-hour performance per act plus professional audio and lighting. You can build your own package and see an estimated price on our <a href=\"/packages\">packages page</a>, or send us your date and we'll send you a quote."
           },
           {
             "q": "How do we book?",
@@ -965,7 +945,7 @@
           },
           {
             "q": "Can we add a DJ, karaoke or sax?",
-            "a": "Yes. A DJ starts from €750 and is a great way to keep the party going after the live music. You can add karaoke (€250) or a live saxophonist (from €650) to the DJ."
+            "a": "Yes. A DJ is a great way to keep the party going after the live music, and you can add karaoke or a live saxophonist to the DJ. You can see prices on our <a href=\"/packages\">packages page</a>."
           },
           {
             "q": "Can we have more than 2 hours of music?",
