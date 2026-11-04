@@ -9,7 +9,7 @@
   var API_KEY = 'AIzaSyD_i-JeysktYe865E8WFSPkSu44CYM6tw8';  // Google API key (locked to weddingday2.ie in Google Cloud)
   var PLACE_ID = 'ChIJqQfHC0SjigYRKmnqMHmIOZQ';  // Wedding Day 2 on Google
   var MIN_STARS = 4;                              // only show reviews with at least this many stars
-  var TITLE = 'What couples say';
+  var TITLE = 'What people are saying';
   /* =================================== */
 
   function start() {
@@ -47,9 +47,9 @@
       '.grb-star svg{width:15px;height:15px;display:block;fill:rgba(234,230,221,.25)}',
       '.grb-star-on{position:absolute;inset:0 auto 0 0;overflow:hidden}',
       '.grb-star-on svg{fill:var(--grb-star)}',
-      '.grb-g{width:18px;height:18px;flex:none}',
+      '.grb-g{width:18px;height:18px;flex:none}','.grb-btn .grb-g{width:21px;height:21px}','.grb-btn .grb-star,.grb-btn .grb-star svg{width:17px;height:17px}',
       /* the bubble */
-      '.grb-btn{position:fixed;right:16px;bottom:16px;z-index:9997;display:inline-flex;align-items:center;gap:8px;padding:9px 14px 9px 11px;border-radius:999px;cursor:pointer;color:var(--grb-ink);font:600 15px "Bitter",Georgia,serif;',
+      '.grb-btn{position:fixed;right:18px;bottom:18px;z-index:9997;display:inline-flex;align-items:center;gap:9px;padding:11px 17px 11px 13px;border-radius:999px;cursor:pointer;color:var(--grb-ink);font:600 17px "Bitter",Georgia,serif;',
       'background:rgba(31,39,39,.62);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);border:1px solid rgba(234,230,221,.28);box-shadow:0 8px 24px rgba(0,0,0,.35);',
       'opacity:0;transform:translateY(12px);transition:opacity .35s,transform .35s,box-shadow .2s}',
       '.grb-btn.grb-in{opacity:1;transform:none}',
@@ -85,7 +85,7 @@
       '.grb-from{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--grb-muted)}',
       '.grb-from .grb-g{width:14px;height:14px}',
       /* phones: sit above the sticky "Check availability" bars */
-      '@media (max-width:1000px){.grb-btn{bottom:84px;right:12px;padding:8px 12px 8px 10px;font-size:14px}.grb-panel{right:12px;bottom:84px;max-height:calc(100dvh - 110px)}}',
+      '@media (max-width:1000px){.grb-btn{top:var(--grb-top,84px);bottom:auto;right:12px;padding:7px 12px 7px 10px;font-size:14px;transform:translateY(-10px);transition:opacity .35s,transform .35s,top .2s}'+'.grb-btn .grb-g{width:18px;height:18px}.grb-btn .grb-star,.grb-btn .grb-star svg{width:14px;height:14px}'+'.grb-panel{top:var(--grb-top,84px);bottom:auto;right:12px;transform-origin:top right;max-height:calc(100vh - var(--grb-top,84px) - 16px);max-height:calc(100dvh - var(--grb-top,84px) - 16px)}}',
       '@media (prefers-reduced-motion:reduce){.grb-btn,.grb-panel{transition:none}}'
     ].join('');
     document.head.appendChild(css);
@@ -140,6 +140,18 @@
       x.addEventListener('click', close);
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && wrap.classList.contains('grb-open')) close(); });
       document.addEventListener('click', function (e) { if (wrap.classList.contains('grb-open') && !wrap.contains(e.target)) close(); });
+      // Phones: sit just under the site header (menu button), and stay in the top corner as you scroll
+      var hdr = document.querySelector('#header') || document.querySelector('header'), ticking = false;
+      function place() {
+        ticking = false;
+        if (window.innerWidth > 1000) return;
+        var b = hdr ? hdr.getBoundingClientRect().bottom : 0;
+        wrap.style.setProperty('--grb-top', Math.max(12, Math.round(b + 8)) + 'px');
+      }
+      function queue() { if (!ticking) { ticking = true; requestAnimationFrame(place); } }
+      window.addEventListener('scroll', queue, { passive: true });
+      window.addEventListener('resize', queue);
+      place();
       requestAnimationFrame(function () { setTimeout(function () { btn.classList.add('grb-in'); }, 400); });
     }
 
