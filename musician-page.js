@@ -227,12 +227,12 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     var pos = m.photoPosition ? ' style="object-position:' + esc(m.photoPosition) + '"' : '';
     h += '<header class="vp-hero"><img src="' + img(m.photo, 2500) + '" alt="' + esc(m.name) + '"' + pos + '>';
     h += '<div class="vp-hero-in vp-pad"><div class="vp-eyebrow">Wedding Day 2 · ' + esc(m.eyebrow || 'Live musician') + '</div>';
-    h += '<h1>' + esc(m.heading || m.name) + '</h1>';
+    h += '<h1' + (m.heading ? ' style="font-size:clamp(34px,5vw,56px)"' : '') + '>' + esc(m.heading || m.name) + '</h1>';
 
     h += '<div class="vp-facts">';
     if (m.facts) m.facts.forEach(function (f) { h += '<div class="vp-fact"><span>' + esc(f.label) + '</span><strong>' + esc(f.value) + '</strong></div>'; });
     else {
-      h += '<div class="vp-fact"><span>Plays at</span><strong>' + esc(events.map(function (e) { return L[e]; }).join(' · ') || 'Ask us') + '</strong></div>';
+      h += '<div class="vp-fact">' + (m.hideName ? '' : '<span>Plays at</span>') + '<strong>' + esc(events.map(function (e) { return L[e]; }).join(' · ') || 'Ask us') + '</strong></div>';
       if (extras.length) h += '<div class="vp-fact"><span>Also available</span><strong>' + esc(extras.join(' · ')) + '</strong></div>';
     }
     h += '<a class="vp-btn" href="#vp-enquire">Check availability</a></div></div></header>';
