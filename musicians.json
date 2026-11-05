@@ -11,12 +11,12 @@
   "musicians": [
     {
       "slug": "lee",
-      "name": "Lee",
+      "name": "High-Energy Singer-Guitarist",
       "live": true,
-      "url": "https://weddingday2.ie/lee",
+      "url": "https://weddingday2.ie/musician-a",
       "photo": "1395aa16-009f-4ba4-8e68-8cd5112cd820/329bc0df-e30c-448a-b291-45c8c34c03a2.JPG",
       "bio": [
-        "Lee is a professional singer-guitarist specialising in weddings and private events. Blending modern hits, classic anthems and Irish favourites, he delivers high-energy, singalong sets tailored to each event.",
+        "He is a professional singer-guitarist specialising in weddings and private events. Blending modern hits, classic anthems and Irish favourites, he delivers high-energy, singalong sets tailored to each event.",
         "Known for seamless medleys and having fun with the crowd, he keeps the dance floor full from start to finish and happily takes requests."
       ],
       "events": [
@@ -34,16 +34,17 @@
         }
       ],
       "gallery": [],
-      "photoPosition": "center 10%"
+      "photoPosition": "center 10%",
+      "aboutTitle": "About this musician"
     },
     {
       "slug": "mathew",
-      "name": "Matthew",
+      "name": "Powerhouse Singer-Guitarist",
       "live": true,
-      "url": "https://weddingday2.ie/mathew",
+      "url": "https://weddingday2.ie/musician-b",
       "photo": "17755a54-0b89-43df-a009-d892e7f6c446/IMG_5769.jpeg",
       "bio": [
-        "Hailing from the West of Ireland, Matthew is a seasoned musician known for bringing energy, atmosphere, and unforgettable live performances to weddings across the country.",
+        "Hailing from the West of Ireland, he is a seasoned musician known for bringing energy, atmosphere, and unforgettable live performances to weddings across the country.",
         "With years of experience playing hundreds of weddings, appearances on national TV, and performances at major festivals, he combines powerful vocals with top-class guitar playing to keep every crowd entertained from start to finish."
       ],
       "events": [
@@ -60,17 +61,18 @@
           "shape": "tall"
         }
       ],
-      "gallery": []
+      "gallery": [],
+      "aboutTitle": "About this musician"
     },
     {
       "slug": "conorc",
-      "name": "Conor C",
+      "name": "Fully Live Solo Performer",
       "live": true,
-      "url": "https://weddingday2.ie/conorc",
+      "url": "https://weddingday2.ie/musician-c",
       "photo": "5dc0516c-4af0-4318-aa6c-ce8ad8cbf1ea/vlcsnap-2025-02-13-18h04m19s550.png",
       "bio": [
-        "With over eight years of experience and performances at more than 1000 weddings and events across Ireland, Conor has developed a versatile show that can be tailored to your specific needs.",
-        "Unlike most solo performers, Conor utilises a unique set of tools and techniques to create a fully live wedding music experience that cannot be replicated."
+        "With over eight years of experience and performances at more than 1000 weddings and events across Ireland, he has developed a versatile show that can be tailored to your specific needs.",
+        "Unlike most solo performers, he utilises a unique set of tools and techniques to create a fully live wedding music experience that cannot be replicated."
       ],
       "events": [
         "ceremony",
@@ -92,16 +94,17 @@
           "shape": "tall"
         }
       ],
-      "gallery": []
+      "gallery": [],
+      "aboutTitle": "About this musician"
     },
     {
       "slug": "conort",
-      "name": "Conor T",
+      "name": "Full-Band-Sound Solo Act",
       "live": true,
-      "url": "https://weddingday2.ie/conort",
+      "url": "https://weddingday2.ie/musician-d",
       "photo": "916c1eda-00b0-4173-ba89-bd301ba5f0cf/DSC08047.jpeg",
       "bio": [
-        "Conor has nearly a decade of experience performing at weddings and events across Ireland and internationally.",
+        "He has nearly a decade of experience performing at weddings and events across Ireland and internationally.",
         "Through this, he has built a unique and lively sound which gives the energy of a full band in a more personal setup. He also covers a wide mix of hits to keep the day flowing."
       ],
       "events": [
@@ -128,18 +131,19 @@
           "shape": "tall"
         }
       ],
-      "gallery": []
+      "gallery": [],
+      "aboutTitle": "About this musician"
     },
     {
       "slug": "cathal",
-      "name": "Cathal",
+      "name": "Laid-Back to Lively Singer-Guitarist",
       "live": true,
-      "url": "https://weddingday2.ie/cathal",
+      "url": "https://weddingday2.ie/musician-e",
       "photo": "2eb4141a-1e60-491f-bf29-3abd5879ac2c/image00001.jpg",
       "bio": [
-        "Cathal is a professional singer and guitarist with over ten years experience on some of Ireland & The UK's biggest stages.",
-        "Whether you wish to create a relaxed, mellow atmosphere during the early stage of your Day Two, or an upbeat, feel-good vibe later into the night, Cathal has the setlist for you!",
-        "Cathal is also happy to work with couples on selecting the perfect soundtrack for their day, whether it's that favourite song or just simply a preferred genre."
+        "He is a professional singer and guitarist with over ten years experience on some of Ireland & The UK's biggest stages.",
+        "Whether you wish to create a relaxed, mellow atmosphere during the early stage of your Day Two, or an upbeat, feel-good vibe later into the night, he has the setlist for you!",
+        "He is also happy to work with couples on selecting the perfect soundtrack for their day, whether it's that favourite song or just simply a preferred genre."
       ],
       "events": [
         "ceremony",
@@ -159,17 +163,18 @@
           "shape": "tall"
         }
       ],
-      "gallery": []
+      "gallery": [],
+      "aboutTitle": "About this musician"
     },
     {
       "slug": "josh",
-      "name": "Josh",
+      "name": "Irish & Dance Classics Guitarist",
       "live": true,
-      "url": "https://weddingday2.ie/josh",
+      "url": "https://weddingday2.ie/musician-f",
       "photo": "bdca61da-023e-41a9-85f2-bca8ec528a2c/A+few+from+Gorey+Market+Festival+during+summer%2C+never+got+around+to+posting+but+better+late+tha.jpg",
       "bio": [
-        "Josh is an incredibly talented musician who has performed at multiple weddings, Day 2's, and festivals all across Ireland.",
-        "Playing a mix of Irish favourites and dance classics on guitar, he creates the perfect atmosphere for any wedding day 2. With years of experience entertaining crowds, Josh brings great energy and plenty of craic to every event."
+        "He is an incredibly talented musician who has performed at multiple weddings, Day 2's, and festivals all across Ireland.",
+        "Playing a mix of Irish favourites and dance classics on guitar, he creates the perfect atmosphere for any wedding day 2. With years of experience entertaining crowds, he brings great energy and plenty of craic to every event."
       ],
       "events": [
         "ceremony",
@@ -195,16 +200,17 @@
           "shape": "tall"
         }
       ],
-      "gallery": []
+      "gallery": [],
+      "aboutTitle": "About this musician"
     },
     {
       "slug": "emmett",
-      "name": "Emmett",
+      "name": "Relaxed Acoustic Singer-Guitarist",
       "live": true,
-      "url": "https://weddingday2.ie/emmett",
+      "url": "https://weddingday2.ie/musician-g",
       "photo": "1be21321-ae4d-4d04-8c02-a572843bc5a9/d9c84d1d-3f06-480d-8693-3057fac66db4.jpg",
       "bio": [
-        "Emmett is a professional singer-guitarist specialising in weddings and private events across Ireland.",
+        "He is a professional singer-guitarist specialising in weddings and private events across Ireland.",
         "With a relaxed acoustic style and a repertoire spanning modern chart hits, timeless classics and Irish favourites he creates the perfect atmosphere for every event. Every performance is tailored to suit the guests, ensuring the music feels personal and memorable."
       ],
       "events": [
@@ -220,17 +226,18 @@
           "shape": "tall"
         }
       ],
-      "gallery": []
+      "gallery": [],
+      "aboutTitle": "About this musician"
     },
     {
       "slug": "alan",
-      "name": "Alan",
+      "name": "Singer-Songwriter & Multi-Instrumentalist",
       "live": true,
-      "url": "https://weddingday2.ie/alan",
+      "url": "https://weddingday2.ie/musician-h",
       "photo": "e9c88448-3601-4f1d-a4ed-97fac294db67/DSC00499_Original.jpg",
       "bio": [
-        "Alan is a singer-songwriter and multi-instrumentalist who has won two National Song Contests as well as an IMRO award.",
-        "Alan has played with some of the biggest acts in Ireland and the UK including The Coronas, Mundy, 5ive and Aslan and has been playing music all over the world for the past 15 years.",
+        "He is a singer-songwriter and multi-instrumentalist who has won two National Song Contests as well as an IMRO award.",
+        "He has played with some of the biggest acts in Ireland and the UK including The Coronas, Mundy, 5ive and Aslan and has been playing music all over the world for the past 15 years.",
         "He plays a wide range of music from the 60s up to the hits of today as well as some traditional music to make the perfect soundtrack to your day two."
       ],
       "events": [
@@ -247,16 +254,17 @@
           "shape": "tall"
         }
       ],
-      "gallery": []
+      "gallery": [],
+      "aboutTitle": "About this musician"
     },
     {
       "slug": "paddy",
-      "name": "Paddy",
+      "name": "Singer-Guitarist & Harmonica",
       "live": true,
-      "url": "https://weddingday2.ie/paddy",
+      "url": "https://weddingday2.ie/musician-i",
       "photo": "61177bb8-b576-471c-98e0-d7ecc9b1670c/643013585_17903142396223292_1135127215236511091_n.jpeg",
       "bio": [
-        "Paddy is a Galway-based musician with over 10 years of experience playing at weddings and events.",
+        "He is a Galway-based musician with over 10 years of experience playing at weddings and events.",
         "He's known for keeping things relaxed while still getting people on the dance floor, mixing crowd favourites with a few personal touches, and the occasional harmonica thrown in."
       ],
       "events": [
@@ -272,17 +280,18 @@
           "shape": "tall"
         }
       ],
-      "gallery": []
+      "gallery": [],
+      "aboutTitle": "About this musician"
     },
     {
       "slug": "phil",
-      "name": "Phil",
+      "name": "Acoustic & Party Singer-Guitarist",
       "live": true,
-      "url": "https://weddingday2.ie/phil",
+      "url": "https://weddingday2.ie/musician-j",
       "photo": "a7edfef4-34c5-4f69-b7f9-fd1a3cef8aa9/AD7A9901-CB68-4B3F-81D4-496871F67D67.png",
       "bio": [
-        "Whether it's upbeat party music or laid-back acoustic vibes, Phil has all the bases covered. With a huge repertoire of over 700 songs, Phil is more than happy to take requests and be your very own human jukebox.",
-        "Phil has toured and performed across the UK, Ireland, Europe and America as a guitarist and vocalist with the legendary Sinéad O'Connor, making him incredibly experienced and ideal for any occasion."
+        "Whether it's upbeat party music or laid-back acoustic vibes, he has all the bases covered. With a huge repertoire of over 700 songs, he is more than happy to take requests and be your very own human jukebox.",
+        "He has toured and performed across the UK, Ireland, Europe and America as a guitarist and vocalist with the legendary Sinéad O'Connor, making him incredibly experienced and ideal for any occasion."
       ],
       "events": [
         "ceremony",
@@ -307,16 +316,17 @@
           "shape": "tall"
         }
       ],
-      "gallery": []
+      "gallery": [],
+      "aboutTitle": "About this musician"
     },
     {
       "slug": "craig",
-      "name": "Craig",
+      "name": "Mashup Singer-Guitarist",
       "live": true,
-      "url": "https://weddingday2.ie/craig",
+      "url": "https://weddingday2.ie/musician-k",
       "photo": "c1fa1f0d-38e1-4c50-b375-b9f368c1094b/craig-photo-no-sign2.jpg",
       "bio": [
-        "Craig is a live musician known for his strong vocal ability and high-energy performances.",
+        "He is a live musician known for his strong vocal ability and high-energy performances.",
         "With a natural talent to read the crowd, he keeps the vibe upbeat and engaging from start to finish.",
         "With years of experience entertaining crowds across Ireland, he has built a setlist featuring modern hits, creative mashups, and classic sing-along favourites."
       ],
@@ -334,18 +344,19 @@
         }
       ],
       "gallery": [],
-      "photoPosition": "center 34%"
+      "photoPosition": "center 34%",
+      "aboutTitle": "About this musician"
     },
     {
       "slug": "pauric",
-      "name": "Pauric",
+      "name": "Trad-Inspired Singer-Guitarist",
       "live": true,
-      "url": "https://weddingday2.ie/pauric",
+      "url": "https://weddingday2.ie/musician-l",
       "photo": "6f7123ef-c113-43fc-acce-818c1121f490/Getting+my+facial+expressions+ready+for+2024%2C+oooft%2C+big+one%F0%9F%93%B7+%40luke_b__photo+%281%29.jpg",
       "bio": [
-        "Pauric is an incredibly gifted guitarist and outstanding singer who brings the perfect atmosphere to any wedding day 2 celebration.",
+        "He is an incredibly gifted guitarist and outstanding singer who brings the perfect atmosphere to any wedding day 2 celebration.",
         "His style blends popular contemporary songs with touches of traditional Irish music, creating a warm, lively, and memorable experience for guests of all ages.",
-        "Whether performing laid-back acoustic favourites or getting everyone up dancing and singing along, Pauric's talent, charm, and love of music make him a highlight of any wedding celebration."
+        "Whether performing laid-back acoustic favourites or getting everyone up dancing and singing along, his talent, charm, and love of music make him a highlight of any wedding celebration."
       ],
       "events": [
         "ceremony",
@@ -360,18 +371,19 @@
           "shape": "tall"
         }
       ],
-      "gallery": []
+      "gallery": [],
+      "aboutTitle": "About this musician"
     },
     {
       "slug": "karl",
-      "name": "Karl",
+      "name": "Seasoned Singer-Guitarist",
       "live": true,
-      "url": "https://weddingday2.ie/karl",
+      "url": "https://weddingday2.ie/musician-m",
       "photo": "69044396-2c04-4b67-acca-690d6e15f36d/copy_E566B8C9-484D-45D3-BE09-3864F0978D28.JPEG",
       "bio": [
-        "Karl is a Dublin-based singer, guitarist and multi-instrumentalist with over 18 years of professional performing experience.",
-        "Since beginning his career on the Irish pub circuit in 2008, Karl has gone on to perform at more than 1,000 weddings, drinks receptions, ceremonies, day-two celebrations, private events and corporate functions across Ireland, Europe and South America.",
-        "Whether it's creating the perfect atmosphere for a wedding ceremony, providing easy-listening music for a drinks reception, or getting a crowd singing along late into the evening, Karl tailors every performance to suit the occasion."
+        "He is a Dublin-based singer, guitarist and multi-instrumentalist with over 18 years of professional performing experience.",
+        "Since beginning his career on the Irish pub circuit in 2008, he has gone on to perform at more than 1,000 weddings, drinks receptions, ceremonies, day-two celebrations, private events and corporate functions across Ireland, Europe and South America.",
+        "Whether it's creating the perfect atmosphere for a wedding ceremony, providing easy-listening music for a drinks reception, or getting a crowd singing along late into the evening, he tailors every performance to suit the occasion."
       ],
       "events": [
         "ceremony",
@@ -391,18 +403,19 @@
           "shape": "tall"
         }
       ],
-      "gallery": []
+      "gallery": [],
+      "aboutTitle": "About this musician"
     },
     {
       "slug": "andrew",
-      "name": "Andrew",
+      "name": "Smooth-Voiced Singer-Guitarist",
       "live": true,
-      "url": "https://weddingday2.ie/andrew",
+      "url": "https://weddingday2.ie/musician-n",
       "photo": "4b2e06cc-842b-4683-8bba-0a63a7883d11/The+INEC%2C+Killarney.It+was+an+honour+to+perform+this+weekend+on+the+same+stage+as+so+many+of+Ire.jpg",
       "bio": [
-        "Andrew is an experienced Irish musician who has performed at weddings and events across Ireland and the U.S.",
+        "He is an experienced Irish musician who has performed at weddings and events across Ireland and the U.S.",
         "Known for his relaxed style and wide-ranging setlist, he adapts to every crowd, whether it's providing the perfect soundtrack for a drinks reception or wedding day 2, getting guests singing along later in the day.",
-        "He has an incredible voice and is passionate about live music, Andrew brings great energy to every event."
+        "He has an incredible voice, is passionate about live music and brings great energy to every event."
       ],
       "events": [
         "ceremony",
@@ -423,17 +436,18 @@
           "shape": "tall"
         }
       ],
-      "gallery": []
+      "gallery": [],
+      "aboutTitle": "About this musician"
     },
     {
       "slug": "james",
-      "name": "James",
+      "name": "Upbeat Singer-Guitarist",
       "live": true,
-      "url": "https://weddingday2.ie/james",
+      "url": "https://weddingday2.ie/musician-o",
       "photo": "59104ed9-097f-414b-b869-730f1da10d70/IMG_6211.JPG",
       "bio": [
-        "James is a Cork-based singer and guitarist who brings great energy and plenty of personality to weddings and events across Ireland.",
-        "Whether you want a relaxed, laid-back soundtrack for your drinks reception or someone to get the whole crowd up singing and dancing later in the day, James reads the room and keeps the atmosphere just right from start to finish."
+        "He is a Cork-based singer and guitarist who brings great energy and plenty of personality to weddings and events across Ireland.",
+        "Whether you want a relaxed, laid-back soundtrack for your drinks reception or someone to get the whole crowd up singing and dancing later in the day, he reads the room and keeps the atmosphere just right from start to finish."
       ],
       "events": [
         "ceremony",
@@ -448,17 +462,18 @@
           "shape": "tall"
         }
       ],
-      "gallery": []
+      "gallery": [],
+      "aboutTitle": "About this musician"
     },
     {
       "slug": "cian",
-      "name": "Cian",
+      "name": "Rock & Folk Singer-Guitarist",
       "live": true,
-      "url": "https://weddingday2.ie/cian",
+      "url": "https://weddingday2.ie/musician-p",
       "photo": "fafe5387-96fe-4348-b492-b14472244729/Cian+Morrin+Photo.jpeg",
       "bio": [
-        "Cian, a Mayo born musician, has been singing and playing the guitar for two decades and is a familiar face in the lively Temple Bar area.",
-        "He enjoys playing a mix of modern and classic songs in rock, pop, and folk styles. With dynamic and engaging performances, Cian has captivated music enthusiasts throughout Ireland and abroad."
+        "Born in Mayo, he has been singing and playing the guitar for two decades and is a familiar face in the lively Temple Bar area.",
+        "He enjoys playing a mix of modern and classic songs in rock, pop, and folk styles. With dynamic and engaging performances, he has captivated music enthusiasts throughout Ireland and abroad."
       ],
       "events": [
         "ceremony",
@@ -473,17 +488,18 @@
           "shape": "wide"
         }
       ],
-      "gallery": []
+      "gallery": [],
+      "aboutTitle": "About this musician"
     },
     {
       "slug": "aaron",
-      "name": "Aaron",
+      "name": "Dance-Floor Singer-Guitarist",
       "live": true,
-      "url": "https://weddingday2.ie/aaron",
+      "url": "https://weddingday2.ie/musician-q",
       "photo": "a4d9a902-ef30-4591-900d-1339528fdfcb/IMG_5040.jpeg",
       "photoPosition": "center 36%",
       "bio": [
-        "Aaron is a solo singer-guitarist who plays weddings and private events all over Ireland. His sets are made for the dance floor: upbeat and feel good, moving from current chart hits to party anthems and much loved classics without a break in the energy.",
+        "He is a solo singer-guitarist who plays weddings and private events all over Ireland. His sets are made for the dance floor: upbeat and feel good, moving from current chart hits to party anthems and much loved classics without a break in the energy.",
         "He reads a room well and adjusts the set to suit it, so guests are singing along from the first song to the last. Requests are always welcome, which helps every celebration feel like it was put together just for you."
       ],
       "events": [
@@ -498,7 +514,8 @@
           "shape": "wide"
         }
       ],
-      "gallery": []
+      "gallery": [],
+      "aboutTitle": "About this musician"
     },
     {
       "slug": "trad",
