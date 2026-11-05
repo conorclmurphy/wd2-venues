@@ -1,5 +1,5 @@
 {
-  "_notes": "Musician data for weddingday2.ie. 'events' uses: ceremony (ceremony & drinks reception), day2, afterdinner. 'tradBand' and 'duo' are true/false. Add a musician's videos as {id, seconds} using the Squarespace video ID. Photos are Squarespace image paths after imageBase. Do not add prices here: this file is public. Optional 'photoPosition' (e.g. 'center 4%') moves the crop of a tall photo so the face stays in the wide banner. Each video has 'shape': 'tall' (filmed upright) or 'wide'. A video can have an optional 'poster' (a Squarespace image path) to replace its automatic thumbnail. Optional 'hideName': true hides the musician's name on cards and their profile (the name is still used in the enquiry form); 'heading' replaces the big heading on their profile.",
+  "_notes": "Musician data for weddingday2.ie. 'events' uses: ceremony (ceremony & drinks reception), day2, afterdinner. 'tradBand' and 'duo' are true/false. Add a musician's videos as {id, seconds} using the Squarespace video ID. Photos are Squarespace image paths after imageBase. Do not add prices here: this file is public. Optional 'photoPosition' (e.g. 'center 4%') moves the crop of a tall photo so the face stays in the wide banner. Each video has 'shape': 'tall' (filmed upright) or 'wide'. A video can have an optional 'poster' (a Squarespace image path) to replace its automatic thumbnail. Optional 'hideName': true hides the musician's name on cards and their profile (the name is still used in the enquiry form);",
   "imageBase": "https://images.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "videoBase": "https://video.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "formAccessKey": "e22edaa4-9aee-4226-a8fc-120ab344273d",
@@ -36,8 +36,7 @@
       "gallery": [],
       "photoPosition": "center 10%",
       "aboutTitle": "Bio",
-      "hideName": true,
-      "heading": "Available"
+      "hideName": true
     },
     {
       "slug": "mathew",
@@ -65,8 +64,7 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true,
-      "heading": "Available"
+      "hideName": true
     },
     {
       "slug": "conorc",
@@ -100,8 +98,7 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true,
-      "heading": "Available"
+      "hideName": true
     },
     {
       "slug": "conort",
@@ -139,8 +136,7 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true,
-      "heading": "Available"
+      "hideName": true
     },
     {
       "slug": "cathal",
@@ -173,8 +169,7 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true,
-      "heading": "Available"
+      "hideName": true
     },
     {
       "slug": "josh",
@@ -212,8 +207,7 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true,
-      "heading": "Available"
+      "hideName": true
     },
     {
       "slug": "emmett",
@@ -240,8 +234,7 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true,
-      "heading": "Available"
+      "hideName": true
     },
     {
       "slug": "alan",
@@ -270,8 +263,7 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true,
-      "heading": "Available"
+      "hideName": true
     },
     {
       "slug": "paddy",
@@ -298,8 +290,7 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true,
-      "heading": "Available"
+      "hideName": true
     },
     {
       "slug": "phil",
@@ -336,8 +327,7 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true,
-      "heading": "Available"
+      "hideName": true
     },
     {
       "slug": "craig",
@@ -366,8 +356,7 @@
       "gallery": [],
       "photoPosition": "center 34%",
       "aboutTitle": "Bio",
-      "hideName": true,
-      "heading": "Available"
+      "hideName": true
     },
     {
       "slug": "pauric",
@@ -395,8 +384,7 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true,
-      "heading": "Available"
+      "hideName": true
     },
     {
       "slug": "karl",
@@ -429,8 +417,7 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true,
-      "heading": "Available"
+      "hideName": true
     },
     {
       "slug": "andrew",
@@ -464,8 +451,7 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true,
-      "heading": "Available"
+      "hideName": true
     },
     {
       "slug": "james",
@@ -492,8 +478,7 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true,
-      "heading": "Available"
+      "hideName": true
     },
     {
       "slug": "cian",
@@ -520,8 +505,7 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true,
-      "heading": "Available"
+      "hideName": true
     },
     {
       "slug": "aaron",
@@ -548,8 +532,7 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true,
-      "heading": "Available"
+      "hideName": true
     },
     {
       "slug": "trad",
