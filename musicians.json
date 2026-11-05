@@ -1,5 +1,5 @@
 {
-  "_notes": "Musician data for weddingday2.ie. 'events' uses: ceremony (ceremony & drinks reception), day2, afterdinner. 'tradBand' and 'duo' are true/false. Add a musician's videos as {id, seconds} using the Squarespace video ID. Photos are Squarespace image paths after imageBase. Do not add prices here: this file is public. Optional 'photoPosition' (e.g. 'center 4%') moves the crop of a tall photo so the face stays in the wide banner. Each video has 'shape': 'tall' (filmed upright) or 'wide'. A video can have an optional 'poster' (a Squarespace image path) to replace its automatic thumbnail.",
+  "_notes": "Musician data for weddingday2.ie. 'events' uses: ceremony (ceremony & drinks reception), day2, afterdinner. 'tradBand' and 'duo' are true/false. Add a musician's videos as {id, seconds} using the Squarespace video ID. Photos are Squarespace image paths after imageBase. Do not add prices here: this file is public. Optional 'photoPosition' (e.g. 'center 4%') moves the crop of a tall photo so the face stays in the wide banner. Each video has 'shape': 'tall' (filmed upright) or 'wide'. A video can have an optional 'poster' (a Squarespace image path) to replace its automatic thumbnail. Optional 'hideName': true hides the musician's name on cards and their profile (the name is still used in the enquiry form); 'heading' replaces the big heading on their profile.",
   "imageBase": "https://images.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "videoBase": "https://video.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "formAccessKey": "e22edaa4-9aee-4226-a8fc-120ab344273d",
@@ -11,7 +11,7 @@
   "musicians": [
     {
       "slug": "lee",
-      "name": "High-Energy Singer-Guitarist",
+      "name": "Musician A",
       "live": true,
       "url": "https://weddingday2.ie/musician-a",
       "photo": "1395aa16-009f-4ba4-8e68-8cd5112cd820/329bc0df-e30c-448a-b291-45c8c34c03a2.JPG",
@@ -35,11 +35,13 @@
       ],
       "gallery": [],
       "photoPosition": "center 10%",
-      "aboutTitle": "About this musician"
+      "aboutTitle": "About this musician",
+      "hideName": true,
+      "heading": "Choose this musician?"
     },
     {
       "slug": "mathew",
-      "name": "Powerhouse Singer-Guitarist",
+      "name": "Musician B",
       "live": true,
       "url": "https://weddingday2.ie/musician-b",
       "photo": "17755a54-0b89-43df-a009-d892e7f6c446/IMG_5769.jpeg",
@@ -62,11 +64,13 @@
         }
       ],
       "gallery": [],
-      "aboutTitle": "About this musician"
+      "aboutTitle": "About this musician",
+      "hideName": true,
+      "heading": "Choose this musician?"
     },
     {
       "slug": "conorc",
-      "name": "Fully Live Solo Performer",
+      "name": "Musician C",
       "live": true,
       "url": "https://weddingday2.ie/musician-c",
       "photo": "5dc0516c-4af0-4318-aa6c-ce8ad8cbf1ea/vlcsnap-2025-02-13-18h04m19s550.png",
@@ -95,11 +99,13 @@
         }
       ],
       "gallery": [],
-      "aboutTitle": "About this musician"
+      "aboutTitle": "About this musician",
+      "hideName": true,
+      "heading": "Choose this musician?"
     },
     {
       "slug": "conort",
-      "name": "Full-Band-Sound Solo Act",
+      "name": "Musician D",
       "live": true,
       "url": "https://weddingday2.ie/musician-d",
       "photo": "916c1eda-00b0-4173-ba89-bd301ba5f0cf/DSC08047.jpeg",
@@ -132,11 +138,13 @@
         }
       ],
       "gallery": [],
-      "aboutTitle": "About this musician"
+      "aboutTitle": "About this musician",
+      "hideName": true,
+      "heading": "Choose this musician?"
     },
     {
       "slug": "cathal",
-      "name": "Laid-Back to Lively Singer-Guitarist",
+      "name": "Musician E",
       "live": true,
       "url": "https://weddingday2.ie/musician-e",
       "photo": "2eb4141a-1e60-491f-bf29-3abd5879ac2c/image00001.jpg",
@@ -164,11 +172,13 @@
         }
       ],
       "gallery": [],
-      "aboutTitle": "About this musician"
+      "aboutTitle": "About this musician",
+      "hideName": true,
+      "heading": "Choose this musician?"
     },
     {
       "slug": "josh",
-      "name": "Irish & Dance Classics Guitarist",
+      "name": "Musician F",
       "live": true,
       "url": "https://weddingday2.ie/musician-f",
       "photo": "bdca61da-023e-41a9-85f2-bca8ec528a2c/A+few+from+Gorey+Market+Festival+during+summer%2C+never+got+around+to+posting+but+better+late+tha.jpg",
@@ -201,11 +211,13 @@
         }
       ],
       "gallery": [],
-      "aboutTitle": "About this musician"
+      "aboutTitle": "About this musician",
+      "hideName": true,
+      "heading": "Choose this musician?"
     },
     {
       "slug": "emmett",
-      "name": "Relaxed Acoustic Singer-Guitarist",
+      "name": "Musician G",
       "live": true,
       "url": "https://weddingday2.ie/musician-g",
       "photo": "1be21321-ae4d-4d04-8c02-a572843bc5a9/d9c84d1d-3f06-480d-8693-3057fac66db4.jpg",
@@ -227,11 +239,13 @@
         }
       ],
       "gallery": [],
-      "aboutTitle": "About this musician"
+      "aboutTitle": "About this musician",
+      "hideName": true,
+      "heading": "Choose this musician?"
     },
     {
       "slug": "alan",
-      "name": "Singer-Songwriter & Multi-Instrumentalist",
+      "name": "Musician H",
       "live": true,
       "url": "https://weddingday2.ie/musician-h",
       "photo": "e9c88448-3601-4f1d-a4ed-97fac294db67/DSC00499_Original.jpg",
@@ -255,11 +269,13 @@
         }
       ],
       "gallery": [],
-      "aboutTitle": "About this musician"
+      "aboutTitle": "About this musician",
+      "hideName": true,
+      "heading": "Choose this musician?"
     },
     {
       "slug": "paddy",
-      "name": "Singer-Guitarist & Harmonica",
+      "name": "Musician I",
       "live": true,
       "url": "https://weddingday2.ie/musician-i",
       "photo": "61177bb8-b576-471c-98e0-d7ecc9b1670c/643013585_17903142396223292_1135127215236511091_n.jpeg",
@@ -281,11 +297,13 @@
         }
       ],
       "gallery": [],
-      "aboutTitle": "About this musician"
+      "aboutTitle": "About this musician",
+      "hideName": true,
+      "heading": "Choose this musician?"
     },
     {
       "slug": "phil",
-      "name": "Acoustic & Party Singer-Guitarist",
+      "name": "Musician J",
       "live": true,
       "url": "https://weddingday2.ie/musician-j",
       "photo": "a7edfef4-34c5-4f69-b7f9-fd1a3cef8aa9/AD7A9901-CB68-4B3F-81D4-496871F67D67.png",
@@ -317,11 +335,13 @@
         }
       ],
       "gallery": [],
-      "aboutTitle": "About this musician"
+      "aboutTitle": "About this musician",
+      "hideName": true,
+      "heading": "Choose this musician?"
     },
     {
       "slug": "craig",
-      "name": "Mashup Singer-Guitarist",
+      "name": "Musician K",
       "live": true,
       "url": "https://weddingday2.ie/musician-k",
       "photo": "c1fa1f0d-38e1-4c50-b375-b9f368c1094b/craig-photo-no-sign2.jpg",
@@ -345,11 +365,13 @@
       ],
       "gallery": [],
       "photoPosition": "center 34%",
-      "aboutTitle": "About this musician"
+      "aboutTitle": "About this musician",
+      "hideName": true,
+      "heading": "Choose this musician?"
     },
     {
       "slug": "pauric",
-      "name": "Trad-Inspired Singer-Guitarist",
+      "name": "Musician L",
       "live": true,
       "url": "https://weddingday2.ie/musician-l",
       "photo": "6f7123ef-c113-43fc-acce-818c1121f490/Getting+my+facial+expressions+ready+for+2024%2C+oooft%2C+big+one%F0%9F%93%B7+%40luke_b__photo+%281%29.jpg",
@@ -372,11 +394,13 @@
         }
       ],
       "gallery": [],
-      "aboutTitle": "About this musician"
+      "aboutTitle": "About this musician",
+      "hideName": true,
+      "heading": "Choose this musician?"
     },
     {
       "slug": "karl",
-      "name": "Seasoned Singer-Guitarist",
+      "name": "Musician M",
       "live": true,
       "url": "https://weddingday2.ie/musician-m",
       "photo": "69044396-2c04-4b67-acca-690d6e15f36d/copy_E566B8C9-484D-45D3-BE09-3864F0978D28.JPEG",
@@ -404,11 +428,13 @@
         }
       ],
       "gallery": [],
-      "aboutTitle": "About this musician"
+      "aboutTitle": "About this musician",
+      "hideName": true,
+      "heading": "Choose this musician?"
     },
     {
       "slug": "andrew",
-      "name": "Smooth-Voiced Singer-Guitarist",
+      "name": "Musician N",
       "live": true,
       "url": "https://weddingday2.ie/musician-n",
       "photo": "4b2e06cc-842b-4683-8bba-0a63a7883d11/The+INEC%2C+Killarney.It+was+an+honour+to+perform+this+weekend+on+the+same+stage+as+so+many+of+Ire.jpg",
@@ -437,11 +463,13 @@
         }
       ],
       "gallery": [],
-      "aboutTitle": "About this musician"
+      "aboutTitle": "About this musician",
+      "hideName": true,
+      "heading": "Choose this musician?"
     },
     {
       "slug": "james",
-      "name": "Upbeat Singer-Guitarist",
+      "name": "Musician O",
       "live": true,
       "url": "https://weddingday2.ie/musician-o",
       "photo": "59104ed9-097f-414b-b869-730f1da10d70/IMG_6211.JPG",
@@ -463,11 +491,13 @@
         }
       ],
       "gallery": [],
-      "aboutTitle": "About this musician"
+      "aboutTitle": "About this musician",
+      "hideName": true,
+      "heading": "Choose this musician?"
     },
     {
       "slug": "cian",
-      "name": "Rock & Folk Singer-Guitarist",
+      "name": "Musician P",
       "live": true,
       "url": "https://weddingday2.ie/musician-p",
       "photo": "fafe5387-96fe-4348-b492-b14472244729/Cian+Morrin+Photo.jpeg",
@@ -489,11 +519,13 @@
         }
       ],
       "gallery": [],
-      "aboutTitle": "About this musician"
+      "aboutTitle": "About this musician",
+      "hideName": true,
+      "heading": "Choose this musician?"
     },
     {
       "slug": "aaron",
-      "name": "Dance-Floor Singer-Guitarist",
+      "name": "Musician Q",
       "live": true,
       "url": "https://weddingday2.ie/musician-q",
       "photo": "a4d9a902-ef30-4591-900d-1339528fdfcb/IMG_5040.jpeg",
@@ -515,7 +547,9 @@
         }
       ],
       "gallery": [],
-      "aboutTitle": "About this musician"
+      "aboutTitle": "About this musician",
+      "hideName": true,
+      "heading": "Choose this musician?"
     },
     {
       "slug": "trad",

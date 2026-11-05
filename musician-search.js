@@ -89,7 +89,7 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
       var L = DATA.eventLabels || { ceremony: 'Ceremony & drinks reception', day2: 'Day 2', afterdinner: 'After dinner' };
       var MUSICIANS = DATA.musicians.map(function (m) {
         return {
-          name: m.name, events: m.events || [], tradBand: !!m.tradBand, duo: !!m.duo, pos: m.photoPosition || '',
+          name: m.name, hideName: !!m.hideName, events: m.events || [], tradBand: !!m.tradBand, duo: !!m.duo, pos: m.photoPosition || '',
           live: !!(m.live && m.url), url: m.url,
           img: m.photo ? DATA.imageBase + m.photo + '?format=500w' : ''
         };
@@ -168,7 +168,7 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
           (m.duo ? '<span class="wdms-tag wdms-tag-x">Duo</span>' : '');
         var inner = imgBlock +
           '<div class="wdms-card-body">' +
-            '<h3 class="wdms-card-name">' + esc(m.name) + '</h3>' +
+            (m.hideName ? '' : '<h3 class="wdms-card-name">' + esc(m.name) + '</h3>') +
             '<div class="wdms-tagrow">' + tags + '</div>' +
             (m.live ? '<span class="wdms-view">View musician →</span>' : '<span class="wdms-soon-badge">Page coming soon</span>') +
           '</div>';
