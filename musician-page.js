@@ -196,6 +196,12 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     + '#musician-page .vp-pk-parts-t{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--vp-brass);margin-bottom:10px}'
     + '#musician-page .vp-pk-parts-row{display:flex;flex-wrap:wrap;gap:8px}#musician-page .vp-pk-part{font:inherit;font-size:14.5px;cursor:pointer;padding:8px 14px;border-radius:999px;border:1.5px solid rgba(234,230,221,.25);background:none;color:var(--vp-on-dark)}'
     + '#musician-page .vp-pk-part.vp-done{border-color:var(--vp-brass);color:var(--vp-brass)}#musician-page .vp-pk-part.vp-on{background:var(--vp-brass);border-color:var(--vp-brass);color:#1f2727;font-weight:600}'
+    + '#musician-page .vp-pk-bud-ok{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:12px}#musician-page .vp-pk-bud-btn{margin:0;font:inherit;font-weight:600;cursor:pointer;padding:10px 18px;font-size:14.5px}'
+    + '#musician-page .vp-pk-bud-btn.vp-ok{background:transparent;color:var(--vp-brass);border:1.5px solid var(--vp-brass)}#musician-page .vp-pk-bud-msg{font-size:14px;color:var(--vp-muted)}#musician-page .vp-pk-bud-msg.vp-err{color:#f0a48c;font-weight:600}'
+    + '#musician-page .vp-pk-budget.vp-flashfield{animation:vpField 1.3s ease-out}'
+    + '#musician-page .vp-pk-more{margin-top:18px;padding:18px 20px;border-radius:var(--vp-radius);border:1px dashed rgba(61,194,187,.55);background:rgba(61,194,187,.06);max-width:620px}#musician-page .vp-pk-more[hidden]{display:none}'
+    + '#musician-page .vp-pk-more h3{font-size:19px;margin:0 0 4px;color:var(--vp-on-dark)}#musician-page .vp-pk-more p{color:var(--vp-muted);font-size:14.5px;margin:0 0 12px}'
+    + '#musician-page .vp-pk-more-btns{display:flex;flex-wrap:wrap;gap:10px}#musician-page .vp-pk-more-btns .vp-btn{margin:0;font:inherit;font-weight:600;cursor:pointer;padding:10px 18px;font-size:14.5px}'
     + '#musician-page .vp-pk-nextpart{margin:0;font:inherit;font-weight:600;cursor:pointer;padding:12px 22px}#musician-page .vp-pk-nextpart[hidden],#musician-page .vp-pk-go[hidden]{display:none}'
     + '#musician-page .vp-elist .vp-el-who{display:flex;align-items:center;gap:10px;min-width:0}#musician-page .vp-elist li.vp-el-m{align-items:center}'
     + '#musician-page .vp-elist .vp-el-who img{width:38px;height:38px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--vp-brass)}'
@@ -293,7 +299,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
     // About, with the first video beside it when there is one
     if (m.packages) var tags = '<p class="vp-build-note vp-when-hint">' + esc(m.packages.whenHint || 'When do you need music? Tap all that apply.') + '</p><div class="vp-tags vp-when-tags">'
-      + events.map(function (e) { return '<button type="button" class="vp-tag vp-pk-tag" data-when="' + esc(e) + '" aria-pressed="false">' + esc(L[e]) + '</button>'; }).join('') + '</div>'
+      + events.map(function (e) { return '<button type="button" class="vp-tag vp-pk-tag" data-when="' + esc(e) + '" aria-pressed="false">' + esc(L[e]) + '</button>'; }).join('')
+      + '<button type="button" class="vp-tag vp-pk-tag" data-when="other" aria-pressed="false">Other</button></div>'
       + '<div class="vp-pk-next vp-pk-next-when" data-next="pick" hidden><span class="vp-pk-next-t"></span><button type="button" class="vp-btn">Next: choose your music ↓</button></div>';
     else var tags = '<div class="vp-tags">' + events.map(function (e) { return '<span class="vp-tag">' + esc(L[e]) + '</span>'; }).join('')
       + extras.concat(m.tags || []).map(function (x) { return '<span class="vp-tag">' + esc(x) + '</span>'; }).join('') + '</div>';
@@ -335,9 +342,10 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         { id: 'solo', title: 'Solo musician', price: 'From ' + euro(P.soloFrom), text: 'One of our hand-picked singer-guitarists.', image: xImg('second'),
           sub: '<h3 class="vp-pk-group">How many musicians?</h3><div class="vp-pk-pills">' + pill('solo', '1', 'One musician', '2 hours') + pill('solo', '2', 'Two, back to back', '4 hours') + '</div>'
             + '<div class="vp-pk-budget"><h3 class="vp-pk-group">Maximum budget for your solo musician</h3>'
-            + '<output class="vp-pk-bud-val" for="vp-pk-range">€0</output>'
-            + '<input type="range" id="vp-pk-range" class="vp-pk-range" min="0" max="1500" step="50" value="0" aria-label="Maximum budget for your solo musician">'
-            + '<div class="vp-pk-bud-scale"><span>€0</span><span>€1,500</span></div></div>' },
+            + '<output class="vp-pk-bud-val" for="vp-pk-range">€650</output>'
+            + '<input type="range" id="vp-pk-range" class="vp-pk-range" min="650" max="1500" step="50" value="650" aria-label="Maximum budget for your solo musician">'
+            + '<div class="vp-pk-bud-scale"><span>€650</span><span>€1,500</span></div>'
+            + '<div class="vp-pk-bud-ok"><button type="button" class="vp-btn vp-pk-bud-btn">Confirm budget</button><span class="vp-pk-bud-msg" role="status" aria-live="polite"></span></div></div>' },
         { id: 'trad', title: 'Trad band', price: 'From ' + euro(P.duoFrom), text: 'Our modern trad band as a duo or trio.', image: xImg('trad'),
           sub: '<h3 class="vp-pk-group">Trad band size</h3><div class="vp-pk-pills">' + P.lineups.map(function (x) { return pill('line', x.title, x.title, 'from ' + euro(x.title === 'Trio' ? P.trioFrom : P.duoFrom)); }).join('') + '</div>' },
         { id: 'dj', title: 'DJ', price: 'From ' + euro(P.djFrom), text: 'A DJ set with professional audio and lighting.', image: xImg('dj'),
@@ -357,7 +365,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         h += '<button type="button" class="vp-pk" data-id="' + esc(x.id) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(x.image, 500) + '" alt="' + esc(x.title) + '"' + (x.imagePosition ? ' style="object-position:' + esc(x.imagePosition) + '"' : '') + '><span class="vp-tick" aria-hidden="true">✓</span></div>'
           + '<strong>' + esc(x.title) + '</strong><em class="vp-pk-meta">' + esc(x.hours) + '</em><span>' + esc(x.text) + '</span><b class="vp-pk-price">From ' + euro(x.from) + '</b></button>';
       });
-      h += '</div><div class="vp-pk-total"><span class="vp-pk-tname"></span><strong></strong></div><div class="vp-pk-sum" hidden><h3>What\'s included</h3><ul></ul></div><div class="vp-pk-cta"><div class="vp-pk-btns"><button type="button" class="vp-btn vp-pk-nextpart" hidden></button><a class="vp-btn vp-pk-go" href="#vp-enquire">Check availability</a><button type="button" class="vp-btn vp-btn-ghost vp-pk-reset">↺ Start again</button></div>'
+      h += '</div><div class="vp-pk-total"><span class="vp-pk-tname"></span><strong></strong></div><div class="vp-pk-sum" hidden><h3>What\'s included</h3><ul></ul></div><div class="vp-pk-more" hidden></div><div class="vp-pk-cta"><div class="vp-pk-btns"><button type="button" class="vp-btn vp-pk-nextpart" hidden></button><a class="vp-btn vp-pk-go" href="#vp-enquire">Check availability</a><button type="button" class="vp-btn vp-btn-ghost vp-pk-reset">↺ Start again</button></div>'
         + (P.note ? '<p class="vp-pk-foot">' + esc(P.note) + '</p>' : '') + '</div>'
         + '<div class="vp-pk-other"><div><strong>Want something different?</strong><span>Tell us what you have in mind and we\'ll put together something just for you.</span></div><a class="vp-btn vp-btn-ghost" href="/home#enquiremain">Send us a general enquiry →</a></div></section>';
     }
@@ -479,7 +487,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var $ = function (q) { return root.querySelector(q); }, $$ = function (q) { return Array.prototype.slice.call(root.querySelectorAll(q)); };
       var step = function (n) { return $('.vp-pk-step[data-step="' + n + '"]'); };
       var go = function (el) { if (el) setTimeout(function () { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60); };
-      var main = '', adds = [], soloN = '1', line = 'Duo', dx = '', when = [], lastSnap = null, lastName = '', budget = 0;
+      var main = '', adds = [], soloN = '1', line = 'Duo', dx = '', when = [], lastSnap = null, lastName = '', budget = 650, budgetOk = false;
       var partIdx = 0, saved = {};  // music for more than one part of the day: one package per part, built in order
       var has = function (id) { return main === id || adds.indexOf(id) !== -1; };
       function match() {
@@ -502,24 +510,27 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       }
       // Parts of the day in the order they happen, so couples build the drinks reception music first, then after dinner, then Day 2
       var PART_ORDER = ['ceremony', 'afterdinner', 'day2'];
-      var parts = function () { return PART_ORDER.filter(function (e) { return when.indexOf(e) !== -1 && events.indexOf(e) !== -1; }); };
-      var snapPart = function () { return { main: main, adds: adds.slice(), soloN: soloN, line: line, dx: dx, budget: budget }; };
-      var loadPart = function (st) { st = st || {}; main = st.main || ''; adds = (st.adds || []).slice(); soloN = st.soloN || '1'; line = st.line || 'Duo'; dx = st.dx || ''; budget = st.budget || 0; };
-      var partName = function (e) { return e === 'day2' ? 'Day 2' : e === 'afterdinner' ? 'after dinner' : 'ceremony & drinks reception'; };
+      var PICKS = events.concat(['other']);  // the three times of day, plus "Other" (an event that isn't one of them)
+      if (!L.other) L.other = 'Other';
+      var parts = function () { return PART_ORDER.concat(['other']).filter(function (e) { return when.indexOf(e) !== -1 && PICKS.indexOf(e) !== -1; }); };
+      var snapPart = function () { return { main: main, adds: adds.slice(), soloN: soloN, line: line, dx: dx, budget: budget, budgetOk: budgetOk }; };
+      var loadPart = function (st) { st = st || {}; main = st.main || ''; adds = (st.adds || []).slice(); soloN = st.soloN || '1'; line = st.line || 'Duo'; dx = st.dx || ''; budget = st.budget || 650; budgetOk = !!st.budgetOk; };
+      var partName = function (e) { return e === 'day2' ? 'Day 2' : e === 'afterdinner' ? 'after dinner' : e === 'other' ? 'your event' : 'ceremony & drinks reception'; };
       // What the current choices add up to (used for the part being built and for parts already built)
       function describe() {
         var solo = has('solo'), trad = has('trad'), dj = has('dj'), d = dj ? dx : '', r = match(), it = [];
         if (solo) it.push(soloN === '2' ? 'Two solo musicians, back to back (4 hours)' : 'Solo musician (2 hours)');
         if (trad) it.push('Trad band ' + line.toLowerCase() + (solo ? (soloN === '2' ? ', after your solo musicians' : ', after your solo musician') : ''));
         if (dj) it.push('DJ set' + (d ? (d === 'Saxophone' ? ' with live saxophone' : ' with karaoke') : ''));
-        if (solo && budget > 0) it.push((soloN === '2' ? 'Maximum budget for each solo musician: ' : 'Maximum budget for solo musician: ') + euro(budget));
-        return { r: r, items: it, started: !!main, line: trad ? line : '', dx: d, budget: solo && budget > 0 ? euro(budget) + (soloN === '2' ? ' each' : '') : '' };
+        if (solo && budgetOk) it.push((soloN === '2' ? 'Maximum budget for each solo musician: ' : 'Maximum budget for solo musician: ') + euro(budget));
+        return { r: r, items: it, started: !!main, line: trad ? line : '', dx: d, budget: solo && budgetOk ? euro(budget) + (soloN === '2' ? ' each' : '') : '' };
       }
       function describePart(st) { var keep = snapPart(); loadPart(st); var d = describe(); loadPart(keep); return d; }
       function render() {
         var started = !!main, solo = has('solo'), trad = has('trad'), dj = has('dj');
         var PP = parts(); if (partIdx > PP.length - 1) partIdx = Math.max(0, PP.length - 1);
-        var multi = PP.length > 1, curPart = multi ? PP[partIdx] : '', nextPart = multi ? PP[partIdx + 1] : '';
+        var multi = PP.length > 1, curPart = multi ? PP[partIdx] : '';
+        var nextPart = multi ? PP.filter(function (e, i) { return i !== partIdx && !(saved[e] && saved[e].main); })[0] || '' : '';
         if (!dj) dx = '';
         // one grid: the main act first, then the other two as add-ons (the last one spans the full width on desktop)
         var mains = $('.vp-pk-mains'), others = ['solo', 'trad', 'dj'].filter(function (x) { return x !== main; });
@@ -557,13 +568,25 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         npb.hidden = !(started && nextPart);
         if (nextPart) npb.textContent = 'Next: build your ' + partName(nextPart) + ' music →';
         $('.vp-pk-go').hidden = !!(started && nextPart);
+        var more = $('.vp-pk-more'), left = when.indexOf('other') !== -1 ? [] : PART_ORDER.filter(function (e) { return events.indexOf(e) !== -1 && when.indexOf(e) === -1; });
+        more.hidden = !(started && PP.length && left.length);
+        if (!more.hidden) {
+          more.innerHTML = '<h3>Would you like music for ' + left.map(partName).join(' or ') + ' as well?</h3><p>Build it next and we\'ll send everything in one enquiry.</p><div class="vp-pk-more-btns">'
+            + left.map(function (e) { return '<button type="button" class="vp-btn vp-btn-ghost" data-more="' + e + '">+ Add ' + esc(partName(e)) + ' music</button>'; }).join('') + '</div>';
+          Array.prototype.forEach.call(more.querySelectorAll('[data-more]'), function (b) { b.addEventListener('click', function () {
+            var e = b.getAttribute('data-more'), cur = parts()[partIdx];
+            if (cur) saved[cur] = snapPart();
+            if (when.indexOf(e) === -1) when.push(e);
+            partIdx = parts().indexOf(e); loadPart(saved[e]); render(); go(step('pick'));
+          }); });
+        }
         $$('.vp-pk-pill[data-solo]').forEach(function (b) { b.classList.toggle('vp-picked', b.getAttribute('data-solo') === soloN); });
         $$('.vp-pk-pill[data-line]').forEach(function (b) { b.classList.toggle('vp-picked', b.getAttribute('data-line') === line); });
         $$('.vp-pk-pill[data-dx]').forEach(function (b) { b.classList.toggle('vp-picked', b.getAttribute('data-dx') === dx); });
         $$('.vp-pk-tag').forEach(function (b) { var on = when.indexOf(b.getAttribute('data-when')) !== -1; b.classList.toggle('vp-picked', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
         var wt = $('.vp-when-tags'); if (wt) wt.classList.toggle('vp-none', !when.length);
         var wn = $('.vp-pk-next-when');
-        if (wn) { wn.hidden = !(when.length && !main); wn.querySelector('.vp-pk-next-t').textContent = 'Music for: ' + events.filter(function (e) { return when.indexOf(e) !== -1; }).map(function (e) { return L[e]; }).join(', '); }
+        if (wn) { wn.hidden = !(when.length && !main); wn.querySelector('.vp-pk-next-t').textContent = 'Music for: ' + PICKS.filter(function (e) { return when.indexOf(e) !== -1; }).map(function (e) { return L[e]; }).join(', '); }
         var ex = root.querySelector('.vp-explore'); if (ex) ex.hidden = !started;
         // phones: the form appears once they've chosen something (desktop always shows it)
         var asideEl = root.querySelector('.vp-aside');
@@ -578,7 +601,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         var dNow = describe(), items = dNow.items.filter(function (t) { return t.indexOf('Maximum budget') !== 0; });
         if (started) items.push(r.hours + ' hours of music in total');
         if (started) items.push('Professional audio and lighting');
-        var wl = events.filter(function (e) { return when.indexOf(e) !== -1; }).map(function (e) { return L[e]; });
+        var wl = PICKS.filter(function (e) { return when.indexOf(e) !== -1; }).map(function (e) { return L[e]; });
         if (wl.length) items.push('For: ' + (multi ? L[curPart] : wl.join(', ')));
         dNow.items.filter(function (t) { return t.indexOf('Maximum budget') === 0; }).forEach(function (t) { items.push(t); });
         // the whole day, part by part
@@ -596,7 +619,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         $('#vp-addons').value = dx;
         $('#vp-estimate').value = started ? 'From ' + euro(r.price) : '';
         $('#vp-when').value = wl.join(', ');
-        $('#vp-budget').value = solo && budget > 0 ? euro(budget) + (soloN === '2' ? ' each (two musicians)' : '') : '';
+        $('#vp-budget').value = solo && budgetOk ? euro(budget) + (soloN === '2' ? ' each (two musicians)' : '') : '';
         if (day.length) {
           $('#vp-package').value = day.map(function (x) { return L[x.e] + ': ' + x.d.r.name; }).join(' | ');
           $('#vp-estimate').value = 'From ' + euro(dayTotal);
@@ -609,10 +632,13 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         var budH = $('.vp-pk-budget h3'), budT = soloN === '2' ? 'Maximum budget for each solo musician' : 'Maximum budget for your solo musician';
         if (budH && budH.textContent !== budT) { budH.textContent = budT; $('#vp-pk-range').setAttribute('aria-label', budT); }
         $('.vp-pk-bud-val').textContent = euro(budget); $('#vp-pk-range').value = budget;
-        $('#vp-pk-range').style.setProperty('--vp-fill', (budget / 15) + '%');
-        var et = $('#vp-type'), map = { ceremony: 'Ceremony', day2: 'Wedding Day 2', afterdinner: 'Wedding Day After Dinner' };
+        $('#vp-pk-range').style.setProperty('--vp-fill', ((budget - 650) / 8.5) + '%');
+        var bb = $('.vp-pk-bud-btn'), bm = $('.vp-pk-bud-msg');
+        if (bb) { bb.textContent = budgetOk ? '✓ Budget confirmed' : 'Confirm ' + euro(budget) + (soloN === '2' ? ' each' : ''); bb.classList.toggle('vp-ok', budgetOk); }
+        if (bm && budgetOk) { bm.textContent = ''; bm.classList.remove('vp-err'); }
+        var et = $('#vp-type'), map = { ceremony: 'Ceremony', day2: 'Wedding Day 2', afterdinner: 'Wedding Day After Dinner', other: 'Other' };
         if (et) {
-          var picks = events.filter(function (e) { return when.indexOf(e) !== -1; });
+          var picks = PICKS.filter(function (e) { return when.indexOf(e) !== -1; });
           var old = et.querySelector('option.vp-combo'); if (old) old.parentNode.removeChild(old);
           if (picks.length === 1) et.value = map[picks[0]];
           else if (picks.length > 1) { var o = document.createElement('option'); o.className = 'vp-combo'; o.value = o.textContent = picks.map(function (e) { return map[e] === 'Ceremony' ? 'Ceremony & Drinks Reception' : map[e]; }).join(' + '); et.appendChild(o); et.value = o.value; }
@@ -646,23 +672,39 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       $$('.vp-pk-tag').forEach(function (b) { b.addEventListener('click', function () {
         var w = b.getAttribute('data-when'), i = when.indexOf(w), before = parts()[partIdx];
         if (before) saved[before] = snapPart();
-        if (i === -1) when.push(w); else { when.splice(i, 1); delete saved[w]; }
+        if (i !== -1) { when.splice(i, 1); delete saved[w]; }       // tap again to remove that part
+        else if (when.length <= 1 || w === 'other' || when.indexOf('other') !== -1) {   // one at a time ("Other" is always on its own): swap, keeping the current choices
+          saved = {}; when = [w]; before = w;
+        } else when.push(w);                                       // already building several parts of the day: add this one too
         // stay on the same part of the day if it's still picked; otherwise go back to the first part
         var now = parts(), k = now.indexOf(before); partIdx = k === -1 ? 0 : k;
         if (now.length > 1 && now[partIdx] !== before) loadPart(saved[now[partIdx]]);
         render();
       }); });
       $('.vp-pk-nextpart').addEventListener('click', function () {
-        var PP = parts(); if (!PP[partIdx + 1]) return;
-        saved[PP[partIdx]] = snapPart(); partIdx++; loadPart(saved[PP[partIdx]]); render(); go(step('pick'));
+        var PP = parts(), nx = PP.filter(function (e, i) { return i !== partIdx && !(saved[e] && saved[e].main); })[0]; if (!nx) return;
+        saved[PP[partIdx]] = snapPart(); partIdx = PP.indexOf(nx); loadPart(saved[nx]); render(); go(step('pick'));
       });
       $$('.vp-pk-next').forEach(function (n) { var b = n.querySelector('button'); if (b) b.addEventListener('click', function () { go(step(n.getAttribute('data-next'))); }); });
       // tapping a package card picks the matching combination
       var PK = { 'double-trouble': ['solo', [], '2'], celebration: ['solo', ['dj'], '1'], party: ['solo', ['trad'], '1'], 'full-experience': ['solo', ['trad', 'dj'], '1'] };
       $$('.vp-pk').forEach(function (b) { b.addEventListener('click', function () { var c = PK[b.getAttribute('data-id')]; if (!c) return; main = c[0]; adds = c[1].slice(); soloN = c[2]; render(); }); });
-      $('#vp-pk-range').addEventListener('input', function () { budget = +this.value || 0; render(); });
-      $('.vp-pk-reset').addEventListener('click', function () { main = ''; adds = []; soloN = '1'; line = 'Duo'; dx = ''; when = []; budget = 0; partIdx = 0; saved = {}; render(); go(step('pick')); });
-      $('.vp-pk-go').addEventListener('click', function (e) { e.preventDefault(); window.wd2OpenForm && window.wd2OpenForm(); });
+      $('#vp-pk-range').addEventListener('input', function () { budget = +this.value || 650; budgetOk = false; render(); });
+      $('.vp-pk-bud-btn').addEventListener('click', function () { budgetOk = true; render(); });
+      // Before sending: every part with a solo musician needs a confirmed budget
+      window.wd2PkCheck = function () {
+        var PP = parts(), cur = PP[partIdx] || '', bad = '';
+        if (has('solo') && !budgetOk) bad = cur || 'here';
+        else PP.forEach(function (e) { var st = saved[e]; if (!bad && e !== cur && st && st.main && (st.main === 'solo' || (st.adds || []).indexOf('solo') !== -1) && !st.budgetOk) bad = e; });
+        if (!bad) return true;
+        if (bad !== 'here' && bad !== cur) { saved[cur] = snapPart(); partIdx = PP.indexOf(bad); loadPart(saved[bad]); render(); }
+        var bx = $('.vp-pk-budget'), msg = $('.vp-pk-bud-msg');
+        if (msg) { msg.textContent = 'Please confirm your budget for your solo musician' + (PP.length > 1 ? ' (' + partName(bad === 'here' ? cur : bad) + ')' : '') + '.'; msg.classList.add('vp-err'); }
+        if (bx) { bx.scrollIntoView({ behavior: 'smooth', block: 'center' }); bx.classList.remove('vp-flashfield'); void bx.offsetWidth; bx.classList.add('vp-flashfield'); }
+        return false;
+      };
+      $('.vp-pk-reset').addEventListener('click', function () { main = ''; adds = []; soloN = '1'; line = 'Duo'; dx = ''; when = []; budget = 650; budgetOk = false; partIdx = 0; saved = {}; render(); go(step('pick')); });
+      $('.vp-pk-go').addEventListener('click', function (e) { e.preventDefault(); if (!window.wd2PkCheck()) return; window.wd2OpenForm && window.wd2OpenForm(); });
       var want = (location.search.match(/[?&]package=([^&]+)/) || [])[1], wc = want && PK[decodeURIComponent(want)];
       if (wc) { main = wc[0]; adds = wc[1].slice(); soloN = wc[2]; }
       var djSlug = decodeURIComponent((location.search.match(/[?&]dj=([^&]+)/) || [])[1] || '');
@@ -1010,6 +1052,11 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       status.className = 'vp-status'; status.textContent = '';
+      if (m.packages && window.wd2PkCheck && !window.wd2PkCheck()) {
+        status.className = 'vp-status vp-err'; status.textContent = 'Please confirm your budget for your solo musician first.';
+        if (mobileQ.matches && aside.classList.contains('vp-open')) setSheet(false);
+        return;
+      }
       var missing = [];
       ['vp-fname', 'vp-lname', 'vp-email', 'vp-date', 'vp-time'].forEach(function (id) { var f = form.querySelector('#' + id); if (!f.value.trim()) missing.push(f); });
       var em = form.querySelector('#vp-email');

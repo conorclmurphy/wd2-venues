@@ -71,12 +71,21 @@
   ];
   var openId = '';
 
+  // The Google reviews button sits in the same corner, so stack the pills just above it
+  function place() {
+    var rb = document.querySelector('.grb-btn'), r = rb && rb.getBoundingClientRect();
+    var up = r && r.height && getComputedStyle(rb).display !== 'none' && getComputedStyle(rb).visibility !== 'hidden' ? Math.round(window.innerHeight - r.top) + 10 : 0;
+    box.style.bottom = up ? up + 'px' : '';
+  }
+  window.addEventListener('resize', place);
+
   function onFormPage() { return !!document.querySelector('#musician-page .vp-form, #venue-page .vp-form'); }
 
   function draw() {
     var all = getList();
     // Pages that already have the enquiry form show the list there, so stay out of the way
     if (!all.length || onFormPage()) { box.hidden = true; box.innerHTML = ''; return; }
+    place();
     if (box.hidden) { box.classList.remove('wf-new'); void box.offsetWidth; box.classList.add('wf-new'); }
     box.hidden = false;
     var html = '';
@@ -129,6 +138,6 @@
   // Keep up to date: other tabs, coming back with the browser's Back button, and pages that draw their form a little later
   window.addEventListener('storage', function (e) { if (e.key === KEY || e.key === VKEY) draw(); });
   window.addEventListener('pageshow', draw);
-  setTimeout(draw, 1500); setTimeout(draw, 4000);
+  setTimeout(draw, 1500); setTimeout(draw, 4000); setTimeout(place, 8000);
   window.wd2FloatRefresh = draw;
 })();
