@@ -194,6 +194,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     + '#musician-page .vp-hero h1.vp-sr+.vp-facts{margin-top:14px}'
     + '#musician-page .vp-elist .vp-el-who{display:flex;align-items:center;gap:10px;min-width:0}#musician-page .vp-elist li.vp-el-m{align-items:center}'
     + '#musician-page .vp-elist .vp-el-who img{width:38px;height:38px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--vp-brass)}'
+    + '#musician-page .vp-choose{display:grid;gap:10px;justify-items:start;margin-bottom:-48px}#musician-page .vp-choose .vp-add{margin:0;font:inherit;font-weight:600;cursor:pointer;padding:14px 26px}#musician-page .vp-choose .vp-add[disabled]{opacity:.6}#musician-page .vp-choose .vp-add-note{color:var(--vp-muted);font-size:14.5px;max-width:60ch}#musician-page .vp-choose .vp-add-note a{color:var(--vp-brass)}'
+    + '@media (max-width:640px){#musician-page .vp-choose{margin-bottom:-36px}#musician-page .vp-choose .vp-add{width:100%}}'
     + '#musician-page .vp-addpk{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 28px;padding:22px 24px;border-radius:var(--vp-radius);border:1px solid rgba(61,194,187,.45);background:rgba(61,194,187,.08)}'
     + '#musician-page .vp-addpk h2{font-size:clamp(22px,2.6vw,28px)!important;margin:0 0 6px!important}#musician-page .vp-addpk p{color:var(--vp-muted);max-width:52ch;font-size:15.5px}'
     + '#musician-page .vp-addpk .vp-addpk-btn{margin:0;white-space:nowrap}'
@@ -304,6 +306,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
     // Solo musician profiles: offer to add this musician to a package
     var soloPage = !m.builder && !m.packages && !m.related;
+    if (soloPage) h += '<section class="vp-choose"><button type="button" class="vp-btn vp-add">+ Add to my enquiry and keep browsing</button><p class="vp-add-note" hidden></p></section>';
     if (soloPage) h += '<section class="vp-addpk"><div><h2>Add this musician to a package</h2><p>Want more than 2 hours of music? Pair this musician with a second musician, our trad band or a DJ. We\'ll keep this musician in your enquiry while you choose.</p></div>'
       + '<a class="vp-btn vp-addpk-btn" href="/packages">Add to a package →</a></section>';
 
@@ -327,8 +330,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         { id: 'solo', title: 'Solo musician', price: 'From ' + euro(P.soloFrom), text: 'One of our hand-picked singer-guitarists.', image: xImg('second'),
           sub: '<h3 class="vp-pk-group">How many musicians?</h3><div class="vp-pk-pills">' + pill('solo', '1', 'One musician', '2 hours') + pill('solo', '2', 'Two, back to back', '4 hours') + '</div>'
             + '<div class="vp-pk-budget"><h3 class="vp-pk-group">Maximum budget for your solo musician</h3>'
-            + '<output class="vp-pk-bud-val" for="vp-pk-range">€1,000</output>'
-            + '<input type="range" id="vp-pk-range" class="vp-pk-range" min="0" max="1500" step="50" value="1000" aria-label="Maximum budget for your solo musician">'
+            + '<output class="vp-pk-bud-val" for="vp-pk-range">€0</output>'
+            + '<input type="range" id="vp-pk-range" class="vp-pk-range" min="0" max="1500" step="50" value="0" aria-label="Maximum budget for your solo musician">'
             + '<div class="vp-pk-bud-scale"><span>€0</span><span>€1,500</span></div></div>' },
         { id: 'trad', title: 'Trad band', price: 'From ' + euro(P.duoFrom), text: 'Our modern trad band as a duo or trio.', image: xImg('trad'),
           sub: '<h3 class="vp-pk-group">Trad band size</h3><div class="vp-pk-pills">' + P.lineups.map(function (x) { return pill('line', x.title, x.title, 'from ' + euro(x.title === 'Trio' ? P.trioFrom : P.duoFrom)); }).join('') + '</div>' },
@@ -430,7 +433,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       + '<div class="vp-field"><label for="vp-heard">How did you hear about us?</label><select id="vp-heard" name="How they heard about us">' + opt(['Instagram', 'Google Search', 'Musician referral', 'Venue recommendation', 'Friends or family', 'Other']) + '</select></div>'
       + '<div class="vp-field"><label for="vp-msg">Let us know how we can help <i>(optional)</i></label><textarea id="vp-msg" name="Message" placeholder="Guest numbers, add-ons like trad band, DJ or karaoke, questions"></textarea></div>'
       + '<input type="checkbox" name="botcheck" class="vp-hp" tabindex="-1" autocomplete="off" aria-hidden="true">'
-      + '<button class="vp-btn" type="submit">Send enquiry</button><button type="button" class="vp-btn vp-btn-ghost vp-add"' + (m.packages ? ' hidden' : '') + '>+ Add to my enquiry and keep browsing</button><p class="vp-add-note" hidden></p><p class="vp-status" role="status" aria-live="polite"></p>'
+      + '<button class="vp-btn" type="submit">Send enquiry</button>' + (soloPage ? '' : '<button type="button" class="vp-btn vp-btn-ghost vp-add"' + (m.packages ? ' hidden' : '') + '>+ Add to my enquiry and keep browsing</button><p class="vp-add-note" hidden></p>') + '<p class="vp-status" role="status" aria-live="polite"></p>'
       + '</form></div></aside>';
     h += '</div>';  // end of body
 
@@ -468,7 +471,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var $ = function (q) { return root.querySelector(q); }, $$ = function (q) { return Array.prototype.slice.call(root.querySelectorAll(q)); };
       var step = function (n) { return $('.vp-pk-step[data-step="' + n + '"]'); };
       var go = function (el) { if (el) setTimeout(function () { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60); };
-      var main = '', adds = [], soloN = '1', line = 'Duo', dx = '', when = [], lastSnap = null, lastName = '', budget = 1000;
+      var main = '', adds = [], soloN = '1', line = 'Duo', dx = '', when = [], lastSnap = null, lastName = '', budget = 0;
       var has = function (id) { return main === id || adds.indexOf(id) !== -1; };
       function match() {
         var solo = has('solo'), trad = has('trad'), dj = has('dj'), two = solo && soloN === '2';
@@ -534,7 +537,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         if (started) items.push('Professional audio and lighting');
         var wl = events.filter(function (e) { return when.indexOf(e) !== -1; }).map(function (e) { return L[e]; });
         if (wl.length) items.push('For: ' + wl.join(', '));
-        if (solo) items.push('Maximum budget for solo musician: ' + euro(budget));
+        if (solo && budget > 0) items.push('Maximum budget for solo musician: ' + euro(budget));
         var sum = $('.vp-pk-sum'); sum.hidden = !started;
         if (started && r.name !== lastName) { sum.classList.remove('vp-rise'); void sum.offsetWidth; sum.classList.add('vp-rise'); }
         lastName = started ? r.name : '';
@@ -546,7 +549,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         $('#vp-addons').value = dx;
         $('#vp-estimate').value = started ? 'From ' + euro(r.price) : '';
         $('#vp-when').value = wl.join(', ');
-        $('#vp-budget').value = solo ? euro(budget) : '';
+        $('#vp-budget').value = solo && budget > 0 ? euro(budget) : '';
         $('.vp-pk-bud-val').textContent = euro(budget); $('#vp-pk-range').value = budget;
         $('#vp-pk-range').style.setProperty('--vp-fill', (budget / 15) + '%');
         var et = $('#vp-type'), map = { ceremony: 'Ceremony', day2: 'Wedding Day 2', afterdinner: 'Wedding Day After Dinner' };
@@ -590,7 +593,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var PK = { 'double-trouble': ['solo', [], '2'], celebration: ['solo', ['dj'], '1'], party: ['solo', ['trad'], '1'], 'full-experience': ['solo', ['trad', 'dj'], '1'] };
       $$('.vp-pk').forEach(function (b) { b.addEventListener('click', function () { var c = PK[b.getAttribute('data-id')]; if (!c) return; main = c[0]; adds = c[1].slice(); soloN = c[2]; render(); }); });
       $('#vp-pk-range').addEventListener('input', function () { budget = +this.value || 0; render(); });
-      $('.vp-pk-reset').addEventListener('click', function () { main = ''; adds = []; soloN = '1'; line = 'Duo'; dx = ''; when = []; budget = 1000; render(); go(step('pick')); });
+      $('.vp-pk-reset').addEventListener('click', function () { main = ''; adds = []; soloN = '1'; line = 'Duo'; dx = ''; when = []; budget = 0; render(); go(step('pick')); });
       $('.vp-pk-go').addEventListener('click', function (e) { e.preventDefault(); window.wd2OpenForm && window.wd2OpenForm(); });
       var want = (location.search.match(/[?&]package=([^&]+)/) || [])[1], wc = want && PK[decodeURIComponent(want)];
       if (wc) { main = wc[0]; adds = wc[1].slice(); soloN = wc[2]; }
