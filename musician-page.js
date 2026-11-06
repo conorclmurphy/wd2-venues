@@ -192,6 +192,10 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
   var st3 = document.createElement('style');
   st3.textContent = '#musician-page .vp-hero h1.vp-sr{position:absolute;width:1px;height:1px;margin:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}'
     + '#musician-page .vp-hero h1.vp-sr+.vp-facts{margin-top:14px}'
+    + '#musician-page .vp-addpk{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 28px;padding:22px 24px;border-radius:var(--vp-radius);border:1px solid rgba(61,194,187,.45);background:rgba(61,194,187,.08)}'
+    + '#musician-page .vp-addpk h2{font-size:clamp(22px,2.6vw,28px)!important;margin:0 0 6px!important}#musician-page .vp-addpk p{color:var(--vp-muted);max-width:52ch;font-size:15.5px}'
+    + '#musician-page .vp-addpk .vp-addpk-btn{margin:0;white-space:nowrap}'
+    + '#musician-page .vp-pk-with{margin:0 0 16px;padding:12px 16px;border-radius:var(--vp-radius-sm);background:rgba(61,194,187,.12);border:1px solid var(--vp-brass);color:var(--vp-on-dark);font-size:15px}#musician-page .vp-pk-with strong{color:var(--vp-brass)}'
     + '#musician-page.vp-anon .vp-hero{min-height:min(48vh,420px)}#musician-page.vp-anon .vp-hero-in{padding-bottom:28px}'
     + '#musician-page.vp-anon .vp-body{padding-top:36px}#musician-page.vp-anon .vp-main h2{margin-bottom:12px}'
     + '@container (min-width:641px){#musician-page.vp-anon .vp-split.vp-split-tall{grid-template-columns:minmax(0,1fr) minmax(180px,220px)!important}#musician-page.vp-anon .vp-split.vp-split-tall .vp-video.vp-tall{max-width:220px}}'
@@ -295,6 +299,11 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     }
 
     if (m.gallery && m.gallery.length) h += '<section><h2>Gallery</h2>' + galleryTag(m.gallery, m.name) + '</section>';
+
+    // Solo musician profiles: offer to add this musician to a package
+    var soloPage = !m.builder && !m.packages && !m.related;
+    if (soloPage) h += '<section class="vp-addpk"><div><h2>Add this musician to a package</h2><p>Want more than 2 hours of music? Pair this musician with a second musician, our trad band or a DJ. We\'ll keep this musician in your enquiry while you choose.</p></div>'
+      + '<a class="vp-btn vp-addpk-btn" href="/packages">Add to a package →</a></section>';
 
     // Build-your-band pages (the trad band): step 1 pick the line-up, step 2 pick the solo performer
     if (m.builder) {
@@ -581,6 +590,15 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       $('.vp-pk-go').addEventListener('click', function (e) { e.preventDefault(); window.wd2OpenForm && window.wd2OpenForm(); });
       var want = (location.search.match(/[?&]package=([^&]+)/) || [])[1], wc = want && PK[decodeURIComponent(want)];
       if (wc) { main = wc[0]; adds = wc[1].slice(); soloN = wc[2]; }
+      var withSlug = (location.search.match(/[?&]with=([^&]+)/) || [])[1], withM = null;
+      if (withSlug) DATA.musicians.forEach(function (x) { if (x.slug === decodeURIComponent(withSlug) && !x.packages && !x.builder && !x.related) withM = x; });
+      if (withM) {
+        if (!main) main = 'solo';
+        var s1 = step('pick'), note = document.createElement('p');
+        note.className = 'vp-pk-with';
+        note.innerHTML = '<strong>' + esc(withM.name) + '</strong> is in your enquiry. Now choose what to add: a second musician, the trad band or a DJ.';
+        s1.insertBefore(note, s1.querySelector('h2'));
+      }
       render();
     })();
     // Build-your-band: picking a line-up or performer highlights it and fills in the form
@@ -841,6 +859,13 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       renderList();
       addNote.hidden = false;
       addNote.innerHTML = 'Added. Have a look at our other <a href="/musicians">musicians</a>, the <a href="/trad">trad band</a> or <a href="/packages">packages</a>, then send everything in one enquiry. Your details are saved.';
+    });
+    var addPk = root.querySelector('.vp-addpk-btn');
+    if (addPk) addPk.addEventListener('click', function (e) {
+      e.preventDefault();
+      var me = curItem();
+      if (me) { var l = getList().filter(function (x) { return x.key !== me.key; }); l.push(me); setList(l); }
+      location.href = '/packages?with=' + encodeURIComponent(m.slug);
     });
     window.addEventListener('pageshow', renderList); window.wd2RenderList = renderList;
     renderList();
