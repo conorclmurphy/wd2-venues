@@ -848,7 +848,13 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     var renderList = function () {
       var me = curItem(), others = getList().filter(function (x) { return !me || x.key !== me.key; });
       elistBox.hidden = !others.length;
-      elistBox.querySelector('ul').innerHTML = others.map(function (x) { return '<li><span>' + esc(x.label) + '</span><button type="button" data-key="' + esc(x.key) + '" aria-label="Remove ' + esc(x.label) + '">✕</button></li>'; }).join('');
+      // Musicians whose names are hidden show as "Your chosen musician" (numbered if there are several)
+      var anon = others.filter(function (x) { return /^Musician: Musician [A-Z]$/.test(x.label); }), anonN = 0;
+      var shown = function (x) {
+        if (!/^Musician: Musician [A-Z]$/.test(x.label)) return x.label;
+        anonN++; return anon.length > 1 ? 'Chosen musician ' + anonN : 'Your chosen musician';
+      };
+      elistBox.querySelector('ul').innerHTML = others.map(function (x) { var t = shown(x); return '<li><span>' + esc(t) + '</span><button type="button" data-key="' + esc(x.key) + '" aria-label="Remove ' + esc(t) + '">✕</button></li>'; }).join('');
       Array.prototype.forEach.call(elistBox.querySelectorAll('button'), function (b) { b.addEventListener('click', function () { setList(getList().filter(function (x) { return x.key !== b.getAttribute('data-key'); })); renderList(); }); });
       var inList = me && getList().some(function (x) { return x.key === me.key; });
       addBtn.disabled = !me;
@@ -912,7 +918,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           setList([]);
           // tell the Meta pixel a lead came in (for Instagram/Facebook ads)
           try { if (window.fbq) window.fbq('track', 'Lead', { content_name: m.subjectName || m.name, content_category: 'Music' }); } catch (x) {}
-          form.innerHTML = '<div class="vp-done"><h2>Thanks, ' + esc(payload['First name']) + '</h2><p>We have your enquiry' + (all.length > 1 ? ' about ' + all.length + ' options' : ' about ' + esc(m.name)) + ' and will be in touch soon by email.</p></div>';
+          form.innerHTML = '<div class="vp-done"><h2>Thanks, ' + esc(payload['First name']) + '</h2><p>We have your enquiry' + (all.length > 1 ? ' about ' + all.length + ' options' : ' about ' + (m.hideName ? 'your chosen musician' : esc(m.name))) + ' and will be in touch soon by email.</p></div>';
         })
         .catch(function () {
           sendBtn.disabled = false; sendBtn.textContent = 'Send enquiry';
