@@ -36,7 +36,8 @@
       "gallery": [],
       "photoPosition": "center 10%",
       "aboutTitle": "Bio",
-      "hideName": true
+      "hideName": true,
+      "formTitle": "Book this musician"
     },
     {
       "slug": "mathew",
@@ -64,7 +65,8 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true
+      "hideName": true,
+      "formTitle": "Book this musician"
     },
     {
       "slug": "conorc",
@@ -98,7 +100,8 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true
+      "hideName": true,
+      "formTitle": "Book this musician"
     },
     {
       "slug": "conort",
@@ -136,7 +139,8 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true
+      "hideName": true,
+      "formTitle": "Book this musician"
     },
     {
       "slug": "cathal",
@@ -169,7 +173,8 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true
+      "hideName": true,
+      "formTitle": "Book this musician"
     },
     {
       "slug": "josh",
@@ -207,7 +212,8 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true
+      "hideName": true,
+      "formTitle": "Book this musician"
     },
     {
       "slug": "emmett",
@@ -234,7 +240,8 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true
+      "hideName": true,
+      "formTitle": "Book this musician"
     },
     {
       "slug": "alan",
@@ -263,7 +270,8 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true
+      "hideName": true,
+      "formTitle": "Book this musician"
     },
     {
       "slug": "paddy",
@@ -290,7 +298,8 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true
+      "hideName": true,
+      "formTitle": "Book this musician"
     },
     {
       "slug": "phil",
@@ -327,7 +336,8 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true
+      "hideName": true,
+      "formTitle": "Book this musician"
     },
     {
       "slug": "craig",
@@ -356,7 +366,8 @@
       "gallery": [],
       "photoPosition": "center 34%",
       "aboutTitle": "Bio",
-      "hideName": true
+      "hideName": true,
+      "formTitle": "Book this musician"
     },
     {
       "slug": "pauric",
@@ -384,7 +395,8 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true
+      "hideName": true,
+      "formTitle": "Book this musician"
     },
     {
       "slug": "karl",
@@ -417,7 +429,8 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true
+      "hideName": true,
+      "formTitle": "Book this musician"
     },
     {
       "slug": "andrew",
@@ -451,7 +464,8 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true
+      "hideName": true,
+      "formTitle": "Book this musician"
     },
     {
       "slug": "james",
@@ -478,7 +492,8 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true
+      "hideName": true,
+      "formTitle": "Book this musician"
     },
     {
       "slug": "cian",
@@ -505,7 +520,8 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true
+      "hideName": true,
+      "formTitle": "Book this musician"
     },
     {
       "slug": "aaron",
@@ -532,7 +548,8 @@
       ],
       "gallery": [],
       "aboutTitle": "Bio",
-      "hideName": true
+      "hideName": true,
+      "formTitle": "Book this musician"
     },
     {
       "slug": "trad",
