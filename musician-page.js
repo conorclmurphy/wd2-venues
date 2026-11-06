@@ -203,6 +203,10 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
   document.head.appendChild(st3);
 
   var keyHandler = null;
+  // Real first names for enquiry emails, worked out from each musician's internal code ("slug"),
+  // which is already public. Couples never see these on the page.
+  var REAL_NAMES = { conorc: 'Conor C', conort: 'Conor T', mathew: 'Matthew' };
+  function realName(slug) { return REAL_NAMES[slug] || (slug.charAt(0).toUpperCase() + slug.slice(1)); }
 
   function load() {
     slug = (root.getAttribute('data-musician') || '').trim().toLowerCase();
@@ -420,6 +424,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         : m.builder
         ? '<div class="vp-field"><label for="vp-lineup">Line-up</label><select id="vp-lineup" name="Line-up">' + opt(m.builder.lineups.map(function (x) { return x.title; })) + '</select></div>'
 
+        : m.hideName
+        ? '<input type="hidden" id="vp-musician" name="Musician" value="' + esc(realName(m.slug) + ' (' + m.name + ')') + '">'
         : '<div class="vp-field"><label for="vp-musician">' + esc(m.fieldLabel || 'Musician') + '</label><input id="vp-musician" name="Musician" value="' + esc(m.name) + '"></div>')
       + '<div class="vp-field"><label for="vp-type">Event type</label><select id="vp-type" name="Event type">' + opt(['Wedding Day 2', 'Ceremony', 'Drinks Reception', 'Wedding Day After Dinner', 'Corporate', 'Other']) + '</select></div>'
       + '<div class="vp-field"><label for="vp-venue">Venue <i>(if chosen)</i></label><input id="vp-venue" name="Venue"></div>'
@@ -596,7 +602,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         if (!main) main = 'solo';
         var s1 = step('pick'), note = document.createElement('p');
         note.className = 'vp-pk-with';
-        note.innerHTML = '<strong>' + esc(withM.name) + '</strong> is in your enquiry. Now choose what to add: a second musician, the trad band or a DJ.';
+        note.innerHTML = '<strong>' + (withM.hideName ? 'Your chosen musician' : esc(withM.name)) + '</strong> is in your enquiry. Now choose what to add: a second musician, the trad band or a DJ.';
         s1.insertBefore(note, s1.querySelector('h2'));
       }
       render();
@@ -890,7 +896,11 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       // everything they added on other pages, plus this page
       var me = curItem(), all = getList().filter(function (x) { return !me || x.key !== me.key; });
       if (me) all.push(me);
-      payload['Enquiry about'] = all.length ? all.map(function (x, i) { return (all.length > 1 ? (i + 1) + '. ' : '') + x.label; }).join('\n') : (m.subjectName || m.name);
+      var emailLabel = function (x) {
+        if (x.key && x.key.indexOf('m:') === 0) return 'Musician: ' + realName(x.key.slice(2)) + ' (' + x.label.replace(/^Musician: /, '') + ')';
+        return x.label;
+      };
+      payload['Enquiry about'] = all.length ? all.map(function (x, i) { return (all.length > 1 ? (i + 1) + '. ' : '') + emailLabel(x); }).join('\n') : (m.subjectName || m.name);
       payload.from_name = fullName;
       payload.botcheck = form.querySelector('[name=botcheck]').checked;
       sendBtn.disabled = true; sendBtn.textContent = 'Sending…';
