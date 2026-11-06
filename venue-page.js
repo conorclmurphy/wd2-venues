@@ -439,6 +439,11 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       sheetBar.setAttribute('aria-label', open ? 'Close the enquiry form' : openLabel);
     }
     sheetBar.addEventListener('click', function () { setSheet(!aside.classList.contains('vp-open')); });
+    // Arriving from the floating "Send my enquiry" button: open the form straight away
+    if (/[?&]enquire=1/.test(location.search)) setTimeout(function () {
+      if (mobileQ.matches) setSheet(true);
+      else { var f = root.querySelector('.vp-form'); if (f) { f.scrollIntoView({ behavior: 'smooth', block: 'start' }); var i = f.querySelector('input:not([type=hidden])'); if (i) try { i.focus({ preventScroll: true }); } catch (x) {} } }
+    }, 700);
     // Phones: keep the open form sitting above the keyboard, and keep the box being typed in visible
     (function () {
       var vv = window.visualViewport;
@@ -488,8 +493,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     // ===== Enquiry list: couples add several musicians / packages / venues and send ONE enquiry =====
     var ELIST = 'wd2VenueEnquiryList';  // venues have their own list, separate from musicians and packages
     var getList = function () { try { return JSON.parse(localStorage.getItem(ELIST) || '[]') || []; } catch (e) { return []; } };
-    var setList = function (l) { try { localStorage.setItem(ELIST, JSON.stringify(l)); } catch (e) {} };
-    var curItem = function () { return { key: 'v:' + v.slug, label: 'Venue: ' + v.name, url: location.pathname }; };
+    var setList = function (l) { try { localStorage.setItem(ELIST, JSON.stringify(l)); } catch (e) {} if (window.wd2FloatRefresh) window.wd2FloatRefresh(); };
+    var curItem = function () { var vi = v.cardImg || v.heroImg; return { key: 'v:' + v.slug, label: 'Venue: ' + v.name, url: location.pathname, img: vi ? img(vi, 150) : '' }; };
     var elistBox = root.querySelector('.vp-elist'), addBtn = root.querySelector('.vp-add'), addNote = root.querySelector('.vp-add-note');
     var renderList = function () {
       var me = curItem(), others = getList().filter(function (x) { return !me || x.key !== me.key; });

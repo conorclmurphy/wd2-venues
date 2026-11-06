@@ -799,6 +799,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       if (m.packages && root.querySelector('.vp-aside.vp-aside-off')) { var s1 = root.querySelector('.vp-pk-step[data-step="pick"]'); if (s1) s1.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
       window.wd2OpenForm(); return; if (mobileQ.matches) { e.preventDefault(); setSheet(true); } });
     fitSticky();
+    if (/[?&]enquire=1/.test(location.search)) setTimeout(function () { window.wd2OpenForm(); }, 700);
     // re-fit whenever the form changes height (enquiry list, notes, messages), so the bottom never gets cut off
     if ('ResizeObserver' in window) new ResizeObserver(function () { if (!window.__vpPinned) fitSticky(); }).observe(aside);
     if (!window.__mpFitBound) { window.__mpFitBound = true; window.addEventListener('resize', function () { if (window.__mpFit) window.__mpFit(); }); }
@@ -831,7 +832,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     // ===== Enquiry list: couples add several musicians / packages / venues and send ONE enquiry =====
     var ELIST = 'wd2EnquiryList';
     var getList = function () { try { return JSON.parse(localStorage.getItem(ELIST) || '[]') || []; } catch (e) { return []; } };
-    var setList = function (l) { try { localStorage.setItem(ELIST, JSON.stringify(l)); } catch (e) {} };
+    var setList = function (l) { try { localStorage.setItem(ELIST, JSON.stringify(l)); } catch (e) {} if (window.wd2FloatRefresh) window.wd2FloatRefresh(); };
     var curItem = function () {
       var v = function (q) { var f = root.querySelector(q); return f ? f.value.trim() : ''; };
       if (m.packages) {
@@ -859,8 +860,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         anonN++; return anon.length > 1 ? 'Chosen musician ' + anonN : 'Your chosen musician';
       };
       var thumb = function (x) {
-        if (!x.key || x.key.indexOf('m:') !== 0) return null;
         if (x.img) return { src: x.img, pos: x.pos || '' };
+        if (!x.key || x.key.indexOf('m:') !== 0) return null;
         var o = DATA.musicians.filter(function (y) { return 'm:' + y.slug === x.key; })[0];  // items saved before photos were stored
         return o && o.photo ? { src: img(o.photo, 150), pos: o.cardPosition || o.photoPosition || '' } : null;
       };
