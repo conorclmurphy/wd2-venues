@@ -192,6 +192,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
   var st3 = document.createElement('style');
   st3.textContent = '#musician-page .vp-hero h1.vp-sr{position:absolute;width:1px;height:1px;margin:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}'
     + '#musician-page .vp-hero h1.vp-sr+.vp-facts{margin-top:14px}'
+    + '#musician-page .vp-elist .vp-el-who{display:flex;align-items:center;gap:10px;min-width:0}#musician-page .vp-elist li.vp-el-m{align-items:center}'
+    + '#musician-page .vp-elist .vp-el-who img{width:38px;height:38px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--vp-brass)}'
     + '#musician-page .vp-addpk{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 28px;padding:22px 24px;border-radius:var(--vp-radius);border:1px solid rgba(61,194,187,.45);background:rgba(61,194,187,.08)}'
     + '#musician-page .vp-addpk h2{font-size:clamp(22px,2.6vw,28px)!important;margin:0 0 6px!important}#musician-page .vp-addpk p{color:var(--vp-muted);max-width:52ch;font-size:15.5px}'
     + '#musician-page .vp-addpk .vp-addpk-btn{margin:0;white-space:nowrap}'
@@ -203,10 +205,6 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
   document.head.appendChild(st3);
 
   var keyHandler = null;
-  // Real first names for enquiry emails, worked out from each musician's internal code ("slug"),
-  // which is already public. Couples never see these on the page.
-  var REAL_NAMES = { conorc: 'Conor C', conort: 'Conor T', mathew: 'Matthew' };
-  function realName(slug) { return REAL_NAMES[slug] || (slug.charAt(0).toUpperCase() + slug.slice(1)); }
 
   function load() {
     slug = (root.getAttribute('data-musician') || '').trim().toLowerCase();
@@ -425,7 +423,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         ? '<div class="vp-field"><label for="vp-lineup">Line-up</label><select id="vp-lineup" name="Line-up">' + opt(m.builder.lineups.map(function (x) { return x.title; })) + '</select></div>'
 
         : m.hideName
-        ? '<input type="hidden" id="vp-musician" name="Musician" value="' + esc(realName(m.slug) + ' (' + m.name + ')') + '">'
+        ? '<input type="hidden" id="vp-musician" name="Musician" value="' + esc(m.name) + '">'
         : '<div class="vp-field"><label for="vp-musician">' + esc(m.fieldLabel || 'Musician') + '</label><input id="vp-musician" name="Musician" value="' + esc(m.name) + '"></div>')
       + '<div class="vp-field"><label for="vp-type">Event type</label><select id="vp-type" name="Event type">' + opt(['Wedding Day 2', 'Ceremony', 'Drinks Reception', 'Wedding Day After Dinner', 'Corporate', 'Other']) + '</select></div>'
       + '<div class="vp-field"><label for="vp-venue">Venue <i>(if chosen)</i></label><input id="vp-venue" name="Venue"></div>'
@@ -842,19 +840,31 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         var ln = v('#vp-lineup'), pf = v('#vp-musician');
         return { key: 'trad', label: 'Modern Trad Band' + (ln ? ' (' + ln + ')' : '') + (pf ? ' with ' + pf : ''), url: location.pathname };
       }
-      return { key: 'm:' + m.slug, label: 'Musician: ' + m.name, url: location.pathname };
+      return { key: 'm:' + m.slug, label: 'Musician: ' + m.name, url: location.pathname, img: img(m.photo, 150), pos: m.cardPosition || m.photoPosition || '' };
     };
     var elistBox = root.querySelector('.vp-elist'), addBtn = root.querySelector('.vp-add'), addNote = root.querySelector('.vp-add-note');
     var renderList = function () {
-      var me = curItem(), others = getList().filter(function (x) { return !me || x.key !== me.key; });
+      var me = curItem(), meKey = me && me.key, isMusicianPage = meKey && meKey.indexOf('m:') === 0;
+      // On a musician's own page, show them in the box once they've been picked, so the couple can see their choice
+      var others = getList().filter(function (x) { return !me || x.key !== me.key || isMusicianPage; });
       elistBox.hidden = !others.length;
+      var elT = elistBox.querySelector('.vp-elist-t'); if (elT) elT.textContent = isMusicianPage && others.length === 1 && others[0].key === meKey ? 'Your choice' : 'In your enquiry';
       // Musicians whose names are hidden show as "Your chosen musician" (numbered if there are several)
       var anon = others.filter(function (x) { return /^Musician: Musician [A-Z]$/.test(x.label); }), anonN = 0;
       var shown = function (x) {
         if (!/^Musician: Musician [A-Z]$/.test(x.label)) return x.label;
         anonN++; return anon.length > 1 ? 'Chosen musician ' + anonN : 'Your chosen musician';
       };
-      elistBox.querySelector('ul').innerHTML = others.map(function (x) { var t = shown(x); return '<li><span>' + esc(t) + '</span><button type="button" data-key="' + esc(x.key) + '" aria-label="Remove ' + esc(t) + '">✕</button></li>'; }).join('');
+      var thumb = function (x) {
+        if (!x.key || x.key.indexOf('m:') !== 0) return null;
+        if (x.img) return { src: x.img, pos: x.pos || '' };
+        var o = DATA.musicians.filter(function (y) { return 'm:' + y.slug === x.key; })[0];  // items saved before photos were stored
+        return o && o.photo ? { src: img(o.photo, 150), pos: o.cardPosition || o.photoPosition || '' } : null;
+      };
+      elistBox.querySelector('ul').innerHTML = others.map(function (x) {
+        var t = shown(x), th = thumb(x);
+        return '<li' + (th ? ' class="vp-el-m"' : '') + '><span class="vp-el-who">' + (th ? '<img src="' + esc(th.src) + '" alt=""' + (th.pos ? ' style="object-position:' + esc(th.pos) + '"' : '') + '>' : '') + '<span>' + esc(t) + '</span></span><button type="button" data-key="' + esc(x.key) + '" aria-label="Remove ' + esc(t) + '">✕</button></li>';
+      }).join('');
       Array.prototype.forEach.call(elistBox.querySelectorAll('button'), function (b) { b.addEventListener('click', function () { setList(getList().filter(function (x) { return x.key !== b.getAttribute('data-key'); })); renderList(); }); });
       var inList = me && getList().some(function (x) { return x.key === me.key; });
       addBtn.disabled = !me;
@@ -862,7 +872,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var bar = root.querySelector('.vp-sheet-bar span');
       if (bar && !bar.parentNode.classList.contains('vp-bar-msg')) {
         var base = bar.getAttribute('data-base') || bar.textContent; bar.setAttribute('data-base', base);
-        bar.textContent = base + (others.length ? ' + ' + others.length + ' more' : ''); bar.setAttribute('data-label', bar.textContent);
+        var moreN = others.filter(function (x) { return x.key !== meKey; }).length; bar.textContent = base + (moreN ? ' + ' + moreN + ' more' : ''); bar.setAttribute('data-label', bar.textContent);
       }
     };
     addBtn.addEventListener('click', function () {
@@ -902,11 +912,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       // everything they added on other pages, plus this page
       var me = curItem(), all = getList().filter(function (x) { return !me || x.key !== me.key; });
       if (me) all.push(me);
-      var emailLabel = function (x) {
-        if (x.key && x.key.indexOf('m:') === 0) return 'Musician: ' + realName(x.key.slice(2)) + ' (' + x.label.replace(/^Musician: /, '') + ')';
-        return x.label;
-      };
-      payload['Enquiry about'] = all.length ? all.map(function (x, i) { return (all.length > 1 ? (i + 1) + '. ' : '') + emailLabel(x); }).join('\n') : (m.subjectName || m.name);
+      payload['Enquiry about'] = all.length ? all.map(function (x, i) { return (all.length > 1 ? (i + 1) + '. ' : '') + x.label; }).join('\n') : (m.subjectName || m.name);
       payload.from_name = fullName;
       payload.botcheck = form.querySelector('[name=botcheck]').checked;
       sendBtn.disabled = true; sendBtn.textContent = 'Sending…';
