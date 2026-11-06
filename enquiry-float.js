@@ -1,7 +1,7 @@
 /* Wedding Day 2 floating "Your enquiry" pill
    Shows in the bottom-right corner on every page once a couple has added something to their enquiry:
    one pill for venues and one for music (musicians, trad band, packages), stacked when both are in use. It reads the same
-   list the musician and venue pages save in the browser ("wd2EnquiryList").
+   lists the musician and venue pages save in the browser ("wd2EnquiryList" for music, "wd2VenueEnquiryList" for venues).
    Hidden on pages that already show the enquiry form.
    Loaded site-wide from Squarespace: Settings > Developer tools > Code injection > Footer:
      <script>
@@ -12,9 +12,14 @@
 (function () {
   if (window.__wd2Float) return;
   window.__wd2Float = true;
-  var KEY = 'wd2EnquiryList';
-  var getList = function () { try { return JSON.parse(localStorage.getItem(KEY) || '[]') || []; } catch (e) { return []; } };
-  var setList = function (l) { try { localStorage.setItem(KEY, JSON.stringify(l)); } catch (e) {} };
+  // Music (musicians, trad band, packages) and venues are saved in separate lists by their pages
+  var KEY = 'wd2EnquiryList', VKEY = 'wd2VenueEnquiryList';
+  var read = function (k) { try { return JSON.parse(localStorage.getItem(k) || '[]') || []; } catch (e) { return []; } };
+  var write = function (k, l) { try { localStorage.setItem(k, JSON.stringify(l)); } catch (e) {} };
+  var getList = function () { return read(KEY).concat(read(VKEY)); };
+  var removeKey = function (key) {
+    [KEY, VKEY].forEach(function (k) { var l = read(k), f = l.filter(function (x) { return x.key !== key; }); if (f.length !== l.length) write(k, f); });
+  };
   var esc = function (s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -111,7 +116,7 @@
       grp.querySelector('.wf-x').addEventListener('click', function () { openId = ''; draw(); });
       Array.prototype.forEach.call(grp.querySelectorAll('li button'), function (b) {
         b.addEventListener('click', function () {
-          setList(getList().filter(function (x) { return x.key !== b.getAttribute('data-key'); }));
+          removeKey(b.getAttribute('data-key'));
           draw();
         });
       });
@@ -122,7 +127,7 @@
 
   draw();
   // Keep up to date: other tabs, coming back with the browser's Back button, and pages that draw their form a little later
-  window.addEventListener('storage', function (e) { if (e.key === KEY) draw(); });
+  window.addEventListener('storage', function (e) { if (e.key === KEY || e.key === VKEY) draw(); });
   window.addEventListener('pageshow', draw);
   setTimeout(draw, 1500); setTimeout(draw, 4000);
   window.wd2FloatRefresh = draw;
