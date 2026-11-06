@@ -194,8 +194,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     + '#musician-page .vp-hero h1.vp-sr+.vp-facts{margin-top:14px}'
     + '#musician-page .vp-elist .vp-el-who{display:flex;align-items:center;gap:10px;min-width:0}#musician-page .vp-elist li.vp-el-m{align-items:center}'
     + '#musician-page .vp-elist .vp-el-who img{width:38px;height:38px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--vp-brass)}'
-    + '#musician-page .vp-choose{display:grid;gap:10px;justify-items:start;margin-bottom:-48px}#musician-page .vp-choose .vp-add{margin:0;font:inherit;font-weight:600;cursor:pointer;padding:14px 26px}#musician-page .vp-choose .vp-add[disabled]{opacity:.6}#musician-page .vp-choose .vp-add-note{color:var(--vp-muted);font-size:14.5px;max-width:60ch}#musician-page .vp-choose .vp-add-note a{color:var(--vp-brass)}'
-    + '@media (max-width:640px){#musician-page .vp-choose{margin-bottom:-36px}#musician-page .vp-choose .vp-add{width:100%}}'
+    + '#musician-page .vp-choose{display:grid;gap:10px;justify-items:start}#musician-page .vp-choose.vp-choose-tight{margin-bottom:-48px}#musician-page .vp-choose .vp-add{margin:0;font:inherit;font-weight:600;cursor:pointer;padding:14px 26px}#musician-page .vp-choose .vp-add[disabled]{opacity:.6}#musician-page .vp-choose .vp-add-note{color:var(--vp-muted);font-size:14.5px;max-width:60ch}#musician-page .vp-choose .vp-add-note a{color:var(--vp-brass)}'
+    + '@media (max-width:640px){#musician-page .vp-choose.vp-choose-tight{margin-bottom:-36px}#musician-page .vp-choose .vp-add{width:100%}}'
     + '#musician-page .vp-addpk{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 28px;padding:22px 24px;border-radius:var(--vp-radius);border:1px solid rgba(61,194,187,.45);background:rgba(61,194,187,.08)}'
     + '#musician-page .vp-addpk h2{font-size:clamp(22px,2.6vw,28px)!important;margin:0 0 6px!important}#musician-page .vp-addpk p{color:var(--vp-muted);max-width:52ch;font-size:15.5px}'
     + '#musician-page .vp-addpk .vp-addpk-btn{margin:0;white-space:nowrap}'
@@ -306,7 +306,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
     // Solo musician profiles: offer to add this musician to a package
     var soloPage = !m.builder && !m.packages && !m.related;
-    if (soloPage) h += '<section class="vp-choose"><button type="button" class="vp-btn vp-add">+ Add to my enquiry and keep browsing</button><p class="vp-add-note" hidden></p></section>';
+    if (soloPage) h += '<section class="vp-choose vp-choose-tight"><button type="button" class="vp-btn vp-add">+ Add to my enquiry and keep browsing</button><p class="vp-add-note" hidden></p></section>';
     if (soloPage) h += '<section class="vp-addpk"><div><h2>Add this musician to a package</h2><p>Want more than 2 hours of music? Pair this musician with a second musician, our trad band or a DJ. We\'ll keep this musician in your enquiry while you choose.</p></div>'
       + '<a class="vp-btn vp-addpk-btn" href="/packages">Add to a package →</a></section>';
 
@@ -356,6 +356,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         + (P.note ? '<p class="vp-pk-foot">' + esc(P.note) + '</p>' : '') + '</div>'
         + '<div class="vp-pk-other"><div><strong>Want something different?</strong><span>Tell us what you have in mind and we\'ll put together something just for you.</span></div><a class="vp-btn vp-btn-ghost" href="/home#enquiremain">Send us a general enquiry →</a></div></section>';
     }
+    if (!soloPage && !m.packages) h += '<section class="vp-choose"><button type="button" class="vp-btn vp-add">+ Add to my enquiry and keep browsing</button><p class="vp-add-note" hidden></p></section>';
     // DJ pages: show the other DJ options as cards (DJ / DJ & Sax / Karaoke), with this one marked
     if (m.related) {
       h += '<section><div class="vp-h2row"><h2>' + esc(m.relatedTitle || 'More options') + '</h2></div><div class="vp-similar vp-three vp-rel">';
@@ -433,7 +434,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       + '<div class="vp-field"><label for="vp-heard">How did you hear about us?</label><select id="vp-heard" name="How they heard about us">' + opt(['Instagram', 'Google Search', 'Musician referral', 'Venue recommendation', 'Friends or family', 'Other']) + '</select></div>'
       + '<div class="vp-field"><label for="vp-msg">Let us know how we can help <i>(optional)</i></label><textarea id="vp-msg" name="Message" placeholder="Guest numbers, add-ons like trad band, DJ or karaoke, questions"></textarea></div>'
       + '<input type="checkbox" name="botcheck" class="vp-hp" tabindex="-1" autocomplete="off" aria-hidden="true">'
-      + '<button class="vp-btn" type="submit">Send enquiry</button>' + (soloPage ? '' : '<button type="button" class="vp-btn vp-btn-ghost vp-add"' + (m.packages ? ' hidden' : '') + '>+ Add to my enquiry and keep browsing</button><p class="vp-add-note" hidden></p>') + '<p class="vp-status" role="status" aria-live="polite"></p>'
+      + '<button class="vp-btn" type="submit">Send enquiry</button>' + (!m.packages ? '' : '<button type="button" class="vp-btn vp-btn-ghost vp-add"' + (m.packages ? ' hidden' : '') + '>+ Add to my enquiry and keep browsing</button><p class="vp-add-note" hidden></p>') + '<p class="vp-status" role="status" aria-live="polite"></p>'
       + '</form></div></aside>';
     h += '</div>';  // end of body
 
@@ -620,6 +621,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         });
       };
       pickIn('.vp-lineup', 'data-lineup', '#vp-lineup');
+      root.querySelectorAll('.vp-lineup').forEach(function (b) { b.addEventListener('click', function () { if (window.wd2RenderList) window.wd2RenderList(); }); });
       // Only show performers who play with the chosen line-up
       var showFor = function (need) {
         root.querySelectorAll('.vp-performer').forEach(function (card) {
@@ -633,6 +635,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       };
       root.querySelectorAll('.vp-lineup').forEach(function (btn) { btn.addEventListener('click', function () { showFor(btn.getAttribute('data-needs')); }); });
       var lineSel = root.querySelector('#vp-lineup');
+      if (lineSel) lineSel.addEventListener('change', function () { if (window.wd2RenderList) setTimeout(window.wd2RenderList, 0); });
       if (lineSel) lineSel.addEventListener('change', function () {
         var hit = null;
         root.querySelectorAll('.vp-lineup').forEach(function (x) { var on = x.getAttribute('data-lineup') === lineSel.value; x.classList.toggle('vp-picked', on); if (on) hit = x; });
@@ -842,13 +845,15 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       }
       if (m.builder) {
         var ln = v('#vp-lineup'), pf = v('#vp-musician');
-        return { key: 'trad', label: 'Modern Trad Band' + (ln ? ' (' + ln + ')' : '') + (pf ? ' with ' + pf : ''), url: location.pathname };
+        return { key: 'trad', label: 'Modern Trad Band' + (ln ? ' (' + ln + ')' : '') + (pf ? ' with ' + pf : ''), url: location.pathname, img: img(m.photo, 150), pos: m.cardPosition || m.photoPosition || '' };
       }
-      return { key: 'm:' + m.slug, label: 'Musician: ' + m.name, url: location.pathname, img: img(m.photo, 150), pos: m.cardPosition || m.photoPosition || '' };
+      return { key: 'm:' + m.slug, label: m.related ? (m.subjectName || m.name) : 'Musician: ' + m.name, url: location.pathname, img: img(m.photo, 150), pos: m.cardPosition || m.photoPosition || '' };
     };
     var elistBox = root.querySelector('.vp-elist'), addBtn = root.querySelector('.vp-add'), addNote = root.querySelector('.vp-add-note');
     var renderList = function () {
-      var me = curItem(), meKey = me && me.key, isMusicianPage = meKey && meKey.indexOf('m:') === 0;
+      var me = curItem(), meKey = me && me.key, isMusicianPage = meKey && (meKey.indexOf('m:') === 0 || meKey === 'trad');
+      // Trad band already in the enquiry: keep its saved line-up (Duo / Trio) in step with the form
+      if (meKey === 'trad') { var tl = getList(), ti = -1; tl.forEach(function (x, i) { if (x.key === 'trad') ti = i; }); if (ti !== -1 && tl[ti].label !== me.label) { tl[ti] = me; setList(tl); } }
       // On a musician's own page, show them in the box once they've been picked, so the couple can see their choice
       var others = getList().filter(function (x) { return !me || x.key !== me.key || isMusicianPage; });
       elistBox.hidden = !others.length;
