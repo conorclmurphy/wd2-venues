@@ -648,7 +648,7 @@
         "soloFrom": 650,
         "djFrom": 750,
         "soloText": "One of our singer-guitarists. Includes a 2-hour performance plus professional audio and lighting.",
-        "whenHint": "When do you need music? Tap all that apply:",
+        "whenHint": "When do you need music? Pick one to start. You can add more after.",
         "extras": [
           {
             "id": "second",
@@ -673,7 +673,7 @@
           {
             "title": "Duo",
             "text": "Solo musician + fiddle or banjo.",
-            "price": "On its own from €1,150"
+            "price": "On its own from €1,350"
           },
           {
             "title": "Trio",
@@ -726,7 +726,7 @@
             "title": "The Party",
             "hours": "4 hours of live music",
             "text": "Solo musician, followed by a trad band",
-            "from": 2250,
+            "from": 2450,
             "extras": [
               "trad"
             ],
@@ -737,7 +737,7 @@
             "title": "The Full Experience",
             "hours": "6 hours of live music",
             "text": "Solo musician, followed by a trad band, then a DJ",
-            "from": 3250,
+            "from": 3450,
             "extras": [
               "trad",
               "dj"
@@ -746,14 +746,14 @@
           }
         ],
         "note": "Prices are a starting guide and vary depending on the musicians you choose and the extras you add. Additional travel fees may apply based on your event location.",
-        "duoFrom": 1150,
+        "duoFrom": 1350,
         "trioFrom": 1500,
         "alts": [
           {
             "id": "duo",
             "title": "Duo",
             "text": "Solo musician + fiddle or banjo. Trad, contemporary or jazz.",
-            "price": "From €1,150"
+            "price": "From €1,350"
           },
           {
             "id": "trio",
