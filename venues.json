@@ -521,7 +521,7 @@
       "county": "Westmeath",
       "location": "Athlone",
       "area": "Church Street, Athlone",
-      "capacity": 100,
+      "capacity": 120,
       "foodStyle": "casual",
       "live": true,
       "url": "https://weddingday2.ie/peddlermacs",
@@ -531,7 +531,7 @@
       "rooms": [
         {
           "name": "The Courtyard Beer Garden",
-          "capacity": "Up to 100 guests",
+          "capacity": "Up to 120 guests",
           "description": "Peddler Mac's covered courtyard is styled like an old Irish street, with traditional shopfronts like Evelyn's Arcade and the White Rabbit Emporium, gas-style lanterns, hanging greenery and barrel tables under a glass roof. It feels like you're outdoors whatever the weather, and it's made for a lively Day 2 or after-party, with drinks from the bar and live music, which is what this place does best.",
           "gallery": [
             "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af33938fe5bda55f84d46ed/1794324793152/peddler-macs-7022.jpg",
