@@ -577,7 +577,13 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           el.addEventListener('play', function () { wrap.classList.add('vp-playing'); el.setAttribute('controls', ''); });
           el.addEventListener('ended', function () { wrap.classList.remove('vp-playing'); });
           if (window.Hls && window.Hls.isSupported()) {
-            var hls = new window.Hls({ autoStartLoad: false, abrEwmaDefaultEstimate: 6000000, capLevelToPlayerSize: false, maxBufferLength: 10, startFragPrefetch: true });  // start in good quality instead of the lowest
+            var hls = new window.Hls({ autoStartLoad: false, abrEwmaDefaultEstimate: 6000000, capLevelToPlayerSize: false, maxBufferLength: 10, startFragPrefetch: true, testBandwidth: false });
+            // Always start in the top quality (1080p), on phones too, instead of letting the phone pick the low 360p version first
+            hls.on(window.Hls.Events.MANIFEST_PARSED, function (ev, d) {
+              var top = 0; (d.levels || hls.levels).forEach(function (l, li) { if ((l.height || 0) > ((d.levels || hls.levels)[top].height || 0)) top = li; });
+              hls.startLevel = top;
+            });
+            try { el.disableRemotePlayback = true; } catch (e) {}  // lets iPhones (iOS 17.1+) use this player rather than their own
             hls.loadSource(src); hls.attachMedia(el);
             // Start buffering the first few seconds as the video scrolls near the screen, so it plays straight away when tapped
             var started = false, kick = function () { if (!started) { started = true; hls.startLoad(); } };
