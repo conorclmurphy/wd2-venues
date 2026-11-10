@@ -215,7 +215,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
   load();
 
   function render(DATA, v) {
-    var img = function (p, w) { return DATA.imageBase + p + '?format=' + w + 'w'; };
+    var img = function (p, w) { return /^https?:/.test(p) ? p : DATA.imageBase + p + '?format=' + w + 'w'; };
     var sets = [];  // each photo set (a room's gallery, or the venue's) gets its own viewer
     var rooms = v.rooms || [];
     var vids = v.videos || [];
@@ -226,7 +226,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     if (rooms.length) facts.push(['Private spaces', String(rooms.length)]);
 
     var h = '';
-    h += '<header class="vp-hero"><img src="' + img(v.heroImg || v.cardImg, 2500) + '" alt="' + esc(v.name) + '">';
+    h += '<header class="vp-hero"><img src="' + img(v.heroImg || v.cardImg, 2500) + '" alt="' + esc(v.name) + '"' + (v.heroPos ? ' style="object-position:' + esc(v.heroPos) + '"' : '') + '>';
     h += '<div class="vp-hero-in vp-pad"><div class="vp-eyebrow">' + esc(area) + ' · Co. ' + esc(v.county) + '</div>';
     h += '<h1>' + esc(v.name) + '</h1><p class="vp-lede">' + esc(firstSentence(v.intro)) + '</p></div></header>';
 
