@@ -630,7 +630,7 @@
       "facts": [
         {
           "label": "Solo musicians",
-          "value": "From €750"
+          "value": "From €650"
         },
         {
           "label": "Packages",
@@ -646,6 +646,7 @@
       "duo": false,
       "packages": {
         "soloFrom": 750,
+        "soloFromCeremony": 650,
         "djFrom": 750,
         "soloText": "One of our singer-guitarists. Includes a 2-hour performance plus professional audio and lighting.",
         "whenHint": "When do you need music? Pick one to start. You can add more after.",

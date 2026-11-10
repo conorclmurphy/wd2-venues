@@ -541,6 +541,12 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         if (n === 3) { var pk = $('.vp-pk.vp-picked'); if (pk) setTimeout(function () { var row = $('.vp-pk-row'); row.scrollTo({ left: pk.offsetLeft - row.offsetLeft, behavior: 'smooth' }); }, 250); }
         go(wbar);
       }
+      // Solo price depends on the part of the day: ceremony & drinks reception from €650, after dinner and Day 2 from €750
+      var pricePart = null;
+      function soloFrom() {
+        var e = pricePart !== null ? pricePart : (parts()[partIdx] || '');
+        return e === 'day2' || e === 'afterdinner' ? P.soloFrom : (P.soloFromCeremony || P.soloFrom);
+      }
       function match() {
         var solo = has('solo'), trad = has('trad'), dj = has('dj'), two = solo && soloN === '2';
         var base = solo && trad && dj ? 'full-experience' : solo && trad ? 'party' : solo && dj && !two ? 'celebration' : solo && two && !dj ? 'double-trouble' : '';
@@ -549,9 +555,9 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         var price = 0, name = '', extra = [];
         if (pk) {
           price = pk.from; name = pk.title;
-          if (two && trad) { price += P.soloFrom; extra.push(dj ? 'Double Trouble' : 'second solo musician'); }  // trad packages only include one musician
-        } else if (solo && two && dj) { price = 2 * P.soloFrom + P.djFrom; name = 'Two solo musicians + DJ'; }
-        else if (solo) { price = P.soloFrom; name = 'Solo musician'; }
+          if (two && trad) { price += soloFrom(); extra.push(dj ? 'Double Trouble' : 'second solo musician'); }  // trad packages only include one musician
+        } else if (solo && two && dj) { price = 2 * soloFrom() + P.djFrom; name = 'Two solo musicians + DJ'; }
+        else if (solo) { price = soloFrom(); name = 'Solo musician'; }
         else if (trad) { price = tradPrice; name = 'Trad band (' + line + ')'; if (dj) { price += P.djFrom; extra.push('DJ'); } }
         else if (dj) { price = P.djFrom; name = 'DJ'; }
         var d = P.djExtras.filter(function (x) { return x.title === dx; })[0];
@@ -576,7 +582,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         if (solo && budgetOk) it.push((soloN === '2' ? 'Maximum budget for each solo musician: ' : 'Maximum budget for solo musician: ') + euro(budget));
         return { r: r, items: it, started: !!main, line: trad ? line : '', dx: d, budget: solo && budgetOk ? euro(budget) + (soloN === '2' ? ' each' : '') : '' };
       }
-      function describePart(st) { var keep = snapPart(); loadPart(st); var d = describe(); loadPart(keep); return d; }
+      function describePart(st, e) { var keep = snapPart(); pricePart = e || null; loadPart(st); var d = describe(); loadPart(keep); pricePart = null; return d; }
       function render() {
         var started = !!main, solo = has('solo'), trad = has('trad'), dj = has('dj');
         var PP = parts(); if (partIdx > PP.length - 1) partIdx = Math.max(0, PP.length - 1);
@@ -656,6 +662,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         var asideEl = root.querySelector('.vp-aside');
         if (asideEl) { var off = window.matchMedia('(max-width:1000px)').matches && !started && !window.wd2FormShown; if (asideEl.classList.contains('vp-aside-off') && !off) { asideEl.classList.add('vp-aside-in'); setTimeout(function () { asideEl.classList.remove('vp-aside-in'); }, 700); } asideEl.classList.toggle('vp-aside-off', off); }
         // result
+        var scp = $('.vp-pk-card[data-o="solo"] .vp-pk-cprice'); if (scp) scp.textContent = 'From ' + euro(soloFrom());
         var r = match();
         $$('.vp-pk').forEach(function (b) { b.classList.toggle('vp-picked', !!r.pk && b.getAttribute('data-id') === r.pk.id); });
         $('.vp-pk-row').classList.toggle('vp-has-pick', !!r.pk);
@@ -670,7 +677,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         if (wl.length) items.push('For: ' + (multi ? L[curPart] : wl.join(', ')));
         dNow.items.filter(function (t) { return t.indexOf('Maximum budget') === 0; }).forEach(function (t) { items.push(t); });
         // the whole day, part by part
-        var day = !multi ? [] : PP.map(function (e) { return { e: e, d: e === curPart ? dNow : (saved[e] ? describePart(saved[e]) : null) }; }).filter(function (x) { return x.d && x.d.started; });
+        var day = !multi ? [] : PP.map(function (e) { return { e: e, d: e === curPart ? dNow : (saved[e] ? describePart(saved[e], e) : null) }; }).filter(function (x) { return x.d && x.d.started; });
         var dayTotal = day.reduce(function (t, x) { return t + x.d.r.price; }, 0);
         var sum = $('.vp-pk-sum'); sum.hidden = !started || multi;
         // Several parts of the weekend: one card per part, side by side, with a grand total underneath
@@ -680,7 +687,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         if (started && multi) {
           var totHours = 0;
           daysBox.innerHTML = '<h3>Your music, part by part</h3><div class="vp-pk-days-grid">' + PP.map(function (e, i) {
-            var d = e === curPart ? dNow : (saved[e] && saved[e].main ? describePart(saved[e]) : null), here = e === curPart;
+            var d = e === curPart ? dNow : (saved[e] && saved[e].main ? describePart(saved[e], e) : null), here = e === curPart;
             if (!d) return '<button type="button" class="vp-pk-day vp-pk-day-empty" data-i="' + i + '"><span class="vp-pk-day-t">' + esc(L[e]) + '</span><strong>Not chosen yet</strong><span class="vp-pk-day-go">Choose music →</span></button>';
             totHours += d.r.hours;
             return '<button type="button" class="vp-pk-day' + (here ? ' vp-on' : '') + '" data-i="' + i + '"' + (here ? ' aria-current="true"' : '') + '><span class="vp-pk-day-t">' + esc(L[e]) + (here ? ' <em>Editing</em>' : '') + '</span>'
