@@ -429,7 +429,16 @@
         {
           "name": "The Whiskey Bar",
           "capacity": "Up to 60 guests",
-          "description": "A moody, intimate lounge with dark timber panelling, wooden floors and warm, low lighting, opening onto the courtyard. It's ideal for a smaller gathering with drinks, bites and live music."
+          "description": "A moody, intimate lounge with dark timber, leather seating and a glowing back bar stacked with whiskeys, with doors out to its own little terrace for fresh air between sets. It's ideal for a smaller gathering with drinks, bites and live music.",
+          "gallery": [
+            "1794325771765-256KHP9QIY8FBYYMUS1T/IMG_7511.jpeg",
+            "1794325768024-K297CDCIG2JTOT3TPBJY/IMG_7547.jpeg",
+            "1794325765477-BG5XE6FRJ780V37ZTEH7/IMG_7527.jpeg",
+            "1794325769600-SFUHXQJHE715R67YF3C7/IMG_7517.jpeg",
+            "1794325765414-Z9K6BKV3EUBPTQGS4K62/IMG_7526.jpeg",
+            "1794325773193-LZIG4AE7VQ52NPZOK0V8/IMG_7532.jpeg",
+            "1794325771533-1EALNCXTY6E0TYLCJVVX/IMG_7544.jpeg"
+          ]
         },
         {
           "name": "The Cocktail Bar",
@@ -445,7 +454,8 @@
       "gallery": [],
       "videos": [],
       "area": "Dawson Street, Dublin 2",
-      "mapQuery": "Lennan's Yard, 21A Dawson Street, Dublin 2"
+      "mapQuery": "Lennan's Yard, 21A Dawson Street, Dublin 2",
+      "heroImg": "1794325771765-256KHP9QIY8FBYYMUS1T/IMG_7511.jpeg"
     },
     {
       "slug": "opium",
