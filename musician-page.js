@@ -834,7 +834,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         if (!main) main = 'solo';
         var s1 = step('pick'), note = document.createElement('p');
         note.className = 'vp-pk-with';
-        note.innerHTML = '<strong>' + (withM.hideName ? 'Your chosen musician' : esc(withM.name)) + '</strong> is in your enquiry. Now choose what to add: a second musician, the trad band or a DJ.';
+        note.innerHTML = '<strong>' + (withM.hideName ? 'Your musician preference' : esc(withM.name)) + '</strong> is in your enquiry. Now choose what to add: a second musician, the trad band or a DJ.';
         s1.insertBefore(note, s1.querySelector('h2'));
       }
       // Start the package with whatever is already in their enquiry (musicians, trad band, DJ), unless they arrived with a set package
@@ -1118,11 +1118,11 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var others = getList().filter(function (x) { return !me || x.key !== me.key || isMusicianPage; });
       elistBox.hidden = !others.length;
       var elT = elistBox.querySelector('.vp-elist-t'); if (elT) elT.textContent = isMusicianPage && others.length === 1 && others[0].key === meKey ? 'Your choice' : 'In your enquiry';
-      // Musicians whose names are hidden show as "Your chosen musician" (numbered if there are several)
+      // Musicians whose names are hidden show as "Your musician preference" (numbered if there are several)
       var anon = others.filter(function (x) { return /^Musician: Musician [A-Z]$/.test(x.label); }), anonN = 0;
       var shown = function (x) {
         if (!/^Musician: Musician [A-Z]$/.test(x.label)) return x.label;
-        anonN++; return anon.length > 1 ? 'Chosen musician ' + anonN : 'Your chosen musician';
+        anonN++; return anon.length > 1 ? 'Musician preference ' + anonN : 'Your musician preference';
       };
       var thumb = function (x) {
         if (x.img) return { src: x.img, pos: x.pos || '' };
@@ -1198,7 +1198,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           setList([]);
           // tell the Meta pixel a lead came in (for Instagram/Facebook ads)
           try { if (window.fbq) window.fbq('track', 'Lead', { content_name: m.subjectName || m.name, content_category: 'Music' }); } catch (x) {}
-          form.innerHTML = '<div class="vp-done"><h2>Thanks, ' + esc(payload['First name']) + '</h2><p>We have your enquiry' + (all.length > 1 ? ' about ' + all.length + ' options' : ' about ' + (m.hideName ? 'your chosen musician' : esc(m.name))) + ' and will be in touch soon by email.</p></div>';
+          form.innerHTML = '<div class="vp-done"><h2>Thanks, ' + esc(payload['First name']) + '</h2><p>We have your enquiry' + (all.length > 1 ? ' about ' + all.length + ' options' : ' about ' + (m.hideName ? 'your musician preference' : esc(m.name))) + ' and will be in touch soon by email.</p></div>';
         })
         .catch(function () {
           sendBtn.disabled = false; sendBtn.textContent = 'Send enquiry';

@@ -501,7 +501,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var me = curItem(), others = getList().filter(function (x) { return !me || x.key !== me.key; });
       elistBox.hidden = !others.length;
       var anon = others.filter(function (x) { return /^Musician: Musician [A-Z]$/.test(x.label); }), anonN = 0;
-      var shown = function (x) { if (!/^Musician: Musician [A-Z]$/.test(x.label)) return x.label; anonN++; return anon.length > 1 ? 'Chosen musician ' + anonN : 'Your chosen musician'; };
+      var shown = function (x) { if (!/^Musician: Musician [A-Z]$/.test(x.label)) return x.label; anonN++; return anon.length > 1 ? 'Musician preference ' + anonN : 'Your musician preference'; };
       elistBox.querySelector('ul').innerHTML = others.map(function (x) {
         var t = shown(x);
         return '<li' + (x.img ? ' class="vp-el-m"' : '') + '><span class="vp-el-who">' + (x.img ? '<img src="' + esc(x.img) + '" alt=""' + (x.pos ? ' style="object-position:' + esc(x.pos) + '"' : '') + '>' : '') + '<span>' + esc(t) + '</span></span><button type="button" data-key="' + esc(x.key) + '" aria-label="Remove ' + esc(t) + '">✕</button></li>';
