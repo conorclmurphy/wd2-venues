@@ -516,8 +516,8 @@
       "foodStyle": "casual",
       "live": true,
       "url": "https://weddingday2.ie/peddlermacs",
-      "cardImg": "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af3393eb9493c17a9f9cced/1794324799052/peddler-macs-6998.jpg",
-      "heroImg": "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af3393eb9493c17a9f9cced/1794324799052/peddler-macs-6998.jpg",
+      "cardImg": "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af33938fe5bda55f84d46ed/1794324793152/peddler-macs-7022.jpg",
+      "heroImg": "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af33938fe5bda55f84d46ed/1794324793152/peddler-macs-7022.jpg",
       "intro": "In the heart of Athlone town, a stone's throw from the Shannon, Peddler Mac's is a family-run pub with live music every night and a covered courtyard beer garden that's all yours for the celebration.",
       "rooms": [
         {
@@ -539,8 +539,7 @@
       ],
       "gallery": [],
       "videos": [],
-      "mapQuery": "Peddler Mac's, Church Street, Athlone",
-      "heroPos": "center 22%"
+      "mapQuery": "Peddler Mac's, Church Street, Athlone"
     }
   ],
   "videoBase": "https://video.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
