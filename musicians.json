@@ -630,11 +630,11 @@
       "facts": [
         {
           "label": "Solo musicians",
-          "value": "From €650"
+          "value": "From €750"
         },
         {
           "label": "Packages",
-          "value": "From €1,300"
+          "value": "From €1,500"
         }
       ],
       "events": [
@@ -645,7 +645,7 @@
       "tradBand": false,
       "duo": false,
       "packages": {
-        "soloFrom": 650,
+        "soloFrom": 750,
         "djFrom": 750,
         "soloText": "One of our singer-guitarists. Includes a 2-hour performance plus professional audio and lighting.",
         "whenHint": "When do you need music? Pick one to start. You can add more after.",
@@ -678,7 +678,7 @@
           {
             "title": "Trio",
             "text": "Solo musician + fiddle + banjo.",
-            "price": "On its own from €1,500"
+            "price": "On its own from €1,750"
           }
         ],
         "djExtras": [
@@ -702,8 +702,8 @@
             "id": "double-trouble",
             "title": "Double Trouble",
             "hours": "4 hours of live music",
-            "text": "Solo musician + solo musician (2 × €650)",
-            "from": 1300,
+            "text": "Solo musician + solo musician (2 × €750)",
+            "from": 1500,
             "extras": [
               "second"
             ],
@@ -715,7 +715,7 @@
             "title": "The Celebration",
             "hours": "4 hours of live music",
             "text": "Solo musician + DJ",
-            "from": 1650,
+            "from": 1500,
             "extras": [
               "dj"
             ],
@@ -726,7 +726,7 @@
             "title": "The Party",
             "hours": "4 hours of live music",
             "text": "Solo musician, followed by a trad band",
-            "from": 2450,
+            "from": 2100,
             "extras": [
               "trad"
             ],
@@ -737,7 +737,7 @@
             "title": "The Full Experience",
             "hours": "6 hours of live music",
             "text": "Solo musician, followed by a trad band, then a DJ",
-            "from": 3450,
+            "from": 2850,
             "extras": [
               "trad",
               "dj"
@@ -747,7 +747,7 @@
         ],
         "note": "Prices are a starting guide and vary depending on the musicians you choose and the extras you add. Additional travel fees may apply based on your event location.",
         "duoFrom": 1350,
-        "trioFrom": 1500,
+        "trioFrom": 1750,
         "alts": [
           {
             "id": "duo",
@@ -759,7 +759,7 @@
             "id": "trio",
             "title": "Trio",
             "text": "Solo musician + fiddle + banjo. Trad, contemporary or jazz.",
-            "price": "From €1,500"
+            "price": "From €1,750"
           },
           {
             "id": "dj",
