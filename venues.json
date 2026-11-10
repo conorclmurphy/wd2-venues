@@ -363,7 +363,7 @@
       "county": "Dublin",
       "capacity": 50,
       "foodStyle": "casual",
-      "live": true,
+      "live": false,
       "url": "https://weddingday2.ie/odonoghues",
       "cardImg": "11fbb55b-b0ca-432a-b224-10c4154b40f2/IMG_5843.jpeg",
       "intro": "Just off Grafton Street on Suffolk Street, O'Donoghue's is a proper old-style Dublin pub with dark wood, cosy corners and a private function room for your Day 2 or after-party.",
