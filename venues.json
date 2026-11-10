@@ -371,13 +371,24 @@
         {
           "name": "The Function Room",
           "capacity": "Up to 50 guests",
-          "description": "O'Donoghue's function room gives you your own space in a classic city-centre pub, steps from Grafton Street and Trinity College. Warm lighting, dark timber and a well-stocked bar set a relaxed, traditional mood, and it's just the right size for a night of live music with your closest friends and family."
+          "description": "O'Donoghue's function room gives you your own space in a classic city-centre pub, steps from Grafton Street and Trinity College. Warm lighting, dark timber and a well-stocked bar set a relaxed, traditional mood, and it's just the right size for a night of live music with your closest friends and family.",
+          "gallery": [
+            "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af34b2ccd044b5068eecb94/1794329388102/odonoghues-IMG_5840.jpg",
+            "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af34acfaf322930df627a24/1794329296056/odonoghues-IMG_5777.jpg",
+            "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af34adf82f0a0245cd21f52/1794329311662/odonoghues-IMG_5836.jpg",
+            "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af34adf5ecb2f0f57f2099a/1794329311654/odonoghues-IMG_5812.jpg",
+            "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af34acf7e4ede2bba739ba1/1794329296144/odonoghues-IMG_5780.jpg",
+            "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af34acfaf322930df627a25/1794329296078/odonoghues-IMG_5792.jpg",
+            "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af34acfb771315df2db7886/1794329296164/odonoghues-IMG_5783.jpg",
+            "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af34b3aed0d2071673d0e8c/1794329402312/odonoghues-IMG_5847.jpg"
+          ]
         }
       ],
       "gallery": [],
       "videos": [],
       "area": "Suffolk Street, Dublin 2",
-      "mapQuery": "O'Donoghue's, 15 Suffolk Street, Dublin 2"
+      "mapQuery": "O'Donoghue's, 15 Suffolk Street, Dublin 2",
+      "heroImg": "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af34acfaf322930df627a24/1794329296056/odonoghues-IMG_5777.jpg"
     },
     {
       "slug": "kennedyswestlandrow",
