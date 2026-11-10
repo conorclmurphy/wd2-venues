@@ -335,13 +335,31 @@
       "county": "Dublin",
       "capacity": 100,
       "foodStyle": "both",
-      "live": false,
-      "url": "",
+      "live": true,
+      "url": "https://weddingday2.ie/fadestreetsocial",
       "cardImg": "531d9cde-aaf4-4a43-a987-42d5be96e136/wedding+rooftop+terrace.png",
-      "intro": "",
-      "rooms": [],
+      "intro": "Tucked between George's Street and Drury Street, Fade Street Social is Dylan McGrath's buzzing city-centre restaurant, with a heated rooftop terrace that's perfect for a Day 2 or after-party in the heart of Dublin.",
+      "rooms": [
+        {
+          "name": "The Rooftop Terrace",
+          "capacity": "Up to 100 guests",
+          "description": "Fade Street Social's rooftop terrace gives you a covered, heated outdoor space above the city, with festoon lights, greenery and red-brick Dublin rooftops all around. It works rain or shine, with its own bar and plenty of room to mingle. Food comes from the kitchen downstairs, from a relaxed barbecue to sharing plates, and live music sets the mood as the evening goes on.",
+          "gallery": [
+            "1794322355641-EM7EGTWVWUBQC2OKRBL0/rooftop+terrace.jpg",
+            "1794322317438-665OLD9RWWEWT8YQGE22/summer+on+the+rooftop+terrace.jpg",
+            "1794322320226-K30841OQO8CRBP8E87KT/fade+street+social+main+restaurant.jpeg",
+            "1794322321576-PUR7TYC4J0JLW83BKZNG/Mary-Elaine-Andy-Wedding-263.jpg",
+            "1794322318805-LRKXBQMB4MYMPL8KY2FL/Grainne%2Band%2BSean%2B%28393%2Bof%2B667%29.jpg",
+            "1794322317367-ULFMJXRJGGRKWWKB86HA/Mary-Elaine-Andy-Wedding-264.jpg",
+            "1794322321212-05YHNVR9WJD8FUMKYDI4/_MG_8485.jpg"
+          ]
+        }
+      ],
       "gallery": [],
-      "videos": []
+      "videos": [],
+      "area": "Fade Street, Dublin 2",
+      "mapQuery": "Fade Street Social, 4-6 Fade Street, Dublin 2",
+      "heroImg": "1794322355641-EM7EGTWVWUBQC2OKRBL0/rooftop+terrace.jpg"
     },
     {
       "slug": "odonoghues",
