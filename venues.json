@@ -443,12 +443,27 @@
         {
           "name": "The Cocktail Bar",
           "capacity": "Up to 100 guests",
-          "description": "A lively, stylish room with its own private bar, made for a party. Cocktails, finger food and a band or DJ keep the energy up all night."
+          "description": "A lively, stylish room with exposed brick, warm low lighting and a striking back bar under a mirrored lattice ceiling, opening out to the courtyard. With its own private bar, cocktails, finger food and a band or DJ, it's made for a party.",
+          "gallery": [
+            "1794325888611-57SYT40791TZED0X7S4Z/IMG_7593.jpeg",
+            "1794325892669-SYCWR5PK47LQ0HW14EJR/IMG_7565.jpeg",
+            "1794325888552-17JXONWEGGEA82MU50F5/IMG_7594.jpeg",
+            "1794325890937-G2V78GWLXWTDB1KKJDVP/IMG_7577.jpeg",
+            "1794325890098-8BV24DLF51MS9PIOKISB/IMG_7596.jpeg",
+            "1794325891578-TP0INVTPL21J6TLGVQ7I/IMG_7571.jpeg"
+          ]
         },
         {
           "name": "The Stables",
           "capacity": "Up to 50 guests",
-          "description": "A cosy, semi-private nook in the original stables, with exposed brick, timber panelling, herringbone tiled floors and low pendant lights. Perfect for a relaxed get-together the day after the wedding."
+          "description": "A cosy, semi-private nook in the original Georgian stables, with the old stall railings still in place, exposed brick, long timber tables and low pendant lights. Perfect for a relaxed get-together the day after the wedding.",
+          "gallery": [
+            "1794325970202-309P45B53TV5Z8DKGT8V/IMG_7606.jpeg",
+            "1794325970258-11L5ATWDFH8OQ4U3GVB3/IMG_7612.jpeg",
+            "1794325974156-LD40SRZVVCZUJ9I4AGX2/IMG_7616.jpeg",
+            "1794325972304-EOL34ZX3BK0HG23GQGJT/IMG_7613.jpeg",
+            "1794325972660-L7IZ3PSYG30ZBWCTKUGD/IMG_7608.jpeg"
+          ]
         }
       ],
       "gallery": [],
