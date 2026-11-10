@@ -543,7 +543,11 @@
             "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af3458b553b795dd37a058f/1794327947556/peddler-macs-bottle-window.jpg",
             "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af3457e751cba12e4cbdf72/1794327934311/peddler-macs-pizza-oven.jpg",
             "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af3393ef14ecc2922402577/1794324799077/peddler-macs-7065.jpg"
-          ]
+          ],
+          "video": {
+            "id": "9cdf9ed0-4cf6-4d1e-acd1-04cc1b8ca0b7",
+            "seconds": 57
+          }
         }
       ],
       "gallery": [],
