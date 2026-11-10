@@ -748,7 +748,9 @@
         ],
         "note": "Prices are a starting guide and vary depending on the musicians you choose and the extras you add. Additional travel fees may apply based on your event location.",
         "duoFrom": 1350,
+        "duoFromCeremony": 1150,
         "trioFrom": 1750,
+        "trioFromCeremony": 1500,
         "alts": [
           {
             "id": "duo",

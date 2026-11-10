@@ -543,15 +543,16 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       }
       // Solo price depends on the part of the day: ceremony & drinks reception from €650, after dinner and Day 2 from €750
       var pricePart = null;
-      function soloFrom() {
-        var e = pricePart !== null ? pricePart : (parts()[partIdx] || '');
-        return e === 'day2' || e === 'afterdinner' ? P.soloFrom : (P.soloFromCeremony || P.soloFrom);
-      }
+      var evening = function () { var e = pricePart !== null ? pricePart : (parts()[partIdx] || ''); return e === 'day2' || e === 'afterdinner'; };
+      function soloFrom() { return evening() ? P.soloFrom : (P.soloFromCeremony || P.soloFrom); }
+      // Trad band: ceremony & drinks reception duo from €1,150 / trio €1,500; after dinner and Day 2 duo €1,350 / trio €1,750
+      function duoFrom() { return evening() ? P.duoFrom : (P.duoFromCeremony || P.duoFrom); }
+      function trioFrom() { return evening() ? P.trioFrom : (P.trioFromCeremony || P.trioFrom); }
       function match() {
         var solo = has('solo'), trad = has('trad'), dj = has('dj'), two = solo && soloN === '2';
         var base = solo && trad && dj ? 'full-experience' : solo && trad ? 'party' : solo && dj && !two ? 'celebration' : solo && two && !dj ? 'double-trouble' : '';
         var pk = P.list.filter(function (x) { return x.id === base; })[0];
-        var tradPrice = line === 'Trio' ? P.trioFrom : P.duoFrom;
+        var tradPrice = line === 'Trio' ? trioFrom() : duoFrom();
         var price = 0, name = '', extra = [];
         if (pk) {
           price = pk.from; name = pk.title;
@@ -663,6 +664,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         if (asideEl) { var off = window.matchMedia('(max-width:1000px)').matches && !started && !window.wd2FormShown; if (asideEl.classList.contains('vp-aside-off') && !off) { asideEl.classList.add('vp-aside-in'); setTimeout(function () { asideEl.classList.remove('vp-aside-in'); }, 700); } asideEl.classList.toggle('vp-aside-off', off); }
         // result
         var scp = $('.vp-pk-card[data-o="solo"] .vp-pk-cprice'); if (scp) scp.textContent = 'From ' + euro(soloFrom());
+        var tcp = $('.vp-pk-card[data-o="trad"] .vp-pk-cprice'); if (tcp) tcp.textContent = 'From ' + euro(duoFrom());
+        $$('.vp-pk-pill[data-line]').forEach(function (b) { var sp = b.querySelector('span'); if (sp) sp.textContent = 'from ' + euro(b.getAttribute('data-line') === 'Trio' ? trioFrom() : duoFrom()); });
         var r = match();
         $$('.vp-pk').forEach(function (b) { b.classList.toggle('vp-picked', !!r.pk && b.getAttribute('data-id') === r.pk.id); });
         $('.vp-pk-row').classList.toggle('vp-has-pick', !!r.pk);
