@@ -99,7 +99,7 @@
       if (!list.length) return;
       var anon = list.filter(isAnon), n = 0;
       var name = function (x) {
-        if (isAnon(x)) { n++; return anon.length > 1 ? 'Musician preference ' + n : 'Your musician preference'; }
+        if (isAnon(x)) { n++; return 'Your chosen musician'; }
         return (x.label || 'Item').replace(/^Venue: /, '');
       };
       var faces = list.slice(0, 3).map(function (x) {

@@ -241,7 +241,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     + '#musician-page .vp-pk-more-btns{display:flex;flex-wrap:wrap;gap:10px}#musician-page .vp-pk-more-btns .vp-btn{margin:0;font:inherit;font-weight:600;cursor:pointer;padding:10px 18px;font-size:14.5px}'
     + '#musician-page .vp-pk-nextpart{margin:0;font:inherit;font-weight:600;cursor:pointer;padding:12px 22px}#musician-page .vp-pk-nextpart[hidden],#musician-page .vp-pk-go[hidden]{display:none}'
     + '#musician-page .vp-elist .vp-el-who{display:flex;align-items:center;gap:10px;min-width:0}#musician-page .vp-elist li.vp-el-m{align-items:center}'
-    + '#musician-page .vp-elist .vp-el-who img{width:38px;height:38px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--vp-brass)}'
+    + '#musician-page .vp-elist .vp-el-who img{width:38px;height:38px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--vp-brass)}#musician-page .vp-el-bubbles{display:flex;flex-wrap:wrap;gap:12px;margin:4px 0 2px}#musician-page .vp-el-bubbles:empty{display:none}#musician-page .vp-el-bub{position:relative;width:60px;height:60px;flex:none}#musician-page .vp-el-bub img{width:60px;height:60px;border-radius:50%;object-fit:cover;display:block;border:2px solid var(--vp-brass)}#musician-page .vp-el-bub button{position:absolute;top:-4px;right:-4px;width:22px;height:22px;border-radius:50%;border:0;background:#171d1d;color:#eae6dd;font-size:11px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0;box-shadow:0 0 0 2px var(--vp-brass)}#musician-page .vp-el-bub button:hover{background:var(--vp-brass);color:#1f2727}#musician-page .vp-elist ul:empty{display:none}#musician-page .vp-el-bubbles:not(:empty)+ul:not(:empty){margin-top:10px}'
     + '#musician-page .vp-choose{display:grid;gap:10px;justify-items:start}#musician-page .vp-choose.vp-choose-tight{margin-bottom:-48px}#musician-page .vp-choose .vp-add{margin:0;font:inherit;font-weight:600;cursor:pointer;padding:14px 26px}#musician-page .vp-choose .vp-add[disabled]{opacity:.6}#musician-page .vp-choose .vp-add-note{color:var(--vp-muted);font-size:14.5px;max-width:60ch}#musician-page .vp-choose .vp-add-note a{color:var(--vp-brass)}'
     + '@media (max-width:640px){#musician-page .vp-choose.vp-choose-tight{margin-bottom:-36px}#musician-page .vp-choose .vp-add{width:100%}}'
     + '#musician-page .vp-addpk{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 28px;padding:22px 24px;border-radius:var(--vp-radius);border:1px solid rgba(61,194,187,.45);background:rgba(61,194,187,.08)}'
@@ -466,7 +466,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       + '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M6 15l6-6 6 6"/></svg></button>'
       + '<form class="vp-form" id="vp-enquire" novalidate>'
       + '<h2>' + esc(m.formTitle || ('Book ' + m.name)) + '</h2>'
-      + '<div class="vp-elist" hidden><span class="vp-elist-t">Also in your enquiry</span><ul></ul></div>'
+      + '<div class="vp-elist" hidden><span class="vp-elist-t">Also in your enquiry</span><div class="vp-el-bubbles"></div><ul></ul></div>'
       + '<div class="vp-row"><div class="vp-field"><label for="vp-fname">First name</label><input id="vp-fname" name="First name" autocomplete="given-name" required></div>'
       + '<div class="vp-field"><label for="vp-lname">Last name</label><input id="vp-lname" name="Last name" autocomplete="family-name" required></div></div>'
       + '<div class="vp-field"><label for="vp-email">Email</label><input id="vp-email" name="email" type="email" autocomplete="email" required></div>'
@@ -834,7 +834,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         if (!main) main = 'solo';
         var s1 = step('pick'), note = document.createElement('p');
         note.className = 'vp-pk-with';
-        note.innerHTML = '<strong>' + (withM.hideName ? 'Your musician preference' : esc(withM.name)) + '</strong> is in your enquiry. Now choose what to add: a second musician, the trad band or a DJ.';
+        note.innerHTML = '<strong>' + (withM.hideName ? 'Your chosen musician' : esc(withM.name)) + '</strong> is in your enquiry. Now choose what to add: a second musician, the trad band or a DJ.';
         s1.insertBefore(note, s1.querySelector('h2'));
       }
       // Start the package with whatever is already in their enquiry (musicians, trad band, DJ), unless they arrived with a set package
@@ -1122,7 +1122,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var anon = others.filter(function (x) { return /^Musician: Musician [A-Z]$/.test(x.label); }), anonN = 0;
       var shown = function (x) {
         if (!/^Musician: Musician [A-Z]$/.test(x.label)) return x.label;
-        anonN++; return anon.length > 1 ? 'Musician preference ' + anonN : 'Your musician preference';
+        anonN++; return 'Your chosen musician';
       };
       var thumb = function (x) {
         if (x.img) return { src: x.img, pos: x.pos || '' };
@@ -1130,7 +1130,13 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         var o = DATA.musicians.filter(function (y) { return 'm:' + y.slug === x.key; })[0];  // items saved before photos were stored
         return o && o.photo ? { src: img(o.photo, 150), pos: o.cardPosition || o.photoPosition || '' } : null;
       };
-      elistBox.querySelector('ul').innerHTML = others.map(function (x) {
+      // Hidden-name musicians show as photo bubbles only; packages, DJ, trad and venues keep their names
+      var isAnonM = function (x) { return /^Musician: Musician [A-Z]$/.test(x.label) && !!thumb(x); };
+      elistBox.querySelector('.vp-el-bubbles').innerHTML = others.filter(isAnonM).map(function (x) {
+        var t = shown(x), th = thumb(x);
+        return '<span class="vp-el-bub"><img src="' + esc(th.src) + '" alt="' + esc(t) + '"' + (th.pos ? ' style="object-position:' + esc(th.pos) + '"' : '') + '><button type="button" data-key="' + esc(x.key) + '" aria-label="Remove ' + esc(t) + '">✕</button></span>';
+      }).join('');
+      elistBox.querySelector('ul').innerHTML = others.filter(function (x) { return !isAnonM(x); }).map(function (x) {
         var t = shown(x), th = thumb(x);
         return '<li' + (th ? ' class="vp-el-m"' : '') + '><span class="vp-el-who">' + (th ? '<img src="' + esc(th.src) + '" alt=""' + (th.pos ? ' style="object-position:' + esc(th.pos) + '"' : '') + '>' : '') + '<span>' + esc(t) + '</span></span><button type="button" data-key="' + esc(x.key) + '" aria-label="Remove ' + esc(t) + '">✕</button></li>';
       }).join('');
@@ -1198,7 +1204,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           setList([]);
           // tell the Meta pixel a lead came in (for Instagram/Facebook ads)
           try { if (window.fbq) window.fbq('track', 'Lead', { content_name: m.subjectName || m.name, content_category: 'Music' }); } catch (x) {}
-          form.innerHTML = '<div class="vp-done"><h2>Thanks, ' + esc(payload['First name']) + '</h2><p>We have your enquiry' + (all.length > 1 ? ' about ' + all.length + ' options' : ' about ' + (m.hideName ? 'your musician preference' : esc(m.name))) + ' and will be in touch soon by email.</p></div>';
+          form.innerHTML = '<div class="vp-done"><h2>Thanks, ' + esc(payload['First name']) + '</h2><p>We have your enquiry' + (all.length > 1 ? ' about ' + all.length + ' options' : ' about ' + (m.hideName ? 'your chosen musician' : esc(m.name))) + ' and will be in touch soon by email.</p></div>';
         })
         .catch(function () {
           sendBtn.disabled = false; sendBtn.textContent = 'Send enquiry';
