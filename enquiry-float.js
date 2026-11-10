@@ -53,10 +53,10 @@
 #wd2-float li .wf-dot{width:36px;height:36px;border-radius:50%;flex:none;border:2px dashed rgba(61,194,187,.6);display:grid;place-items:center;color:#3dc2bb;font-size:15px}\
 #wd2-float li button{background:none;border:0;color:#b8b3a8;cursor:pointer;font-size:14px;padding:2px 4px;flex:none}\
 #wd2-float li button:hover{color:#3dc2bb}\
-#wd2-float .wf-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 12px;max-height:45vh;overflow-y:auto;padding:2px}\
-#wd2-float .wf-photo{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;border:2px solid #3dc2bb;background:#1f2727}\
-#wd2-float .wf-photo img{width:100%;height:100%;object-fit:cover;display:block}\
-#wd2-float .wf-photo button{position:absolute;top:5px;right:5px;width:24px;height:24px;border-radius:50%;border:0;background:rgba(23,29,29,.82);color:#eae6dd;font-size:12px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}\
+#wd2-float .wf-photos{display:flex;flex-wrap:wrap;gap:12px;margin:2px 0 14px;max-height:45vh;overflow-y:auto;padding:6px 6px 2px 2px}\
+#wd2-float .wf-photo{position:relative;width:60px;height:60px;flex:none}\
+#wd2-float .wf-photo img{width:60px;height:60px;border-radius:50%;object-fit:cover;display:block;border:2px solid #3dc2bb}\
+#wd2-float .wf-photo button{position:absolute;top:-4px;right:-4px;width:22px;height:22px;border-radius:50%;border:0;background:#171d1d;color:#eae6dd;font-size:11px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0;box-shadow:0 0 0 2px #3dc2bb}\
 #wd2-float .wf-photo button:hover{background:#3dc2bb;color:#1f2727}\
 #wd2-float .wf-go{display:block;width:100%;text-align:center;text-decoration:none;padding:12px 18px;border-radius:999px;background:#3dc2bb;color:#1f2727;font-weight:600;font-size:15px}\
 #wd2-float .wf-note{margin:10px 0 0;font-size:12.5px;color:#b8b3a8;text-align:center}\
