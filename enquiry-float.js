@@ -53,6 +53,11 @@
 #wd2-float li .wf-dot{width:36px;height:36px;border-radius:50%;flex:none;border:2px dashed rgba(61,194,187,.6);display:grid;place-items:center;color:#3dc2bb;font-size:15px}\
 #wd2-float li button{background:none;border:0;color:#b8b3a8;cursor:pointer;font-size:14px;padding:2px 4px;flex:none}\
 #wd2-float li button:hover{color:#3dc2bb}\
+#wd2-float .wf-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 12px;max-height:45vh;overflow-y:auto;padding:2px}\
+#wd2-float .wf-photo{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;border:2px solid #3dc2bb;background:#1f2727}\
+#wd2-float .wf-photo img{width:100%;height:100%;object-fit:cover;display:block}\
+#wd2-float .wf-photo button{position:absolute;top:5px;right:5px;width:24px;height:24px;border-radius:50%;border:0;background:rgba(23,29,29,.82);color:#eae6dd;font-size:12px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}\
+#wd2-float .wf-photo button:hover{background:#3dc2bb;color:#1f2727}\
 #wd2-float .wf-go{display:block;width:100%;text-align:center;text-decoration:none;padding:12px 18px;border-radius:999px;background:#3dc2bb;color:#1f2727;font-weight:600;font-size:15px}\
 #wd2-float .wf-note{margin:10px 0 0;font-size:12.5px;color:#b8b3a8;text-align:center}\
 @keyframes wfIn{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:none}}\
@@ -106,11 +111,21 @@
       html += '<div class="wf-group" data-g="' + g.id + '">'
         + '<div class="wf-panel" id="wf-panel-' + g.id + '" role="dialog" aria-label="' + esc(g.title) + '"' + (open ? '' : ' hidden') + '>'
         + '<div class="wf-head"><strong>' + esc(g.title) + '</strong><button type="button" class="wf-x" aria-label="Close">✕</button></div>'
-        + '<ul>' + list.map(function (x) {
+        + (function () {
+          // Anonymous musicians: just their photos, no labels
+          var pics = list.filter(function (x) { return isAnon(x) && x.img; });
+          if (!pics.length) return '';
+          return '<div class="wf-photos">' + pics.map(function (x) {
+            var t = name(x);
+            return '<div class="wf-photo"><img src="' + esc(x.img) + '" alt="' + esc(t) + '"' + (x.pos ? ' style="object-position:' + esc(x.pos) + '"' : '') + '>'
+              + '<button type="button" data-key="' + esc(x.key) + '" aria-label="Remove ' + esc(t) + '">✕</button></div>';
+          }).join('') + '</div>';
+        })()
+        + (function () { var rest = list.filter(function (x) { return !(isAnon(x) && x.img); }); return rest.length ? '<ul>' + rest.map(function (x) {
           var t = name(x);
           return '<li><span class="wf-who">' + (x.img ? '<img src="' + esc(x.img) + '" alt=""' + (x.pos ? ' style="object-position:' + esc(x.pos) + '"' : '') + '>' : '<span class="wf-dot">' + g.empty + '</span>') + '<span>' + esc(t) + '</span></span>'
             + '<button type="button" data-key="' + esc(x.key) + '" aria-label="Remove ' + esc(t) + '">✕</button></li>';
-        }).join('') + '</ul>'
+        }).join('') + '</ul>' : ''; })()
         + '<a class="wf-go" href="' + esc(go) + '">Send my enquiry →</a>'
         + '<p class="wf-note">' + (g.id === 'venue' ? 'Add as many venues as you like, then send them in one enquiry.' : 'Add as many musicians or packages as you like, then send them in one enquiry.') + '</p>'
         + '</div>'
@@ -123,7 +138,7 @@
       var id = grp.getAttribute('data-g');
       grp.querySelector('.wf-pill').addEventListener('click', function () { openId = openId === id ? '' : id; draw(); var p = box.querySelector('.wf-group[data-g="' + id + '"] .wf-pill'); if (p) p.focus(); });
       grp.querySelector('.wf-x').addEventListener('click', function () { openId = ''; draw(); });
-      Array.prototype.forEach.call(grp.querySelectorAll('li button'), function (b) {
+      Array.prototype.forEach.call(grp.querySelectorAll('li button, .wf-photo button'), function (b) {
         b.addEventListener('click', function () {
           removeKey(b.getAttribute('data-key'));
           draw();
