@@ -361,15 +361,37 @@
       "slug": "kennedyswestlandrow",
       "name": "Kennedy's Westland Row",
       "county": "Dublin",
+      "area": "Westland Row, Dublin 2",
       "capacity": 120,
       "foodStyle": "casual",
-      "live": false,
-      "url": "",
+      "live": true,
+      "url": "https://weddingday2.ie/kennedys",
       "cardImg": "8cc605b0-07eb-4ec5-816d-2681910a44ec/IMG_5634.jpeg",
-      "intro": "",
-      "rooms": [],
+      "intro": "Pouring pints on Westland Row since 1850, Kennedy's is a proper Dublin pub a few minutes' walk from Trinity College, with a private function room that's made for a relaxed Day 2.",
+      "rooms": [
+        {
+          "name": "Kennedy's Station",
+          "capacity": "Up to 120 guests",
+          "description": "Kennedy's private function room gives you your own corner of a classic city pub for the night. Dark wood panelling, warm low lighting and a well-stocked bar set the mood, and the walls are hung with nods to the pub's literary past (Samuel Beckett and James Joyce both drank here). Food can be arranged from the kitchen, from Irish classics to more modern dishes, and there's sound and a screen built in for speeches or a slideshow.",
+          "video": {
+            "id": "c72fefbd-5342-43bc-b27e-336a9f291663",
+            "seconds": 64
+          },
+          "gallery": [
+            "1794318949342-5ULSHCUB52W39E27CDTH/IMG_5637.jpeg",
+            "1794318950719-G3DSC76L90AVLYMDRUE7/IMG_5640.jpeg",
+            "1794318951131-FYRCLJAPW9MYNVJ6KID7/IMG_5644.jpeg",
+            "1794318949227-NGFUP9OCB0UO8UDATB6P/IMG_5619.jpeg",
+            "1794318952258-6O56HPHXF8LO1XLWANV5/IMG_5719.jpeg",
+            "1794318952813-5BNXDM7QYM6F48KRKEG7/IMG_5743.jpeg",
+            "8cc605b0-07eb-4ec5-816d-2681910a44ec/IMG_5634.jpeg"
+          ]
+        }
+      ],
       "gallery": [],
-      "videos": []
+      "videos": [],
+      "mapQuery": "Kennedy's, 30-32 Westland Row, Dublin 2",
+      "heroImg": "1794318953919-1Y6I6HFJCSWW59D9MZ12/IMG_5753.jpeg"
     },
     {
       "slug": "lennansyard",
