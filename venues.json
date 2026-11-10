@@ -363,13 +363,21 @@
       "county": "Dublin",
       "capacity": 50,
       "foodStyle": "casual",
-      "live": false,
-      "url": "",
+      "live": true,
+      "url": "https://weddingday2.ie/odonoghues",
       "cardImg": "11fbb55b-b0ca-432a-b224-10c4154b40f2/IMG_5843.jpeg",
-      "intro": "",
-      "rooms": [],
+      "intro": "Just off Grafton Street on Suffolk Street, O'Donoghue's is a proper old-style Dublin pub with dark wood, cosy corners and a private function room for your Day 2 or after-party.",
+      "rooms": [
+        {
+          "name": "The Function Room",
+          "capacity": "Up to 50 guests",
+          "description": "O'Donoghue's function room gives you your own space in a classic city-centre pub, steps from Grafton Street and Trinity College. Warm lighting, dark timber and a well-stocked bar set a relaxed, traditional mood, and it's just the right size for a night of live music with your closest friends and family."
+        }
+      ],
       "gallery": [],
-      "videos": []
+      "videos": [],
+      "area": "Suffolk Street, Dublin 2",
+      "mapQuery": "O'Donoghue's, 15 Suffolk Street, Dublin 2"
     },
     {
       "slug": "kennedyswestlandrow",
@@ -413,13 +421,31 @@
       "county": "Dublin",
       "capacity": 100,
       "foodStyle": "casual",
-      "live": false,
-      "url": "",
+      "live": true,
+      "url": "https://weddingday2.ie/lennansyard",
       "cardImg": "4383f3e6-7489-4830-8e75-09c9126cbe49/Screenshot+2026-08-25+at+15.37.28.png",
-      "intro": "",
-      "rooms": [],
+      "intro": "Set in restored Georgian stables and a coach house beside the Mansion House on Dawson Street, Lennan's Yard has a range of characterful spaces for a Day 2, after-party or relaxed wedding celebration.",
+      "rooms": [
+        {
+          "name": "The Whiskey Bar",
+          "capacity": "Up to 60 guests",
+          "description": "A moody, intimate lounge with dark timber panelling, wooden floors and warm, low lighting, opening onto the courtyard. It's ideal for a smaller gathering with drinks, bites and live music."
+        },
+        {
+          "name": "The Cocktail Bar",
+          "capacity": "Up to 100 guests",
+          "description": "A lively, stylish room with its own private bar, made for a party. Cocktails, finger food and a band or DJ keep the energy up all night."
+        },
+        {
+          "name": "The Stables",
+          "capacity": "Up to 50 guests",
+          "description": "A cosy, semi-private nook in the original stables, with exposed brick, timber panelling, herringbone tiled floors and low pendant lights. Perfect for a relaxed get-together the day after the wedding."
+        }
+      ],
       "gallery": [],
-      "videos": []
+      "videos": [],
+      "area": "Dawson Street, Dublin 2",
+      "mapQuery": "Lennan's Yard, 21A Dawson Street, Dublin 2"
     },
     {
       "slug": "opium",
@@ -430,10 +456,50 @@
       "live": false,
       "url": "",
       "cardImg": "de02baa8-62ab-4ae6-b756-cea07952790a/Opium-Restaurant-5-800x800.jpg",
-      "intro": "",
-      "rooms": [],
+      "intro": "Spread over three floors on Wexford Street, Opium is one of Dublin's best-known spots for Asian food, cocktails and late nights, with a striking garden space that's made for a party.",
+      "rooms": [
+        {
+          "name": "The Botanical Garden",
+          "capacity": "Up to 120 guests",
+          "description": "Inspired by the Botanic Gardens, this space is filled with draping flowers and greenery under a retractable roof, so it works whatever the weather. Food comes from Opium's own kitchen, with Thai and Vietnamese-style dishes and sharing plates, and the cocktail bar is close at hand. Add live music and you've got a Day 2 or after-party your guests won't forget."
+        }
+      ],
       "gallery": [],
-      "videos": []
+      "videos": [],
+      "area": "Wexford Street, Dublin 2",
+      "mapQuery": "Opium, 26 Wexford Street, Dublin 2"
+    },
+    {
+      "slug": "peddlermacs",
+      "name": "Peddler Mac's",
+      "county": "Westmeath",
+      "location": "Athlone",
+      "area": "Church Street, Athlone",
+      "capacity": 100,
+      "foodStyle": "casual",
+      "live": true,
+      "url": "https://weddingday2.ie/peddlermacs",
+      "cardImg": "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af3393ef14ecc2922402577/1794324799077/peddler-macs-7065.jpg",
+      "heroImg": "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af33938fe5bda55f84d46ed/1794324793152/peddler-macs-7022.jpg",
+      "intro": "In the heart of Athlone town, a stone's throw from the Shannon, Peddler Mac's is a family-run pub with live music every night, a covered courtyard bar and wood-fired pizza out the back.",
+      "rooms": [
+        {
+          "name": "The Bar & Courtyard",
+          "capacity": "Up to 100 guests",
+          "description": "Peddler Mac's is full of character, from the long, glowing bar with its wall of whiskeys to the covered courtyard styled like an old Irish street, with shopfronts, lanterns and barrel tables. It's made for a lively Day 2 or after-party, with cocktails at the bar and pizza from the wood-fired oven to keep everyone going, and live music is what this place does best.",
+          "gallery": [
+            "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af33938fe5bda55f84d46ed/1794324793152/peddler-macs-7022.jpg",
+            "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af3393e87f9bb75aa2ffab6/1794324799074/peddler-macs-7125.jpg",
+            "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af3393e52fa3c769f43b341/1794324799011/peddler-macs-7122.jpg",
+            "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af3393e400a292575e74da8/1794324798991/peddler-macs-7018.jpg",
+            "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af3393eb9493c17a9f9cced/1794324799052/peddler-macs-6998.jpg",
+            "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af3393ef14ecc2922402577/1794324799077/peddler-macs-7065.jpg"
+          ]
+        }
+      ],
+      "gallery": [],
+      "videos": [],
+      "mapQuery": "Peddler Mac's, Church Street, Athlone"
     }
   ],
   "videoBase": "https://video.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",

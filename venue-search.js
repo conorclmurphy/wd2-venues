@@ -113,12 +113,12 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
         var pic = v.cardImg || v.heroImg;
         return {
           name: v.name,
-          county: v.county,
+          county: v.location || v.county,
           capacity: Number(v.capacity) || 0,
           foodStyle: v.foodStyle,
           live: !!(v.live && v.url),
           url: v.url,
-          img: pic ? DATA.imageBase + pic + '?format=500w' : ''
+          img: pic ? (/^https?:/.test(pic) ? pic : DATA.imageBase + pic + '?format=500w') : ''
         };
       });
       build(VENUES);
@@ -145,7 +145,7 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
         </div>\
         <div class="wdvs-field">\
           <label for="wdvs-county">Location</label>\
-          <select id="wdvs-county"><option value="">All counties</option>' +
+          <select id="wdvs-county"><option value="">All locations</option>' +
             counties.map(function (c) { return '<option value="' + esc(c) + '">' + esc(c) + '</option>'; }).join('') + '</select>\
         </div>\
         <div class="wdvs-field">\

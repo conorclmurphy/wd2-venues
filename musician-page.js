@@ -917,7 +917,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var v = vs[Math.floor(Math.random() * vs.length)], card = root.querySelector('.vp-venue-card');
       if (!card) return;
       card.href = v.url;
-      card.querySelector('img').src = vd.imageBase + (v.cardImg || v.heroImg) + '?format=750w';
+      var vp = v.cardImg || v.heroImg; card.querySelector('img').src = /^https?:/.test(vp) ? vp : vd.imageBase + vp + '?format=750w';
       card.querySelector('img').alt = v.name;
       card.querySelector('h3').textContent = 'Venue: ' + v.name;
       card.querySelector('p').textContent = [v.area, v.county].filter(Boolean).join(', ') + ' · Check out this venue';
