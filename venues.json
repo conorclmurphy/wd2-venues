@@ -438,7 +438,11 @@
             "1794325765414-Z9K6BKV3EUBPTQGS4K62/IMG_7526.jpeg",
             "1794325773193-LZIG4AE7VQ52NPZOK0V8/IMG_7532.jpeg",
             "1794325771533-1EALNCXTY6E0TYLCJVVX/IMG_7544.jpeg"
-          ]
+          ],
+          "video": {
+            "id": "92e9eb3c-a0bb-45b9-863a-62f644401c22",
+            "seconds": 41
+          }
         },
         {
           "name": "The Cocktail Bar",
@@ -451,7 +455,11 @@
             "1794325890937-G2V78GWLXWTDB1KKJDVP/IMG_7577.jpeg",
             "1794325890098-8BV24DLF51MS9PIOKISB/IMG_7596.jpeg",
             "1794325891578-TP0INVTPL21J6TLGVQ7I/IMG_7571.jpeg"
-          ]
+          ],
+          "video": {
+            "id": "9ca55223-5a99-438d-92fd-216adc237885",
+            "seconds": 38
+          }
         },
         {
           "name": "The Stables",
@@ -463,7 +471,11 @@
             "1794325974156-LD40SRZVVCZUJ9I4AGX2/IMG_7616.jpeg",
             "1794325972304-EOL34ZX3BK0HG23GQGJT/IMG_7613.jpeg",
             "1794325972660-L7IZ3PSYG30ZBWCTKUGD/IMG_7608.jpeg"
-          ]
+          ],
+          "video": {
+            "id": "56d4cc45-7144-452b-8180-1c7033de1258",
+            "seconds": 50
+          }
         }
       ],
       "gallery": [],
@@ -504,8 +516,8 @@
       "foodStyle": "casual",
       "live": true,
       "url": "https://weddingday2.ie/peddlermacs",
-      "cardImg": "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af3393ef14ecc2922402577/1794324799077/peddler-macs-7065.jpg",
-      "heroImg": "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af33938fe5bda55f84d46ed/1794324793152/peddler-macs-7022.jpg",
+      "cardImg": "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af3393eb9493c17a9f9cced/1794324799052/peddler-macs-6998.jpg",
+      "heroImg": "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af3393eb9493c17a9f9cced/1794324799052/peddler-macs-6998.jpg",
       "intro": "In the heart of Athlone town, a stone's throw from the Shannon, Peddler Mac's is a family-run pub with live music every night and a covered courtyard beer garden that's all yours for the celebration.",
       "rooms": [
         {
@@ -527,7 +539,8 @@
       ],
       "gallery": [],
       "videos": [],
-      "mapQuery": "Peddler Mac's, Church Street, Athlone"
+      "mapQuery": "Peddler Mac's, Church Street, Athlone",
+      "heroPos": "center 45%"
     }
   ],
   "videoBase": "https://video.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
