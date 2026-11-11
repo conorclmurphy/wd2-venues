@@ -55,7 +55,7 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
 #wd2-venues-root .wdvs-title{font-family:"Fraunces",serif;font-optical-sizing:auto;font-weight:500;font-size:clamp(28px,4vw,42px);margin:0 0 8px;color:var(--sage-dark)}\
 #wd2-venues-root .wdvs-sub{font-size:15px;color:#b7b2a1;margin:0}\
 #wd2-venues-root .wdvs-filters{max-width:1600px;margin:0 auto 30px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;display:grid;gap:16px;grid-template-columns:1.3fr 1fr 1fr}\
-@media (max-width:720px){#wd2-venues-root .wdvs-filters{grid-template-columns:1fr}}\
+@media (max-width:720px){#wd2-venues-root .wdvs-filters{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px 12px;padding:16px}#wd2-venues-root .wdvs-filters>.wdvs-field:nth-child(n+3){grid-column:1 / -1}#wd2-venues-root .wdvs-field input[type="text"],#wd2-venues-root .wdvs-field select{min-width:0;text-overflow:ellipsis}}\
 #wd2-venues-root .wdvs-field label{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--sage-dark);margin-bottom:7px}\
 #wd2-venues-root .wdvs-field input[type="text"],#wd2-venues-root .wdvs-field select{width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:16px;background:var(--cream);color:var(--ink)}\
 #wd2-venues-root .wdvs-field input[type="text"]:focus,#wd2-venues-root .wdvs-field select:focus{outline:2px solid var(--sage);outline-offset:1px}\
