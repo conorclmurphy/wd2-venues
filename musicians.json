@@ -568,7 +568,7 @@
       ],
       "tradBand": false,
       "duo": false,
-      "videos": [],
+      "videos": [{"id": "ff24d464-8df0-4aa3-b5e1-aa0ff7648f5c", "seconds": 66, "shape": "tall"}, {"id": "8ddc6f0b-c1fe-459c-9ccf-ed6ac8354c83", "seconds": 42, "shape": "tall"}],
       "gallery": [],
       "aboutTitle": "Bio",
       "hideName": true,
