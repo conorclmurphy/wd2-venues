@@ -276,7 +276,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
   load();
 
   function render(DATA, m) {
-    var img = function (p, w) { return DATA.imageBase + p + '?format=' + w + 'w'; };
+    var img = function (p, w) { return /^https?:/.test(p) ? p : DATA.imageBase + p + '?format=' + w + 'w'; };
     var L = DATA.eventLabels || { ceremony: 'Ceremony & drinks reception', day2: 'Day 2', afterdinner: 'After dinner' };
     var ORDER = ['ceremony', 'day2', 'afterdinner'];
     var sets = [];

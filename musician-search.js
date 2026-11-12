@@ -91,7 +91,7 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
         return {
           name: m.name, hideName: !!m.hideName, events: m.events || [], tradBand: !!m.tradBand, duo: !!m.duo, pos: m.photoPosition || '',
           live: !!(m.live && m.url), url: m.url,
-          img: m.photo ? DATA.imageBase + m.photo + '?format=500w' : ''
+          img: m.photo ? (/^https?:/.test(m.photo) ? m.photo : DATA.imageBase + m.photo + '?format=500w') : ''
         };
       });
       build(MUSICIANS, L);

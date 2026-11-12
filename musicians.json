@@ -552,6 +552,29 @@
       "formTitle": "Book this musician"
     },
     {
+      "slug": "keith",
+      "name": "Musician R",
+      "live": true,
+      "url": "https://weddingday2.ie/musician-r",
+      "photo": "https://static1.squarespace.com/static/68e3e2b74d7ab5214f499b88/t/6af5ca97426b306d601e98aa/1794493079113/musician-r-keith.jpg",
+      "photoPosition": "center 30%",
+      "bio": [
+        "He is a talented guitarist and singer with a real love for traditional Irish music. Whether it's a lively trad set, much-loved Irish ballads or a few modern favourites with a trad twist, he brings a warm, authentic feel that gets everyone involved."
+      ],
+      "events": [
+        "ceremony",
+        "day2",
+        "afterdinner"
+      ],
+      "tradBand": false,
+      "duo": false,
+      "videos": [],
+      "gallery": [],
+      "aboutTitle": "Bio",
+      "hideName": true,
+      "formTitle": "Book this musician"
+    },
+    {
       "slug": "trad",
       "name": "Modern Trad Band",
       "live": true,

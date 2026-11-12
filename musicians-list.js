@@ -99,7 +99,7 @@
       var ev = ORDER.filter(function (e) { return o.events.indexOf(e) !== -1; });
       var tags = ev.map(function (e) { return e === 'ceremony' ? 'Ceremony' : (L[e] || e); }).concat(o.duo ? ['Duo'] : []).concat(o.tradBand ? ['Trad band'] : []);
       h += '<a class="ml-card" href="' + esc(o.url) + '" data-tags="' + esc(ev.concat(o.duo ? ['duo'] : []).concat(o.tradBand ? ['tradBand'] : []).join(' ')) + '">'
-        + '<div class="ml-img"><img src="' + esc(D.imageBase + (lp ? lp[0] : o.photo) + '?format=' + size + 'w') + '" alt="' + esc(o.name) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async"'
+        + '<div class="ml-img"><img src="' + esc((function (p) { return /^https?:/.test(p) ? p : D.imageBase + p + '?format=' + size + 'w'; })(lp ? lp[0] : o.photo)) + '" alt="' + esc(o.name) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async"'
         + ' style="object-position:' + esc(lp ? lp[1] : (o.cardPosition || o.photoPosition || 'center')) + '"><span class="ml-tags">' + tags.map(function (t) { return '<span class="ml-tag">' + esc(t) + '</span>'; }).join('') + '</span>' + (o.hideName ? '' : '<span class="ml-name">' + esc(o.name) + '</span>') + '</div>'
         + '<span class="ml-more">View profile →</span></a>';
     });
