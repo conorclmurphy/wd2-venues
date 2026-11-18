@@ -388,6 +388,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     + '#musician-page .vp-oslb .vp-os-fr{position:relative;flex:none;height:min(84vh,84dvh,calc((100vw - 150px) * 16 / 9));aspect-ratio:9/16;border-radius:var(--vp-radius);overflow:hidden;background:#000}'
     + '#musician-page .vp-oslb .vp-os-fr video{display:block;width:100%;height:100%;max-height:none;max-width:none;object-fit:cover;border-radius:0;aspect-ratio:auto;border:0}'
     + '#musician-page .vp-oslb .vp-os-fr .vp-ctl{border-radius:0}'
+    + '#musician-page .vp-oslb .vp-os-fr.vp-wait:before{content:"";position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:3px solid rgba(234,230,221,.25);border-top-color:#eae6dd;animation:vpSpin .8s linear infinite;z-index:2;pointer-events:none}'
+    + '@keyframes vpSpin{to{transform:rotate(360deg)}}'
     + '#musician-page .vp-oslb .vp-os-p,#musician-page .vp-oslb .vp-os-f{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:52px;height:52px;padding:0;display:grid;place-items:center;color:#eae6dd;background:rgba(0,0,0,.45);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(234,230,221,.35);transition:background .2s}'
     + '#musician-page .vp-oslb .vp-os-p{left:18px}#musician-page .vp-oslb .vp-os-f{right:18px}'
     + '#musician-page .vp-oslb .vp-os-p svg,#musician-page .vp-oslb .vp-os-f svg{width:22px;height:22px}'
@@ -1172,17 +1174,52 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var box = root.querySelector('.vp-oslb'), v = box.querySelector('video'), n = box.querySelector('.vp-os-n'), at = 0, hls = null;
       try { v.disableRemotePlayback = true; } catch (e) {}
       vpCtl(v.parentNode, v, { noFull: true });
+      var fr0 = box.querySelector('.vp-os-fr'), cur = null;
+      v.addEventListener('playing', function () { fr0.classList.remove('vp-wait'); });
+      v.addEventListener('waiting', function () { fr0.classList.add('vp-wait'); });
+      // Fetch the start of a clip ahead of time (the first two as the strip comes into view, others when hovered or
+      // pressed, and the next one while the current one plays), so it starts almost straight away when opened.
+      var warmed = {}, saver = (navigator.connection || {}).saveData;
+      function warm(x) {
+        if (!x || saver || warmed[x.id] || !window.fetch) return;
+        warmed[x.id] = 1;
+        var top = (x.base || DATA.videoBase) + x.id + '/playlist.m3u8', nop = function () {};
+        var abs = function (u, from) { try { return new URL(u, from).href; } catch (e) { return u; } };
+        fetch(top).then(function (r) { return r.text(); }).then(function (m) {
+          var ls = m.split('\n'), best = null, bh = 1e9, audio = null;
+          ls.forEach(function (l, i) {
+            var mm = l.match(/^#EXT-X-STREAM-INF:.*RESOLUTION=(\d+)x(\d+)/), a = l.match(/^#EXT-X-MEDIA:.*TYPE=AUDIO.*URI="([^"]+)"/);
+            if (mm) { var sh = Math.min(+mm[1], +mm[2]), u = (ls[i + 1] || '').trim(); if (u && sh < bh) { bh = sh; best = u; } }
+            if (a && !audio) audio = a[1];
+          });
+          [best, audio].forEach(function (u) {
+            if (!u) return;
+            var pu = abs(u, top);
+            fetch(pu).then(function (r) { return r.text(); }).then(function (pl) {
+              var k = pl.match(/#EXT-X-KEY:.*URI="([^"]+)"/), seg = pl.split('\n').filter(function (l) { l = l.trim(); return l && l.charAt(0) !== '#'; })[0];
+              if (k) fetch(abs(k[1], pu)).catch(nop);
+              if (seg) fetch(abs(seg.trim(), pu)).catch(nop);
+            }).catch(nop);
+          });
+        }).catch(nop);
+      }
       function load(i) {
         at = (i + onstage.length) % onstage.length;
         var x = onstage[at], src = (x.base || DATA.videoBase) + x.id + '/playlist.m3u8';
         n.textContent = (at + 1) + ' / ' + onstage.length;
         if (hls) { hls.destroy(); hls = null; }
+        // Always start the new clip from the beginning (not where the last one was) and show a spinner until it plays
+        try { v.pause(); v.removeAttribute('src'); v.load(); v.currentTime = 0; } catch (e) {}
+        fr0.classList.add('vp-wait');
+        var mine = x.id; cur = mine;
+        v.addEventListener('loadedmetadata', function once() { v.removeEventListener('loadedmetadata', once); if (cur === mine && v.currentTime > 0.3) { try { v.currentTime = 0; } catch (e) {} } });
+        warm(onstage[(at + 1) % onstage.length]);
         v.poster = x.poster ? img(x.poster, 1500) : (x.base || DATA.videoBase) + x.id + '/thumbnail';
         var go = function () { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); };
         if (window.Hls && window.Hls.isSupported()) {
-          hls = new window.Hls({ autoStartLoad: false, abrEwmaDefaultEstimate: 6000000, capLevelToPlayerSize: false, maxBufferLength: 10, testBandwidth: false });
+          hls = new window.Hls({ autoStartLoad: false, startPosition: 0, abrEwmaDefaultEstimate: 6000000, capLevelToPlayerSize: false, maxBufferLength: 10, testBandwidth: false });
           (function (hls) {
-            hls.on(window.Hls.Events.MANIFEST_PARSED, function (ev, d) { hls.startLevel = vpStartLevel(d.levels || hls.levels); hls.startLoad(-1); });
+            hls.on(window.Hls.Events.MANIFEST_PARSED, function (ev, d) { hls.startLevel = vpStartLevel(d.levels || hls.levels); hls.startLoad(0); });
             hls.on(window.Hls.Events.ERROR, function (ev, d) { if (!d.fatal) return; if (d.type === window.Hls.ErrorTypes.MEDIA_ERROR && !hls._rec) { hls._rec = 1; hls.recoverMediaError(); } else if (d.type === window.Hls.ErrorTypes.NETWORK_ERROR) hls.startLoad(); });
           })(hls);
           hls.loadSource(src); hls.attachMedia(v); go();
@@ -1193,7 +1230,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         if (window.Hls) load(i);
         else { var s = document.createElement('script'); s.src = HLS_URL; s.onload = s.onerror = function () { load(i); }; document.head.appendChild(s); }
       }
-      function hide() { box.hidden = true; v.pause(); if (hls) { hls.destroy(); hls = null; } v.removeAttribute('src'); v.load(); document.documentElement.style.overflow = ''; }
+      function hide() { box.hidden = true; cur = null; fr0.classList.remove('vp-wait'); v.pause(); if (hls) { hls.destroy(); hls = null; } v.removeAttribute('src'); v.load(); document.documentElement.style.overflow = ''; }
       var row = root.querySelector('.vp-os'), al = root.querySelector('.vp-os-l'), ar = root.querySelector('.vp-os-r');
       function arrows() { var max = row.scrollWidth - row.clientWidth - 2; al.disabled = row.scrollLeft <= 2; ar.disabled = row.scrollLeft >= max; }
       function step(d) { var t = row.querySelector('.vp-os-t'), w = t ? t.getBoundingClientRect().width + 10 : row.clientWidth / 2; row.scrollBy({ left: d * Math.max(w, Math.floor(row.clientWidth / w) * w), behavior: 'smooth' }); }
@@ -1204,8 +1241,9 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       arrows(); setTimeout(arrows, 400);
       // Fetch the video player script early, as the clips come near the screen, so the first tap starts straight away
       var getHls = function () { if (window.Hls || getHls.on) return; getHls.on = 1; var s = document.createElement('script'); s.src = HLS_URL; document.head.appendChild(s); };
-      if ('IntersectionObserver' in window) { var hio = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { getHls(); hio.disconnect(); } }, { rootMargin: '600px 0px' }); hio.observe(row); } else getHls();
-      root.addEventListener('pointerdown', function (e) { var t = e.target.closest('.vp-os-t'); if (t) { getHls(); var x = onstage[+t.getAttribute('data-os')]; try { fetch((x.base || DATA.videoBase) + x.id + '/playlist.m3u8'); } catch (er) {} } }, { passive: true });
+      if ('IntersectionObserver' in window) { var hio = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { getHls(); warm(onstage[0]); warm(onstage[1]); hio.disconnect(); } }, { rootMargin: '600px 0px' }); hio.observe(row); } else getHls();
+      root.addEventListener('mouseover', function (e) { var t = e.target.closest && e.target.closest('.vp-os-t'); if (t) warm(onstage[+t.getAttribute('data-os')]); }, { passive: true });
+      root.addEventListener('pointerdown', function (e) { var t = e.target.closest('.vp-os-t'); if (t) { getHls(); warm(onstage[+t.getAttribute('data-os')]); } }, { passive: true });
       root.addEventListener('click', function (e) { var t = e.target.closest('.vp-os-t'); if (t && root.contains(t)) show(+t.getAttribute('data-os')); });
       box.addEventListener('click', function (e) {
         if (e.target.closest('.vp-os-x') || e.target === box) hide();
