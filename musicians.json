@@ -56,7 +56,7 @@
       ],
       "tradBand": true,
       "duo": true,
-      "videos": [
+      "onstage": [{"id": "2841cc7c-287b-4dac-9f02-69cdca6b6bcb", "seconds": 70}, {"id": "a982e006-589e-4b84-a9b7-d32e5890d42c", "seconds": 54}, {"id": "c69f641f-f527-4ac1-84a5-d29e0acd22e4", "seconds": 52}, {"id": "33dd6f94-baf1-4cc8-8ba9-3130a497cec6", "seconds": 33}, {"id": "887dcffc-9865-44ed-8dde-e8046defd040", "seconds": 53}], "videos": [
         {
           "id": "d00741c7-4c31-47c5-8156-3486c44b0f6b",
           "seconds": 38,
@@ -120,7 +120,7 @@
       ],
       "tradBand": false,
       "duo": false,
-      "videos": [
+      "onstage": [{"id": "cf73e803-fa13-4b48-bccc-645bdb434135", "seconds": 17}, {"id": "955aed7d-daae-44ba-a18d-71d635c0f488", "seconds": 34}, {"id": "6aceb802-16ff-439a-bb20-efdf2493b141", "seconds": 59}, {"id": "48493756-0513-4200-a074-3ab3683611d6", "seconds": 23}, {"id": "cb07e8c6-ddf7-41ef-ab1f-ac91aada40c4", "seconds": 32}, {"id": "ea1736b8-f934-4e45-861a-d5a0f01e76b3", "seconds": 67}, {"id": "dbac2387-fc35-4af7-a2e0-87104a2a1d04", "seconds": 109}, {"id": "6b2f0624-e6b5-4ffe-aa3f-12397d848a4b", "seconds": 47}], "videos": [
         {
           "id": "ed375d2d-902f-4370-be46-1efa8f2ea102",
           "seconds": 16,
@@ -193,7 +193,7 @@
       ],
       "tradBand": false,
       "duo": false,
-      "videos": [
+      "onstage": [{"id": "2ded3da0-3aee-456e-a27e-5cd26b5b7153", "seconds": 34}, {"id": "e5e645ba-78f6-41ba-bd54-125a854b6070", "seconds": 28}, {"id": "07d8ab49-0a17-4b45-afdb-3427d415e779", "seconds": 84}, {"id": "3fd7c4b1-43fa-4096-acc3-5f61bf2bf3a0", "seconds": 19}, {"id": "514e4dca-860c-46a2-bd54-1b6b7bda68d6", "seconds": 55}, {"id": "15d4e2d5-80a2-4efb-9db1-0df1b8a015f6", "seconds": 16}], "videos": [
         {
           "id": "133e93e5-7872-4d34-813f-18910fabfb8d",
           "seconds": 39,
@@ -231,7 +231,7 @@
       ],
       "tradBand": false,
       "duo": true,
-      "videos": [
+      "onstage": [{"id": "6c283cf4-4166-4099-bcfb-0676b1407355", "seconds": 44}, {"id": "24e1c06f-f51b-4f8c-9940-9329c0acd45d", "seconds": 75}, {"id": "b6ca823d-f130-4ed1-b902-df1302e857c6", "seconds": 70}, {"id": "1bcdfaff-9008-477e-aecb-65df7c246c81", "seconds": 38}, {"id": "b978d69a-f370-4cd2-9408-fb162b05db5a", "seconds": 76}, {"id": "fe0a954c-0732-4373-8167-6085d54d7300", "seconds": 38}, {"id": "c5e0fa0c-6c2c-4aa5-a748-4af58ffa69c8", "seconds": 60}], "videos": [
         {
           "id": "4f4674c0-958a-4f66-ac87-22bfaa2bb81f",
           "seconds": 52,
@@ -261,7 +261,7 @@
       ],
       "tradBand": false,
       "duo": true,
-      "videos": [
+      "onstage": [{"id": "7efca379-b48d-4302-8e0c-f992e90833af", "seconds": 83}, {"id": "dbe727b3-e452-4b83-9d72-7fa1c2d55483", "seconds": 32}, {"id": "c3717638-6956-4b19-8eb2-3bacfb52aaa3", "seconds": 37}], "videos": [
         {
           "id": "8bb5b79f-f84e-4cbe-89b9-79487f42dc79",
           "seconds": 121,
@@ -317,7 +317,7 @@
       ],
       "tradBand": false,
       "duo": false,
-      "videos": [
+      "onstage": [{"id": "409118ac-8521-4347-a62c-28c21ab54c8c", "seconds": 90}, {"id": "8b7afbeb-7509-4579-b571-473f7ff9fec2", "seconds": 90}, {"id": "8899cf02-27ce-4d6b-854f-077f3c3b79cb", "seconds": 90}, {"id": "d881dae0-a8b7-4af9-b94f-3d6bf84d823c", "seconds": 90}, {"id": "ab0ee08d-7827-4dc3-8d27-724c7f7c3d85", "seconds": 90}], "videos": [
         {
           "id": "7ccb33e1-1c37-4196-af95-c87e21d7570a",
           "seconds": 67,
@@ -356,7 +356,7 @@
       ],
       "tradBand": false,
       "duo": true,
-      "videos": [
+      "onstage": [{"id": "a88444ef-0509-4913-a12c-c76b39d40be2", "seconds": 67}, {"id": "f49dd002-7f0e-4260-84f1-4e56084e21ca", "seconds": 109}, {"id": "2dc7ea9d-f440-4694-8bd2-a002236d4916", "seconds": 33}, {"id": "5717caa9-a4a8-4c52-8959-c1c9fff79d74", "seconds": 34}, {"id": "e14ea79c-55a0-4f8d-b7f1-1d97020450ca", "seconds": 37}, {"id": "f8c7d608-2a94-434d-896b-f508402f9645", "seconds": 64}], "videos": [
         {
           "id": "0952979f-f248-4f01-9d57-84ace0e3b8a0",
           "seconds": 67,
@@ -415,7 +415,7 @@
       ],
       "tradBand": false,
       "duo": false,
-      "videos": [
+      "onstage": [{"id": "f86a9a97-3999-4dc6-8297-566eb026cae5", "seconds": 57}, {"id": "52c35c61-7857-4d24-be1f-16e9c8ca70a0", "seconds": 82}, {"id": "ce6c553c-2112-49f1-8925-33ee0e881b64", "seconds": 50}, {"id": "20e0c0ee-9dec-4179-b020-ff888ff3979f", "seconds": 63}, {"id": "68cc75fb-0694-4509-9730-39a0fb92d255", "seconds": 65}, {"id": "f0fd6b3c-03ed-4acc-bdc0-bf4a2ae8bbef", "seconds": 56}, {"id": "2f887339-91a9-45d0-9371-476a7c474947", "seconds": 79}, {"id": "c23eab85-81d8-4151-b87e-fade994ff4ad", "seconds": 21}], "videos": [
         {
           "id": "856aaebc-02e6-4cc5-b6e2-846878013b8a",
           "seconds": 59,
@@ -539,7 +539,7 @@
       ],
       "tradBand": false,
       "duo": true,
-      "videos": [
+      "onstage": [{"id": "35d237e8-63d8-4587-86a0-4b9cefd943cd", "seconds": 32}, {"id": "a7e68815-93e1-43cc-a656-eb159e8834f1", "seconds": 22}, {"id": "ae75f66f-7d31-4059-a7d9-129db0d0f4b4", "seconds": 65}, {"id": "8bd4bed7-d6f1-4a74-9515-a757c0d1325a", "seconds": 65}, {"id": "d6676066-b43a-4603-a8d2-5fce07a9703c", "seconds": 53}, {"id": "3642c689-301e-4f3b-9605-48358443f3c6", "seconds": 46}, {"id": "dde978ea-e066-40a9-9f37-308f859ab132", "seconds": 58}], "videos": [
         {
           "id": "b5f19092-0ffe-4c34-a174-c2d59531f884",
           "seconds": 93,

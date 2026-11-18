@@ -97,7 +97,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #musician-page .vp-play svg{width:28px;height:28px;margin-left:4px}\
 #musician-page .vp-vwrap.vp-playing .vp-play{display:none}\
 #musician-page .vp-os-sub{margin:-6px 0 14px;color:var(--vp-muted);font-size:15px}\
-#musician-page .vp-os{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}\
+#musician-page .vp-os{display:grid;grid-template-columns:repeat(var(--os-cols,6),minmax(0,1fr));gap:10px}\
 #musician-page .vp-os-t{position:relative;padding:0;border:0;cursor:pointer;aspect-ratio:9/16;overflow:hidden;border-radius:var(--vp-radius-sm);background:#171d1d;display:block}\
 #musician-page .vp-os-t img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s}\
 #musician-page .vp-os-t:hover img{transform:scale(1.05)}\
@@ -371,7 +371,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     // Nothing here names the musician or links out, so anonymous profiles stay anonymous.
     var onstage = m.onstage || [];
     if (onstage.length) {
-      h += '<section class="vp-onstage"><h2>' + esc(m.onstageTitle || 'On stage') + '</h2><p class="vp-os-sub">' + esc(m.onstageSub || 'Real moments from recent gigs.') + '</p><div class="vp-os">';
+      h += '<section class="vp-onstage"><h2>' + esc(m.onstageTitle || 'On stage') + '</h2><p class="vp-os-sub">' + esc(m.onstageSub || 'Real moments from recent gigs.') + '</p><div class="vp-os"' + (onstage.length === 7 || onstage.length === 8 ? ' style="--os-cols:4"' : '') + '>';
       onstage.forEach(function (x, i) {
         var mm = x.seconds ? Math.floor(x.seconds / 60) + ':' + ('0' + Math.round(x.seconds % 60)).slice(-2) : '';
         var th = x.poster ? img(x.poster, 750) : (x.base || DATA.videoBase) + x.id + '/thumbnail';
