@@ -695,6 +695,51 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     root.classList.toggle('vp-pk-page', !!m.packages);
     root.classList.toggle('vp-anon', !!m.hideName);  // hidden-name profiles: shorter banner so the bio sits higher
     root.innerHTML = h;
+
+    // Movement: the top photo settles in and the heading rises, then each part of the page rises in as it is scrolled to.
+    // Skipped for people who have asked their device for less motion.
+    (function () {
+      if ((window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches) || !('IntersectionObserver' in window)) return;
+      if (!document.getElementById('vp-motion-css')) {
+        var ms = document.createElement('style');
+        ms.id = 'vp-motion-css';
+        ms.textContent = '#musician-page.vp-anim .vp-hero>img{animation:vpSettle 1.8s cubic-bezier(.2,.7,.2,1) both}'
+          + '#musician-page.vp-anim .vp-hero-in>*{animation:vpRise .75s cubic-bezier(.2,.7,.2,1) both}'
+          + '#musician-page.vp-anim .vp-hero-in>:nth-child(2){animation-delay:.12s}#musician-page.vp-anim .vp-hero-in>:nth-child(3){animation-delay:.26s}#musician-page.vp-anim .vp-hero-in>:nth-child(4){animation-delay:.38s}'
+          + '@keyframes vpSettle{from{transform:scale(1.1);opacity:0}to{transform:none;opacity:1}}'
+          + '@keyframes vpRise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}'
+          + '#musician-page .vp-rv{opacity:0;transform:translateY(28px)}'
+          + '#musician-page .vp-rv.vp-rv-z{transform:translateY(24px) scale(.95)}'
+          + '#musician-page .vp-rv.vp-rv-in{opacity:1;transform:none;transition:opacity .6s ease var(--vd,0ms),transform .75s cubic-bezier(.2,.7,.2,1) var(--vd,0ms)}';
+        document.head.appendChild(ms);
+      }
+      root.classList.add('vp-anim');
+      var mio = new IntersectionObserver(function (es) {
+        var hit = es.filter(function (e) { return e.isIntersecting; }).map(function (e) { return e.target; });
+        hit.forEach(function (el, i) {
+          mio.unobserve(el);
+          var d = Math.min(i, 5) * 90;
+          el.style.setProperty('--vd', d + 'ms');
+          el.classList.add('vp-rv-in');
+          // once it has arrived, hand the element back so its own hover effects work as before
+          setTimeout(function () { el.classList.remove('vp-rv', 'vp-rv-z', 'vp-rv-in'); el.style.removeProperty('--vd'); }, d + 900);
+        });
+      }, { rootMargin: '0px 0px -6% 0px', threshold: 0.08 });
+      var add = function (sel, zoom) {
+        Array.prototype.forEach.call(root.querySelectorAll(sel), function (el) {
+          if (el.classList.contains('vp-rv') || el.closest('.vp-hero,.vp-aside,.vp-oslb,.vp-lb,[hidden]')) return;
+          el.classList.add('vp-rv');
+          if (zoom) el.classList.add('vp-rv-z');
+          mio.observe(el);
+        });
+      };
+      add('.vp-about>*');
+      add('.vp-tags');
+      add('.vp-h2row');
+      add('.vp-vwrap', true);
+      add('.vp-os-t', true);
+      add('.vp-card', true);
+    })();
     // Gentle glow on the enquiry form (and its phone bar) when a choice fills something in
     var pulseTimer = null;
     var pulseForm = function (msg) {
