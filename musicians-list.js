@@ -42,15 +42,24 @@
     '#musicians-list .ml-from{display:inline-flex;align-items:baseline;gap:8px;margin:0;padding:0;color:var(--c-cyan)}',
     '#musicians-list .ml-from span{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-cyan);opacity:.8}',
     '#musicians-list .ml-from strong{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:28px;line-height:1}',
-    '#musicians-list .ml-hero{position:relative;z-index:0;display:flex;align-items:flex-end;min-height:min(62vh,540px);margin:-4px 0 26px;overflow:hidden;background:#1f2727;border-bottom:1px solid rgba(234,230,221,.22)}',
+    '#musicians-list .ml-hero{position:relative;z-index:0;display:flex;align-items:flex-end;min-height:min(62vh,540px);margin:-4px 0 18px;overflow:hidden;background:#1f2727;border-bottom:1px solid rgba(234,230,221,.22)}',
     '#musicians-list .ml-hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}',
     '#musicians-list .ml-hero:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.6) 45%,rgba(0,0,0,.35) 100%),linear-gradient(180deg,rgba(0,0,0,.6) 0%,rgba(0,0,0,.25) 35%,rgba(0,0,0,.75) 100%)}',
     '#musicians-list .ml-hero-in{position:relative;z-index:2;width:100%;padding:48px max(16px,4vw) 40px}',
     '#musicians-list .ml-hero .ml-eye{font-size:12px;letter-spacing:.18em;font-weight:500;color:var(--c-ink);margin:0}',
     '#musicians-list .ml-hero h1{font-size:clamp(40px,7vw,76px);line-height:1.02;margin:10px 0 14px;color:var(--c-ink)}',
     '#musicians-list .ml-hero p.ml-lead{margin:0;max-width:560px;font-size:17px;line-height:1.55;color:rgba(234,230,221,.88);text-shadow:0 1px 8px rgba(0,0,0,.55)}',
+    '#musicians-list .ml-tabs{display:flex;gap:10px;max-width:1600px;margin:0 auto 26px}',
+    '#musicians-list .ml-tab{flex:1 1 0;min-width:0;display:grid;gap:2px;text-decoration:none!important;padding:14px 20px;border-radius:14px;border:1.5px solid rgba(234,230,221,.18);background:rgba(234,230,221,.04);color:var(--c-ink)!important;transition:border-color .2s,background .2s,transform .2s}',
+    '#musicians-list .ml-tab strong{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:21px;line-height:1.2}',
+    '#musicians-list .ml-tab span{font-size:13.5px;color:var(--c-muted)}',
+    '#musicians-list .ml-tab:hover{border-color:var(--c-cyan);transform:translateY(-2px)}',
+    '#musicians-list .ml-tab.ml-tab-on{border-color:var(--c-cyan);background:rgba(61,194,187,.12)}',
+    '#musicians-list .ml-tab.ml-tab-on span{color:var(--c-cyan)}',
+    '#musicians-list.ml-anim .ml-tabs{animation:mlRise .7s cubic-bezier(.2,.7,.2,1) .2s both}',
+    '@media (max-width:700px){#musicians-list .ml-tabs{gap:8px;margin-bottom:18px}#musicians-list .ml-tab{padding:10px 12px}#musicians-list .ml-tab strong{font-size:15.5px}#musicians-list .ml-tab span{font-size:11.5px;line-height:1.3}}',
     '#musicians-list .ml-top h2{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:clamp(22px,2.6vw,30px);line-height:1.1;margin:0;color:var(--c-cyan)}',
-    '@media (max-width:700px){#musicians-list .ml-hero{min-height:330px;margin-bottom:16px}#musicians-list .ml-hero-in{padding-top:24px;padding-bottom:22px}#musicians-list .ml-hero h1{font-size:40px;margin-bottom:10px}#musicians-list .ml-hero p.ml-lead{font-size:14.5px}}',
+    '@media (max-width:700px){#musicians-list .ml-hero{min-height:330px;margin-bottom:12px}#musicians-list .ml-hero-in{padding-top:24px;padding-bottom:22px}#musicians-list .ml-hero h1{font-size:40px;margin-bottom:10px}#musicians-list .ml-hero p.ml-lead{font-size:14.5px}}',
     // Movement: cards rise in one after another as they scroll into view, lift on hover, and the banner settles in
     '#musicians-list.ml-anim .ml-card .ml-img{opacity:0;transform:translateY(26px) scale(.96)}',
     '#musicians-list.ml-anim .ml-card.ml-in .ml-img{opacity:1;transform:none;transition:opacity .6s ease var(--d,0ms),transform .7s cubic-bezier(.2,.7,.2,1) var(--d,0ms),box-shadow .25s}',
@@ -168,7 +177,7 @@
   var EYE = only === 'ceremony' ? 'Wedding Day 2 \u00B7 Ceremony musicians' : 'Wedding Day 2 \u00B7 Wedding musicians across Ireland';
   var LEAD = only === 'ceremony'
     ? 'Live music for walking down the aisle, signing the register and the drinks reception afterwards. Watch their videos, then check who\u2019s free on your date.'
-    : 'Hand-picked singer-guitarists for your Day 2, after-dinner set or ceremony. Watch their videos, then check who\u2019s free on your date.';
+    : 'Hand-picked singer-guitarists for your after-dinner set or Day 2. Watch their videos, then check who\u2019s free on your date.';
   // Wide photo behind the heading, darkened so the text reads
   var HERO = only === 'ceremony'
     ? ['0a59b978-2181-4711-b4a2-2fc6cb3515cf/musician-t-orlaith-2.jpg', '80% 40%']
@@ -199,21 +208,27 @@
       list.sort(function (a, b) { return CL.indexOf(a.slug) - CL.indexOf(b.slug); });
     } else if (only) {
       list = list.filter(function (o) { return o.events.indexOf(only) !== -1; });
+    } else {
+      // Solo Musicians page = the "After Dinner | Day 2" tab; ceremony-only musicians live on the other tab
+      list = list.filter(function (o) { return o.events.indexOf('day2') !== -1 || o.events.indexOf('afterdinner') !== -1; });
     }
+    // The two big tabs under the banner (same idea as DJ / DJ & Sax / Karaoke): each is its own page
+    var TABS = [['After Dinner | Day 2', 'Lively sets to get the party going', '/musicians', !only], ['Ceremony | Reception', 'Music for the aisle and the drinks reception', '/ceremony-musicians', only === 'ceremony']];
     var SHARPER = { cathal: 1500, alan: 1500 }; // wide photos cropped into tall cards, so they need the bigger version
     var size = 500; // card-sized photos (about 1.4MB for the whole page, instead of 8MB+)
     var DJC = D.djCard || {}; // same DJ card as on the musician pages
-    var filters = [['all', 'Any'], ['ceremony', L.ceremony || 'Ceremony & drinks reception'], ['day2', L.day2 || 'Day 2'], ['afterdinner', L.afterdinner || 'After dinner']];
+    var filters = [['all', 'Either'], ['day2', L.day2 || 'Day 2'], ['afterdinner', L.afterdinner || 'After dinner']];
     if (only) filters = [['all', 'All musicians'], ['day2', 'Also plays ' + (L.day2 || 'Day 2')], ['afterdinner', 'Also plays ' + (L.afterdinner || 'after dinner').toLowerCase()], ['duo', 'Duo']];
     var h = '<header class="ml-hero"><img src="' + IMG + HERO[0] + '?format=2500w" alt="" style="object-position:' + HERO[1] + '" fetchpriority="high">'
       + '<div class="ml-hero-in"><p class="ml-eye">' + esc(EYE) + '</p><h1>' + esc(H1) + '</h1><p class="ml-lead">' + esc(LEAD) + '</p></div></header>'
+      + '<nav class="ml-tabs" aria-label="Solo musicians">' + TABS.map(function (t) { return '<a class="ml-tab' + (t[3] ? ' ml-tab-on" aria-current="page' : '') + '" href="' + t[2] + '"><strong>' + esc(t[0]) + '</strong><span>' + esc(t[1]) + '</span></a>'; }).join('') + '</nav>'
       + '<div class="ml-wrap"><div class="ml-top"><div class="ml-head"><h2>Pick your musician</h2><p class="ml-count" aria-live="polite"></p></div>'
-      + '<div class="ml-pick"><span class="ml-ask">' + (only ? 'Show' : 'What do you need music for?') + '</span>'
+      + '<div class="ml-pick"><span class="ml-ask">' + (only ? 'Show' : 'Day 2 or after dinner?') + '</span>'
       + '<div class="ml-chips">' + filters.map(function (f, i) { return '<button type="button" class="ml-chip' + (i ? '' : ' on') + '" data-f="' + f[0] + '" aria-pressed="' + (i ? 'false' : 'true') + '">' + esc(f[1]) + '</button>'; }).join('') + '</div></div></div><div class="ml-grid">';
     list.forEach(function (o, i) {
       var lp = LIST_PHOTOS[o.slug];
       var ev = ORDER.filter(function (e) { return o.events.indexOf(e) !== -1; });
-      var tags = ev.filter(function (e) { return e !== only; }).map(function (e) { return [e, e === 'ceremony' ? 'Ceremony' : (L[e] || e)]; });
+      var tags = ev.filter(function (e) { return e !== only && (only || e !== 'ceremony'); }).map(function (e) { return [e, e === 'ceremony' ? 'Ceremony' : (L[e] || e)]; });
       if (only && o.duo) tags.push(['duo', 'Duo']);
       var p = lp ? lp[0] : (o.cardPhoto || o.photo);
       h += '<a class="ml-card" data-slug="' + esc(o.slug) + '" href="' + esc(o.url + (only ? '?for=' + only : '')) + '" data-tags="' + esc(ev.concat(o.duo ? ['duo'] : []).concat(o.tradBand ? ['tradBand'] : []).join(' ')) + '">'
@@ -286,7 +301,7 @@
     var tell = function () {
       var on = root.querySelector('.ml-chip.on'), f = on ? on.getAttribute('data-f') : 'all';
       var n = root.querySelectorAll('.ml-card:not([hidden])').length, who = n + ' musician' + (n === 1 ? '' : 's');
-      var txt = f === 'all' ? 'Showing all ' + who : only ? who + ': ' + FL[f].charAt(0).toLowerCase() + FL[f].slice(1) : who + ' for <strong>' + esc(FL[f]) + '</strong>';
+      var txt = f === 'all' ? 'Showing all ' + who + (only ? ' for ceremony & drinks reception' : ' for after dinner & Day 2') : only ? who + ': ' + FL[f].charAt(0).toLowerCase() + FL[f].slice(1) : who + ' for <strong>' + esc(FL[f]) + '</strong>';
       root.querySelector('.ml-count').innerHTML = txt;
       Array.prototype.forEach.call(root.querySelectorAll('.ml-tag'), function (t) { t.classList.toggle('ml-hit', f !== 'all' && t.getAttribute('data-e') === f); });
     };
