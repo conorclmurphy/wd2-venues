@@ -391,7 +391,23 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     + '#musician-page .vp-oslb .vp-os-x{top:16px;right:18px;z-index:2;width:44px;height:44px;border:0;background:rgba(234,230,221,.12);color:#eae6dd;font-size:26px;line-height:1}'
     + '#musician-page .vp-oslb .vp-os-n{position:absolute;top:auto;bottom:18px;left:50%;right:auto;font-family:inherit;letter-spacing:0;transform:translateX(-50%);color:#eae6dd;font-size:14px;opacity:.8}'
     + '@media (max-width:640px){#musician-page .vp-oslb{padding:16px 0;touch-action:none;overscroll-behavior:contain}#musician-page .vp-oslb .vp-os-fr{height:min(80vh,80dvh,calc(100vw * 16 / 9))}#musician-page .vp-oslb .vp-os-p,#musician-page .vp-oslb .vp-os-f{width:40px;height:40px;background:rgba(0,0,0,.6)}#musician-page .vp-oslb .vp-os-p{left:8px}#musician-page .vp-oslb .vp-os-f{right:8px}#musician-page .vp-oslb .vp-os-n{bottom:10px}}';
+  // Phones: the floating booking button is a small glass bubble; it opens out to say what was added, then tucks back in.
+  var st5 = document.createElement('style');
+  st5.textContent = '@media (max-width:899px){'
+    + '#musician-page .vp-aside:not(.vp-open) .vp-sheet{max-width:250px;transition:max-width .35s cubic-bezier(.3,.7,.2,1)}'
+    + '#musician-page .vp-aside:not(.vp-open) .vp-sheet-bar{padding:9px 16px;font-size:14px;font-weight:600;gap:7px;white-space:nowrap;background:rgba(23,29,29,.72);-webkit-backdrop-filter:blur(14px) saturate(150%);backdrop-filter:blur(14px) saturate(150%);border:1px solid rgba(61,194,187,.65);color:#3dc2bb;box-shadow:0 6px 20px rgba(0,0,0,.4);animation:none}'
+    + '#musician-page .vp-aside:not(.vp-open) .vp-sheet-bar svg{width:16px;height:16px}'
+    + '#musician-page .vp-aside:not(.vp-open) .vp-sheet-bar span{display:inline-flex;align-items:center;gap:7px;overflow:hidden;text-overflow:ellipsis}'
+    + '#musician-page .vp-aside:not(.vp-open) .vp-sheet-bar span[data-n]:after{content:attr(data-n);flex:none;min-width:20px;height:20px;padding:0 6px;border-radius:99px;background:#3dc2bb;color:#1f2727;font-size:12px;font-weight:700;line-height:20px;text-align:center}'
+    + '#musician-page .vp-aside.vp-mini:not(.vp-open) .vp-sheet{max-width:130px}'
+    + '#musician-page .vp-aside.vp-mini:not(.vp-open) .vp-sheet-bar:not(.vp-bar-msg){padding:8px 13px}'
+    + '#musician-page .vp-aside.vp-mini:not(.vp-open) .vp-sheet-bar:not(.vp-bar-msg) span{font-size:0}'
+    + '#musician-page .vp-aside.vp-mini:not(.vp-open) .vp-sheet-bar:not(.vp-bar-msg) span:before{content:"Book";font-size:14px}'
+    + '#musician-page .vp-aside:not(.vp-open) .vp-sheet:has(.vp-bar-msg){max-width:340px}'
+    + '#musician-page .vp-aside:not(.vp-open) .vp-sheet-bar.vp-bar-msg{background:#3dc2bb;color:#1f2727;border-color:#3dc2bb}#musician-page .vp-aside:not(.vp-open) .vp-sheet-bar.vp-bar-msg svg{color:#1f2727}#musician-page .vp-aside:not(.vp-open) .vp-sheet-bar.vp-bar-msg span[data-n]:after{display:none}'
+    + '}';
   document.head.appendChild(st4);
+  document.head.appendChild(st5);
   var keyHandler = null;
 
   function load() {
@@ -1212,6 +1228,10 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
     // Phones: a bar pinned to the bottom opens and closes the form.
     var sheetBar = aside.querySelector('.vp-sheet-bar'), sheetLabel = sheetBar.querySelector('span'), openLabel = sheetLabel.textContent;
+    var goMini = function () { aside.classList.add('vp-mini'); window.removeEventListener('scroll', onMiniScroll); };
+    var miniY = window.scrollY, onMiniScroll = function () { if (Math.abs(window.scrollY - miniY) > 160) goMini(); };
+    window.addEventListener('scroll', onMiniScroll, { passive: true });
+    setTimeout(goMini, 4500);
     function setSheet(open) {
       if (open) {
         // Keep the open form below the site's logo and menu button.
@@ -1374,7 +1394,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var bar = root.querySelector('.vp-sheet-bar span');
       if (bar && !bar.parentNode.classList.contains('vp-bar-msg')) {
         var base = bar.getAttribute('data-base') || bar.textContent; bar.setAttribute('data-base', base);
-        var moreN = others.filter(function (x) { return x.key !== meKey; }).length; bar.textContent = base + (moreN ? ' (+' + moreN + ')' : ''); bar.setAttribute('data-label', bar.textContent);
+        var moreN = others.filter(function (x) { return x.key !== meKey; }).length; bar.textContent = base; bar.setAttribute('data-label', base); if (moreN) bar.setAttribute('data-n', '+' + moreN); else bar.removeAttribute('data-n');
       }
     };
     addBtns.forEach(function (ab) { ab.addEventListener('click', function () {
