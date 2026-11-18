@@ -51,6 +51,22 @@
     '#musicians-list .ml-hero p.ml-lead{margin:0;max-width:560px;font-size:17px;line-height:1.55;color:rgba(234,230,221,.88);text-shadow:0 1px 8px rgba(0,0,0,.55)}',
     '#musicians-list .ml-top h2{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:clamp(22px,2.6vw,30px);line-height:1.1;margin:0;color:var(--c-cyan)}',
     '@media (max-width:700px){#musicians-list .ml-hero{min-height:330px;margin-bottom:16px}#musicians-list .ml-hero-in{padding-top:24px;padding-bottom:22px}#musicians-list .ml-hero h1{font-size:40px;margin-bottom:10px}#musicians-list .ml-hero p.ml-lead{font-size:14.5px}}',
+    // Movement: cards rise in one after another as they scroll into view, lift on hover, and the banner settles in
+    '#musicians-list.ml-anim .ml-card .ml-img{opacity:0;transform:translateY(26px) scale(.96)}',
+    '#musicians-list.ml-anim .ml-card.ml-in .ml-img{opacity:1;transform:none;transition:opacity .6s ease var(--d,0ms),transform .7s cubic-bezier(.2,.7,.2,1) var(--d,0ms),box-shadow .25s}',
+    '#musicians-list.ml-anim .ml-card .ml-tags{opacity:0;transform:translateY(-6px)}',
+    '#musicians-list.ml-anim .ml-card.ml-in .ml-tags{opacity:1;transform:none;transition:opacity .45s ease calc(var(--d,0ms) + 280ms),transform .45s ease calc(var(--d,0ms) + 280ms)}',
+    '@media (hover:hover){#musicians-list.ml-anim .ml-card.ml-in:hover .ml-img{transform:translateY(-7px);transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .25s}#musicians-list.ml-anim .ml-card:hover .ml-img img:not(.ml-wm){transform:scale(1.07)}#musicians-list .ml-card:hover .ml-more{transform:translateX(5px)}#musicians-list.ml-anim .ml-card:hover img.ml-wm{transform:scale(1.12) rotate(-4deg)!important}}',
+    '#musicians-list .ml-more{transition:transform .3s ease,color .2s}',
+    '#musicians-list img.ml-wm{transition:transform .35s ease}',
+    '#musicians-list .ml-card:active .ml-img{transform:scale(.98)!important;transition:transform .12s!important}',
+    '#musicians-list.ml-anim .ml-hero>img{animation:mlSettle 1.8s cubic-bezier(.2,.7,.2,1) both}',
+    '#musicians-list.ml-anim .ml-hero-in>*{animation:mlRise .7s cubic-bezier(.2,.7,.2,1) both}',
+    '#musicians-list.ml-anim .ml-hero-in>:nth-child(2){animation-delay:.12s}#musicians-list.ml-anim .ml-hero-in>:nth-child(3){animation-delay:.24s}',
+    '#musicians-list.ml-anim .ml-top{animation:mlRise .7s cubic-bezier(.2,.7,.2,1) .3s both}',
+    '#musicians-list .ml-chip{transition:background .2s,border-color .2s,color .2s,transform .15s}#musicians-list .ml-chip:active{transform:scale(.94)}',
+    '@keyframes mlSettle{from{transform:scale(1.12);opacity:0}to{transform:none;opacity:1}}',
+    '@keyframes mlRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}',
     '#musicians-list .ml-top{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;margin:0 0 22px}',
     '#musicians-list .ml-head{flex:1 1 420px;min-width:0}',
     '#musicians-list .ml-intro{margin:8px 0 0;max-width:720px;font-size:15px;line-height:1.55;color:var(--c-muted)}',
@@ -207,6 +223,29 @@
     bleed();
     window.addEventListener('resize', bleed);
 
+    // Cards rise in one after another as they come into view (skipped for people who've asked for less motion)
+    var calm = window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches;
+    var cards = Array.prototype.slice.call(root.querySelectorAll('.ml-card'));
+    var showCards = function (els) {
+      els.forEach(function (c, n) { c.style.setProperty('--d', Math.min(n, 7) * 80 + 'ms'); c.classList.add('ml-in'); });
+    };
+    if (!calm && 'IntersectionObserver' in window) {
+      root.classList.add('ml-anim');
+      var io = new IntersectionObserver(function (es) {
+        var hit = es.filter(function (e) { return e.isIntersecting; }).map(function (e) { io.unobserve(e.target); return e.target; });
+        hit.sort(function (a, b) { return cards.indexOf(a) - cards.indexOf(b); });
+        showCards(hit);
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+      cards.forEach(function (c) { io.observe(c); });
+    }
+    var replay = function () {
+      if (!root.classList.contains('ml-anim')) return;
+      var vis = cards.filter(function (c) { return !c.hidden; });
+      vis.forEach(function (c) { if (io) io.unobserve(c); c.classList.remove('ml-in'); });
+      void root.offsetWidth;
+      requestAnimationFrame(function () { showCards(vis); });
+    };
+
     // Stop the site's photo-link script from taking over these links and photos
     var claim = function () { Array.prototype.forEach.call(root.querySelectorAll('a, img, button'), function (el) { el.wd2Wired = true; }); };
     claim();
@@ -240,6 +279,7 @@
         Array.prototype.forEach.call(root.querySelectorAll('.ml-card'), function (card) {
           card.hidden = f !== 'all' && (' ' + card.getAttribute('data-tags') + ' ').indexOf(' ' + f + ' ') === -1;
         });
+        replay();
       });
     });
   }
