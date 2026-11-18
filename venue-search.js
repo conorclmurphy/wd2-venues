@@ -245,6 +245,13 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
           : '<div class="wdvs-card wdvs-soon">' + inner + '</div>';
       }).join('');
       if (cardIO && still !== true) Array.prototype.forEach.call(els.grid.querySelectorAll('.wdvs-card'), function (c) { c.classList.add('wdvs-pre'); cardIO.observe(c); });
+      // safety net: if a card on screen still hasn't been shown after a moment, show it anyway
+      if (cardIO && still !== true) setTimeout(function () {
+        Array.prototype.forEach.call(els.grid.querySelectorAll('.wdvs-card.wdvs-pre:not(.wdvs-in)'), function (c) {
+          var r = c.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) { cardIO.unobserve(c); c.classList.remove('wdvs-pre'); }
+        });
+      }, 2500);
     }
 
     els.search.addEventListener('input', function (e) { state.search = e.target.value; render(true); });
