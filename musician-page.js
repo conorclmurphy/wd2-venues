@@ -96,6 +96,22 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #musician-page .vp-play:hover{transform:scale(1.08)}\
 #musician-page .vp-play svg{width:28px;height:28px;margin-left:4px}\
 #musician-page .vp-vwrap.vp-playing .vp-play{display:none}\
+#musician-page .vp-os-sub{margin:-6px 0 14px;color:var(--vp-muted);font-size:15px}\
+#musician-page .vp-os{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}\
+#musician-page .vp-os-t{position:relative;padding:0;border:0;cursor:pointer;aspect-ratio:9/16;overflow:hidden;border-radius:var(--vp-radius-sm);background:#171d1d;display:block}\
+#musician-page .vp-os-t img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s}\
+#musician-page .vp-os-t:hover img{transform:scale(1.05)}\
+#musician-page .vp-os-t:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.55))}\
+#musician-page .vp-os-t span{position:absolute;left:8px;bottom:8px;z-index:1;display:flex;align-items:center;gap:5px;color:#fff;font-size:12px;font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,.6)}\
+#musician-page .vp-os-t span svg{width:14px;height:14px}\
+#musician-page .vp-oslb{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.96);display:flex;align-items:center;justify-content:center;gap:12px;padding:16px}\
+#musician-page .vp-oslb[hidden]{display:none}\
+#musician-page .vp-oslb video{max-height:88vh;max-height:88dvh;max-width:min(100%,520px);aspect-ratio:9/16;background:#000;border-radius:var(--vp-radius);object-fit:contain}\
+#musician-page .vp-oslb button{flex:none;width:46px;height:46px;border-radius:50%;border:1px solid rgba(234,230,221,.35);background:rgba(0,0,0,.4);color:#fff;font-size:22px;line-height:1;cursor:pointer}\
+#musician-page .vp-oslb .vp-os-x{position:absolute;top:14px;right:14px}\
+#musician-page .vp-oslb .vp-os-n{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:rgba(234,230,221,.8);font-size:13px;pointer-events:none}\
+@media (max-width:1000px){#musician-page .vp-os{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:6px;margin-right:-20px;padding-right:20px;scrollbar-width:none}#musician-page .vp-os::-webkit-scrollbar{display:none}#musician-page .vp-os-t{flex:0 0 38%;scroll-snap-align:start}}\
+@media (max-width:640px){#musician-page .vp-oslb{padding:0}#musician-page .vp-oslb video{max-height:100dvh;max-width:100%;border-radius:0}#musician-page .vp-oslb .vp-os-p,#musician-page .vp-oslb .vp-os-f{position:absolute;top:50%;transform:translateY(-50%)}#musician-page .vp-oslb .vp-os-p{left:8px}#musician-page .vp-oslb .vp-os-f{right:8px}}\
 #musician-page .vp-video figcaption{font-size:13px;color:var(--vp-muted)}\
 #musician-page .vp-loc p{margin-bottom:12px;color:var(--vp-muted)}\
 #musician-page .vp-similar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}\
@@ -351,6 +367,19 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       h += '</div></section>';
     }
 
+    // "On stage": short clips from the musician's social media, shown as tall tiles; tapping one opens it full screen.
+    // Nothing here names the musician or links out, so anonymous profiles stay anonymous.
+    var onstage = m.onstage || [];
+    if (onstage.length) {
+      h += '<section class="vp-onstage"><h2>' + esc(m.onstageTitle || 'On stage') + '</h2><p class="vp-os-sub">' + esc(m.onstageSub || 'Real moments from recent gigs.') + '</p><div class="vp-os">';
+      onstage.forEach(function (x, i) {
+        var mm = x.seconds ? Math.floor(x.seconds / 60) + ':' + ('0' + Math.round(x.seconds % 60)).slice(-2) : '';
+        var th = x.poster ? img(x.poster, 750) : (x.base || DATA.videoBase) + x.id + '/thumbnail';
+        h += '<button type="button" class="vp-os-t" data-os="' + i + '" aria-label="Play clip ' + (i + 1) + ' of ' + onstage.length + '"><img loading="lazy" src="' + esc(th) + '" alt=""><span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 4l15 8-15 8z"/></svg>' + mm + '</span></button>';
+      });
+      h += '</div></section>';
+    }
+
     if (m.gallery && m.gallery.length) h += '<section><h2>Gallery</h2>' + galleryTag(m.gallery, m.name) + '</section>';
 
     // Solo musician profiles: offer to add this musician to a package
@@ -492,6 +521,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       + '</form></div></aside>';
     h += '</div>';  // end of body
 
+    if (onstage.length) h += '<div class="vp-oslb" hidden><button type="button" class="vp-os-x" aria-label="Close">✕</button><button type="button" class="vp-os-p" aria-label="Previous clip">‹</button><video playsinline controls></video><button type="button" class="vp-os-f" aria-label="Next clip">›</button><div class="vp-os-n"></div></div>';
     h += '<div class="vp-lb" hidden><img alt=""><div class="vp-lb-bar"><button type="button" data-a="prev">Previous</button><span class="vp-count"></span><button type="button" data-a="next">Next</button><button type="button" data-a="close">Close</button></div></div>';
 
     // The site's photo-link script turns a whole block into a link when it spots a known photo in it.
@@ -976,6 +1006,42 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       if (e.key === 'Escape') lb.hidden = true; else if (e.key === 'ArrowRight') open(idx + 1); else if (e.key === 'ArrowLeft') open(idx - 1);
     };
     document.addEventListener('keydown', keyHandler);
+
+    // "On stage" player: one full-screen video that switches between the clips
+    if (onstage.length) (function () {
+      var box = root.querySelector('.vp-oslb'), v = box.querySelector('video'), n = box.querySelector('.vp-os-n'), at = 0, hls = null;
+      try { v.disableRemotePlayback = true; } catch (e) {}
+      function load(i) {
+        at = (i + onstage.length) % onstage.length;
+        var x = onstage[at], src = (x.base || DATA.videoBase) + x.id + '/playlist.m3u8';
+        n.textContent = (at + 1) + ' / ' + onstage.length;
+        if (hls) { hls.destroy(); hls = null; }
+        v.poster = x.poster ? img(x.poster, 1500) : (x.base || DATA.videoBase) + x.id + '/thumbnail';
+        var go = function () { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); };
+        if (window.Hls && window.Hls.isSupported()) {
+          hls = new window.Hls({ abrEwmaDefaultEstimate: 6000000, capLevelToPlayerSize: false, maxBufferLength: 10, testBandwidth: false });
+          hls.on(window.Hls.Events.MANIFEST_PARSED, function (ev, d) { var lv = d.levels || hls.levels, top = 0; lv.forEach(function (l, li) { if ((l.height || 0) > (lv[top].height || 0)) top = li; }); hls.startLevel = top; });
+          hls.loadSource(src); hls.attachMedia(v); go();
+        } else { v.src = src; go(); }
+      }
+      function show(i) {
+        box.hidden = false; document.documentElement.style.overflow = 'hidden';
+        if (window.Hls) load(i);
+        else { var s = document.createElement('script'); s.src = HLS_URL; s.onload = s.onerror = function () { load(i); }; document.head.appendChild(s); }
+      }
+      function hide() { box.hidden = true; v.pause(); if (hls) { hls.destroy(); hls = null; } v.removeAttribute('src'); v.load(); document.documentElement.style.overflow = ''; }
+      root.addEventListener('click', function (e) { var t = e.target.closest('.vp-os-t'); if (t && root.contains(t)) show(+t.getAttribute('data-os')); });
+      box.addEventListener('click', function (e) {
+        if (e.target.closest('.vp-os-x') || e.target === box) hide();
+        else if (e.target.closest('.vp-os-p')) load(at - 1);
+        else if (e.target.closest('.vp-os-f')) load(at + 1);
+      });
+      v.addEventListener('ended', function () { if (!box.hidden) load(at + 1); });
+      document.addEventListener('keydown', function (e) {
+        if (box.hidden) return;
+        if (e.key === 'Escape') hide(); else if (e.key === 'ArrowRight') load(at + 1); else if (e.key === 'ArrowLeft') load(at - 1);
+      });
+    })();
 
     // Keep the whole form visible: if it is taller than the window, let it stick by its bottom edge.
     var aside = root.querySelector('.vp-aside');
