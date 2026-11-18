@@ -587,12 +587,12 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
             // Always start in the top quality (1080p), on phones too, instead of letting the phone pick the low 360p version first
             hls.on(window.Hls.Events.MANIFEST_PARSED, function (ev, d) {
               var top = 0; (d.levels || hls.levels).forEach(function (l, li) { if ((l.height || 0) > ((d.levels || hls.levels)[top].height || 0)) top = li; });
-              hls.startLevel = top;
+              hls.startLevel = top; hls._ok = 1; if (hls._want) hls.startLoad(-1);
             });
             try { el.disableRemotePlayback = true; } catch (e) {}  // lets iPhones (iOS 17.1+) use this player rather than their own
             hls.loadSource(src); hls.attachMedia(el);
             // Start buffering the first few seconds as the video scrolls near the screen, so it plays straight away when tapped
-            var started = false, kick = function () { if (!started) { started = true; hls.startLoad(); } };
+            var started = false, kick = function () { if (!started) { started = true; hls._want = 1; if (hls._ok) hls.startLoad(-1); } };
             el.addEventListener('play', kick, { once: true });
             if ('IntersectionObserver' in window) {
               var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { kick(); io.disconnect(); } }); }, { rootMargin: '300px 0px' });

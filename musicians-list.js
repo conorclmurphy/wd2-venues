@@ -94,7 +94,9 @@
     // <div id="musicians-list" data-event="ceremony"> shows only the musicians who play that part of the day
     var only = root.getAttribute('data-event') || '';
     if (only) root.classList.add('ml-light');
-    var list = D.musicians.filter(function (o) { return o.live && o.url && o.listed !== false && o.photo && o.events && (!only || o.events.indexOf(only) !== -1); });
+    // "ceremonyList" in musicians.json is the hand-picked list for the ceremony page; without it, everyone tagged for that event shows
+    var picked = only && D[only + 'List'];
+    var list = D.musicians.filter(function (o) { return o.live && o.url && o.listed !== false && o.photo && o.events && (!only || (picked ? picked.indexOf(o.slug) !== -1 : o.events.indexOf(only) !== -1)); });
     var rank = function (o) { var i = ORDER_SLUGS.indexOf(o.slug); return i === -1 ? 999 : i; };
     list.sort(function (a, b) { return rank(a) - rank(b); });
     var size = 500;  // card-sized photos (about 1.4MB for the whole page, instead of 8MB+)

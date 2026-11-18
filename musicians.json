@@ -3,6 +3,7 @@
   "imageBase": "https://images.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "videoBase": "https://video.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "formAccessKey": "e22edaa4-9aee-4226-a8fc-120ab344273d",
+  "ceremonyList": ["mathew", "cathal", "conort", "craig", "karl", "emmett", "phil", "james"],
   "eventLabels": {
     "ceremony": "Ceremony & drinks reception",
     "day2": "Day 2",
