@@ -32,6 +32,77 @@
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
+  // Themed video controls (replaces the browser's own grey controls): play/pause, progress, time, sound, full screen.
+  var IC = {
+    play: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4.5l13 7.5-13 7.5z"/></svg>',
+    pause: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.5 4.5h4v15h-4zM13.5 4.5h4v15h-4z"/></svg>',
+    vol: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 9h4l5-4v14l-5-4H4z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg>',
+    mute: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 9h4l5-4v14l-5-4H4z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M16.5 9.5l5 5M21.5 9.5l-5 5"/></svg>',
+    full: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg>'
+  };
+  // Start videos at 720p (sharp on a phone, quick to begin) and let the player step up to 1080p once it's running,
+  // rather than waiting for a full 1080p chunk before anything plays.
+  function vpStartLevel(lv) {
+    var best = -1, top = 0;
+    lv.forEach(function (l, i) {
+      var sh = Math.min(l.width || l.height || 0, l.height || l.width || 0);
+      if ((l.height || 0) > (lv[top].height || 0)) top = i;
+      if (sh && sh <= 720 && (best === -1 || sh > Math.min(lv[best].width || 0, lv[best].height || 0))) best = i;
+    });
+    return best === -1 ? top : best;
+  }
+  function vpTime(t) { t = Math.max(0, Math.floor(t || 0)); return Math.floor(t / 60) + ':' + ('0' + (t % 60)).slice(-2); }
+  function vpCtl(wrap, el, opts) {
+    opts = opts || {};
+    if (wrap.querySelector('.vp-ctl')) return;
+    var c = document.createElement('div');
+    c.className = 'vp-ctl';
+    c.innerHTML = '<button type="button" class="vp-c-pp" aria-label="Pause">' + IC.pause + '</button>'
+      + '<div class="vp-c-bar" role="slider" aria-label="Seek" tabindex="0"><i class="vp-c-buf"></i><i class="vp-c-fill"></i></div>'
+      + '<span class="vp-c-t">0:00</span>'
+      + '<button type="button" class="vp-c-m" aria-label="Mute">' + IC.vol + '</button>'
+      + (opts.noFull ? '' : '<button type="button" class="vp-c-f" aria-label="Full screen">' + IC.full + '</button>');
+    wrap.appendChild(c);
+    var pp = c.querySelector('.vp-c-pp'), bar = c.querySelector('.vp-c-bar'), fill = c.querySelector('.vp-c-fill'), buf = c.querySelector('.vp-c-buf'),
+      tt = c.querySelector('.vp-c-t'), mu = c.querySelector('.vp-c-m'), fu = c.querySelector('.vp-c-f'), idle = null;
+    function toggle() { if (el.paused || el.ended) { var pr = el.play(); if (pr && pr.catch) pr.catch(function () {}); } else el.pause(); }
+    function wake() { wrap.classList.remove('vp-idle'); clearTimeout(idle); if (!el.paused) idle = setTimeout(function () { wrap.classList.add('vp-idle'); }, 2500); }
+    function sync() {
+      var d = el.duration || 0;
+      fill.style.width = d ? (el.currentTime / d * 100) + '%' : '0';
+      try { if (el.buffered.length && d) buf.style.width = (el.buffered.end(el.buffered.length - 1) / d * 100) + '%'; } catch (e) {}
+      tt.textContent = vpTime(el.currentTime) + (d && isFinite(d) ? ' / ' + vpTime(d) : '');
+    }
+    function icons() {
+      pp.innerHTML = el.paused ? IC.play : IC.pause; pp.setAttribute('aria-label', el.paused ? 'Play' : 'Pause');
+      mu.innerHTML = el.muted ? IC.mute : IC.vol; mu.setAttribute('aria-label', el.muted ? 'Unmute' : 'Mute');
+    }
+    el.removeAttribute('controls');
+    el.addEventListener('play', function () { wrap.classList.add('vp-playing'); wrap.classList.remove('vp-paused'); icons(); wake(); });
+    el.addEventListener('pause', function () { if (!el.ended) wrap.classList.add('vp-paused'); icons(); wake(); });
+    el.addEventListener('ended', function () { wrap.classList.remove('vp-paused'); icons(); });
+    el.addEventListener('timeupdate', sync); el.addEventListener('progress', sync); el.addEventListener('loadedmetadata', sync);
+    el.addEventListener('volumechange', icons);
+    el.addEventListener('click', function () { if (wrap.classList.contains('vp-playing')) toggle(); });
+    wrap.addEventListener('mousemove', wake); wrap.addEventListener('touchstart', wake, { passive: true });
+    pp.addEventListener('click', function (e) { e.stopPropagation(); toggle(); });
+    mu.addEventListener('click', function (e) { e.stopPropagation(); el.muted = !el.muted; });
+    function seek(e) { var r = bar.getBoundingClientRect(), x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left; if (el.duration) el.currentTime = Math.max(0, Math.min(1, x / r.width)) * el.duration; sync(); }
+    var drag = false;
+    bar.addEventListener('pointerdown', function (e) { e.stopPropagation(); drag = true; seek(e); try { bar.setPointerCapture(e.pointerId); } catch (x) {} });
+    bar.addEventListener('pointermove', function (e) { if (drag) seek(e); });
+    bar.addEventListener('pointerup', function () { drag = false; });
+    bar.addEventListener('click', function (e) { e.stopPropagation(); });
+    bar.addEventListener('keydown', function (e) { if (e.key === 'ArrowRight') el.currentTime += 5; else if (e.key === 'ArrowLeft') el.currentTime -= 5; });
+    if (fu) fu.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (document.fullscreenElement) { document.exitFullscreen(); return; }
+      if (wrap.requestFullscreen) wrap.requestFullscreen().catch(function () {});
+      else if (el.webkitEnterFullscreen) el.webkitEnterFullscreen();
+    });
+    icons(); sync();
+  }
+
   function firstSentence(t) {
     t = String(t || ''); var re = /[.!?](\s|$)/g, m;
     while ((m = re.exec(t))) { if (!/(^|[\s.])[A-Z]$/.test(t.slice(0, m.index))) return t.slice(0, m.index + 1); }
@@ -277,6 +348,37 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     + '@media (max-width:899px){#musician-page.vp-anon .vp-hero{min-height:260px}#musician-page.vp-anon .vp-body{padding-top:28px}}';
   document.head.appendChild(st3);
 
+  var st4 = document.createElement('style');
+  st4.textContent = '#musician-page .vp-ctl{position:absolute;left:0;right:0;bottom:0;z-index:3;display:none;align-items:center;gap:8px;padding:28px 10px 10px;background:linear-gradient(180deg,transparent,rgba(15,20,20,.85));border-radius:0 0 var(--vp-radius) var(--vp-radius);transition:opacity .25s}'
+    + '#musician-page .vp-playing>.vp-ctl{display:flex}#musician-page .vp-playing.vp-idle>.vp-ctl{opacity:0}#musician-page .vp-playing.vp-idle{cursor:none}'
+    + '#musician-page .vp-ctl button{flex:none;width:32px;height:32px;padding:6px;margin:0;border:0;border-radius:50%;background:transparent;color:#eae6dd;cursor:pointer;display:grid;place-items:center;box-shadow:none;transition:color .15s,background .15s}'
+    + '#musician-page .vp-ctl button:hover{color:#3dc2bb;background:rgba(234,230,221,.08)}#musician-page .vp-ctl svg{width:100%;height:100%;display:block}'
+    + '#musician-page .vp-ctl .vp-c-pp{width:36px;height:36px;padding:9px;background:#3dc2bb;color:#1f2727}#musician-page .vp-ctl .vp-c-pp:hover{background:#5fd3cd;color:#1f2727}'
+    + '#musician-page .vp-c-bar{position:relative;flex:1;height:5px;border-radius:99px;background:rgba(234,230,221,.22);cursor:pointer;touch-action:none;outline:none}'
+    + '#musician-page .vp-c-bar:before{content:"";position:absolute;left:0;right:0;top:-10px;bottom:-10px}'
+    + '#musician-page .vp-c-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:inherit;width:0;pointer-events:none}#musician-page .vp-c-buf{background:rgba(234,230,221,.25)}'
+    + '#musician-page .vp-c-fill{background:#3dc2bb}#musician-page .vp-c-fill:after{content:"";position:absolute;right:-6px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:#3dc2bb;box-shadow:0 0 0 3px rgba(61,194,187,.25)}'
+    + '#musician-page .vp-c-t{flex:none;font-size:12px;font-variant-numeric:tabular-nums;color:#eae6dd;opacity:.9;min-width:74px;text-align:center}'
+    + '#musician-page .vp-vwrap.vp-playing.vp-paused .vp-play{display:grid}'
+    + '#musician-page .vp-vwrap:fullscreen{background:#171d1d;display:flex;align-items:center;justify-content:center}#musician-page .vp-vwrap:fullscreen video{width:100%;height:100%;max-height:100vh;object-fit:contain;border-radius:0}#musician-page .vp-vwrap:fullscreen>.vp-ctl{border-radius:0;padding:40px 24px 20px}'
+    // Two portrait videos side by side next to the bio
+    + '#musician-page .vp-split.vp-split-pair{grid-template-columns:minmax(0,1fr) minmax(320px,460px)}'
+    + '#musician-page .vp-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}#musician-page .vp-pair .vp-video{max-width:none!important}'
+    + '@container (max-width:640px){#musician-page .vp-split.vp-split-pair{grid-template-columns:1fr}#musician-page .vp-pair{gap:10px}}'
+    + '@media (max-width:760px){#musician-page .vp-split.vp-split-pair{grid-template-columns:1fr}}'
+    + '@container (max-width:480px){#musician-page .vp-c-t{display:none}}'
+    // "On stage" full-screen player in the site colours
+    + '#musician-page .vp-oslb{background:rgba(23,29,29,.97);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);gap:20px}'
+    + '#musician-page .vp-oslb .vp-os-fr{position:relative;flex:none;height:min(84vh,84dvh,calc((100vw - 160px) * 16 / 9));aspect-ratio:9/16;border-radius:var(--vp-radius);overflow:hidden;background:#000;border:1px solid #364242;box-shadow:0 20px 60px rgba(0,0,0,.5)}'
+    + '#musician-page .vp-oslb .vp-os-fr video{display:block;width:100%;height:100%;max-height:none;max-width:none;object-fit:cover;border-radius:0;aspect-ratio:auto;border:0}'
+    + '#musician-page .vp-oslb .vp-os-fr .vp-ctl{border-radius:0}'
+    + '#musician-page .vp-oslb .vp-os-p,#musician-page .vp-oslb .vp-os-f{width:52px;height:52px;border:0;background:#3dc2bb;color:#1f2727;font-size:30px;line-height:1;padding:0 0 3px;box-shadow:0 6px 24px rgba(0,0,0,.35)}'
+    + '#musician-page .vp-oslb .vp-os-p:hover,#musician-page .vp-oslb .vp-os-f:hover{background:#5fd3cd}'
+    + '#musician-page .vp-oslb .vp-os-x{top:18px;right:18px;border:1.5px solid #3dc2bb;background:transparent;color:#3dc2bb;font-size:18px}#musician-page .vp-oslb .vp-os-x:hover{background:#3dc2bb;color:#1f2727}'
+    + '#musician-page .vp-oslb .vp-os-n{top:26px;bottom:auto;font-family:var(--vp-display);font-size:16px;color:#3dc2bb;letter-spacing:.04em}'
+    + '#musician-page .vp-oslb .vp-os-h{position:absolute;top:22px;left:24px;font-family:var(--vp-display);font-size:22px;color:#eae6dd;pointer-events:none}'
+    + '@media (max-width:640px){#musician-page .vp-oslb{padding:0}#musician-page .vp-oslb .vp-os-fr{height:100dvh;width:100vw;aspect-ratio:auto;border-radius:0;border:0}#musician-page .vp-oslb .vp-os-fr video{object-fit:contain}#musician-page .vp-oslb .vp-os-p,#musician-page .vp-oslb .vp-os-f{width:42px;height:42px;font-size:24px;opacity:.9}#musician-page .vp-oslb .vp-os-h{top:20px;left:16px;font-size:18px;z-index:2}#musician-page .vp-oslb .vp-os-n{top:auto;bottom:auto;top:24px;z-index:2}#musician-page .vp-oslb .vp-os-x{z-index:2}}';
+  document.head.appendChild(st4);
   var keyHandler = null;
 
   function load() {
@@ -365,12 +467,15 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     else var tags = '<div class="vp-tags">' + events.map(function (e) { return '<span class="vp-tag">' + esc(L[e]) + '</span>'; }).join('')
       + extras.concat(m.tags || []).map(function (x) { return '<span class="vp-tag">' + esc(x) + '</span>'; }).join('') + '</div>';
     var aboutText = '<h2>' + esc(m.aboutTitle || ('About ' + m.name)) + '</h2>' + (bio.length ? bio.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') : '<p>' + esc(m.name) + ' is one of the live musicians on the Wedding Day 2 roster. Get in touch to hear more and check availability for your date.</p>') + tags;
-    if (vids.length) h += '<section class="vp-about vp-split' + (vids[0].shape === 'tall' ? ' vp-split-tall' : '') + '"><div>' + aboutText + '</div>' + videoTag(vids[0], m.name) + '</section>';
+    // Two portrait videos sit side by side next to the bio instead of one there and one under "More videos"
+    var pair = vids.length >= 2 && vids[0].shape === 'tall' && vids[1].shape === 'tall';
+    if (pair) h += '<section class="vp-about vp-split vp-split-pair"><div>' + aboutText + '</div><div class="vp-pair">' + videoTag(vids[0], m.name) + videoTag(vids[1], m.name) + '</div></section>';
+    else if (vids.length) h += '<section class="vp-about vp-split' + (vids[0].shape === 'tall' ? ' vp-split-tall' : '') + '"><div>' + aboutText + '</div>' + videoTag(vids[0], m.name) + '</section>';
     else h += '<section class="vp-about">' + aboutText + '</section>';
 
-    if (vids.length > 1) {
+    if (vids.length > (pair ? 2 : 1)) {
       h += '<section><h2>More videos</h2><div class="vp-videos">';
-      vids.slice(1).forEach(function (x) { h += videoTag(x, m.name); });
+      vids.slice(pair ? 2 : 1).forEach(function (x) { h += videoTag(x, m.name); });
       h += '</div></section>';
     }
 
@@ -469,9 +574,12 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     // Remember which musicians this visitor has opened, and show ones they haven't seen first.
     var seen = [];
     try { seen = JSON.parse(localStorage.getItem('wd2SeenMusicians') || '[]'); } catch (e) {}
-    if (seen.indexOf(m.slug) === -1) seen.push(m.slug);
+    // Keep the list in viewing order (latest last), so once everything has been seen
+    // the suggestions are the ones looked at longest ago, never the ones just viewed.
+    if (!Array.isArray(seen)) seen = [];
+    seen = seen.filter(function (x) { return x !== m.slug; }); seen.push(m.slug);
     try { localStorage.setItem('wd2SeenMusicians', JSON.stringify(seen)); } catch (e) {}
-    function isSeen(o) { return seen.indexOf(o.slug) !== -1 ? 1 : 0; }
+    function isSeen(o) { return seen.indexOf(o.slug); }
     others.sort(function (a, b) { return isSeen(a) - isSeen(b) || score(b) - score(a) || ((a.slug.charCodeAt(0) + seed) % 7) - ((b.slug.charCodeAt(0) + seed) % 7); });
     others = others.slice(0, 3);
     if (others.length && !m.builder && !m.packages && !m.related) {
@@ -528,7 +636,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       + '</form></div></aside>';
     h += '</div>';  // end of body
 
-    if (onstage.length) h += '<div class="vp-oslb" hidden><button type="button" class="vp-os-x" aria-label="Close">✕</button><button type="button" class="vp-os-p" aria-label="Previous clip">‹</button><video playsinline controls></video><button type="button" class="vp-os-f" aria-label="Next clip">›</button><div class="vp-os-n"></div></div>';
+    if (onstage.length) h += '<div class="vp-oslb" hidden><span class="vp-os-h">' + esc(m.onstageTitle || 'On stage') + '</span><button type="button" class="vp-os-x" aria-label="Close">✕</button><button type="button" class="vp-os-p" aria-label="Previous clip">‹</button><div class="vp-os-fr vp-vwrap"><video playsinline></video></div><button type="button" class="vp-os-f" aria-label="Next clip">›</button><div class="vp-os-n"></div></div>';
     h += '<div class="vp-lb" hidden><img alt=""><div class="vp-lb-bar"><button type="button" data-a="prev">Previous</button><span class="vp-count"></span><button type="button" data-a="next">Next</button><button type="button" data-a="close">Close</button></div></div>';
 
     // The site's photo-link script turns a whole block into a link when it spots a known photo in it.
@@ -1018,6 +1126,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     if (onstage.length) (function () {
       var box = root.querySelector('.vp-oslb'), v = box.querySelector('video'), n = box.querySelector('.vp-os-n'), at = 0, hls = null;
       try { v.disableRemotePlayback = true; } catch (e) {}
+      vpCtl(v.parentNode, v, { noFull: true });
       function load(i) {
         at = (i + onstage.length) % onstage.length;
         var x = onstage[at], src = (x.base || DATA.videoBase) + x.id + '/playlist.m3u8';
@@ -1027,7 +1136,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         var go = function () { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); };
         if (window.Hls && window.Hls.isSupported()) {
           hls = new window.Hls({ abrEwmaDefaultEstimate: 6000000, capLevelToPlayerSize: false, maxBufferLength: 10, testBandwidth: false });
-          hls.on(window.Hls.Events.MANIFEST_PARSED, function (ev, d) { var lv = d.levels || hls.levels, top = 0; lv.forEach(function (l, li) { if ((l.height || 0) > (lv[top].height || 0)) top = li; }); hls.startLevel = top; });
+          hls.on(window.Hls.Events.MANIFEST_PARSED, function (ev, d) { hls.startLevel = vpStartLevel(d.levels || hls.levels); });
           hls.loadSource(src); hls.attachMedia(v); go();
         } else { v.src = src; go(); }
       }
@@ -1045,6 +1154,10 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       row.addEventListener('scroll', arrows, { passive: true });
       window.addEventListener('resize', arrows);
       arrows(); setTimeout(arrows, 400);
+      // Fetch the video player script early, as the clips come near the screen, so the first tap starts straight away
+      var getHls = function () { if (window.Hls || getHls.on) return; getHls.on = 1; var s = document.createElement('script'); s.src = HLS_URL; document.head.appendChild(s); };
+      if ('IntersectionObserver' in window) { var hio = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { getHls(); hio.disconnect(); } }, { rootMargin: '600px 0px' }); hio.observe(row); } else getHls();
+      root.addEventListener('pointerdown', function (e) { var t = e.target.closest('.vp-os-t'); if (t) { getHls(); var x = onstage[+t.getAttribute('data-os')]; try { fetch((x.base || DATA.videoBase) + x.id + '/playlist.m3u8'); } catch (er) {} } }, { passive: true });
       root.addEventListener('click', function (e) { var t = e.target.closest('.vp-os-t'); if (t && root.contains(t)) show(+t.getAttribute('data-os')); });
       box.addEventListener('click', function (e) {
         if (e.target.closest('.vp-os-x') || e.target === box) hide();
@@ -1303,15 +1416,12 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           el.setAttribute('data-ready', '1');
           var wrap = el.parentNode, btn = wrap.querySelector('.vp-play');
           btn.addEventListener('click', function () { var pr = el.play(); if (pr && pr.catch) pr.catch(function () {}); });
-          el.addEventListener('play', function () { wrap.classList.add('vp-playing'); el.setAttribute('controls', ''); });
+          vpCtl(wrap, el);
           el.addEventListener('ended', function () { wrap.classList.remove('vp-playing'); });
           if (window.Hls && window.Hls.isSupported()) {
             var hls = new window.Hls({ autoStartLoad: false, abrEwmaDefaultEstimate: 6000000, capLevelToPlayerSize: false, maxBufferLength: 10, startFragPrefetch: true, testBandwidth: false });
             // Always start in the top quality (1080p), on phones too, instead of letting the phone pick the low 360p version first
-            hls.on(window.Hls.Events.MANIFEST_PARSED, function (ev, d) {
-              var lv = d.levels || hls.levels, top = 0; lv.forEach(function (l, li) { if ((l.height || 0) > (lv[top].height || 0)) top = li; });
-              hls.startLevel = top;
-            });
+            hls.on(window.Hls.Events.MANIFEST_PARSED, function (ev, d) { hls.startLevel = vpStartLevel(d.levels || hls.levels); });
             try { el.disableRemotePlayback = true; } catch (e) {}  // lets iPhones (iOS 17.1+) use this player rather than their own
             hls.loadSource(src); hls.attachMedia(el);
             // Start buffering the first few seconds as the video scrolls near the screen, so it plays straight away when tapped
