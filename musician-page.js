@@ -393,7 +393,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     + '@media (max-width:640px){#musician-page .vp-oslb{padding:16px 0;touch-action:none;overscroll-behavior:contain}#musician-page .vp-oslb .vp-os-fr{height:min(80vh,80dvh,calc(100vw * 16 / 9))}#musician-page .vp-oslb .vp-os-p,#musician-page .vp-oslb .vp-os-f{width:40px;height:40px;background:rgba(0,0,0,.6)}#musician-page .vp-oslb .vp-os-p{left:8px}#musician-page .vp-oslb .vp-os-f{right:8px}#musician-page .vp-oslb .vp-os-n{bottom:10px}}';
   // Phones: the floating booking button is a small glass bubble; it opens out to say what was added, then tucks back in.
   var st5 = document.createElement('style');
-  st5.textContent = '@media (max-width:899px){'
+  st5.textContent = '@media (max-width:1000px){'
     + '#musician-page .vp-aside:not(.vp-open) .vp-sheet{max-width:250px;transition:max-width .35s cubic-bezier(.3,.7,.2,1)}'
     + '#musician-page .vp-aside:not(.vp-open) .vp-sheet-bar{padding:9px 16px;font-size:14px;font-weight:600;gap:7px;white-space:nowrap;background:rgba(23,29,29,.72);-webkit-backdrop-filter:blur(14px) saturate(150%);backdrop-filter:blur(14px) saturate(150%);border:1px solid rgba(61,194,187,.65);color:#3dc2bb;box-shadow:0 6px 20px rgba(0,0,0,.4);animation:none}'
     + '#musician-page .vp-aside:not(.vp-open) .vp-sheet-bar svg{width:16px;height:16px}'
