@@ -1243,7 +1243,9 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
             fetch(pu).then(function (r) { return r.text(); }).then(function (pl) {
               var k = pl.match(/#EXT-X-KEY:.*URI="([^"]+)"/), seg = pl.split('\n').filter(function (l) { l = l.trim(); return l && l.charAt(0) !== '#'; })[0];
               if (k) fetch(abs(k[1], pu)).catch(nop);
-              if (seg) fetch(abs(seg.trim(), pu)).catch(nop);
+              // each clip is one file read in pieces, so only ask for the first piece (the same request the player makes)
+              var br = pl.match(/#EXT-X-BYTERANGE:(\d+)(?:@(\d+))?/);
+              if (seg && br) { var o = +(br[2] || 0); fetch(abs(seg.trim(), pu), { headers: { Range: 'bytes=' + o + '-' + (o + +br[1] - 1) } }).catch(nop); }
             }).catch(nop);
           });
         }).catch(nop);
