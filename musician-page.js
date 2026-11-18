@@ -388,7 +388,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     + '#musician-page .vp-oslb .vp-os-x{top:18px;right:18px;border:1px solid rgba(234,230,221,.35);background:rgba(234,230,221,.14);-webkit-backdrop-filter:blur(10px) saturate(140%);backdrop-filter:blur(10px) saturate(140%);color:#eae6dd;font-size:18px}#musician-page .vp-oslb .vp-os-x:hover{background:rgba(234,230,221,.28)}'
     + '#musician-page .vp-oslb .vp-os-n{top:26px;bottom:auto;font-family:var(--vp-display);font-size:16px;color:#3dc2bb;letter-spacing:.04em}'
     + '#musician-page .vp-oslb .vp-os-h{position:absolute;top:22px;left:24px;font-family:var(--vp-display);font-size:22px;color:#eae6dd;pointer-events:none}'
-    + '@media (max-width:640px){#musician-page .vp-oslb{padding:0}#musician-page .vp-oslb .vp-os-fr{height:100dvh;width:100vw;aspect-ratio:auto;border-radius:0;border:0}#musician-page .vp-oslb{background:#000}#musician-page .vp-oslb .vp-os-fr{position:absolute;inset:0;height:auto;width:auto}#musician-page .vp-oslb .vp-os-fr video{object-fit:cover}#musician-page .vp-oslb .vp-os-fr:before{content:"";position:absolute;left:0;right:0;top:0;height:110px;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.55),transparent);pointer-events:none}#musician-page .vp-oslb .vp-os-fr .vp-ctl{padding-bottom:calc(14px + env(safe-area-inset-bottom))}#musician-page .vp-oslb .vp-os-p,#musician-page .vp-oslb .vp-os-f{width:42px;height:42px;font-size:24px}#musician-page .vp-oslb .vp-os-n{color:#eae6dd}#musician-page .vp-oslb .vp-os-h{top:20px;left:16px;font-size:18px;z-index:2}#musician-page .vp-oslb .vp-os-n{top:auto;bottom:auto;top:24px;z-index:2}#musician-page .vp-oslb .vp-os-x{z-index:2}}';
+    + '@media (max-width:640px){#musician-page .vp-oslb{padding:0}#musician-page .vp-oslb .vp-os-fr{height:100dvh;width:100vw;aspect-ratio:auto;border-radius:0;border:0}#musician-page .vp-oslb{background:#000;touch-action:none;overscroll-behavior:contain}#musician-page .vp-oslb .vp-os-fr{position:absolute;inset:0;height:auto;width:auto}#musician-page .vp-oslb .vp-os-fr video{object-fit:cover}#musician-page .vp-oslb .vp-os-fr:before{content:"";position:absolute;left:0;right:0;top:0;height:110px;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.55),transparent);pointer-events:none}#musician-page .vp-oslb .vp-os-fr .vp-ctl{padding-bottom:calc(14px + env(safe-area-inset-bottom))}#musician-page .vp-oslb .vp-os-p,#musician-page .vp-oslb .vp-os-f{width:42px;height:42px;font-size:24px}#musician-page .vp-oslb .vp-os-n{color:#eae6dd}#musician-page .vp-oslb .vp-os-h{top:20px;left:16px;font-size:18px;z-index:2}#musician-page .vp-oslb .vp-os-n{top:auto;bottom:auto;top:24px;z-index:2}#musician-page .vp-oslb .vp-os-x{z-index:2}}';
   document.head.appendChild(st4);
   var keyHandler = null;
 
@@ -1183,6 +1183,19 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         else if (e.target.closest('.vp-os-f')) load(at + 1);
       });
       v.addEventListener('ended', function () { if (!box.hidden) load(at + 1); });
+      // Phones: swipe down to close, swipe left/right for the next/previous clip
+      var fr = box.querySelector('.vp-os-fr'), ts = null;
+      box.addEventListener('touchstart', function (e) { if (e.touches.length !== 1 || e.target.closest('.vp-ctl,button')) { ts = null; return; } ts = { x: e.touches[0].clientX, y: e.touches[0].clientY, dx: 0, dy: 0 }; fr.style.transition = 'none'; }, { passive: true });
+      box.addEventListener('touchmove', function (e) {
+        if (!ts) return; ts.dx = e.touches[0].clientX - ts.x; ts.dy = e.touches[0].clientY - ts.y;
+        if (ts.dy > 0 && ts.dy > Math.abs(ts.dx)) { fr.style.transform = 'translateY(' + ts.dy + 'px) scale(' + Math.max(.8, 1 - ts.dy / 1200) + ')'; box.style.backgroundColor = 'rgba(0,0,0,' + Math.max(.3, 1 - ts.dy / 400) + ')'; }
+      }, { passive: true });
+      box.addEventListener('touchend', function () {
+        if (!ts) return; var t = ts; ts = null;
+        fr.style.transition = 'transform .2s'; fr.style.transform = ''; box.style.backgroundColor = '';
+        if (t.dy > 90 && t.dy > Math.abs(t.dx)) hide();
+        else if (Math.abs(t.dx) > 60 && Math.abs(t.dx) > Math.abs(t.dy) * 1.5) load(at + (t.dx < 0 ? 1 : -1));
+      });
       document.addEventListener('keydown', function (e) {
         if (box.hidden) return;
         if (e.key === 'Escape') hide(); else if (e.key === 'ArrowRight') load(at + 1); else if (e.key === 'ArrowLeft') load(at - 1);
