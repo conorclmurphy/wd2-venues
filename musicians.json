@@ -575,6 +575,31 @@
       "formTitle": "Book this musician"
     },
     {
+      "slug": "emmets",
+      "name": "Musician S",
+      "live": true,
+      "url": "https://weddingday2.ie/musician-s",
+      "photo": "a8323596-151b-4952-beee-78f3c81c3e1c/musician-s-emmet.jpg",
+      "photoPosition": "center 30%",
+      "bio": [
+        "He is a full-time singer and guitarist who specialises in weddings and private events.",
+        "His set list runs from timeless classics to the latest chart hits, with everything in between. He reads the room and builds the energy, and he has one goal: getting your guests up on their feet, and singing along.",
+        "From the first dance to the last song of the night, he brings the live music that turns a great day into an unforgettable party."
+      ],
+      "events": [
+        "ceremony",
+        "day2",
+        "afterdinner"
+      ],
+      "tradBand": false,
+      "duo": false,
+      "onstage": [{"id": "1bfddb77-326b-4a45-83a1-4aadb6c1c069", "seconds": 41}, {"id": "2d1e4f15-f3f7-42c3-9e4d-ae3973bcd142", "seconds": 24}, {"id": "19cd7b51-24b2-4019-82ea-441832a330e5", "seconds": 71}, {"id": "af37b861-1d13-4b72-af49-06c215bf3187", "seconds": 95}, {"id": "288015d2-931c-45a6-bbe8-964292432b8f", "seconds": 73}], "videos": [{"id": "40cb6aa2-e130-4c3f-ac43-ae823b5af090", "seconds": 32, "shape": "tall"}, {"id": "49b95203-9ebc-427b-80b1-00ea258d53df", "seconds": 58, "shape": "tall"}],
+      "gallery": [],
+      "aboutTitle": "Bio",
+      "hideName": true,
+      "formTitle": "Book this musician"
+    },
+    {
       "slug": "trad",
       "name": "Modern Trad Band",
       "live": true,
