@@ -3,7 +3,7 @@
   "imageBase": "https://images.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "videoBase": "https://video.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "formAccessKey": "e22edaa4-9aee-4226-a8fc-120ab344273d",
-  "ceremonyList": ["mathew", "cathal", "conort", "craig", "karl", "emmett", "phil", "james"],
+  "ceremonyList": ["orlaith", "mathew", "cathal", "conort", "craig", "karl", "emmett", "phil", "james"],
   "eventLabels": {
     "ceremony": "Ceremony & drinks reception",
     "day2": "Day 2",
@@ -119,6 +119,7 @@
       ],
       "tradBand": false,
       "duo": false,
+      "ceremony": {"videos": [{"id": "f3d8863a-e57a-41bb-8d0c-b57c20bb621a", "seconds": 61, "shape": "tall"}], "onstage": [{"id": "adf19123-24ee-4af0-8c5b-b062351f417a", "seconds": 50}, {"id": "0ba8b71f-ea4c-4283-b27a-88b05032f538", "seconds": 70}, {"id": "323f76b6-3814-4666-9f26-de083f65a0a6", "seconds": 54}, {"id": "28fa3eae-0a8d-4150-9232-cfd0c8e742dd", "seconds": 82}, {"id": "75f291ab-7bf6-4b3e-9efa-e4daec36d698", "seconds": 70}]},
       "onstage": [{"id": "cf73e803-fa13-4b48-bccc-645bdb434135", "seconds": 17}, {"id": "955aed7d-daae-44ba-a18d-71d635c0f488", "seconds": 34}, {"id": "6aceb802-16ff-439a-bb20-efdf2493b141", "seconds": 59}, {"id": "48493756-0513-4200-a074-3ab3683611d6", "seconds": 23}, {"id": "cb07e8c6-ddf7-41ef-ab1f-ac91aada40c4", "seconds": 32}, {"id": "ea1736b8-f934-4e45-861a-d5a0f01e76b3", "seconds": 67}, {"id": "dbac2387-fc35-4af7-a2e0-87104a2a1d04", "seconds": 109}, {"id": "6b2f0624-e6b5-4ffe-aa3f-12397d848a4b", "seconds": 47}], "videos": [
         {
           "id": "ed375d2d-902f-4370-be46-1efa8f2ea102",
@@ -585,6 +586,30 @@
       "tradBand": false,
       "duo": false,
       "onstage": [{"id": "1bfddb77-326b-4a45-83a1-4aadb6c1c069", "seconds": 41}, {"id": "2d1e4f15-f3f7-42c3-9e4d-ae3973bcd142", "seconds": 24}, {"id": "19cd7b51-24b2-4019-82ea-441832a330e5", "seconds": 71}, {"id": "af37b861-1d13-4b72-af49-06c215bf3187", "seconds": 95}, {"id": "288015d2-931c-45a6-bbe8-964292432b8f", "seconds": 73}], "videos": [{"id": "40cb6aa2-e130-4c3f-ac43-ae823b5af090", "seconds": 32, "shape": "tall"}, {"id": "49b95203-9ebc-427b-80b1-00ea258d53df", "seconds": 58, "shape": "tall"}],
+      "gallery": [],
+      "aboutTitle": "Bio",
+      "hideName": true,
+      "formTitle": "Book this musician"
+    },
+    {
+      "slug": "orlaith",
+      "name": "Musician T",
+      "live": true,
+      "url": "https://weddingday2.ie/musician-t",
+      "photo": "0a59b978-2181-4711-b4a2-2fc6cb3515cf/musician-t-orlaith-2.jpg",
+      "photoPosition": "80% 40%",
+      "cardPhoto": "8f824ad3-064c-42c3-87af-c944951fa6b8/musician-t-orlaith-1.jpg",
+      "cardPosition": "50% 60%",
+      "bio": [
+        "She is a singer and guitarist with a soft, soulful voice that suits the quieter moments of a wedding day.",
+        "From walking down the aisle to the drinks reception, she plays stripped-back acoustic versions of well-known songs, from Hozier to Neil Young, and is happy to learn a song that's special to you."
+      ],
+      "events": [
+        "ceremony"
+      ],
+      "tradBand": false,
+      "duo": false,
+      "videos": [{"id": "3947cb72-9adf-4a51-b398-68842f7eb89d", "seconds": 68, "shape": "tall"}, {"id": "75c92c52-3300-4115-b023-7110e6e9c84d", "seconds": 28, "shape": "tall"}],
       "gallery": [],
       "aboutTitle": "Bio",
       "hideName": true,
