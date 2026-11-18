@@ -85,7 +85,11 @@
       mu.innerHTML = el.muted ? IC.mute : IC.vol; mu.setAttribute('aria-label', el.muted ? 'Unmute' : 'Mute');
     }
     el.removeAttribute('controls');
-    el.addEventListener('play', function () { wrap.classList.add('vp-playing'); wrap.classList.remove('vp-paused'); icons(); wake(); });
+    el.addEventListener('play', function () {
+      // only one video plays at a time
+      Array.prototype.forEach.call(document.querySelectorAll('#musician-page video'), function (o) { if (o !== el && !o.paused) o.pause(); });
+      wrap.classList.add('vp-playing'); wrap.classList.remove('vp-paused'); icons(); wake();
+    });
     el.addEventListener('pause', function () { if (!el.ended) wrap.classList.add('vp-paused'); icons(); wake(); });
     el.addEventListener('ended', function () { wrap.classList.remove('vp-paused'); icons(); });
     el.addEventListener('timeupdate', sync); el.addEventListener('progress', sync); el.addEventListener('loadedmetadata', sync);
