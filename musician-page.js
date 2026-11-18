@@ -177,8 +177,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #musician-page .vp-os-w{position:relative}\
 #musician-page .vp-os{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}\
 #musician-page .vp-os::-webkit-scrollbar{display:none}\
-#musician-page .vp-os-a{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:42px;height:42px;border-radius:50%;border:1px solid rgba(234,230,221,.35);background:rgba(15,20,20,.78);color:#fff;font-size:24px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.35);transition:opacity .2s}\
-#musician-page .vp-os-a:hover{background:rgba(15,20,20,.95)}\
+#musician-page .vp-os-a{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:42px;height:42px;border-radius:50%;border:1px solid rgba(234,230,221,.35);background:rgba(234,230,221,.16);-webkit-backdrop-filter:blur(10px) saturate(140%);backdrop-filter:blur(10px) saturate(140%);color:#fff;font-size:24px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.35);transition:opacity .2s}\
+#musician-page .vp-os-a:hover{background:rgba(234,230,221,.3)}\
 #musician-page .vp-os-a[disabled]{opacity:0;pointer-events:none}\
 #musician-page .vp-os-l{left:-12px}\
 #musician-page .vp-os-r{right:-12px}\
@@ -383,12 +383,12 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     + '#musician-page .vp-oslb .vp-os-fr{position:relative;flex:none;height:min(84vh,84dvh,calc((100vw - 160px) * 16 / 9));aspect-ratio:9/16;border-radius:var(--vp-radius);overflow:hidden;background:#000;border:1px solid #364242;box-shadow:0 20px 60px rgba(0,0,0,.5)}'
     + '#musician-page .vp-oslb .vp-os-fr video{display:block;width:100%;height:100%;max-height:none;max-width:none;object-fit:cover;border-radius:0;aspect-ratio:auto;border:0}'
     + '#musician-page .vp-oslb .vp-os-fr .vp-ctl{border-radius:0}'
-    + '#musician-page .vp-oslb .vp-os-p,#musician-page .vp-oslb .vp-os-f{width:52px;height:52px;border:0;background:#3dc2bb;color:#1f2727;font-size:30px;line-height:1;padding:0 0 3px;box-shadow:0 6px 24px rgba(0,0,0,.35)}'
-    + '#musician-page .vp-oslb .vp-os-p:hover,#musician-page .vp-oslb .vp-os-f:hover{background:#5fd3cd}'
-    + '#musician-page .vp-oslb .vp-os-x{top:18px;right:18px;border:1.5px solid #3dc2bb;background:transparent;color:#3dc2bb;font-size:18px}#musician-page .vp-oslb .vp-os-x:hover{background:#3dc2bb;color:#1f2727}'
+    + '#musician-page .vp-oslb .vp-os-p,#musician-page .vp-oslb .vp-os-f{z-index:2;width:52px;height:52px;border:1px solid rgba(234,230,221,.35);background:rgba(234,230,221,.14);-webkit-backdrop-filter:blur(10px) saturate(140%);backdrop-filter:blur(10px) saturate(140%);color:#eae6dd;font-size:30px;line-height:1;padding:0 0 3px;box-shadow:0 6px 24px rgba(0,0,0,.3)}'
+    + '#musician-page .vp-oslb .vp-os-p:hover,#musician-page .vp-oslb .vp-os-f:hover{background:rgba(234,230,221,.28)}'
+    + '#musician-page .vp-oslb .vp-os-x{top:18px;right:18px;border:1px solid rgba(234,230,221,.35);background:rgba(234,230,221,.14);-webkit-backdrop-filter:blur(10px) saturate(140%);backdrop-filter:blur(10px) saturate(140%);color:#eae6dd;font-size:18px}#musician-page .vp-oslb .vp-os-x:hover{background:rgba(234,230,221,.28)}'
     + '#musician-page .vp-oslb .vp-os-n{top:26px;bottom:auto;font-family:var(--vp-display);font-size:16px;color:#3dc2bb;letter-spacing:.04em}'
     + '#musician-page .vp-oslb .vp-os-h{position:absolute;top:22px;left:24px;font-family:var(--vp-display);font-size:22px;color:#eae6dd;pointer-events:none}'
-    + '@media (max-width:640px){#musician-page .vp-oslb{padding:0}#musician-page .vp-oslb .vp-os-fr{height:100dvh;width:100vw;aspect-ratio:auto;border-radius:0;border:0}#musician-page .vp-oslb .vp-os-fr video{object-fit:contain}#musician-page .vp-oslb .vp-os-p,#musician-page .vp-oslb .vp-os-f{width:42px;height:42px;font-size:24px;opacity:.9}#musician-page .vp-oslb .vp-os-h{top:20px;left:16px;font-size:18px;z-index:2}#musician-page .vp-oslb .vp-os-n{top:auto;bottom:auto;top:24px;z-index:2}#musician-page .vp-oslb .vp-os-x{z-index:2}}';
+    + '@media (max-width:640px){#musician-page .vp-oslb{padding:0}#musician-page .vp-oslb .vp-os-fr{height:100dvh;width:100vw;aspect-ratio:auto;border-radius:0;border:0}#musician-page .vp-oslb{background:#000}#musician-page .vp-oslb .vp-os-fr{position:absolute;inset:0;height:auto;width:auto}#musician-page .vp-oslb .vp-os-fr video{object-fit:cover}#musician-page .vp-oslb .vp-os-fr:before{content:"";position:absolute;left:0;right:0;top:0;height:110px;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.55),transparent);pointer-events:none}#musician-page .vp-oslb .vp-os-fr .vp-ctl{padding-bottom:calc(14px + env(safe-area-inset-bottom))}#musician-page .vp-oslb .vp-os-p,#musician-page .vp-oslb .vp-os-f{width:42px;height:42px;font-size:24px}#musician-page .vp-oslb .vp-os-n{color:#eae6dd}#musician-page .vp-oslb .vp-os-h{top:20px;left:16px;font-size:18px;z-index:2}#musician-page .vp-oslb .vp-os-n{top:auto;bottom:auto;top:24px;z-index:2}#musician-page .vp-oslb .vp-os-x{z-index:2}}';
   document.head.appendChild(st4);
   var keyHandler = null;
 
