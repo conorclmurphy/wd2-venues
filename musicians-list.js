@@ -357,10 +357,29 @@
       c.addEventListener('click', function () {
         var f = c.getAttribute('data-f');
         Array.prototype.forEach.call(root.querySelectorAll('.ml-chip'), function (x) { x.classList.toggle('on', x === c); });
+        // Smooth shuffle: note where every card is, apply the filter, then slide each card from its old spot to its new one
+        var smooth = root.classList.contains('ml-anim') && !!root.animate, was = [];
+        if (smooth) cards.forEach(function (card) { was.push(card.hidden ? null : card.getBoundingClientRect()); });
         Array.prototype.forEach.call(root.querySelectorAll('.ml-card'), function (card) {
           card.hidden = f !== 'all' && (' ' + card.getAttribute('data-tags') + ' ').indexOf(' ' + f + ' ') === -1;
         });
-        replay();
+        if (!smooth) return replay();
+        var ease = 'cubic-bezier(.2,.7,.2,1)', fresh = 0;
+        cards.forEach(function (card, n) {
+          if (card.hidden) return;
+          var im = card.querySelector('.ml-img'), old = was[n], now = card.getBoundingClientRect();
+          if (io) io.unobserve(card);
+          card.style.setProperty('--d', '0ms');
+          card.classList.add('ml-in');
+          if (!im) return;
+          if (old) {
+            var dx = old.left - now.left, dy = old.top - now.top;
+            if (Math.abs(dx) > 1 || Math.abs(dy) > 1) im.animate([{ transform: 'translate(' + dx + 'px,' + dy + 'px)' }, { transform: 'none' }], { duration: 560, easing: ease });
+          } else {
+            // cards that weren't showing before fade and grow in, just after the others start moving
+            im.animate([{ opacity: 0, transform: 'scale(.88)' }, { opacity: 1, transform: 'none' }], { duration: 440, easing: ease, delay: 140 + Math.min(fresh++, 6) * 50, fill: 'backwards' });
+          }
+        });
       });
     });
   }
