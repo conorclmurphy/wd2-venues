@@ -177,8 +177,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #musician-page .vp-os-w{position:relative}\
 #musician-page .vp-os{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}\
 #musician-page .vp-os::-webkit-scrollbar{display:none}\
-#musician-page .vp-os-a{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:42px;height:42px;border-radius:50%;border:1px solid rgba(234,230,221,.35);background:rgba(234,230,221,.16);-webkit-backdrop-filter:blur(10px) saturate(140%);backdrop-filter:blur(10px) saturate(140%);color:#fff;font-size:24px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.35);transition:opacity .2s}\
-#musician-page .vp-os-a:hover{background:rgba(234,230,221,.3)}\
+#musician-page .vp-os-a{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:42px;height:42px;border-radius:50%;border:1px solid rgba(234,230,221,.35);background:rgba(0,0,0,.45);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#eae6dd;font-size:24px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.35);transition:opacity .2s}\
+#musician-page .vp-os-a:hover{background:rgba(61,194,187,.45);border-color:#3dc2bb}\
 #musician-page .vp-os-a[disabled]{opacity:0;pointer-events:none}\
 #musician-page .vp-os-l{left:-12px}\
 #musician-page .vp-os-r{right:-12px}\
@@ -379,16 +379,18 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     + '#musician-page .vp-crop.vp-open .vp-vwrap:after{display:none}'
     + '#musician-page .vp-vwrap{container-type:inline-size}@container (max-width:300px){#musician-page .vp-c-t{display:none}#musician-page .vp-ctl{gap:4px;padding-left:8px;padding-right:6px}#musician-page .vp-ctl button{width:28px;height:28px}#musician-page .vp-ctl .vp-c-pp{width:32px;height:32px;padding:8px}}'
     // "On stage" full-screen player in the site colours
-    + '#musician-page .vp-oslb{background:rgba(23,29,29,.97);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);gap:20px}'
-    + '#musician-page .vp-oslb .vp-os-fr{position:relative;flex:none;height:min(84vh,84dvh,calc((100vw - 160px) * 16 / 9));aspect-ratio:9/16;border-radius:var(--vp-radius);overflow:hidden;background:#000;border:1px solid #364242;box-shadow:0 20px 60px rgba(0,0,0,.5)}'
+    // (same look as the photo viewer on the venue pages: black backdrop, rounded media, dark glass arrows at the edges, count underneath)
+    + '#musician-page .vp-oslb{background:rgba(0,0,0,.96);gap:0;padding:16px}'
+    + '#musician-page .vp-oslb .vp-os-fr{position:relative;flex:none;height:min(84vh,84dvh,calc((100vw - 150px) * 16 / 9));aspect-ratio:9/16;border-radius:var(--vp-radius);overflow:hidden;background:#000}'
     + '#musician-page .vp-oslb .vp-os-fr video{display:block;width:100%;height:100%;max-height:none;max-width:none;object-fit:cover;border-radius:0;aspect-ratio:auto;border:0}'
     + '#musician-page .vp-oslb .vp-os-fr .vp-ctl{border-radius:0}'
-    + '#musician-page .vp-oslb .vp-os-p,#musician-page .vp-oslb .vp-os-f{z-index:2;width:52px;height:52px;border:1px solid rgba(234,230,221,.35);background:rgba(234,230,221,.14);-webkit-backdrop-filter:blur(10px) saturate(140%);backdrop-filter:blur(10px) saturate(140%);color:#eae6dd;font-size:30px;line-height:1;padding:0 0 3px;box-shadow:0 6px 24px rgba(0,0,0,.3)}'
-    + '#musician-page .vp-oslb .vp-os-p:hover,#musician-page .vp-oslb .vp-os-f:hover{background:rgba(234,230,221,.28)}'
-    + '#musician-page .vp-oslb .vp-os-x{top:18px;right:18px;border:1px solid rgba(234,230,221,.35);background:rgba(234,230,221,.14);-webkit-backdrop-filter:blur(10px) saturate(140%);backdrop-filter:blur(10px) saturate(140%);color:#eae6dd;font-size:18px}#musician-page .vp-oslb .vp-os-x:hover{background:rgba(234,230,221,.28)}'
-    + '#musician-page .vp-oslb .vp-os-n{top:26px;bottom:auto;font-family:var(--vp-display);font-size:16px;color:#3dc2bb;letter-spacing:.04em}'
-    + '#musician-page .vp-oslb .vp-os-h{position:absolute;top:22px;left:24px;font-family:var(--vp-display);font-size:22px;color:#eae6dd;pointer-events:none}'
-    + '@media (max-width:640px){#musician-page .vp-oslb{padding:0}#musician-page .vp-oslb .vp-os-fr{height:100dvh;width:100vw;aspect-ratio:auto;border-radius:0;border:0}#musician-page .vp-oslb{background:#000;touch-action:none;overscroll-behavior:contain}#musician-page .vp-oslb .vp-os-fr{position:absolute;inset:0;height:auto;width:auto}#musician-page .vp-oslb .vp-os-fr video{object-fit:cover}#musician-page .vp-oslb .vp-os-fr:before{content:"";position:absolute;left:0;right:0;top:0;height:110px;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.55),transparent);pointer-events:none}#musician-page .vp-oslb .vp-os-fr .vp-ctl{padding-bottom:calc(14px + env(safe-area-inset-bottom))}#musician-page .vp-oslb .vp-os-p,#musician-page .vp-oslb .vp-os-f{width:42px;height:42px;font-size:24px}#musician-page .vp-oslb .vp-os-n{color:#eae6dd}#musician-page .vp-oslb .vp-os-h{top:20px;left:16px;font-size:18px;z-index:2}#musician-page .vp-oslb .vp-os-n{top:auto;bottom:auto;top:24px;z-index:2}#musician-page .vp-oslb .vp-os-x{z-index:2}}';
+    + '#musician-page .vp-oslb .vp-os-p,#musician-page .vp-oslb .vp-os-f{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:52px;height:52px;padding:0;display:grid;place-items:center;color:#eae6dd;background:rgba(0,0,0,.45);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(234,230,221,.35);transition:background .2s}'
+    + '#musician-page .vp-oslb .vp-os-p{left:18px}#musician-page .vp-oslb .vp-os-f{right:18px}'
+    + '#musician-page .vp-oslb .vp-os-p svg,#musician-page .vp-oslb .vp-os-f svg{width:22px;height:22px}'
+    + '#musician-page .vp-oslb .vp-os-p:hover,#musician-page .vp-oslb .vp-os-f:hover{background:rgba(61,194,187,.45);border-color:#3dc2bb}'
+    + '#musician-page .vp-oslb .vp-os-x{top:16px;right:18px;z-index:2;width:44px;height:44px;border:0;background:rgba(234,230,221,.12);color:#eae6dd;font-size:26px;line-height:1}'
+    + '#musician-page .vp-oslb .vp-os-n{position:absolute;bottom:18px;left:50%;right:auto;transform:translateX(-50%);color:#eae6dd;font-size:14px;opacity:.8}'
+    + '@media (max-width:640px){#musician-page .vp-oslb{padding:16px 0;touch-action:none;overscroll-behavior:contain}#musician-page .vp-oslb .vp-os-fr{height:min(80vh,80dvh,calc(100vw * 16 / 9))}#musician-page .vp-oslb .vp-os-p,#musician-page .vp-oslb .vp-os-f{width:40px;height:40px;background:rgba(0,0,0,.6)}#musician-page .vp-oslb .vp-os-p{left:8px}#musician-page .vp-oslb .vp-os-f{right:8px}#musician-page .vp-oslb .vp-os-n{bottom:10px}}';
   document.head.appendChild(st4);
   var keyHandler = null;
 
@@ -654,7 +656,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       + '</form></div></aside>';
     h += '</div>';  // end of body
 
-    if (onstage.length) h += '<div class="vp-oslb" hidden><span class="vp-os-h">' + esc(m.onstageTitle || 'On stage') + '</span><button type="button" class="vp-os-x" aria-label="Close">✕</button><button type="button" class="vp-os-p" aria-label="Previous clip">‹</button><div class="vp-os-fr vp-vwrap"><video playsinline></video></div><button type="button" class="vp-os-f" aria-label="Next clip">›</button><div class="vp-os-n"></div></div>';
+    if (onstage.length) h += '<div class="vp-oslb" hidden><button type="button" class="vp-os-x" aria-label="Close">&times;</button><button type="button" class="vp-os-p" aria-label="Previous clip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="vp-os-fr vp-vwrap"><video playsinline></video></div><button type="button" class="vp-os-f" aria-label="Next clip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="vp-os-n"></div></div>';
     h += '<div class="vp-lb" hidden><img alt=""><div class="vp-lb-bar"><button type="button" data-a="prev">Previous</button><span class="vp-count"></span><button type="button" data-a="next">Next</button><button type="button" data-a="close">Close</button></div></div>';
 
     // The site's photo-link script turns a whole block into a link when it spots a known photo in it.
