@@ -26,43 +26,61 @@
   if (!document.getElementById('vp-fonts')) {
     var f = document.createElement('link');
     f.id = 'vp-fonts'; f.rel = 'stylesheet';
-    f.href = 'https://fonts.googleapis.com/css2?family=Young+Serif&family=Bitter:wght@400;500;600&display=swap';
+    f.href = 'https://fonts.googleapis.com/css2?family=Young+Serif&family=Inter:wght@400;500;600&display=swap';
     document.head.appendChild(f);
   }
   var st = document.createElement('style');
   st.textContent = [
-    '#musicians-list{--c-bg:#273030;--c-surface:#303b3b;--c-line:#3f4b4b;--c-ink:#eae6dd;--c-muted:#b8b3a8;--c-cyan:#3dc2bb;background:var(--c-bg);color:var(--c-ink);font-family:"Bitter",Georgia,serif;padding:48px clamp(16px,4vw,56px) 64px}',
+    // Solo Musicians page: pure black, white type, black-and-white photos that turn to colour on hover
+    '#musicians-list{--c-bg:#000;--c-line:#222;--c-ink:#fff;--c-muted:#9a9a9a;--c-cyan:#3dc2bb;--c-on:#000;--f-head:"Inter",system-ui,sans-serif;background:var(--c-bg);color:var(--c-ink);font-family:"Inter",system-ui,sans-serif;padding:56px clamp(16px,4vw,48px) 72px}',
     '#musicians-list *{box-sizing:border-box}',
-    // Ceremony & drinks reception page: the same grid in a lighter, daytime palette
-    '#musicians-list.ml-light{--c-bg:#1f2727;--c-surface:#283232;--c-line:#3b4646;--c-ink:#eae6dd;--c-muted:#b8b3a8;--c-cyan:#d9bd8f}',
-    '#musicians-list.ml-light .ml-chip:hover{background:rgba(217,189,143,.15)}#musicians-list.ml-light .ml-chip.on{color:#1f2727}',
-    '#musicians-list.ml-light .ml-btn{color:#1f2727!important}#musicians-list.ml-light .ml-cta{background:#171d1d}',
-    '#musicians-list .ml-wrap{max-width:1240px;margin:0 auto}',
-    '#musicians-list .ml-eye{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--c-cyan);margin:0 0 8px}',
-    '#musicians-list h1{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:clamp(30px,4.4vw,48px);line-height:1.08;margin:0 0 10px;color:var(--c-ink)}',
-    '#musicians-list .ml-intro{font-size:16px;line-height:1.6;color:var(--c-muted);margin:0 0 22px;max-width:680px}',
-    '#musicians-list .ml-chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}',
-    '#musicians-list .ml-chip{font:inherit;font-size:14px;cursor:pointer;padding:8px 16px;border-radius:999px;border:1.5px solid var(--c-cyan);background:transparent;color:var(--c-cyan);transition:background .2s,color .2s}',
-    '#musicians-list .ml-chip:hover{background:rgba(61,194,187,.15)}',
-    '#musicians-list .ml-chip.on{background:var(--c-cyan);color:#273030}',
-    '#musicians-list .ml-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px 18px}',
-    '#musicians-list .ml-card,#musicians-list .ml-card.wd2-hover,#musicians-list .ml-card.wd2-hover:hover{display:grid;gap:8px;text-decoration:none!important;color:var(--c-ink)!important;box-shadow:none!important;transform:none!important;border-radius:0!important;overflow:visible!important}',
+    '#musicians-list .ml-wrap{max-width:1184px;margin:0 auto}',
+    '#musicians-list .ml-top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px 32px;margin:0 0 36px}',
+    '#musicians-list .ml-eye{display:none}',
+    '#musicians-list h1{font-family:var(--f-head);font-weight:500;font-size:clamp(36px,5vw,56px);line-height:1;letter-spacing:-.03em;margin:0;color:var(--c-ink);text-transform:none}',
+    '#musicians-list .ml-intro{display:none}',
+    '#musicians-list .ml-chips{display:flex;flex-wrap:wrap;gap:8px;margin:0}',
+    '#musicians-list .ml-chip{font:inherit;font-size:13.5px;line-height:1.2;cursor:pointer;padding:8px 16px;border-radius:999px;border:1px solid #333;background:transparent;color:var(--c-ink);transition:background .2s,color .2s,border-color .2s}',
+    '#musicians-list .ml-chip:hover{border-color:var(--c-cyan)}',
+    '#musicians-list .ml-chip.on{background:var(--c-cyan);border-color:var(--c-cyan);color:var(--c-on)}',
+    '#musicians-list .ml-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px 12px}',
+    '#musicians-list .ml-card,#musicians-list .ml-card.wd2-hover,#musicians-list .ml-card.wd2-hover:hover{display:flex;flex-direction:column;gap:10px;text-decoration:none!important;color:var(--c-ink)!important;box-shadow:none!important;transform:none!important;border-radius:0!important;overflow:visible!important}',
     '#musicians-list .ml-card[hidden]{display:none}',
-    '#musicians-list .ml-img{position:relative;aspect-ratio:3/4;border-radius:16px;overflow:hidden;background:var(--c-line);transition:box-shadow .25s}',
-    '#musicians-list .ml-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}',
-    '#musicians-list .ml-img:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,26,26,0) 55%,rgba(20,26,26,.75) 100%)}',
-    '#musicians-list .ml-card:hover .ml-img{box-shadow:0 0 0 3px var(--c-cyan),0 12px 30px rgba(0,0,0,.35)}',
-    '#musicians-list .ml-card:hover .ml-img img{transform:scale(1.04)}',
-    '#musicians-list .ml-name{position:absolute;left:14px;bottom:11px;z-index:1;font-family:"Young Serif",Georgia,serif;font-size:24px;color:#eae6dd}',
-    '#musicians-list .ml-tags{position:absolute;top:9px;left:9px;right:9px;z-index:1;display:flex;flex-wrap:wrap;gap:4px}',
-    '#musicians-list .ml-tag{font-size:10.5px;line-height:1;padding:4px 7px;border-radius:999px;color:#eae6dd;background:rgba(39,48,48,.35);-webkit-backdrop-filter:blur(8px) saturate(140%);backdrop-filter:blur(8px) saturate(140%);border:1px solid rgba(234,230,221,.3)}',
-    '#musicians-list .ml-more{font-size:13.5px;color:var(--c-cyan)}',
-    '#musicians-list .ml-cta{margin-top:40px;padding:22px 24px;border-radius:18px;border:1px solid var(--c-line);background:#1d2525;display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;justify-content:space-between}',
-    '#musicians-list .ml-cta strong{display:block;font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:22px;margin-bottom:4px}',
+    '#musicians-list .ml-img{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--c-line)}',
+    '#musicians-list .ml-img img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1) contrast(1.08);transition:filter .35s,transform .5s}',
+    '#musicians-list .ml-card:hover .ml-img img{filter:none;transform:scale(1.03)}',
+    '#musicians-list .ml-name{position:absolute;left:12px;bottom:10px;z-index:1;font-family:var(--f-head);font-size:20px;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.6)}',
+    '#musicians-list .ml-foot{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 10px}',
+    '#musicians-list .ml-tags{font-size:12.5px;line-height:1.4;color:var(--c-muted)}',
+    '#musicians-list .ml-more{font-size:13px;font-weight:600;color:var(--c-ink);white-space:nowrap}',
+    '#musicians-list .ml-card:hover .ml-more{color:var(--c-cyan)}',
+    '#musicians-list .ml-cta{margin-top:48px;padding:22px 24px;border:1px solid var(--c-line);background:transparent;display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;justify-content:space-between}',
+    '#musicians-list .ml-cta strong{display:block;font-family:var(--f-head);font-weight:500;font-size:20px;margin-bottom:4px;letter-spacing:-.01em}',
     '#musicians-list .ml-cta span{color:var(--c-muted);font-size:14.5px}',
-    '#musicians-list .ml-btn{display:inline-block;text-decoration:none!important;padding:12px 24px;border-radius:999px;font-weight:600;font-size:15px;background:var(--c-cyan);color:#273030!important;white-space:nowrap}',
+    '#musicians-list .ml-btn{display:inline-block;text-decoration:none!important;padding:11px 22px;border-radius:999px;font-weight:600;font-size:14.5px;background:var(--c-cyan);color:var(--c-on)!important;white-space:nowrap}',
     '@media (max-width:1000px){#musicians-list .ml-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}',
-    '@media (max-width:700px){#musicians-list{padding-top:30px}#musicians-list .ml-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 12px}#musicians-list .ml-name{font-size:19px;left:11px;bottom:9px}#musicians-list .ml-tag{font-size:9.5px;padding:3px 6px}#musicians-list .ml-tags{top:7px;left:7px;right:7px;gap:3px}#musicians-list .ml-intro{font-size:14.5px}#musicians-list .ml-chip{font-size:13px;padding:7px 13px}}'
+    '@media (max-width:700px){#musicians-list{padding-top:32px}#musicians-list .ml-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 10px}#musicians-list .ml-top{margin-bottom:24px}#musicians-list .ml-chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px;width:calc(100% + 32px)}#musicians-list .ml-chips::-webkit-scrollbar{display:none}#musicians-list .ml-chip{flex:none;font-size:13px;padding:7px 13px}#musicians-list .ml-tags{font-size:11.5px}#musicians-list .ml-more{font-size:12.5px}}',
+    // Ceremony & drinks reception page: off-white "magazine" layout, heading and filters in a left column, colour photos
+    '#musicians-list.ml-light{--c-bg:#faf8f3;--c-line:#e4dfd3;--c-ink:#1f2727;--c-muted:#5a6464;--c-cyan:#1b7f7a;--c-on:#faf8f3;--f-head:"Young Serif",Georgia,serif}',
+    '#musicians-list.ml-light .ml-wrap{display:flex;flex-wrap:wrap;gap:40px 56px;align-items:flex-start}',
+    '#musicians-list.ml-light .ml-top{flex:1 1 260px;max-width:320px;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:18px;margin:0;position:sticky;top:24px}',
+    '#musicians-list.ml-light .ml-eye{display:block;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--c-cyan);margin:0}',
+    '#musicians-list.ml-light h1{font-weight:400;font-size:clamp(32px,3.6vw,42px);line-height:1.1;letter-spacing:0}',
+    '#musicians-list.ml-light .ml-intro{display:block;font-size:15.5px;line-height:1.6;color:var(--c-muted);margin:0}',
+    '#musicians-list.ml-light .ml-chips{flex-direction:column;align-items:flex-start;gap:2px;width:100%;border-top:1px solid var(--c-line);padding-top:14px;margin-top:8px}',
+    '#musicians-list.ml-light .ml-chip{border:0;border-radius:0;padding:8px 0;font-size:15px;color:var(--c-muted);background:none}',
+    '#musicians-list.ml-light .ml-chip:hover{color:var(--c-ink)}',
+    '#musicians-list.ml-light .ml-chip.on{background:none;color:var(--c-ink);font-weight:600}',
+    '#musicians-list.ml-light .ml-chip.on:before{content:"\\25CF";margin-right:8px;color:var(--c-cyan)}',
+    '#musicians-list.ml-light .ml-main{flex:999 1 560px;min-width:0}',
+    '#musicians-list.ml-light .ml-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:28px 18px}',
+    '#musicians-list.ml-light .ml-img{border-radius:6px}',
+    '#musicians-list.ml-light .ml-img img{filter:none}',
+    '#musicians-list.ml-light .ml-foot{flex-direction:column;align-items:flex-start;gap:6px}',
+    '#musicians-list.ml-light .ml-more{font-size:13.5px;color:var(--c-cyan)}',
+    '#musicians-list.ml-light .ml-cta{border-radius:10px;background:#fff}',
+    '#musicians-list.ml-light .ml-cta strong{font-weight:400;font-size:22px}',
+    '@media (max-width:700px){#musicians-list.ml-light .ml-top{position:static;max-width:none}#musicians-list.ml-light .ml-chips{flex-direction:row;align-items:center;gap:6px 18px;flex-wrap:wrap;overflow:visible;margin:8px 0 0;padding:14px 0 0;width:100%}#musicians-list.ml-light .ml-chip{padding:4px 0;font-size:14px}#musicians-list.ml-light .ml-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 12px}}'
   ].join('');
   document.head.appendChild(st);
 
@@ -100,22 +118,24 @@
     list.sort(function (a, b) { return picked ? picked.indexOf(a.slug) - picked.indexOf(b.slug) : rank(a) - rank(b); });
     var size = 500;  // card-sized photos (about 1.4MB for the whole page, instead of 8MB+)
     var filters = [['all', 'All musicians'], ['ceremony', L.ceremony || 'Ceremony & drinks reception'], ['day2', L.day2 || 'Day 2'], ['afterdinner', L.afterdinner || 'After dinner'], ['duo', 'Duo'], ['tradBand', 'Trad band']];
-    if (only) filters = [['all', 'All'], ['day2', 'Also plays ' + (L.day2 || 'Day 2')], ['afterdinner', 'Also plays ' + (L.afterdinner || 'after dinner').toLowerCase()], ['duo', 'Duo']];
-    var h = '<div class="ml-wrap"><p class="ml-eye">Wedding Day 2</p><h1>' + (only === 'ceremony' ? 'Ceremony &amp; drinks reception musicians' : 'Our musicians') + '</h1>'
+    if (only) filters = [['all', 'All musicians'], ['day2', 'Also plays ' + (L.day2 || 'Day 2')], ['afterdinner', 'Also plays ' + (L.afterdinner || 'after dinner').toLowerCase()], ['duo', 'Duo']];
+    else filters[0][1] = 'All';
+    var h = '<div class="ml-wrap"><div class="ml-top"><p class="ml-eye">' + (only === 'ceremony' ? 'Ceremony &amp; drinks reception' : 'Solo musicians') + '</p><h1>' + (only === 'ceremony' ? 'Ceremony &amp; drinks reception musicians' : 'Solo musicians') + '</h1>'
       + '<p class="ml-intro">' + (only === 'ceremony'
-        ? 'Live music for walking down the aisle, signing the register and the drinks reception afterwards. Every musician here plays ceremonies and receptions. Tap one to see their videos and check their availability.'
-        : 'Hand-picked singer-guitarists who know how to fill a dance floor. Tap a musician to see their videos and check their availability. Solo musicians start from €650.') + '</p>'
-      + '<div class="ml-chips">' + filters.map(function (f, i) { return '<button type="button" class="ml-chip' + (i ? '' : ' on') + '" data-f="' + f[0] + '">' + esc(f[1]) + '</button>'; }).join('') + '</div><div class="ml-grid">';
+        ? 'Live music for walking down the aisle, signing the register and the drinks reception afterwards. Tap a musician to see their videos and check their availability.'
+        : 'Hand-picked singer-guitarists across Ireland. Tap a musician to see their videos and check their availability.') + '</p>'
+      + '<div class="ml-chips">' + filters.map(function (f, i) { return '<button type="button" class="ml-chip' + (i ? '' : ' on') + '" data-f="' + f[0] + '">' + esc(f[1]) + '</button>'; }).join('') + '</div></div><div class="ml-main"><div class="ml-grid">';
     list.forEach(function (o, i) {
       var lp = LIST_PHOTOS[o.slug];
       var ev = ORDER.filter(function (e) { return o.events.indexOf(e) !== -1; });
       var tags = ev.filter(function (e) { return e !== only; }).map(function (e) { return e === 'ceremony' ? 'Ceremony' : (L[e] || e); }).concat(o.duo ? ['Duo'] : []).concat(o.tradBand ? ['Trad band'] : []);
+      if (only && !tags.length) tags = [only === 'ceremony' ? 'Ceremony & drinks reception' : (L[only] || only)];
       h += '<a class="ml-card" href="' + esc(o.url + (only ? '?for=' + only : '')) + '" data-tags="' + esc(ev.concat(o.duo ? ['duo'] : []).concat(o.tradBand ? ['tradBand'] : []).join(' ')) + '">'
-        + '<div class="ml-img"><img src="' + esc((function (p) { return /^https?:/.test(p) ? p : D.imageBase + p + '?format=' + size + 'w'; })(lp ? lp[0] : (o.cardPhoto || o.photo))) + '" alt="' + esc(o.name) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async"'
-        + ' style="object-position:' + esc(lp ? lp[1] : (o.cardPosition || o.photoPosition || 'center')) + '"><span class="ml-tags">' + tags.map(function (t) { return '<span class="ml-tag">' + esc(t) + '</span>'; }).join('') + '</span>' + (o.hideName ? '' : '<span class="ml-name">' + esc(o.name) + '</span>') + '</div>'
-        + '<span class="ml-more">View profile →</span></a>';
+        + '<div class="ml-img"><img src="' + esc((function (p) { return /^https?:/.test(p) ? p : D.imageBase + p + '?format=' + size + 'w'; })(lp ? lp[0] : (o.cardPhoto || o.photo))) + '" alt="' + esc(o.hideName ? 'Wedding musician' : o.name) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async"'
+        + ' style="object-position:' + esc(lp ? lp[1] : (o.cardPosition || o.photoPosition || 'center')) + '">' + (o.hideName ? '' : '<span class="ml-name">' + esc(o.name) + '</span>') + '</div>'
+        + '<div class="ml-foot"><span class="ml-tags">' + esc(tags.join(' · ')) + '</span><span class="ml-more">' + (only ? 'View profile →' : 'View →') + '</span></div></a>';
     });
-    h += '</div><div class="ml-cta"><div><strong>Can\'t decide?</strong><span>Build your package, pick a few favourites, and we\'ll check who\'s free on your date.</span></div><a class="ml-btn" href="/packages">Build your package</a></div></div>';
+    h += '</div><div class="ml-cta"><div><strong>Can\'t decide?</strong><span>Build your package, pick a few favourites, and we\'ll check who\'s free on your date.</span></div><a class="ml-btn" href="/packages">Build your package</a></div></div></div>';
     root.innerHTML = h;
 
     Array.prototype.forEach.call(root.querySelectorAll('.ml-chip'), function (c) {
