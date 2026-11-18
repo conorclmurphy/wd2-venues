@@ -434,8 +434,13 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     var L = DATA.eventLabels || { ceremony: 'Ceremony & drinks reception', day2: 'Day 2', afterdinner: 'After dinner' };
     var ORDER = ['ceremony', 'day2', 'afterdinner'];
     var sets = [];
-    var bio = m.bio || [];
-    var vids = m.videos || [];
+    // Ceremony view: opened from the ceremony & drinks reception page (?for=ceremony). The same profile, but with the
+    // musician's calmer ceremony videos/clips/bio where musicians.json has them under "ceremony": {videos, onstage, bio, photo}.
+    var cer = /[?&]for=ceremony\b/.test(location.search) && (DATA.ceremonyList || []).indexOf(m.slug) !== -1, cm = (cer && m.ceremony) || {};
+    var cq = cer ? '?for=ceremony' : '';
+    if (cm.photo) m = Object.assign({}, m, { photo: cm.photo, photoPosition: cm.photoPosition || m.photoPosition });
+    var bio = cm.bio || m.bio || [];
+    var vids = cm.videos || m.videos || [];
     var events = ORDER.filter(function (e) { return (m.events || []).indexOf(e) !== -1; });
     var extras = [];
     if (m.tradBand) extras.push('Trad band');
@@ -517,7 +522,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
     // "On stage": short clips from the musician's social media, shown as tall tiles; tapping one opens it full screen.
     // Nothing here names the musician or links out, so anonymous profiles stay anonymous.
-    var onstage = m.onstage || [];
+    var onstage = cm.onstage || m.onstage || [];
     if (onstage.length) {
       h += '<section class="vp-onstage"><h2>' + esc(m.onstageTitle || 'On stage') + '</h2><p class="vp-os-sub">' + esc(m.onstageSub || 'Real moments from recent gigs.') + '</p><div class="vp-os-w"><button type="button" class="vp-os-a vp-os-l" aria-label="Scroll clips left" disabled>‹</button><div class="vp-os">';
       onstage.forEach(function (x, i) {
@@ -601,7 +606,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     }
 
     // Other musicians: three who cover the most of the same events and extras
-    var others = DATA.musicians.filter(function (o) { return o.live && o.url && o.slug !== m.slug && o.listed !== false; });
+    var others = DATA.musicians.filter(function (o) { return o.live && o.url && o.slug !== m.slug && o.listed !== false && (!cer || DATA.ceremonyList.indexOf(o.slug) !== -1); });
     function score(o) {
       var s = 0; (o.events || []).forEach(function (e) { if (events.indexOf(e) !== -1) s += 2; });
       if (m.tradBand && o.tradBand) s += 2; if (m.duo && o.duo) s += 1; return s;
@@ -619,10 +624,10 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     others.sort(function (a, b) { return isSeen(a) - isSeen(b) || score(b) - score(a) || ((a.slug.charCodeAt(0) + seed) % 7) - ((b.slug.charCodeAt(0) + seed) % 7); });
     others = others.slice(0, 3);
     if (others.length && !m.builder && !m.packages && !m.related) {
-      h += '<section><div class="vp-h2row"><h2>Other musicians</h2><a class="vp-btn vp-btn-ghost" href="/musicians">← All musicians</a></div><div class="vp-similar vp-three">';
+      h += '<section><div class="vp-h2row"><h2>' + (cer ? 'Other ceremony musicians' : 'Other musicians') + '</h2><a class="vp-btn vp-btn-ghost" href="' + (cer ? '/ceremony-musicians' : '/musicians') + '">← ' + (cer ? 'All ceremony musicians' : 'All musicians') + '</a></div><div class="vp-similar vp-three">';
       others.forEach(function (o) {
         var oe = ORDER.filter(function (e) { return (o.events || []).indexOf(e) !== -1; }).map(function (e) { return L[e]; });
-        h += '<a class="vp-card" href="' + esc(o.url) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(o.photo, 750) + '" alt="' + esc(o.name) + '"' + (o.photoPosition ? ' style="object-position:' + esc(o.photoPosition) + '"' : '') + '></div>'
+        h += '<a class="vp-card" href="' + esc(o.url + cq) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(o.photo, 750) + '" alt="' + esc(o.name) + '"' + (o.photoPosition ? ' style="object-position:' + esc(o.photoPosition) + '"' : '') + '></div>'
           + (o.hideName ? '' : '<h3>' + esc(o.name) + '</h3>') + '<p>' + esc(oe.join(' · ')) + '</p></a>';
       });
       h += '</div></section>';
@@ -1229,6 +1234,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     // Desktop: the form stays pinned near the top and fits the screen; if it's taller than the screen it scrolls inside itself, so nothing gets cut off
     function fitSticky() { if (mobileQ.matches) return; root.style.setProperty('--vp-sticky-top', '24px'); }
 
+    if (cer) { var cty = root.querySelector('#vp-type'); if (cty) cty.value = 'Ceremony'; }
     // Phones: a bar pinned to the bottom opens and closes the form.
     var sheetBar = aside.querySelector('.vp-sheet-bar'), sheetLabel = sheetBar.querySelector('span'), openLabel = sheetLabel.textContent;
     var goMini = function () { aside.classList.add('vp-mini'); window.removeEventListener('scroll', onMiniScroll); };
