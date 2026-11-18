@@ -344,6 +344,59 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     }
     root.innerHTML = h;
 
+    // Movement, to match the rest of the site: the top photo settles in and the heading rises, then each part of the
+    // page rises in as it is scrolled to. Skipped for people who have asked their device for less motion.
+    (function () {
+      if ((window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches) || !('IntersectionObserver' in window)) return;
+      if (!document.getElementById('vpv-motion-css')) {
+        var ms = document.createElement('style');
+        ms.id = 'vpv-motion-css';
+        ms.textContent = '#venue-page.vp-anim .vp-hero>img:first-child{animation:vpvSettle 1.8s cubic-bezier(.2,.7,.2,1) both}'
+          + '#venue-page.vp-anim .vp-hero-in>*{animation:vpvRise .75s cubic-bezier(.2,.7,.2,1) both}'
+          + '#venue-page.vp-anim .vp-hero-in>:nth-child(2){animation-delay:.12s}#venue-page.vp-anim .vp-hero-in>:nth-child(3){animation-delay:.26s}#venue-page.vp-anim .vp-hero-in>:nth-child(4){animation-delay:.38s}'
+          + '@keyframes vpvSettle{from{transform:scale(1.1);opacity:0}to{transform:none;opacity:1}}'
+          + '@keyframes vpvRise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}'
+          + '#venue-page .vp-rv{opacity:0;transform:translateY(28px)}'
+          + '#venue-page .vp-rv.vp-rv-z{transform:translateY(24px) scale(.96)}'
+          + '#venue-page .vp-rv.vp-rv-in{opacity:1;transform:none;transition:opacity .6s ease var(--vd,0ms),transform .75s cubic-bezier(.2,.7,.2,1) var(--vd,0ms)}';
+        document.head.appendChild(ms);
+      }
+      root.classList.add('vp-anim');
+      var free = function (el, d) { setTimeout(function () { el.classList.remove('vp-rv', 'vp-rv-z', 'vp-rv-in'); el.style.removeProperty('--vd'); }, d + 900); };
+      var mio = new IntersectionObserver(function (es) {
+        var hit = es.filter(function (e) { return e.isIntersecting; }).map(function (e) { return e.target; });
+        hit.forEach(function (el, i) {
+          mio.unobserve(el);
+          var d = Math.min(i, 5) * 90;
+          el.style.setProperty('--vd', d + 'ms');
+          el.classList.add('vp-rv-in');
+          free(el, d);  // once it has arrived, hand the element back so its own hover effects work as before
+        });
+      }, { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
+      var add = function (sel, zoom) {
+        Array.prototype.forEach.call(root.querySelectorAll(sel), function (el) {
+          if (el.classList.contains('vp-rv') || el.closest('.vp-hero,.vp-aside,.vp-lb,[hidden]') || (el.parentElement && el.parentElement.closest('.vp-rv')) || el.querySelector('.vp-rv')) return;
+          el.classList.add('vp-rv');
+          if (zoom) el.classList.add('vp-rv-z');
+          mio.observe(el);
+        });
+      };
+      add('.vp-slider', true);
+      add('.vp-vwrap', true);
+      add('.vp-map', true);
+      add('.vp-space');
+      add('.vp-card', true);
+      add('.vp-elist');
+      add('.vp-about>*');
+      // safety net: anything on screen that still hasn't appeared after a moment is shown anyway
+      setTimeout(function () {
+        Array.prototype.forEach.call(root.querySelectorAll('.vp-rv:not(.vp-rv-in)'), function (el) {
+          var r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) { mio.unobserve(el); el.classList.remove('vp-rv', 'vp-rv-z'); }
+        });
+      }, 3000);
+    })();
+
     // Slide the main photo up to the very top of the page, underneath the site's see-through header.
     var hero = root.querySelector('.vp-hero');
     function pullUp() {
