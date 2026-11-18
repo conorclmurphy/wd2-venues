@@ -57,6 +57,8 @@
     '#musicians-list.ml-anim .ml-card .ml-tags{opacity:0;transform:translateY(-6px)}',
     '#musicians-list.ml-anim .ml-card.ml-in .ml-tags{opacity:1;transform:none;transition:opacity .45s ease calc(var(--d,0ms) + 280ms),transform .45s ease calc(var(--d,0ms) + 280ms)}',
     '@media (hover:hover){#musicians-list.ml-anim .ml-card.ml-in:hover .ml-img{transform:translateY(-7px);transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .25s}#musicians-list.ml-anim .ml-card:hover .ml-img img:not(.ml-wm){transform:scale(1.07)}#musicians-list .ml-card:hover .ml-more{transform:translateX(5px)}#musicians-list.ml-anim .ml-card:hover img.ml-wm{transform:scale(1.12) rotate(-4deg)!important}}',
+    '#musicians-list .ml-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s;pointer-events:none;background:#000}',
+    '#musicians-list .ml-play .ml-vid{opacity:1}',
     '#musicians-list .ml-more{transition:transform .3s ease,color .2s}',
     '#musicians-list img.ml-wm{transition:transform .35s ease}',
     '#musicians-list .ml-card:active .ml-img{transform:scale(.98)!important;transition:transform .12s!important}',
@@ -207,7 +209,7 @@
       var tags = ev.filter(function (e) { return e !== only; }).map(function (e) { return e === 'ceremony' ? 'Ceremony' : (L[e] || e); });
       if (only && o.duo) tags.push('Duo');
       var p = lp ? lp[0] : (o.cardPhoto || o.photo);
-      h += '<a class="ml-card" href="' + esc(o.url + (only ? '?for=' + only : '')) + '" data-tags="' + esc(ev.concat(o.duo ? ['duo'] : []).concat(o.tradBand ? ['tradBand'] : []).join(' ')) + '">'
+      h += '<a class="ml-card" data-slug="' + esc(o.slug) + '" href="' + esc(o.url + (only ? '?for=' + only : '')) + '" data-tags="' + esc(ev.concat(o.duo ? ['duo'] : []).concat(o.tradBand ? ['tradBand'] : []).join(' ')) + '">'
         + '<div class="ml-img"><img src="' + esc(/^https?:/.test(p) ? p : D.imageBase + p + '?format=' + (SHARPER[o.slug] || size) + 'w') + '" alt="' + esc(o.hideName ? 'Wedding musician' : o.name) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async"'
         + ' style="object-position:' + esc(lp ? lp[1] : (o.cardPosition || o.photoPosition || 'center')) + '"><span class="ml-tags">' + tags.map(function (t) { return '<span class="ml-tag">' + esc(t) + '</span>'; }).join('') + '</span>' + WM + (o.hideName ? '' : '<span class="ml-name">' + esc(o.name) + '</span>') + '<span class="ml-more">View profile →</span></div></a>';
     });
@@ -238,6 +240,84 @@
       }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
       cards.forEach(function (c) { io.observe(c); });
     }
+    // Preview: hovering a card (or, on a phone, stopping with a card in the middle of the screen) plays a few
+    // silent seconds of that musician in place of the photo. One at a time, smallest video size, nothing loads until then.
+    var conn = navigator.connection || {};
+    if (!calm && !conn.saveData) (function () {
+      var VID = 'https://video.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/';
+      var HLS_URL = 'https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js';
+      var clipOf = {};
+      list.forEach(function (o) {
+        var c = (only === 'ceremony' && o.ceremony) || {};
+        var v = (c.onstage && c.onstage[0]) || (c.videos && c.videos[0]) || (o.onstage && o.onstage[0]) || (o.videos && o.videos[0]);
+        if (v && v.id) clipOf[o.slug] = v.id;
+      });
+      var cur = null, hlsWait = null;
+      var needHls = function (cb) {
+        if (window.Hls) return cb();
+        if (!hlsWait) hlsWait = new Promise(function (res) { var sc = document.createElement('script'); sc.src = HLS_URL; sc.onload = res; sc.onerror = res; document.head.appendChild(sc); });
+        hlsWait.then(cb);
+      };
+      var stop = function () {
+        if (!cur) return;
+        var c = cur; cur = null;
+        c.card.classList.remove('ml-play');
+        if (c.hls) { try { c.hls.destroy(); } catch (e) {} }
+        try { c.v.pause(); } catch (e) {}
+        setTimeout(function () { c.v.removeAttribute('src'); try { c.v.load(); } catch (e) {} if (c.v.parentNode) c.v.parentNode.removeChild(c.v); }, 420);
+      };
+      var play = function (card) {
+        if (cur && cur.card === card) return;
+        stop();
+        var id = clipOf[card.getAttribute('data-slug')], box = card.querySelector('.ml-img');
+        if (!id || !box || card.hidden) return;
+        var v = document.createElement('video');
+        v.className = 'ml-vid'; v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true; v.wd2Wired = true;
+        v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('aria-hidden', 'true'); v.disablePictureInPicture = true;
+        var me = { card: card, v: v, hls: null };
+        cur = me;
+        box.insertBefore(v, box.firstChild.nextSibling);
+        v.addEventListener('playing', function () { if (cur === me) card.classList.add('ml-play'); });
+        var src = VID + id + '/playlist.m3u8', go = function () { var p = v.play(); if (p && p.catch) p.catch(function () {}); };
+        if (v.canPlayType('application/vnd.apple.mpegurl')) { v.src = src; go(); return; }
+        needHls(function () {
+          if (cur !== me || !window.Hls || !window.Hls.isSupported()) return;
+          var h = new window.Hls({ autoStartLoad: false, maxBufferLength: 6, testBandwidth: false, capLevelToPlayerSize: false });
+          me.hls = h;
+          h.on(window.Hls.Events.MANIFEST_PARSED, function (ev, d) {
+            var lv = d.levels || h.levels || [], low = 0;
+            lv.forEach(function (l, i) { if ((l.height || 9e9) < (lv[low].height || 9e9)) low = i; });
+            h.startLevel = low; h.autoLevelCapping = low; h.startLoad(-1); go();
+          });
+          h.on(window.Hls.Events.ERROR, function (ev, d) { if (d.fatal && cur === me) stop(); });
+          h.loadSource(src); h.attachMedia(v);
+        });
+      };
+      if (window.matchMedia && matchMedia('(hover:hover)').matches) {
+        cards.forEach(function (card) {
+          var t = 0;
+          card.addEventListener('mouseenter', function () { clearTimeout(t); t = setTimeout(function () { play(card); }, 220); });
+          card.addEventListener('mouseleave', function () { clearTimeout(t); if (cur && cur.card === card) stop(); });
+        });
+      } else {
+        var t2 = 0, pick = function () {
+          var mid = window.innerHeight / 2, best = null, bd = 1e9;
+          cards.forEach(function (card) {
+            if (card.hidden || !clipOf[card.getAttribute('data-slug')]) return;
+            var r = card.getBoundingClientRect();
+            if (r.top < -r.height * 0.25 || r.bottom > window.innerHeight + r.height * 0.25) return;
+            var dx = Math.abs(r.left + r.width / 2 - window.innerWidth / 2) * 0.15, dy = Math.abs(r.top + r.height / 2 - mid);
+            if (dx + dy < bd) { bd = dx + dy; best = card; }
+          });
+          if (best) play(best); else stop();
+        };
+        window.addEventListener('scroll', function () { clearTimeout(t2); t2 = setTimeout(pick, 650); }, { passive: true });
+      }
+      document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); });
+      window.addEventListener('pagehide', stop);
+      root.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('.ml-chip')) stop(); });
+    })();
+
     var replay = function () {
       if (!root.classList.contains('ml-anim')) return;
       var vis = cards.filter(function (c) { return !c.hidden; });
