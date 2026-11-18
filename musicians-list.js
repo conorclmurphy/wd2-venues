@@ -279,9 +279,10 @@
         box.insertBefore(v, box.firstChild.nextSibling);
         v.addEventListener('playing', function () { if (cur === me) card.classList.add('ml-play'); });
         var src = VID + id + '/playlist.m3u8', go = function () { var p = v.play(); if (p && p.catch) p.catch(function () {}); };
-        if (v.canPlayType('application/vnd.apple.mpegurl')) { v.src = src; go(); return; }
         needHls(function () {
-          if (cur !== me || !window.Hls || !window.Hls.isSupported()) return;
+          if (cur !== me) return;
+          // iPhones play this kind of video themselves; everything else uses the hls.js player
+          if (!window.Hls || !window.Hls.isSupported()) { if (v.canPlayType('application/vnd.apple.mpegurl')) { v.src = src; go(); } return; }
           var h = new window.Hls({ autoStartLoad: false, maxBufferLength: 6, testBandwidth: false, capLevelToPlayerSize: false });
           me.hls = h;
           h.on(window.Hls.Events.MANIFEST_PARSED, function (ev, d) {
