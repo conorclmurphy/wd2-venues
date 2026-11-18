@@ -528,7 +528,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     // Nothing here names the musician or links out, so anonymous profiles stay anonymous.
     var onstage = cm.onstage || m.onstage || [];
     if (onstage.length) {
-      h += '<section class="vp-onstage"><h2>' + esc(m.onstageTitle || 'On stage') + '</h2><p class="vp-os-sub">' + esc(m.onstageSub || 'Real moments from recent gigs.') + '</p><div class="vp-os-w"><button type="button" class="vp-os-a vp-os-l" aria-label="Scroll clips left" disabled>‹</button><div class="vp-os">';
+      h += '<section class="vp-onstage"><h2>' + esc(m.onstageTitle || 'Recent videos') + '</h2><p class="vp-os-sub">' + esc(m.onstageSub || 'Real moments from recent gigs.') + '</p><div class="vp-os-w"><button type="button" class="vp-os-a vp-os-l" aria-label="Scroll clips left" disabled>‹</button><div class="vp-os">';
       onstage.forEach(function (x, i) {
         var mm = x.seconds ? Math.floor(x.seconds / 60) + ':' + ('0' + Math.round(x.seconds % 60)).slice(-2) : '';
         var th = x.poster ? img(x.poster, 750) : (x.base || DATA.videoBase) + x.id + '/thumbnail';
