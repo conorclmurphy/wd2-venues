@@ -104,7 +104,13 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
     + '#wd2-venues-root .wdvs-tag{color:#5b4f43!important;background:rgba(255,255,255,.55)!important;border-color:#c9bba3;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}'
     + '#wd2-venues-root .wdvs-tag-cap{border-color:#478489}'
     + '#wd2-venues-root .wdvs-card{box-shadow:0 1px 2px rgba(60,50,40,.06)}'
+    // The site menu sits on top of this section, so on the pale background it needs dark text
+    + 'body.wdvs-paper #header a,body.wdvs-paper #header .header-nav-folder-title{color:#2b2b2b!important}'
+    + 'body.wdvs-paper #header svg,body.wdvs-paper #header svg path,body.wdvs-paper #header svg use{fill:#2b2b2b!important}'
+    + 'body.wdvs-paper #header .burger-inner .top-bun,body.wdvs-paper #header .burger-inner .patty,body.wdvs-paper #header .burger-inner .bottom-bun{background-color:#2b2b2b!important}'
+    + 'body.wdvs-paper #header .header-nav-folder-content a{color:#eae6dd!important}'
     + '@media (hover:hover){#wd2-venues-root .wdvs-card.wdvs-live:hover{border-color:#478489;box-shadow:0 0 0 2px #478489,0 12px 26px rgba(60,50,40,.18)}}';
+  document.body.classList.add('wdvs-paper');
   var st = document.createElement('style');
   st.textContent = css;
   document.head.appendChild(st);
