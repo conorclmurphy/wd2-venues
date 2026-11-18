@@ -32,9 +32,9 @@
   // Paint the whole page section black so the search runs right up to the top, with no patterned strip above it
   var sec = root.closest('section');
   if (sec) {
-    sec.style.backgroundColor = '#ece6da';
+    sec.style.backgroundColor = '#5b4f43';
     var sb = sec.querySelector('.section-background');
-    if (sb) { sb.style.backgroundColor = '#ece6da'; Array.prototype.forEach.call(sb.children, function (c) { c.style.opacity = '0'; }); }
+    if (sb) { sb.style.backgroundColor = '#5b4f43'; Array.prototype.forEach.call(sb.children, function (c) { c.style.opacity = '0'; }); }
   }
 
   if (!document.getElementById('wdvs-search-fonts')) {
@@ -94,23 +94,20 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
 #wd2-venues-root .wdvs-soon-badge{margin-top:auto;font-size:12px;font-weight:600;color:var(--brass);letter-spacing:.04em;text-transform:uppercase;padding-top:6px}\
 #wd2-venues-root .wdvs-view{margin-top:auto;font-size:12.5px;font-weight:600;color:var(--sage);letter-spacing:.03em}\
 #wd2-venues-root .wdvs-empty{max-width:1600px;margin:40px auto;text-align:center;padding:40px 20px;color:#9a9484;font-size:15px}';
-  // Colours from the Wedding Day 2 brochure: warm paper, brown headings, teal accent
-  css += '#wd2-venues-root{--ink:#2b2b2b;--cream:#ece6da;--card:#f6f2ea;--sage:#478489;--sage-dark:#5b4f43;--brass:#8a7354;--line:#c9bba3}'
-    + '#wd2-venues-root .wdvs-watermark{filter:brightness(0);opacity:.045}'
-    + '#wd2-venues-root .wdvs-sub,#wd2-venues-root .wdvs-count{color:#625c53}'
-    + '#wd2-venues-root .wdvs-card-county,#wd2-venues-root .wdvs-empty{color:#7d7568}'
-    + '#wd2-venues-root .wdvs-field input[type="text"],#wd2-venues-root .wdvs-field select,#wd2-venues-root .wdvs-chip{background:#fbf9f4}'
-    + '#wd2-venues-root .wdvs-field input[type="text"]::placeholder{color:#9a8f80}'
-    + '#wd2-venues-root .wdvs-tag{color:#5b4f43!important;background:rgba(255,255,255,.55)!important;border-color:#c9bba3;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}'
-    + '#wd2-venues-root .wdvs-tag-cap{border-color:#478489}'
-    + '#wd2-venues-root .wdvs-card{box-shadow:0 1px 2px rgba(60,50,40,.06)}'
-    // The site menu sits on top of this section, so on the pale background it needs dark text
-    + 'body.wdvs-paper #header a,body.wdvs-paper #header .header-nav-folder-title{color:#2b2b2b!important}'
-    + 'body.wdvs-paper #header svg,body.wdvs-paper #header svg path,body.wdvs-paper #header svg use{fill:#2b2b2b!important}'
-    + 'body.wdvs-paper #header .burger-inner .top-bun,body.wdvs-paper #header .burger-inner .patty,body.wdvs-paper #header .burger-inner .bottom-bun{background-color:#2b2b2b!important}'
-    + 'body.wdvs-paper #header .header-nav-folder-content a{color:#eae6dd!important}'
-    + '@media (hover:hover){#wd2-venues-root .wdvs-card.wdvs-live:hover{border-color:#478489;box-shadow:0 0 0 2px #478489,0 12px 26px rgba(60,50,40,.18)}}';
-  document.body.classList.add('wdvs-paper');
+  // Colours from the Wedding Day 2 brochure: brown is the main colour, with the paper cream only as small touches
+  css += '#wd2-venues-root{--ink:#ece6da;--cream:#5b4f43;--card:#665a4d;--sage:#ece6da;--sage-dark:#ece6da;--brass:#c9bba3;--line:#7d6f5f}'
+    + '#wd2-venues-root .wdvs-watermark{filter:brightness(0) invert(1);opacity:.05}'
+    + '#wd2-venues-root .wdvs-sub,#wd2-venues-root .wdvs-count{color:#d3c8b5}'
+    + '#wd2-venues-root .wdvs-card-county,#wd2-venues-root .wdvs-empty{color:#c9bba3}'
+    + '#wd2-venues-root .wdvs-field label{color:#c9bba3}'
+    + '#wd2-venues-root .wdvs-field input[type="text"],#wd2-venues-root .wdvs-field select,#wd2-venues-root .wdvs-chip{background:#52473c}'
+    + '#wd2-venues-root .wdvs-field input[type="text"]::placeholder{color:#a89b88}'
+    + '#wd2-venues-root .wdvs-chip[aria-pressed="true"]{background:#ece6da;border-color:#ece6da;color:#5b4f43}'
+    + '#wd2-venues-root .wdvs-tag{color:#ece6da!important;background:rgba(236,230,218,.08)!important;border-color:rgba(236,230,218,.3);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}'
+    + '#wd2-venues-root .wdvs-tag-cap{border-color:rgba(236,230,218,.6)}'
+    + '#wd2-venues-root .wdvs-card-imgwrap,#wd2-venues-root .wdvs-card-img-fallback{background:#52473c}'
+    + '#wd2-venues-root .wdvs-card.wdvs-live:active,#wd2-venues-root .wdvs-card.wdvs-live.wdvs-tap{border-color:#ece6da;box-shadow:0 0 0 2px #ece6da,0 12px 30px rgba(30,24,18,.45)}#wd2-venues-root .wdvs-card.wdvs-live:focus-visible{box-shadow:0 0 0 3px #ece6da}'
+    + '@media (hover:hover){#wd2-venues-root .wdvs-card.wdvs-live:hover{border-color:#ece6da;box-shadow:0 0 0 2px #ece6da,0 12px 30px rgba(30,24,18,.45)}}';
   var st = document.createElement('style');
   st.textContent = css;
   document.head.appendChild(st);
@@ -121,7 +118,7 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
     });
   }
 
-  root.innerHTML = '<style>@keyframes wd2Shim{0%{background-position:-400px 0}100%{background-position:400px 0}}.wd2-sk{background:#ded6c6 linear-gradient(90deg,rgba(255,255,255,0) 0,rgba(255,255,255,.45) 50%,rgba(255,255,255,0) 100%) no-repeat;background-size:400px 100%;animation:wd2Shim 1.3s ease-in-out infinite;border-radius:14px}@media (prefers-reduced-motion:reduce){.wd2-sk{animation:none}}</style><div style="display:grid;gap:12px"><div class="wd2-sk" style="height:46px;border-radius:999px"></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px"><div class="wd2-sk" style="aspect-ratio:3/4"></div><div class="wd2-sk" style="aspect-ratio:3/4"></div><div class="wd2-sk" style="aspect-ratio:3/4"></div><div class="wd2-sk" style="aspect-ratio:3/4"></div></div></div>';
+  root.innerHTML = '<style>@keyframes wd2Shim{0%{background-position:-400px 0}100%{background-position:400px 0}}.wd2-sk{background:#665a4d linear-gradient(90deg,rgba(236,230,218,0) 0,rgba(236,230,218,.1) 50%,rgba(236,230,218,0) 100%) no-repeat;background-size:400px 100%;animation:wd2Shim 1.3s ease-in-out infinite;border-radius:14px}@media (prefers-reduced-motion:reduce){.wd2-sk{animation:none}}</style><div style="display:grid;gap:12px"><div class="wd2-sk" style="height:46px;border-radius:999px"></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px"><div class="wd2-sk" style="aspect-ratio:3/4"></div><div class="wd2-sk" style="aspect-ratio:3/4"></div><div class="wd2-sk" style="aspect-ratio:3/4"></div><div class="wd2-sk" style="aspect-ratio:3/4"></div></div></div>';
 
   fetch(DATA_URL, { cache: 'no-cache' })
     .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
