@@ -366,7 +366,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     + '#musician-page .vp-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}#musician-page .vp-pair .vp-video{max-width:none!important}'
     + '@container (max-width:640px){#musician-page .vp-split.vp-split-pair{grid-template-columns:1fr}#musician-page .vp-pair{gap:10px}}'
     + '@media (max-width:760px){#musician-page .vp-split.vp-split-pair{grid-template-columns:1fr}}'
-    + '@container (max-width:480px){#musician-page .vp-c-t{display:none}}'
+    + '#musician-page .vp-vwrap{container-type:inline-size}@container (max-width:300px){#musician-page .vp-c-t{display:none}#musician-page .vp-ctl{gap:4px;padding-left:8px;padding-right:6px}#musician-page .vp-ctl button{width:28px;height:28px}#musician-page .vp-ctl .vp-c-pp{width:32px;height:32px;padding:8px}}'
     // "On stage" full-screen player in the site colours
     + '#musician-page .vp-oslb{background:rgba(23,29,29,.97);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);gap:20px}'
     + '#musician-page .vp-oslb .vp-os-fr{position:relative;flex:none;height:min(84vh,84dvh,calc((100vw - 160px) * 16 / 9));aspect-ratio:9/16;border-radius:var(--vp-radius);overflow:hidden;background:#000;border:1px solid #364242;box-shadow:0 20px 60px rgba(0,0,0,.5)}'
