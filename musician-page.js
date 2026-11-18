@@ -51,6 +51,13 @@
     });
     return best === -1 ? top : best;
   }
+  function vpFull(wrap, el, land) {
+    if (document.fullscreenElement || document.webkitFullscreenElement) return;
+    var done = function () { if (land) try { screen.orientation.lock('landscape').catch(function () {}); } catch (e) {} };
+    if (wrap.requestFullscreen) wrap.requestFullscreen().then(done).catch(function () { if (el.webkitEnterFullscreen) el.webkitEnterFullscreen(); });
+    else if (wrap.webkitRequestFullscreen) { wrap.webkitRequestFullscreen(); done(); }
+    else if (el.webkitEnterFullscreen) el.webkitEnterFullscreen();
+  }
   function vpTime(t) { t = Math.max(0, Math.floor(t || 0)); return Math.floor(t / 60) + ':' + ('0' + (t % 60)).slice(-2); }
   function vpCtl(wrap, el, opts) {
     opts = opts || {};
@@ -97,8 +104,7 @@
     if (fu) fu.addEventListener('click', function (e) {
       e.stopPropagation();
       if (document.fullscreenElement) { document.exitFullscreen(); return; }
-      if (wrap.requestFullscreen) wrap.requestFullscreen().catch(function () {});
-      else if (el.webkitEnterFullscreen) el.webkitEnterFullscreen();
+      vpFull(wrap, el, !!wrap.closest('.vp-crop'));
     });
     icons(); sync();
   }
@@ -366,6 +372,11 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     + '#musician-page .vp-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}#musician-page .vp-pair .vp-video{max-width:none!important}'
     + '@container (max-width:640px){#musician-page .vp-split.vp-split-pair{grid-template-columns:1fr}#musician-page .vp-pair{gap:10px}}'
     + '@media (max-width:760px){#musician-page .vp-split.vp-split-pair{grid-template-columns:1fr}}'
+    + '#musician-page .vp-crop video{aspect-ratio:9/16!important;object-fit:cover!important;width:100%;height:auto}'
+    + '#musician-page .vp-crop.vp-open video{object-fit:contain!important;background:#000}'
+    + '#musician-page .vp-crop .vp-vwrap:fullscreen video,#musician-page .vp-crop .vp-vwrap:-webkit-full-screen video{aspect-ratio:auto!important;object-fit:contain!important;height:100%}'
+    + '#musician-page .vp-crop .vp-vwrap:after{content:"";position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:50%;background:rgba(15,20,20,.6) url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath fill=%27none%27 stroke=%27%23eae6dd%27 stroke-width=%272%27 stroke-linecap=%27round%27 d=%27M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5%27/%3E%3C/svg%3E") center/14px no-repeat;pointer-events:none}'
+    + '#musician-page .vp-crop.vp-open .vp-vwrap:after{display:none}'
     + '#musician-page .vp-vwrap{container-type:inline-size}@container (max-width:300px){#musician-page .vp-c-t{display:none}#musician-page .vp-ctl{gap:4px;padding-left:8px;padding-right:6px}#musician-page .vp-ctl button{width:28px;height:28px}#musician-page .vp-ctl .vp-c-pp{width:32px;height:32px;padding:8px}}'
     // "On stage" full-screen player in the site colours
     + '#musician-page .vp-oslb{background:rgba(23,29,29,.97);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);gap:20px}'
@@ -438,10 +449,10 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     }
 
     var allVideos = [];
-    function videoTag(x, label) {
+    function videoTag(x, label, crop) {
       var mm = x.seconds ? Math.floor(x.seconds / 60) + ':' + ('0' + Math.round(x.seconds % 60)).slice(-2) : '';
       allVideos.push(x);
-      return '<figure class="vp-video' + (x.shape === 'tall' ? ' vp-tall' : '') + '"><div class="vp-vwrap"><video data-v="' + (allVideos.length - 1) + '" playsinline preload="none" poster="' + (x.poster ? img(x.poster, 1500) : DATA.videoBase + x.id + '/thumbnail') + '" aria-label="Video of ' + esc(label) + '"></video>'
+      return '<figure class="vp-video' + (x.shape === 'tall' ? ' vp-tall' : '') + (crop ? ' vp-tall vp-crop' : '') + '"><div class="vp-vwrap"><video data-v="' + (allVideos.length - 1) + '" playsinline preload="none" poster="' + (x.poster ? img(x.poster, 1500) : DATA.videoBase + x.id + '/thumbnail') + '" aria-label="Video of ' + esc(label) + '"></video>'
         + '<button type="button" class="vp-play" aria-label="Play video of ' + esc(label) + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 4l15 8-15 8z"/></svg></button></div><figcaption>' + esc(x.title || (m.hideName ? 'Live video' : label + ' live')) + (mm ? ' · ' + mm : '') + '</figcaption></figure>';
     }
     function galleryTag(list, label) {
@@ -468,8 +479,15 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       + extras.concat(m.tags || []).map(function (x) { return '<span class="vp-tag">' + esc(x) + '</span>'; }).join('') + '</div>';
     var aboutText = '<h2>' + esc(m.aboutTitle || ('About ' + m.name)) + '</h2>' + (bio.length ? bio.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') : '<p>' + esc(m.name) + ' is one of the live musicians on the Wedding Day 2 roster. Get in touch to hear more and check availability for your date.</p>') + tags;
     // Two portrait videos sit side by side next to the bio instead of one there and one under "More videos"
-    var pair = vids.length >= 2 && vids[0].shape === 'tall' && vids[1].shape === 'tall';
-    if (pair) h += '<section class="vp-about vp-split vp-split-pair"><div>' + aboutText + '</div><div class="vp-pair">' + videoTag(vids[0], m.name) + videoTag(vids[1], m.name) + '</div></section>';
+    // On phones, a landscape + portrait pair also sits side by side: the landscape one is shown as a portrait crop
+    // and opens full screen (in landscape) when played.
+    var narrow = (window.innerWidth || 1000) <= 760;
+    var mix = narrow && vids.length >= 2 && (vids[0].shape === 'tall') !== (vids[1].shape === 'tall');
+    var pair = vids.length >= 2 && ((vids[0].shape === 'tall' && vids[1].shape === 'tall') || mix);
+    if (pair) {
+      var pv = mix ? (vids[0].shape === 'tall' ? [vids[1], vids[0]] : [vids[0], vids[1]]) : [vids[0], vids[1]];
+      h += '<section class="vp-about vp-split vp-split-pair"><div>' + aboutText + '</div><div class="vp-pair">' + pv.map(function (x) { return videoTag(x, m.name, x.shape !== 'tall'); }).join('') + '</div></section>';
+    }
     else if (vids.length) h += '<section class="vp-about vp-split' + (vids[0].shape === 'tall' ? ' vp-split-tall' : '') + '"><div>' + aboutText + '</div>' + videoTag(vids[0], m.name) + '</section>';
     else h += '<section class="vp-about">' + aboutText + '</section>';
 
@@ -1415,7 +1433,17 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           if (!el || el.getAttribute('data-ready')) return;  // page re-drawn or already set up
           el.setAttribute('data-ready', '1');
           var wrap = el.parentNode, btn = wrap.querySelector('.vp-play');
-          btn.addEventListener('click', function () { var pr = el.play(); if (pr && pr.catch) pr.catch(function () {}); });
+          var crop = wrap.closest('.vp-crop');
+          btn.addEventListener('click', function () {
+            var pr = el.play(); if (pr && pr.catch) pr.catch(function () {});
+            if (crop) vpFull(wrap, el, true);
+          });
+          if (crop) {
+            el.addEventListener('play', function () { crop.classList.add('vp-open'); });
+            var shut = function () { if (!document.fullscreenElement && !document.webkitFullscreenElement) { crop.classList.remove('vp-open'); el.pause(); } };
+            document.addEventListener('fullscreenchange', shut); document.addEventListener('webkitfullscreenchange', shut);
+            el.addEventListener('webkitendfullscreen', function () { crop.classList.remove('vp-open'); el.pause(); });
+          }
           vpCtl(wrap, el);
           el.addEventListener('ended', function () { wrap.classList.remove('vp-playing'); });
           if (window.Hls && window.Hls.isSupported()) {
