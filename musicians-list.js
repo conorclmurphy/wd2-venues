@@ -74,7 +74,15 @@
     '#musicians-list .ml-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 0 auto;justify-content:flex-end}',
     '#musicians-list .ml-chip{font:inherit;font-size:13px;cursor:pointer;padding:6px 13px;border-radius:999px;color:#eae6dd;background:rgba(234,230,221,.08);-webkit-backdrop-filter:blur(12px) saturate(140%);backdrop-filter:blur(12px) saturate(140%);border:1px solid rgba(234,230,221,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.12);transition:background .2s,border-color .2s,color .2s}',
     '#musicians-list .ml-chip:hover{background:rgba(234,230,221,.16)}',
-    '#musicians-list .ml-chip.on{background:rgba(61,194,187,.28);border-color:#3dc2bb;color:#fff}',
+    '#musicians-list .ml-chip.on{background:#3dc2bb;border-color:#3dc2bb;color:#142020;font-weight:600;box-shadow:0 0 0 3px rgba(61,194,187,.25)}',
+    '#musicians-list .ml-chip.on:before{content:"\\2713";margin-right:7px;font-weight:700}',
+    '#musicians-list .ml-chip{font-size:15px;padding:9px 17px}',
+    '#musicians-list .ml-pick{display:flex;flex-direction:column;align-items:flex-end;gap:8px;margin-left:auto}',
+    '#musicians-list .ml-ask{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-muted)}',
+    '#musicians-list .ml-count{margin:8px 0 0;font-size:15px;color:var(--c-muted)}#musicians-list .ml-count strong{color:var(--c-ink);font-weight:600}',
+    '#musicians-list .ml-tag{transition:background .25s,color .25s,border-color .25s}',
+    '#musicians-list .ml-tag.ml-hit{background:#3dc2bb;border-color:#3dc2bb;color:#142020;font-weight:600;-webkit-backdrop-filter:none;backdrop-filter:none}',
+    '@media (max-width:700px){#musicians-list .ml-pick{align-items:flex-start;margin-left:0;width:100%}#musicians-list .ml-chip{font-size:14px;padding:8px 14px}#musicians-list .ml-count{font-size:13.5px;margin-top:4px}}',
     '#musicians-list .ml-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px 18px}',
     '#musicians-list .ml-card,#musicians-list .ml-card.wd2-hover,#musicians-list .ml-card.wd2-hover:hover{display:grid;gap:8px;text-decoration:none!important;color:var(--c-ink)!important;box-shadow:none!important;transform:none!important;border-radius:0!important;overflow:visible!important}',
     '#musicians-list .ml-card[hidden]{display:none}',
@@ -131,7 +139,7 @@
     '#musicians-list .ml-pop-x{position:absolute;top:16px;right:18px;width:42px;height:42px;border-radius:50%;border:0;background:rgba(234,230,221,.12);color:#eae6dd;font-size:24px;cursor:pointer}',
     '@media (max-width:760px){#musicians-list .ml-x{grid-template-columns:1fr;gap:12px}#musicians-list .ml-xc{min-height:170px}#musicians-list .ml-xg{min-height:0}#musicians-list .ml-pop .ml-xc{min-height:120px}#musicians-list .ml-xt{font-size:22px}}',
     '@media (max-width:1000px){#musicians-list .ml-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}',
-    '@media (max-width:700px){#musicians-list{padding-top:0}#musicians-list .ml-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 12px}#musicians-list .ml-name{font-size:19px;bottom:9px;left:11px}#musicians-list .ml-img img.ml-wm{width:24px;inset:auto 9px 9px auto}#musicians-list .ml-more{display:none}#musicians-list .ml-tag{font-size:9.5px;padding:3px 6px}#musicians-list .ml-tags{top:7px;left:7px;right:7px;gap:3px}#musicians-list .ml-top{gap:10px 14px;margin-bottom:14px}#musicians-list .ml-from strong{font-size:23px}#musicians-list .ml-from span{font-size:11.5px}#musicians-list .ml-chips{margin:0;justify-content:flex-start;width:100%}#musicians-list .ml-intro{font-size:13.5px;margin-top:6px}#musicians-list .ml-chip{font-size:12.5px;padding:6px 12px}}'
+    '@media (max-width:700px){#musicians-list{padding-top:0}#musicians-list .ml-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 12px}#musicians-list .ml-name{font-size:19px;bottom:9px;left:11px}#musicians-list .ml-img img.ml-wm{width:24px;inset:auto 9px 9px auto}#musicians-list .ml-more{display:none}#musicians-list .ml-tag{font-size:9.5px;padding:3px 6px}#musicians-list .ml-tags{top:7px;left:7px;right:7px;gap:3px}#musicians-list .ml-top{gap:10px 14px;margin-bottom:14px}#musicians-list .ml-from strong{font-size:23px}#musicians-list .ml-from span{font-size:11.5px}#musicians-list .ml-chips{margin:0;justify-content:flex-start;width:100%}#musicians-list .ml-intro{font-size:13.5px;margin-top:6px}}'
   ].join('');
   document.head.appendChild(st);
 
@@ -195,21 +203,22 @@
     var SHARPER = { cathal: 1500, alan: 1500 }; // wide photos cropped into tall cards, so they need the bigger version
     var size = 500; // card-sized photos (about 1.4MB for the whole page, instead of 8MB+)
     var DJC = D.djCard || {}; // same DJ card as on the musician pages
-    var filters = [['all', 'All musicians'], ['ceremony', L.ceremony || 'Ceremony & drinks reception'], ['day2', L.day2 || 'Day 2'], ['afterdinner', L.afterdinner || 'After dinner']];
+    var filters = [['all', 'Any'], ['ceremony', L.ceremony || 'Ceremony & drinks reception'], ['day2', L.day2 || 'Day 2'], ['afterdinner', L.afterdinner || 'After dinner']];
     if (only) filters = [['all', 'All musicians'], ['day2', 'Also plays ' + (L.day2 || 'Day 2')], ['afterdinner', 'Also plays ' + (L.afterdinner || 'after dinner').toLowerCase()], ['duo', 'Duo']];
     var h = '<header class="ml-hero"><img src="' + IMG + HERO[0] + '?format=2500w" alt="" style="object-position:' + HERO[1] + '" fetchpriority="high">'
       + '<div class="ml-hero-in"><p class="ml-eye">' + esc(EYE) + '</p><h1>' + esc(H1) + '</h1><p class="ml-lead">' + esc(LEAD) + '</p></div></header>'
-      + '<div class="ml-wrap"><div class="ml-top"><div class="ml-head"><h2>Pick your musician</h2></div>'
-      + '<div class="ml-chips">' + filters.map(function (f, i) { return '<button type="button" class="ml-chip' + (i ? '' : ' on') + '" data-f="' + f[0] + '">' + esc(f[1]) + '</button>'; }).join('') + '</div></div><div class="ml-grid">';
+      + '<div class="ml-wrap"><div class="ml-top"><div class="ml-head"><h2>Pick your musician</h2><p class="ml-count" aria-live="polite"></p></div>'
+      + '<div class="ml-pick"><span class="ml-ask">' + (only ? 'Show' : 'What do you need music for?') + '</span>'
+      + '<div class="ml-chips">' + filters.map(function (f, i) { return '<button type="button" class="ml-chip' + (i ? '' : ' on') + '" data-f="' + f[0] + '" aria-pressed="' + (i ? 'false' : 'true') + '">' + esc(f[1]) + '</button>'; }).join('') + '</div></div></div><div class="ml-grid">';
     list.forEach(function (o, i) {
       var lp = LIST_PHOTOS[o.slug];
       var ev = ORDER.filter(function (e) { return o.events.indexOf(e) !== -1; });
-      var tags = ev.filter(function (e) { return e !== only; }).map(function (e) { return e === 'ceremony' ? 'Ceremony' : (L[e] || e); });
-      if (only && o.duo) tags.push('Duo');
+      var tags = ev.filter(function (e) { return e !== only; }).map(function (e) { return [e, e === 'ceremony' ? 'Ceremony' : (L[e] || e)]; });
+      if (only && o.duo) tags.push(['duo', 'Duo']);
       var p = lp ? lp[0] : (o.cardPhoto || o.photo);
       h += '<a class="ml-card" data-slug="' + esc(o.slug) + '" href="' + esc(o.url + (only ? '?for=' + only : '')) + '" data-tags="' + esc(ev.concat(o.duo ? ['duo'] : []).concat(o.tradBand ? ['tradBand'] : []).join(' ')) + '">'
         + '<div class="ml-img"><img src="' + esc(/^https?:/.test(p) ? p : D.imageBase + p + '?format=' + (SHARPER[o.slug] || size) + 'w') + '" alt="' + esc(o.hideName ? 'Wedding musician' : o.name) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async"'
-        + ' style="object-position:' + esc(lp ? lp[1] : (o.cardPosition || o.photoPosition || 'center')) + '"><span class="ml-tags">' + tags.map(function (t) { return '<span class="ml-tag">' + esc(t) + '</span>'; }).join('') + '</span>' + WM + (o.hideName ? '' : '<span class="ml-name">' + esc(o.name) + '</span>') + '<span class="ml-more">View profile →</span></div></a>';
+        + ' style="object-position:' + esc(lp ? lp[1] : (o.cardPosition || o.photoPosition || 'center')) + '"><span class="ml-tags">' + tags.map(function (t) { return '<span class="ml-tag" data-e="' + t[0] + '">' + esc(t[1]) + '</span>'; }).join('') + '</span>' + WM + (o.hideName ? '' : '<span class="ml-name">' + esc(o.name) + '</span>') + '<span class="ml-more">View profile →</span></div></a>';
     });
     h += '</div><details class="ml-about"><summary>' + esc(ABOUT) + '</summary><p>' + esc(INTRO) + '</p></details><div class="ml-more3"><h2>Explore more</h2><div class="ml-x">'
       + '<a class="ml-xk ml-venue" href="/venues"><span class="ml-xi"></span><strong>Our venues</strong><span class="ml-xp">Find the perfect place for your Day 2</span></a>'
@@ -272,10 +281,21 @@
       claim();
     }).catch(function () {});
 
+    // Say plainly what is being shown, and light up the matching tag on each card
+    var FL = {}; filters.forEach(function (f) { FL[f[0]] = f[1]; });
+    var tell = function () {
+      var on = root.querySelector('.ml-chip.on'), f = on ? on.getAttribute('data-f') : 'all';
+      var n = root.querySelectorAll('.ml-card:not([hidden])').length, who = n + ' musician' + (n === 1 ? '' : 's');
+      var txt = f === 'all' ? 'Showing all ' + who : only ? who + ': ' + FL[f].charAt(0).toLowerCase() + FL[f].slice(1) : who + ' for <strong>' + esc(FL[f]) + '</strong>';
+      root.querySelector('.ml-count').innerHTML = txt;
+      Array.prototype.forEach.call(root.querySelectorAll('.ml-tag'), function (t) { t.classList.toggle('ml-hit', f !== 'all' && t.getAttribute('data-e') === f); });
+    };
+    tell();
     Array.prototype.forEach.call(root.querySelectorAll('.ml-chip'), function (c) {
       c.addEventListener('click', function () {
         var f = c.getAttribute('data-f');
-        Array.prototype.forEach.call(root.querySelectorAll('.ml-chip'), function (x) { x.classList.toggle('on', x === c); });
+        Array.prototype.forEach.call(root.querySelectorAll('.ml-chip'), function (x) { x.classList.toggle('on', x === c); x.setAttribute('aria-pressed', x === c ? 'true' : 'false'); });
+        setTimeout(tell, 0);
         // Smooth shuffle: note where every card is, apply the filter, then slide each card from its old spot to its new one
         var smooth = root.classList.contains('ml-anim') && !!root.animate, was = [];
         if (smooth) cards.forEach(function (card) { was.push(card.hidden ? null : card.getBoundingClientRect()); });
