@@ -216,7 +216,7 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
       return venueFood === filter || venueFood === 'both';
     }
 
-    function render() {
+    function render(still) {  // still = true while typing or dragging the slider, so the cards don't re-animate on every change
       var q = state.search.trim().toLowerCase();
       var results = VENUES.filter(function (v) {
         return (!q || v.name.toLowerCase().indexOf(q) !== -1) &&
@@ -244,15 +244,15 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
           ? '<a class="wdvs-card wdvs-live" href="' + esc(v.url) + '">' + inner + '</a>'
           : '<div class="wdvs-card wdvs-soon">' + inner + '</div>';
       }).join('');
-      if (cardIO) Array.prototype.forEach.call(els.grid.querySelectorAll('.wdvs-card'), function (c) { c.classList.add('wdvs-pre'); cardIO.observe(c); });
+      if (cardIO && still !== true) Array.prototype.forEach.call(els.grid.querySelectorAll('.wdvs-card'), function (c) { c.classList.add('wdvs-pre'); cardIO.observe(c); });
     }
 
-    els.search.addEventListener('input', function (e) { state.search = e.target.value; render(); });
+    els.search.addEventListener('input', function (e) { state.search = e.target.value; render(true); });
     els.county.addEventListener('change', function (e) { state.county = e.target.value; render(); });
     els.capacity.addEventListener('input', function (e) {
       state.minCapacity = Number(e.target.value);
       els.capacityVal.textContent = state.minCapacity === 0 ? 'Any' : state.minCapacity + '+';
-      render();
+      render(true);
     });
     els.chips.forEach(function (chip) {
       chip.addEventListener('click', function () {
