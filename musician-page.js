@@ -1171,8 +1171,11 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         v.poster = x.poster ? img(x.poster, 1500) : (x.base || DATA.videoBase) + x.id + '/thumbnail';
         var go = function () { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); };
         if (window.Hls && window.Hls.isSupported()) {
-          hls = new window.Hls({ abrEwmaDefaultEstimate: 6000000, capLevelToPlayerSize: false, maxBufferLength: 10, testBandwidth: false });
-          hls.on(window.Hls.Events.MANIFEST_PARSED, function (ev, d) { hls.startLevel = vpStartLevel(d.levels || hls.levels); });
+          hls = new window.Hls({ autoStartLoad: false, abrEwmaDefaultEstimate: 6000000, capLevelToPlayerSize: false, maxBufferLength: 10, testBandwidth: false });
+          (function (hls) {
+            hls.on(window.Hls.Events.MANIFEST_PARSED, function (ev, d) { hls.startLevel = vpStartLevel(d.levels || hls.levels); hls.startLoad(-1); });
+            hls.on(window.Hls.Events.ERROR, function (ev, d) { if (!d.fatal) return; if (d.type === window.Hls.ErrorTypes.MEDIA_ERROR && !hls._rec) { hls._rec = 1; hls.recoverMediaError(); } else if (d.type === window.Hls.ErrorTypes.NETWORK_ERROR) hls.startLoad(); });
+          })(hls);
           hls.loadSource(src); hls.attachMedia(v); go();
         } else { v.src = src; go(); }
       }
@@ -1484,11 +1487,15 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           if (window.Hls && window.Hls.isSupported()) {
             var hls = new window.Hls({ autoStartLoad: false, abrEwmaDefaultEstimate: 6000000, capLevelToPlayerSize: false, maxBufferLength: 10, startFragPrefetch: true, testBandwidth: false });
             // Always start in the top quality (1080p), on phones too, instead of letting the phone pick the low 360p version first
-            hls.on(window.Hls.Events.MANIFEST_PARSED, function (ev, d) { hls.startLevel = vpStartLevel(d.levels || hls.levels); });
+            // Loading must only begin once the video's list of qualities has arrived and the starting quality is set;
+            // starting earlier (e.g. a video already on screen when the page opens) left the player stuck.
+            var parsed = false, wanted = false;
+            hls.on(window.Hls.Events.MANIFEST_PARSED, function (ev, d) { hls.startLevel = vpStartLevel(d.levels || hls.levels); parsed = true; if (wanted) hls.startLoad(-1); });
+            hls.on(window.Hls.Events.ERROR, function (ev, d) { if (!d.fatal) return; if (d.type === window.Hls.ErrorTypes.MEDIA_ERROR && !hls._rec) { hls._rec = 1; hls.recoverMediaError(); } else if (d.type === window.Hls.ErrorTypes.NETWORK_ERROR) hls.startLoad(); });
             try { el.disableRemotePlayback = true; } catch (e) {}  // lets iPhones (iOS 17.1+) use this player rather than their own
             hls.loadSource(src); hls.attachMedia(el);
             // Start buffering the first few seconds as the video scrolls near the screen, so it plays straight away when tapped
-            var started = false, kick = function () { if (!started) { started = true; hls.startLoad(); } };
+            var started = false, kick = function () { if (!started) { started = true; wanted = true; if (parsed) hls.startLoad(-1); } };
             el.addEventListener('play', kick, { once: true });
             if ('IntersectionObserver' in window) {
               var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { kick(); io.disconnect(); } }); }, { rootMargin: '300px 0px' });
