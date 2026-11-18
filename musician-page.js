@@ -1248,10 +1248,34 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
               if (k) fetch(abs(k[1], pu)).catch(nop);
               if (!seg || !br0(pl)) return null;
               var b0 = br0(pl), o = +(b0[2] || 0);
-              return fetch(abs(seg.trim(), pu), { headers: { Range: 'bytes=' + o + '-' + (o + +b0[1] - 1) } }).then(function (r) { return r.arrayBuffer(); }).catch(nop);
+              var su = abs(seg.trim(), pu);
+              // keep the piece in memory and hand it straight to the player when that clip is opened
+              return (segCache[su.split('?')[0] + '|' + o + '-' + (o + +b0[1])] = fetch(su, { headers: { Range: 'bytes=' + o + '-' + (o + +b0[1] - 1) } }).then(function (r) { return r.ok ? r.arrayBuffer() : null; }).catch(function () { return null; }));
             }).catch(nop);
           }));
         }).catch(nop);
+      }
+      var segCache = {}, LoaderC = null;
+      function cachedLoader() {
+        if (LoaderC) return LoaderC;
+        var Base = window.Hls.DefaultConfig.loader;
+        LoaderC = class extends Base {
+          load(context, config, callbacks) {
+            var self = this, hit = segCache[String(context.url).split('?')[0] + '|' + context.rangeStart + '-' + context.rangeEnd];
+            if (!hit) return super.load(context, config, callbacks);
+            self._off = false;
+            hit.then(function (buf) {
+              if (self._off) return;
+              if (!buf) return Base.prototype.load.call(self, context, config, callbacks);
+              var st = self.stats, now = performance.now(), ms = buf.byteLength * 8 / 6000;
+              st.loading.start = now - ms; st.loading.first = now - ms * 0.75; st.loading.end = now; st.loaded = st.total = buf.byteLength;
+              callbacks.onSuccess({ url: context.url, data: buf.slice(0) }, st, context, null);
+            });
+          }
+          abort() { this._off = true; super.abort(); }
+          destroy() { this._off = true; super.destroy(); }
+        };
+        return LoaderC;
       }
       // each clip is one file read in pieces, so only the first piece is asked for (the same request the player makes)
       function br0(pl) { return pl.match(/#EXT-X-BYTERANGE:(\d+)(?:@(\d+))?/); }
@@ -1271,7 +1295,9 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         v.poster = x.poster ? img(x.poster, 1500) : (x.base || DATA.videoBase) + x.id + '/thumbnail';
         var go = function () { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); };
         if (window.Hls && window.Hls.isSupported()) {
-          hls = new window.Hls({ autoStartLoad: false, startPosition: 0, abrEwmaDefaultEstimate: 6000000, capLevelToPlayerSize: false, maxBufferLength: 10, testBandwidth: false });
+          var hcfg = { autoStartLoad: false, startPosition: 0, abrEwmaDefaultEstimate: 6000000, capLevelToPlayerSize: false, maxBufferLength: 10, testBandwidth: false };
+          try { hcfg.fLoader = cachedLoader(); } catch (e) {}
+          hls = new window.Hls(hcfg);
           (function (hls) {
             hls.on(window.Hls.Events.MANIFEST_PARSED, function (ev, d) { hls.startLevel = vpStartLevel(d.levels || hls.levels); hls.startLoad(0); });
             hls.on(window.Hls.Events.ERROR, function (ev, d) { if (!d.fatal) return; if (d.type === window.Hls.ErrorTypes.MEDIA_ERROR && !hls._rec) { hls._rec = 1; hls.recoverMediaError(); } else if (d.type === window.Hls.ErrorTypes.NETWORK_ERROR) hls.startLoad(); });
