@@ -42,6 +42,15 @@
     '#musicians-list .ml-from{display:inline-flex;align-items:baseline;gap:8px;margin:0;padding:0;color:var(--c-cyan)}',
     '#musicians-list .ml-from span{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-cyan);opacity:.8}',
     '#musicians-list .ml-from strong{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:28px;line-height:1}',
+    '#musicians-list .ml-hero{position:relative;z-index:0;display:flex;align-items:flex-end;min-height:min(62vh,540px);margin:-4px 0 26px;overflow:hidden;background:#000;border-bottom:1px solid rgba(234,230,221,.22)}',
+    '#musicians-list .ml-hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}',
+    '#musicians-list .ml-hero:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.6) 45%,rgba(0,0,0,.35) 100%),linear-gradient(180deg,rgba(0,0,0,.6) 0%,rgba(0,0,0,.25) 35%,rgba(0,0,0,.75) 100%)}',
+    '#musicians-list .ml-hero-in{position:relative;z-index:2;width:100%;padding:48px max(16px,4vw) 40px}',
+    '#musicians-list .ml-hero .ml-eye{font-size:12px;letter-spacing:.18em;font-weight:500;color:var(--c-ink);margin:0}',
+    '#musicians-list .ml-hero h1{font-size:clamp(40px,7vw,76px);line-height:1.02;margin:10px 0 14px;color:var(--c-ink)}',
+    '#musicians-list .ml-hero p.ml-lead{margin:0;max-width:560px;font-size:17px;line-height:1.55;color:rgba(234,230,221,.88);text-shadow:0 1px 8px rgba(0,0,0,.55)}',
+    '#musicians-list .ml-top h2{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:clamp(22px,2.6vw,30px);line-height:1.1;margin:0;color:var(--c-cyan)}',
+    '@media (max-width:700px){#musicians-list .ml-hero{min-height:330px;margin-bottom:16px}#musicians-list .ml-hero-in{padding-top:24px;padding-bottom:22px}#musicians-list .ml-hero h1{font-size:40px;margin-bottom:10px}#musicians-list .ml-hero p.ml-lead{font-size:14.5px}}',
     '#musicians-list .ml-top{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;margin:0 0 22px}',
     '#musicians-list .ml-head{flex:1 1 420px;min-width:0}',
     '#musicians-list .ml-intro{margin:8px 0 0;max-width:720px;font-size:15px;line-height:1.55;color:var(--c-muted)}',
@@ -131,7 +140,15 @@
     andrew: ['5a74b1f4-88b4-4ac1-b385-dc9f339e8bc5/The+Waterfront+Hall+on+Friday+night+supporting+Bonnie+Tyler.+Surreal+experience+to+say+the+least.jpg', '50% 50%']
   };
   var ORDER_SLUGS = Object.keys(LIST_PHOTOS);
-  var H1 = only === 'ceremony' ? 'Ceremony & Drinks Reception Musicians' : 'Wedding Musicians Across Ireland';
+  var H1 = only === 'ceremony' ? 'Ceremony & Drinks Reception' : 'Solo Musicians';
+  var EYE = only === 'ceremony' ? 'Wedding Day 2 \u00B7 Ceremony musicians' : 'Wedding Day 2 \u00B7 Wedding musicians across Ireland';
+  var LEAD = only === 'ceremony'
+    ? 'Live music for walking down the aisle, signing the register and the drinks reception afterwards. Watch their videos, then check who\u2019s free on your date.'
+    : 'Hand-picked singer-guitarists for your Day 2, after-dinner set or ceremony. Watch their videos, then check who\u2019s free on your date.';
+  // Wide photo behind the heading, darkened so the text reads
+  var HERO = only === 'ceremony'
+    ? ['0a59b978-2181-4711-b4a2-2fc6cb3515cf/musician-t-orlaith-2.jpg', '80% 40%']
+    : ['bdca61da-023e-41a9-85f2-bca8ec528a2c/A+few+from+Gorey+Market+Festival+during+summer%2C+never+got+around+to+posting+but+better+late+tha.jpg', 'center 35%'];
   var ABOUT = only === 'ceremony' ? 'About our ceremony musicians' : 'About our musicians';
   var INTRO = only === 'ceremony'
     ? 'Find live musicians for your wedding ceremony and drinks reception, in Dublin and across Ireland. Browse performer profiles, then tell Wedding Day 2 your date, venue and music preferences. We’ll check availability and help you find suitable options.'
@@ -164,7 +181,9 @@
     var DJC = D.djCard || {}; // same DJ card as on the musician pages
     var filters = [['all', 'All musicians'], ['ceremony', L.ceremony || 'Ceremony & drinks reception'], ['day2', L.day2 || 'Day 2'], ['afterdinner', L.afterdinner || 'After dinner']];
     if (only) filters = [['all', 'All musicians'], ['day2', 'Also plays ' + (L.day2 || 'Day 2')], ['afterdinner', 'Also plays ' + (L.afterdinner || 'after dinner').toLowerCase()], ['duo', 'Duo']];
-    var h = '<div class="ml-wrap"><div class="ml-top"><div class="ml-head"><h1>' + esc(H1) + '</h1></div>'
+    var h = '<header class="ml-hero"><img src="' + IMG + HERO[0] + '?format=2500w" alt="" style="object-position:' + HERO[1] + '" fetchpriority="high">'
+      + '<div class="ml-hero-in"><p class="ml-eye">' + esc(EYE) + '</p><h1>' + esc(H1) + '</h1><p class="ml-lead">' + esc(LEAD) + '</p></div></header>'
+      + '<div class="ml-wrap"><div class="ml-top"><div class="ml-head"><h2>Pick your musician</h2></div>'
       + '<div class="ml-chips">' + filters.map(function (f, i) { return '<button type="button" class="ml-chip' + (i ? '' : ' on') + '" data-f="' + f[0] + '">' + esc(f[1]) + '</button>'; }).join('') + '</div></div><div class="ml-grid">';
     list.forEach(function (o, i) {
       var lp = LIST_PHOTOS[o.slug];
@@ -185,6 +204,8 @@
       + DJS.map(function (d) { return '<a class="ml-xc" href="' + d[1] + '"><img src="' + d[2] + '" alt="" loading="lazy">' + WM + '<span class="ml-xt">' + d[0] + '</span></a>'; }).join('')
       + '</div></div></div>';
     root.innerHTML = h;
+    bleed();
+    window.addEventListener('resize', bleed);
 
     // Stop the site's photo-link script from taking over these links and photos
     var claim = function () { Array.prototype.forEach.call(root.querySelectorAll('a, img, button'), function (el) { el.wd2Wired = true; }); };
@@ -221,6 +242,20 @@
         });
       });
     });
+  }
+
+  // Stretch the photo banner edge to edge and up behind the site menu, like the other pages
+  function bleed() {
+    var hero = root.querySelector('.ml-hero');
+    if (!hero) return;
+    hero.style.marginLeft = hero.style.marginRight = hero.style.marginTop = hero.style.paddingTop = '';
+    var r = root.getBoundingClientRect(), cs = getComputedStyle(root);
+    var top = r.top + (window.pageYOffset || 0), vw = document.documentElement.clientWidth;
+    var pl = parseFloat(cs.paddingLeft) || 0, pr = parseFloat(cs.paddingRight) || 0;
+    hero.style.marginLeft = -(r.left + pl) + 'px';
+    hero.style.marginRight = -(vw - r.right + pr) + 'px';
+    hero.style.marginTop = -(top + (parseFloat(cs.paddingTop) || 0)) + 'px';
+    hero.style.paddingTop = top + 'px';
   }
 
   // Paint the whole Squarespace section black too, so there's no lighter band around the grid
