@@ -29,12 +29,12 @@
     Array.prototype.forEach.call(root.querySelectorAll('.wdvs-tap'), function (c) { c.classList.remove('wdvs-tap'); });
   });
 
-  // Paint the whole page section black so the search runs right up to the top, with no patterned strip above it
+  // Paint the whole page section dark grey-green (same as the musician pages) so the search runs right up to the top, with no patterned strip above it
   var sec = root.closest('section');
   if (sec) {
-    sec.style.backgroundColor = '#000';
+    sec.style.backgroundColor = '#1f2727';
     var sb = sec.querySelector('.section-background');
-    if (sb) { sb.style.backgroundColor = '#000'; Array.prototype.forEach.call(sb.children, function (c) { c.style.opacity = '0'; }); }
+    if (sb) { sb.style.backgroundColor = '#1f2727'; Array.prototype.forEach.call(sb.children, function (c) { c.style.opacity = '0'; }); }
   }
 
   if (!document.getElementById('wdvs-search-fonts')) {
@@ -45,7 +45,7 @@
   }
 
   var css = '\
-#wd2-venues-root{--ink:#f1ede2;--cream:#000000;--card:#191919;--sage:#3dc2bb;--sage-dark:#8adcd7;--brass:#ffffff;--rose:#d9a394;--line:#2e2e2e;--radius:14px;\
+#wd2-venues-root{--ink:#f1ede2;--cream:#1f2727;--card:#283232;--sage:#3dc2bb;--sage-dark:#8adcd7;--brass:#ffffff;--rose:#d9a394;--line:#364242;--radius:14px;\
 font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color:var(--ink);background:var(--cream);padding:10px clamp(12px,2.5vw,32px) 56px;box-sizing:border-box;position:relative;overflow:hidden;border:0;border-radius:0}\
 #wd2-venues-root .wdvs-watermark{position:absolute;top:50%;left:50%;width:min(1100px,140vw);transform:translate(-50%,-50%);opacity:.05;filter:brightness(0) invert(1);pointer-events:none;z-index:0;user-select:none}\
 #wd2-venues-root>.wdvs-head,#wd2-venues-root>.wdvs-filters,#wd2-venues-root>.wdvs-reset,#wd2-venues-root>.wdvs-count,#wd2-venues-root>.wdvs-grid,#wd2-venues-root>.wdvs-empty{position:relative;z-index:1}\
@@ -94,6 +94,29 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
 #wd2-venues-root .wdvs-soon-badge{margin-top:auto;font-size:12px;font-weight:600;color:var(--brass);letter-spacing:.04em;text-transform:uppercase;padding-top:6px}\
 #wd2-venues-root .wdvs-view{margin-top:auto;font-size:12.5px;font-weight:600;color:var(--sage);letter-spacing:.03em}\
 #wd2-venues-root .wdvs-empty{max-width:1600px;margin:40px auto;text-align:center;padding:40px 20px;color:#9a9484;font-size:15px}';
+  // Movement, to match the rest of the site: the heading and filters rise in, and venue cards rise in one after
+  // another as they come into view (and again when the filters change). Skipped if the visitor has asked for less motion.
+  var calm = (window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches) || !('IntersectionObserver' in window);
+  css += '#wd2-venues-root .wdvs-card.wdvs-pre{opacity:0;transform:translateY(26px) scale(.96)}'
+    + '#wd2-venues-root .wdvs-card.wdvs-pre.wdvs-in{opacity:1;transform:none;transition:opacity .55s ease var(--vd,0ms),transform .7s cubic-bezier(.2,.7,.2,1) var(--vd,0ms)}'
+    + '#wd2-venues-root.wdvs-anim>.wdvs-head>*{animation:wdvsRise .7s cubic-bezier(.2,.7,.2,1) both}'
+    + '#wd2-venues-root.wdvs-anim>.wdvs-head>:nth-child(2){animation-delay:.1s}#wd2-venues-root.wdvs-anim>.wdvs-head>:nth-child(3){animation-delay:.2s}'
+    + '#wd2-venues-root.wdvs-anim>.wdvs-filters{animation:wdvsRise .7s cubic-bezier(.2,.7,.2,1) .28s both}'
+    + '#wd2-venues-root.wdvs-anim>.wdvs-reset,#wd2-venues-root.wdvs-anim>.wdvs-count{animation:wdvsRise .6s ease .4s both}'
+    + '@keyframes wdvsRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}'
+    + '#wd2-venues-root .wdvs-chip{transition:background .2s,border-color .2s,color .2s,transform .15s}#wd2-venues-root .wdvs-chip:active{transform:scale(.94)}'
+    + '#wd2-venues-root .wdvs-mark{transition:transform .35s ease}@media (hover:hover){#wd2-venues-root .wdvs-card.wdvs-live:hover{transform:translateY(-6px)}#wd2-venues-root .wdvs-card.wdvs-live:hover .wdvs-mark{transform:scale(1.12) rotate(-4deg)}#wd2-venues-root .wdvs-card.wdvs-live:hover .wdvs-view{letter-spacing:.06em}}#wd2-venues-root .wdvs-view{transition:letter-spacing .3s ease}';
+  var cardIO = calm ? null : new IntersectionObserver(function (es) {
+    var hit = es.filter(function (e) { return e.isIntersecting; }).map(function (e) { return e.target; });
+    hit.forEach(function (c, n) {
+      cardIO.unobserve(c);
+      var d = Math.min(n, 7) * 70;
+      c.style.setProperty('--vd', d + 'ms');
+      c.classList.add('wdvs-in');
+      // once it has arrived, hand the card back so its own hover lift works as before
+      setTimeout(function () { c.classList.remove('wdvs-pre', 'wdvs-in'); c.style.removeProperty('--vd'); }, d + 800);
+    });
+  }, { rootMargin: '0px 0px -6% 0px', threshold: 0.08 });
   var st = document.createElement('style');
   st.textContent = css;
   document.head.appendChild(st);
@@ -129,6 +152,7 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
     });
 
   function build(VENUES) {
+    if (!calm) root.classList.add('wdvs-anim');
     var counties = Array.from(new Set(VENUES.map(function (v) { return v.county; }))).sort();
     var maxCapacity = Math.max.apply(null, VENUES.map(function (v) { return v.capacity; }).concat([50]));
 
@@ -220,6 +244,7 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
           ? '<a class="wdvs-card wdvs-live" href="' + esc(v.url) + '">' + inner + '</a>'
           : '<div class="wdvs-card wdvs-soon">' + inner + '</div>';
       }).join('');
+      if (cardIO) Array.prototype.forEach.call(els.grid.querySelectorAll('.wdvs-card'), function (c) { c.classList.add('wdvs-pre'); cardIO.observe(c); });
     }
 
     els.search.addEventListener('input', function (e) { state.search = e.target.value; render(); });
