@@ -1,6 +1,8 @@
 /* Wedding Day 2 Google reviews bubble
    A small glass bubble in the bottom-right corner showing the Google star rating.
-   Tapping it opens the latest Google reviews (Google gives up to 5), read live from Google.
+   Tapping it opens every Google review. Google's live feed only gives 5, so the full set is also kept in
+   reviews.json (copied word for word from the Google listing); live ones win, saved ones fill the gaps,
+   and if Google can't be reached the saved ones are shown on their own.
    Install on a page: Page settings > Advanced > Page Header Code Injection, paste:
      <script>fetch('https://raw.githubusercontent.com/conorclmurphy/wd2-venues/main/google-reviews.js?t='+Date.now(),{cache:'no-cache'}).then(function(r){return r.text()}).then(function(t){var s=document.createElement('script');s.textContent=t;document.body.appendChild(s)});</script>
    If anything goes wrong the bubble simply doesn't appear, so the page never shows an error. */
@@ -10,6 +12,7 @@
   var PLACE_ID = 'ChIJqQfHC0SjigYRKmnqMHmIOZQ';  // Wedding Day 2 on Google
   var MIN_STARS = 4;                              // only show reviews with at least this many stars
   var TITLE = 'What people are saying';
+  var SAVED_URL = 'https://raw.githubusercontent.com/conorclmurphy/wd2-venues/main/reviews.json';
   /* =================================== */
 
   function start() {
@@ -84,27 +87,58 @@
       '.grb-link.grb-solid:hover{background:transparent;color:var(--grb-accent)}',
       '.grb-from{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--grb-muted)}',
       '.grb-from .grb-g{width:14px;height:14px}',
-      /* phones: sit above the sticky "Check availability" bars */
-      '@media (max-width:1000px){.grb-btn{top:var(--grb-top,84px);bottom:auto;right:12px;padding:7px 12px 7px 10px;font-size:14px;transform:translateY(-10px);transition:opacity .35s,transform .35s,top .2s}'+'.grb-btn .grb-g{width:18px;height:18px}.grb-btn .grb-star,.grb-btn .grb-star svg{width:14px;height:14px}'+'.grb-panel{top:var(--grb-top,84px);bottom:auto;right:12px;transform-origin:top right;max-height:calc(100vh - var(--grb-top,84px) - 16px);max-height:calc(100dvh - var(--grb-top,84px) - 16px)}}',
-      '@media (prefers-reduced-motion:reduce){.grb-btn,.grb-panel{transition:none}}'
+      '.grb-count{font-size:13px;color:var(--grb-muted)}',
+      '.grb-dim{display:none}',
+      '.grb-grip{display:none}',
+      /* phones: the bubble sits under the menu at the top of the page and glides up to the corner once the menu has
+         scrolled away (one smooth slide, not chasing the scroll). Reviews open as a sheet from the bottom. */
+      '@media (max-width:1000px){'
+        + '.grb-btn{top:calc(10px + env(safe-area-inset-top,0px));bottom:auto;right:12px;padding:7px 12px 7px 10px;font-size:14px;'
+        + 'transform:translate3d(0,var(--grb-drop,0px),0);will-change:transform;transition:opacity .35s,transform .5s cubic-bezier(.2,.75,.2,1)}'
+        + '.grb-btn.grb-in{transform:translate3d(0,var(--grb-drop,0px),0)}'
+        + '.grb-btn .grb-g{width:18px;height:18px}.grb-btn .grb-star,.grb-btn .grb-star svg{width:14px;height:14px}'
+        + '.grb-dim{display:block;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .3s}'
+        + '.grb-open .grb-dim{opacity:1;pointer-events:auto}'
+        + '.grb-panel{left:0;right:0;bottom:0;top:auto;width:100%;max-height:84vh;max-height:84dvh;border-radius:20px 20px 0 0;border-bottom:0;'
+        + 'background:rgba(31,39,39,.97);-webkit-backdrop-filter:none;backdrop-filter:none;transform:translate3d(0,100%,0);opacity:1;will-change:transform;'
+        + 'transition:transform .42s cubic-bezier(.2,.8,.2,1);padding-bottom:env(safe-area-inset-bottom,0px)}'
+        + '.grb-open .grb-panel{transform:translate3d(0,var(--grb-pull,0px),0)}'
+        + '.grb-panel.grb-drag{transition:none}'
+        + '.grb-grip{display:block;width:40px;height:5px;border-radius:3px;background:rgba(234,230,221,.3);margin:9px auto 0}'
+        + '.grb-head{padding-top:10px;touch-action:none}'
+        + '.grb-list{-webkit-overflow-scrolling:touch}'
+      + '}',
+      '@media (prefers-reduced-motion:reduce){.grb-btn,.grb-panel,.grb-dim{transition:none}}'
     ].join('');
     document.head.appendChild(css);
 
     function fail(e) { console.warn('[WD2 reviews]', e && (e.message || e)); }
 
-    function build(p) {
-      var revs = (p.reviews || []).filter(function (r) { return (r.rating || 0) >= MIN_STARS && r.text; })
-        .sort(function (a, b) { return (b.rating || 0) - (a.rating || 0) || (b.text.length - a.text.length); }).slice(0, 5);
-      if (!p.rating || !revs.length) return;
+    // Turn a saved review (reviews.json) into the same shape Google's live feed uses
+    function fromSaved(r) {
+      return { rating: r.rating, text: r.text, relativePublishTimeDescription: r.when, authorAttribution: { displayName: r.name, photoURI: r.photo, uri: r.uri } };
+    }
+    function build(p, saved) {
+      saved = saved || {};
+      var live = (p.reviews || []).map(function (r) { return { rating: r.rating, text: r.text, relativePublishTimeDescription: r.relativePublishTimeDescription, authorAttribution: r.authorAttribution }; });
+      var key = function (r) { return String(((r.authorAttribution || {}).displayName) || '').trim().toLowerCase(); };
+      var have = {}; live.forEach(function (r) { have[key(r)] = 1; });
+      var all = live.concat((saved.reviews || []).map(fromSaved).filter(function (r) { return !have[key(r)]; }));
+      var revs = all.filter(function (r) { return (r.rating || 0) >= MIN_STARS && r.text; })
+        .sort(function (a, b) { return (b.rating || 0) - (a.rating || 0) || (b.text.length - a.text.length); });
+      if (!p.rating) p.rating = saved.rating;
+      var total = Math.max(p.userRatingCount || 0, saved.count || 0, all.length);
+      if (!p.rating || !revs.length || window.wd2ReviewsBuilt) return;
+      window.wd2ReviewsBuilt = true;
       var url = p.googleMapsURI || 'https://www.google.com/maps/place/?q=place_id:' + encodeURIComponent(PLACE_ID);
       var write = 'https://search.google.com/local/writereview?placeid=' + encodeURIComponent(PLACE_ID);
       var rating = p.rating.toFixed(1);
 
       var wrap = document.createElement('div');
       wrap.className = 'grb';
-      wrap.innerHTML = '<button type="button" class="grb-btn" aria-haspopup="dialog" aria-expanded="false">' + GLOGO + '<b>' + rating + '</b>' + stars(p.rating) + '</button>'
-        + '<div class="grb-panel" role="dialog" aria-label="Google reviews" aria-hidden="true">'
-        + '<div class="grb-head"><div><h2>' + esc(TITLE) + '</h2><div class="grb-score"><b>' + rating + '</b>' + stars(p.rating) + '<span>on Google</span></div></div>'
+      wrap.innerHTML = '<div class="grb-dim"></div><button type="button" class="grb-btn" aria-haspopup="dialog" aria-expanded="false">' + GLOGO + '<b>' + rating + '</b>' + stars(p.rating) + '</button>'
+        + '<div class="grb-panel" role="dialog" aria-label="Google reviews" aria-hidden="true"><div class="grb-grip" aria-hidden="true"></div>'
+        + '<div class="grb-head"><div><h2>' + esc(TITLE) + '</h2><div class="grb-score"><b>' + rating + '</b>' + stars(p.rating) + '<span>' + total + ' review' + (total === 1 ? '' : 's') + ' on Google</span></div></div>'
         + '<button type="button" class="grb-x" aria-label="Close reviews">✕</button></div>'
         + '<div class="grb-list">' + revs.map(function (r) {
             var a = r.authorAttribution || {}, name = a.displayName || 'Google user';
@@ -121,7 +155,16 @@
       document.body.appendChild(wrap);
 
       var btn = wrap.querySelector('.grb-btn'), panel = wrap.querySelector('.grb-panel'), x = wrap.querySelector('.grb-x'), measured = false;
+      var phone = function () { return window.innerWidth <= 1000; }, lockY = 0;
+      function lock(on) {
+        // stop the page behind the sheet from scrolling on phones (iPhone needs the body pinned in place)
+        if (!phone()) return;
+        var b = document.body.style;
+        if (on) { lockY = window.pageYOffset; b.position = 'fixed'; b.top = -lockY + 'px'; b.left = '0'; b.right = '0'; b.width = '100%'; }
+        else if (b.position === 'fixed') { b.position = ''; b.top = ''; b.left = ''; b.right = ''; b.width = ''; window.scrollTo(0, lockY); }
+      }
       function open() {
+        lock(true);
         wrap.classList.add('grb-open'); btn.setAttribute('aria-expanded', 'true'); panel.setAttribute('aria-hidden', 'false');
         if (!measured) {
           measured = true;
@@ -131,42 +174,60 @@
             b.addEventListener('click', function () { var o = c.classList.toggle('grb-full'); b.textContent = o ? 'Show less' : 'Read more'; });
           });
         }
-        setTimeout(function () { x.focus(); }, 60);
+        setTimeout(function () { try { x.focus({ preventScroll: true }); } catch (e) { x.focus(); } }, 60);
       }
       function close() {
-        wrap.classList.remove('grb-open'); btn.setAttribute('aria-expanded', 'false'); panel.setAttribute('aria-hidden', 'true'); btn.focus();
+        if (!wrap.classList.contains('grb-open')) return;
+        wrap.classList.remove('grb-open'); lock(false); panel.style.removeProperty('--grb-pull'); btn.setAttribute('aria-expanded', 'false'); panel.setAttribute('aria-hidden', 'true'); try { btn.focus({ preventScroll: true }); } catch (e) {}
       }
       btn.addEventListener('click', open);
       x.addEventListener('click', close);
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && wrap.classList.contains('grb-open')) close(); });
       document.addEventListener('click', function (e) { if (wrap.classList.contains('grb-open') && !wrap.contains(e.target)) close(); });
-      // Phones: sit just under the site header (menu button), and stay in the top corner as you scroll
-      var hdr = document.querySelector('#header') || document.querySelector('header'), ticking = false;
+      wrap.querySelector('.grb-dim').addEventListener('click', close);
+      // Phones: drag the sheet down by its top bar to close it
+      var head = wrap.querySelector('.grb-head'), grip = wrap.querySelector('.grb-grip'), y0 = null, dy = 0;
+      [head, grip].forEach(function (el) {
+        el.addEventListener('touchstart', function (e) { if (e.target.closest('.grb-x')) return; y0 = e.touches[0].clientY; dy = 0; panel.classList.add('grb-drag'); }, { passive: true });
+      });
+      document.addEventListener('touchmove', function (e) { if (y0 === null) return; dy = Math.max(0, e.touches[0].clientY - y0); panel.style.setProperty('--grb-pull', dy + 'px'); }, { passive: true });
+      document.addEventListener('touchend', function () {
+        if (y0 === null) return; y0 = null; panel.classList.remove('grb-drag');
+        if (dy > 90) close(); else panel.style.removeProperty('--grb-pull');
+      });
+      // Phones: under the menu while it's on screen, then one smooth glide up to the corner once it has scrolled away
+      var hdr = document.querySelector('#header') || document.querySelector('header'), ticking = false, state = null;
       function place() {
         ticking = false;
-        if (window.innerWidth > 1000) return;
-        var b = hdr ? hdr.getBoundingClientRect().bottom : 0;
-        wrap.style.setProperty('--grb-top', Math.max(12, Math.round(b + 8)) + 'px');
+        if (!phone() || !hdr || document.body.style.position === 'fixed') return;
+        var hb = hdr.getBoundingClientRect().bottom, low = hb > 56;
+        if (low === state) return;
+        state = low;
+        wrap.style.setProperty('--grb-drop', low ? Math.max(0, Math.round(hdr.offsetHeight - 2)) + 'px' : '0px');
       }
       function queue() { if (!ticking) { ticking = true; requestAnimationFrame(place); } }
       window.addEventListener('scroll', queue, { passive: true });
-      window.addEventListener('resize', queue);
+      window.addEventListener('resize', function () { state = null; queue(); });
       place();
       requestAnimationFrame(function () { setTimeout(function () { btn.classList.add('grb-in'); }, 400); });
     }
 
+    var savedP = fetch(SAVED_URL, { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+    function useSavedOnly() { savedP.then(function (sv) { if (sv) build({}, sv); }); }
     function run() {
       google.maps.importLibrary('places').then(function (lib) {
         var p = new lib.Place({ id: PLACE_ID });
-        return p.fetchFields({ fields: ['rating', 'reviews', 'googleMapsURI'] }).then(function () { build(p); });
-      }).catch(fail);
+        return p.fetchFields({ fields: ['rating', 'userRatingCount', 'reviews', 'googleMapsURI'] }).then(function () {
+          return savedP.then(function (sv) { build(p, sv); });
+        });
+      }).catch(function (e) { fail(e); useSavedOnly(); });
     }
     if (window.google && google.maps && google.maps.importLibrary) run();
     else {
       window.wd2ReviewsReady = run;
       var s = document.createElement('script');
       s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(API_KEY) + '&v=weekly&loading=async&callback=wd2ReviewsReady';
-      s.async = true; s.onerror = function () { fail('Could not load Google Maps'); };
+      s.async = true; s.onerror = function () { fail('Could not load Google Maps'); useSavedOnly(); };
       document.head.appendChild(s);
     }
   }
