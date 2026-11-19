@@ -146,14 +146,13 @@
     + 'html.wd2-cta-on .wd2-byp-top{display:flex!important}'
     // Live phone layout: Contact us + Build a package side by side with the Google reviews button under them. The three hold their
     // place on screen and fade out together when the blue line at the bottom of the photo reaches them, so they never sit over the next section.
-    + 'html.wd2-cta-on .wd2-trio{display:flex;flex-direction:column;align-items:center;gap:12px;position:fixed;left:0;right:0;top:58vh;z-index:40;padding:0 16px;pointer-events:none;opacity:0;transition:opacity .5s ease}'
+    + 'html.wd2-cta-on .wd2-trio{display:flex;flex-direction:column;align-items:center;gap:12px;position:fixed;left:0;right:0;top:58vh;z-index:auto;padding:0 16px;pointer-events:none;opacity:0;transition:opacity .5s ease}'
     + 'html.wd2-cta-on .wd2-trio.wd2-trio-in{opacity:1}'
-    + '.wd2-trio>*{transition:opacity .45s ease}.wd2-trio>.wd2-away{opacity:0!important;pointer-events:none!important}'
     + '.wd2-trio.wd2-trio-in>*{pointer-events:auto}'
     + 'body.header--menu-open .wd2-trio{opacity:0!important}body.header--menu-open .wd2-trio>*{pointer-events:none!important}'
     + '.wd2-trio .wd2-cta{margin:0 auto}'
     + '.wd2-trio{--grb-ink:#eae6dd;--grb-muted:#b8b3a8;--grb-accent:#3dc2bb;--grb-star:#f4c150;font-family:Bitter,Georgia,serif}'
-    + '.wd2-trio .grb-btn{position:static!important;transform:none!important;opacity:1;margin:0!important;padding:9px 16px 9px 12px!important;gap:8px!important;font-size:15px!important;transition:opacity .45s ease,box-shadow .2s ease!important}'
+    + '.wd2-trio .grb-btn{position:static!important;transform:none!important;opacity:1;margin:0!important;padding:9px 16px 9px 12px!important;gap:8px!important;font-size:15px!important;transition:box-shadow .2s ease!important;z-index:auto!important}'
     + '.wd2-trio .grb-btn .grb-star{display:inline-block!important}'
     // the photo section is a little shorter on phones, so the blue line (and the next section) sits higher
     + 'html.wd2-cta-on .wd2-hero .fluid-engine{margin-top:-70px!important}'
@@ -201,7 +200,8 @@
     var a1 = document.createElement('a'); a1.className = 'wd2-c1'; a1.href = contact.getAttribute('href'); a1.textContent = 'Contact us';
     var a2 = document.createElement('a'); a2.className = 'wd2-c2'; a2.href = card.getAttribute('href'); a2.textContent = 'Build a package \u2192';
     box.appendChild(a1); box.appendChild(a2); wrap.appendChild(box);
-    document.body.appendChild(wrap);
+    // placed straight after the photo section in the page, so it is drawn above the photo but underneath every section that follows
+    hero.parentNode.insertBefore(wrap, hero.nextSibling);
     hero.classList.add('wd2-hero');
     (contact.closest('.fe-block') || contact).classList.add('wd2-cta-old');
     (card.closest('.fe-block') || card).classList.add('wd2-cta-old');
@@ -215,15 +215,9 @@
     }
     function check() {
       if (!mq.matches) return;
-      var line = hero.getBoundingClientRect().bottom - 34;       // roughly where the blue line crosses the middle of the screen
-      // each one fades as the line reaches it: the reviews button (lowest) first, then the two buttons above it
-      var all = true;
-      for (var i = 0; i < wrap.children.length; i++) {
-        var c = wrap.children[i], gone = line < c.getBoundingClientRect().bottom + 4;
-        if (c.classList.contains('wd2-away') !== gone) c.classList.toggle('wd2-away', gone);
-        if (!gone) all = false;
-      }
-      wrap.classList.toggle('wd2-trio-away', all && wrap.children.length > 0);
+      // Nothing fades. The buttons sit behind the next section in the page's stacking order, so as you scroll the next
+      // section (and its blue line) simply slides up over them. Once the photo section has gone past, hide them altogether.
+      wrap.style.visibility = hero.getBoundingClientRect().bottom < wrap.getBoundingClientRect().top - 10 ? 'hidden' : '';
     }
     function place() {
       if (!mq.matches) return;
