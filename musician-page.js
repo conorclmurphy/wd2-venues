@@ -437,6 +437,9 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
   function render(DATA, m) {
     var img = function (p, w) { return /^https?:/.test(p) ? p : DATA.imageBase + p + '?format=' + w + 'w'; };
+    // Heart button: saves this act to the couple's enquiry (their photo shows in every form) and lets them keep browsing
+    var HEART = '<i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></i>';
+    var heartBtn = function (extra, text) { return '<button type="button" class="vp-add vp-heart' + (extra ? ' ' + extra : '') + '" aria-pressed="false" aria-label="Save to my enquiry">' + HEART + (text ? '<span class="vp-heart-t">Save to my enquiry</span>' : '') + '</button>'; };
     var L = DATA.eventLabels || { ceremony: 'Ceremony & drinks reception', day2: 'Day 2', afterdinner: 'After dinner' };
     var ORDER = ['ceremony', 'day2', 'afterdinner'];
     var sets = [];
@@ -465,7 +468,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       h += '<div class="vp-fact">' + '<span>' + (m.hideName ? 'Available for' : 'Plays at') + '</span>' + '<strong>' + esc(events.map(function (e) { return L[e]; }).join(' · ') || 'Ask us') + '</strong></div>';
       if (extras.length) h += '<div class="vp-fact"><span>Also available</span><strong>' + esc(extras.join(' · ')) + '</strong></div>';
     }
-    h += '<a class="vp-btn" href="#vp-enquire">Check availability</a></div></div></header>';
+    h += '<a class="vp-btn" href="#vp-enquire">Check availability</a>' + (m.packages ? '' : heartBtn('vp-heart-hero', false)) + '</div></div></header>';
     // DJ pages: a row of tabs under the banner to switch between DJ / DJ & Sax / Karaoke
     if (m.related) {
       h += '<nav class="vp-tabs vp-pad" aria-label="' + esc(m.relatedTitle || 'Options') + '">';
@@ -541,7 +544,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
     // Solo musician profiles: offer to add this musician to a package
     var soloPage = !m.builder && !m.packages && !m.related;
-    if (soloPage) h += '<section class="vp-choose vp-choose-tight"><button type="button" class="vp-btn vp-add">+ Add to my enquiry and keep browsing</button><p class="vp-add-note" hidden></p></section>';
+    if (soloPage) h += '<section class="vp-choose vp-choose-tight">' + heartBtn('', true) + '<p class="vp-add-note" hidden></p></section>';
     if (soloPage) h += '<section class="vp-addpk"><div><h2>Add this musician to a package</h2><p>Want more than 2 hours of music? Pair this musician with a second musician, our trad band or a DJ. We\'ll keep this musician in your enquiry while you choose.</p></div>'
       + '<a class="vp-btn vp-addpk-btn" href="/packages">Add to a package →</a></section>';
 
@@ -594,7 +597,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         + (P.note ? '<p class="vp-pk-foot">' + esc(P.note) + '</p>' : '') + '</div>'
         + '<div class="vp-pk-other"><div><strong>Want something different?</strong><span>Tell us what you have in mind and we\'ll put together something just for you.</span></div><a class="vp-btn vp-btn-ghost" href="/home#enquiremain">Send us a general enquiry →</a></div></section>';
     }
-    if (!soloPage && !m.packages) h += '<section class="vp-choose' + (m.related ? ' vp-choose-tight' : '') + '"><button type="button" class="vp-btn vp-add">+ Add to my enquiry and keep browsing</button><p class="vp-add-note" hidden></p></section>';
+    if (!soloPage && !m.packages) h += '<section class="vp-choose' + (m.related ? ' vp-choose-tight' : '') + '">' + heartBtn('', true) + '<p class="vp-add-note" hidden></p></section>';
     if (m.related) h += '<section class="vp-addpk"><div><h2>Add the DJ to a package</h2><p>Want live music too? Start with ' + esc(m.subjectName || m.name) + ' and add a solo musician or our trad band to build a full package.</p></div>'
       + '<a class="vp-btn vp-addpk-btn" href="/packages?dj=' + encodeURIComponent(m.slug) + '">Add to a package →</a></section>';
     // DJ pages: show the other DJ options as cards (DJ / DJ & Sax / Karaoke), with this one marked
@@ -689,7 +692,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       + '<div class="vp-field"><label for="vp-heard">How did you hear about us?</label><select id="vp-heard" name="How they heard about us">' + opt(['Instagram', 'Google Search', 'Musician referral', 'Venue recommendation', 'Friends or family', 'Other']) + '</select></div>'
       + '<div class="vp-field"><label for="vp-msg">Let us know how we can help <i>(optional)</i></label><textarea id="vp-msg" name="Message" placeholder="Guest numbers, add-ons like trad band, DJ or karaoke, questions"></textarea></div>'
       + '<input type="checkbox" name="botcheck" class="vp-hp" tabindex="-1" autocomplete="off" aria-hidden="true">'
-      + '<button class="vp-btn" type="submit">Send enquiry</button>' + '<button type="button" class="vp-btn vp-btn-ghost vp-add"' + (m.packages ? ' hidden' : '') + '>+ Add to my enquiry and keep browsing</button><p class="vp-add-note" hidden></p>' + '<p class="vp-status" role="status" aria-live="polite"></p>'
+      + '<button class="vp-btn" type="submit">Send enquiry</button>' + (m.packages ? '<button type="button" class="vp-btn vp-btn-ghost vp-add" hidden>+ Add to my enquiry and keep browsing</button>' : heartBtn('vp-heart-form', true)) + '<p class="vp-add-note" hidden></p>' + '<p class="vp-status" role="status" aria-live="polite"></p>'
       + '</form></div></aside>';
     h += '</div>';  // end of body
 
@@ -1544,7 +1547,12 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       Array.prototype.forEach.call(elistBox.querySelectorAll('button'), function (b) { b.addEventListener('click', function () { setList(getList().filter(function (x) { return x.key !== b.getAttribute('data-key'); })); renderList(); }); });
       var inList = me && getList().some(function (x) { return x.key === me.key; });
       addBtns.forEach(function (b) { b.disabled = !me; });
-      addBtns.forEach(function (b) { b.textContent = inList ? '✓ In your enquiry. Keep browsing' : '+ Add to my enquiry and keep browsing'; });
+      addBtns.forEach(function (b) {
+        if (!b.classList.contains('vp-heart')) { b.textContent = inList ? '✓ In your enquiry. Keep browsing' : '+ Add to my enquiry and keep browsing'; return; }
+        b.classList.toggle('vp-on', !!inList); b.setAttribute('aria-pressed', inList ? 'true' : 'false');
+        b.setAttribute('aria-label', inList ? 'Saved to your enquiry. Tap to remove' : 'Save to my enquiry');
+        var ht = b.querySelector('.vp-heart-t'); if (ht) ht.textContent = inList ? 'Saved to your enquiry' : 'Save to my enquiry';
+      });
       var bar = root.querySelector('.vp-sheet-bar span');
       if (bar && !bar.parentNode.classList.contains('vp-bar-msg')) {
         var base = bar.getAttribute('data-base') || bar.textContent; bar.setAttribute('data-base', base);
@@ -1553,8 +1561,13 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     };
     addBtns.forEach(function (ab) { ab.addEventListener('click', function () {
       var me = curItem(); if (!me) return;
-      var l = getList().filter(function (x) { return x.key !== me.key; }); l.push(me); setList(l);
+      var was = getList().some(function (x) { return x.key === me.key; });
+      var l = getList().filter(function (x) { return x.key !== me.key; });
+      // the heart is a switch: tap again to take them back out
+      if (was && ab.classList.contains('vp-heart')) { setList(l); renderList(); addNotes.forEach(function (n) { n.hidden = true; }); return; }
+      l.push(me); setList(l);
       renderList();
+      if (ab.classList.contains('vp-heart')) { ab.classList.remove('vp-pop'); void ab.offsetWidth; ab.classList.add('vp-pop'); }
       var noteHtml = 'Added. Have a look at our other <a href="/musicians">musicians</a>, the <a href="/trad">trad band</a> or <a href="/packages">packages</a>, then send everything in one enquiry. Your details are saved.';
       addNotes.forEach(function (n) { n.hidden = false; n.innerHTML = noteHtml; });
     }); });
@@ -1667,3 +1680,4 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 ;(function(){var g=document.createElement('style');g.id='vp-mob-fix';g.textContent='#musician-page .vp-who-mini:empty{display:none!important}@media (max-width:640px){#musician-page .vp-video.vp-tall,#musician-page .vp-split.vp-split-tall .vp-video.vp-tall{max-width:min(230px,calc(58vh * 9 / 16))!important;margin-left:auto;margin-right:auto;justify-self:center}}';document.head.appendChild(g);})();
 ;(function(){var g=document.createElement('style');g.id='vp-pair-scroll-css';g.textContent='#musician-page .vp-pair-w{position:relative;min-width:0}#musician-page .vp-pair.vp-pair-scroll{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:calc((100% - 14px) / 2);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}#musician-page .vp-pair.vp-pair-scroll::-webkit-scrollbar{display:none}#musician-page .vp-pair.vp-pair-scroll>.vp-video{scroll-snap-align:start;min-width:0}#musician-page .vp-pa{position:absolute;top:calc(50% - 30px);z-index:5;width:38px;height:38px;border-radius:50%;border:1px solid rgba(160,240,235,.26);background:linear-gradient(135deg,rgba(120,230,224,.13),rgba(61,194,187,.04)),rgba(14,38,40,.6);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#dcefec;font-size:24px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0 0 3px;box-shadow:0 4px 14px rgba(0,0,0,.25);transition:opacity .2s}#musician-page .vp-pa-l{left:-12px}#musician-page .vp-pa-r{right:-12px}#musician-page .vp-pa:disabled{opacity:0;pointer-events:none}@media (max-width:760px){#musician-page .vp-pa-l{left:4px}#musician-page .vp-pa-r{right:4px}#musician-page .vp-pair.vp-pair-scroll{grid-auto-columns:calc((100% - 10px) / 2)}}';document.head.appendChild(g);var wire=function(){document.querySelectorAll('#musician-page .vp-pair-w').forEach(function(w){if(w.getAttribute('data-on'))return;w.setAttribute('data-on','1');var row=w.querySelector('.vp-pair-scroll'),l=w.querySelector('.vp-pa-l'),r=w.querySelector('.vp-pa-r');var upd=function(){var max=row.scrollWidth-row.clientWidth-2;l.disabled=row.scrollLeft<=2;r.disabled=row.scrollLeft>=max;};var step=function(d){var c=row.firstElementChild,wd=c?c.getBoundingClientRect().width+14:row.clientWidth/2;row.scrollBy({left:d*wd,behavior:'smooth'});};l.addEventListener('click',function(){step(-1);});r.addEventListener('click',function(){step(1);});row.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);upd();});};var t=0,mo=new MutationObserver(function(){clearTimeout(t);t=setTimeout(wire,80);});var hook=function(){var r=document.getElementById('musician-page');if(!r)return setTimeout(hook,300);wire();mo.observe(r,{childList:true,subtree:true});};hook();})();
 ;(function(){var g=document.createElement('style');g.id='vp-glass-text-fix';g.textContent='#musician-page:not([data-theme="light"]) .vp-pk-pill.vp-picked span,#musician-page:not([data-theme="light"]) .vp-pk-pill.vp-picked small,#musician-page:not([data-theme="light"]) .vp-pk-part.vp-on span,#musician-page:not([data-theme="light"]) .vp-pk-part.vp-on small,#musician-page:not([data-theme="light"]) .vp-pk-chip b,#musician-page:not([data-theme="light"]) .vp-pk-chip span,#musician-page:not([data-theme="light"]) .vp-pk-tag.vp-picked span,#musician-page:not([data-theme="light"]) .vp-here-tag span,#musician-page:not([data-theme="light"]) .vp-pk-day-t em{color:rgba(220,239,236,.78)!important}#musician-page:not([data-theme="light"]) .vp-pk-pill.vp-picked,#musician-page:not([data-theme="light"]) .vp-pk-part.vp-on{border-color:rgba(61,194,187,.85)!important;background:linear-gradient(135deg,rgba(120,230,224,.24),rgba(61,194,187,.10)),rgba(14,38,40,.35)!important}';document.head.appendChild(g);})();
+;(function(){var g=document.createElement('style');g.id='vp-heart-css';g.textContent='#musician-page .vp-add.vp-heart{display:inline-flex!important;align-items:center;gap:11px;margin:0!important;padding:0!important;width:auto!important;background:none!important;border:0!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;border-radius:0!important;color:var(--vp-on-dark,#eae6dd)!important;font:inherit;font-weight:600;font-size:15px;cursor:pointer;-webkit-tap-highlight-color:transparent}#musician-page .vp-add.vp-heart[disabled]{opacity:.5}#musician-page .vp-heart i{flex:none;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,rgba(120,230,224,.13),rgba(61,194,187,.04)),rgba(14,38,40,.45);-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(160,240,235,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 4px 14px rgba(0,0,0,.2);transition:border-color .25s,background .25s,transform .2s}#musician-page .vp-heart svg{width:22px;height:22px;fill:none;stroke:#dcefec;stroke-width:1.9;stroke-linejoin:round;transition:fill .25s,stroke .25s}#musician-page .vp-heart:hover i{border-color:rgba(160,240,235,.6);transform:scale(1.06)}#musician-page .vp-heart.vp-on i{border-color:#3dc2bb;background:linear-gradient(135deg,rgba(120,230,224,.28),rgba(61,194,187,.12)),rgba(14,38,40,.45)}#musician-page .vp-heart.vp-on svg{fill:#3dc2bb;stroke:#3dc2bb}#musician-page .vp-heart.vp-pop svg{animation:vpHeartPop .5s cubic-bezier(.3,1.6,.5,1)}@keyframes vpHeartPop{0%{transform:scale(.6)}55%{transform:scale(1.3)}100%{transform:scale(1)}}#musician-page .vp-heart-hero{margin-left:-24px!important}#musician-page .vp-heart-form{margin-top:12px!important}#musician-page .vp-heart-form i{width:42px;height:42px}#musician-page[data-theme="light"] .vp-heart svg{stroke:#0e2628}@media (prefers-reduced-motion:reduce){#musician-page .vp-heart.vp-pop svg{animation:none}}';document.head.appendChild(g);})();

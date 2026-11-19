@@ -197,6 +197,7 @@
   ];
 
   function render(D) {
+    window.wd2MlData = D;  // the card hearts read names and photos from this
     var L = D.eventLabels || {}, ORDER = ['ceremony', 'day2', 'afterdinner'];
     var list = D.musicians.filter(function (o) { return o.live && o.url && o.listed !== false && o.photo && o.events; });
     var rank = function (o) { var i = ORDER_SLUGS.indexOf(o.slug); return i === -1 ? 999 : i; };
@@ -235,7 +236,8 @@
       var p = lp ? lp[0] : (o.cardPhoto || o.photo);
       h += '<a class="ml-card" data-slug="' + esc(o.slug) + '" href="' + esc(o.url + (only ? '?for=' + only : '')) + '" data-tags="' + esc(ev.concat(ev.indexOf('day2') !== -1 || ev.indexOf('afterdinner') !== -1 ? ['later'] : []).concat(o.duo ? ['duo'] : []).concat(o.tradBand ? ['tradBand'] : []).join(' ')) + '">'
         + '<div class="ml-img"><img src="' + esc(/^https?:/.test(p) ? p : D.imageBase + p + '?format=' + (SHARPER[o.slug] || size) + 'w') + '" alt="' + esc(o.hideName ? 'Wedding musician' : o.name) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async"'
-        + ' style="object-position:' + esc(lp ? lp[1] : (o.cardPosition || o.photoPosition || 'center')) + '"><span class="ml-tags">' + tags.map(function (t) { return '<span class="ml-tag" data-e="' + t[0] + '">' + esc(t[1]) + '</span>'; }).join('') + '</span>' + WM + (o.hideName ? '' : '<span class="ml-name">' + esc(o.name) + '</span>') + '<span class="ml-more">View profile →</span></div></a>';
+        + ' style="object-position:' + esc(lp ? lp[1] : (o.cardPosition || o.photoPosition || 'center')) + '"><span class="ml-tags">' + tags.map(function (t) { return '<span class="ml-tag" data-e="' + t[0] + '">' + esc(t[1]) + '</span>'; }).join('') + '</span>' + WM + (o.hideName ? '' : '<span class="ml-name">' + esc(o.name) + '</span>') + '<span class="ml-more">View profile →</span>'
+        + '<button type="button" class="ml-heart" data-key="m:' + esc(o.slug) + '" aria-pressed="false" aria-label="Save to my enquiry"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button></div></a>';
     });
     h += '</div><details class="ml-about"><summary>' + esc(ABOUT) + '</summary><p>' + esc(INTRO) + '</p></details><div class="ml-more3"><h2>Explore more</h2><div class="ml-x">'
       + '<a class="ml-xk ml-venue" href="/venues"><span class="ml-xi"></span><strong>Our venues</strong><span class="ml-xp">Find the perfect place for your Day 2</span></a>'
@@ -372,3 +374,52 @@
 
 ;(function(){if(document.getElementById('wd2-glass-musicians-list'))return;var g=document.createElement('style');g.id='wd2-glass-musicians-list';g.textContent='#musicians-list .ml-chip.on,#musicians-list .ml-tag.ml-hit,#musicians-list .ml-xb{background:linear-gradient(135deg,rgba(120,230,224,.13),rgba(61,194,187,.04)),rgba(14,38,40,.35)!important;-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(160,240,235,.26)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -1px 0 rgba(0,0,0,.15),0 4px 14px rgba(0,0,0,.18)!important;color:#dcefec!important}#musicians-list .ml-xb:hover{background:linear-gradient(135deg,rgba(120,230,224,.22),rgba(61,194,187,.08)),rgba(14,38,40,.35)!important;border-color:rgba(160,240,235,.42)!important}#musicians-list .ml-chip.on svg,#musicians-list .ml-tag.ml-hit svg,#musicians-list .ml-xb svg{color:inherit!important}';document.head.appendChild(g);})();
 ;(function(){var g=document.createElement('style');g.id='ml-chip-row';g.textContent='@media (max-width:520px){#musicians-list .ml-chips{flex-wrap:nowrap!important;gap:6px}#musicians-list .ml-chip{white-space:nowrap;font-size:13px!important;padding:8px 11px!important}#musicians-list .ml-chip.on:before{margin-right:5px}}';document.head.appendChild(g);})();
+
+/* Hearts on the musician cards: tapping one saves that musician to the couple's enquiry (the same list the
+   musician pages and the "Your music" bubble use), so their photo shows in the forms. Tap again to remove. */
+;(function () {
+  var KEY = 'wd2EnquiryList';
+  var get = function () { try { return JSON.parse(localStorage.getItem(KEY) || '[]') || []; } catch (e) { return []; } };
+  var set = function (l) { try { localStorage.setItem(KEY, JSON.stringify(l)); } catch (e) {} if (window.wd2FloatRefresh) window.wd2FloatRefresh(); };
+  var st = document.createElement('style');
+  st.id = 'ml-heart-css';
+  st.textContent = '#musicians-list .ml-tags{right:50px}'
+    + '#musicians-list .ml-heart{position:absolute;top:8px;right:8px;z-index:3;width:36px;height:36px;padding:0;border-radius:50%;display:grid;place-items:center;cursor:pointer;background:rgba(14,38,40,.5);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(234,230,221,.35);box-shadow:0 2px 8px rgba(0,0,0,.3);transition:transform .2s,border-color .25s,background .25s;-webkit-tap-highlight-color:transparent}'
+    + '#musicians-list .ml-heart svg{width:18px;height:18px;fill:none;stroke:#eae6dd;stroke-width:2;stroke-linejoin:round;transition:fill .25s,stroke .25s}'
+    + '#musicians-list .ml-heart:hover{transform:scale(1.1);border-color:rgba(160,240,235,.7)}'
+    + '#musicians-list .ml-heart.on{border-color:#3dc2bb;background:rgba(14,38,40,.7)}'
+    + '#musicians-list .ml-heart.on svg{fill:#3dc2bb;stroke:#3dc2bb}'
+    + '#musicians-list .ml-heart.pop svg{animation:mlHeartPop .5s cubic-bezier(.3,1.6,.5,1)}'
+    + '@keyframes mlHeartPop{0%{transform:scale(.6)}55%{transform:scale(1.35)}100%{transform:scale(1)}}';
+  document.head.appendChild(st);
+  var data = null;
+  var sync = function () {
+    var l = get();
+    Array.prototype.forEach.call(document.querySelectorAll('#musicians-list .ml-heart'), function (b) {
+      var on = l.some(function (x) { return x.key === b.getAttribute('data-key'); });
+      b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.setAttribute('aria-label', on ? 'Saved to your enquiry. Tap to remove' : 'Save to my enquiry');
+    });
+  };
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('#musicians-list .ml-heart');
+    if (!b) return;
+    e.preventDefault(); e.stopPropagation();
+    var key = b.getAttribute('data-key'), l = get(), was = l.some(function (x) { return x.key === key; });
+    l = l.filter(function (x) { return x.key !== key; });
+    if (!was) {
+      var card = b.closest('.ml-card'), im = card && card.querySelector('.ml-img img'), o = null;
+      data = data || window.wd2MlData;
+      if (data) o = (data.musicians || []).filter(function (y) { return 'm:' + y.slug === key; })[0];
+      var path = card ? card.getAttribute('href').split('?')[0].replace(/^https?:\/\/[^/]+/, '') : '';
+      var src = o && o.photo ? (/^https?:/.test(o.photo) ? o.photo : data.imageBase + o.photo + '?format=150w') : (im ? im.src : '');
+      l.push({ key: key, label: 'Musician: ' + (o ? o.name : (im && im.alt) || 'Musician'), url: path, img: src, pos: o ? (o.cardPosition || o.photoPosition || '') : '' });
+      b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop');
+    }
+    set(l); sync();
+  }, true);
+  window.wd2MlHeartData = function (d) { data = d; sync(); };
+  var n = 0, t = setInterval(function () { sync(); if (++n > 12) clearInterval(t); }, 500);
+  window.addEventListener('pageshow', sync);
+  window.addEventListener('storage', sync);
+})();
