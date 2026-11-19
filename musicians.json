@@ -611,7 +611,7 @@
       ],
       "tradBand": false,
       "duo": false,
-      "videos": [{"id": "6d3adaae-a140-4e17-8423-eff5eec49038", "seconds": 88, "shape": "tall"}, {"id": "50ea9366-9aac-4263-ac9b-8819a0cc9883", "seconds": 71, "shape": "tall"}, {"id": "e1809e78-bedd-4653-a981-1197ab9c4360", "seconds": 60, "shape": "wide"}],
+      "videos": [{"id": "6d3adaae-a140-4e17-8423-eff5eec49038", "seconds": 88, "shape": "tall"}, {"id": "1ec4834d-acb9-4b3b-b9b9-ad970a0a4d1b", "seconds": 71, "shape": "wide"}, {"id": "e1809e78-bedd-4653-a981-1197ab9c4360", "seconds": 60, "shape": "wide"}],
       "onstage": [{"id": "3947cb72-9adf-4a51-b398-68842f7eb89d", "seconds": 68}, {"id": "75c92c52-3300-4115-b023-7110e6e9c84d", "seconds": 28}],
       "gallery": [],
       "aboutTitle": "Bio",
