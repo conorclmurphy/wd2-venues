@@ -151,10 +151,11 @@
     + '.wd2-trio.wd2-trio-in:not(.wd2-trio-away)>*{pointer-events:auto}'
     + 'body.header--menu-open .wd2-trio{opacity:0!important}body.header--menu-open .wd2-trio>*{pointer-events:none!important}'
     + '.wd2-trio .wd2-cta{margin:0 auto}'
+    + '.wd2-trio{--grb-ink:#eae6dd;--grb-muted:#b8b3a8;--grb-accent:#3dc2bb;--grb-star:#f4c150;font-family:Bitter,Georgia,serif}'
     + '.wd2-trio .grb-btn{position:static!important;transform:none!important;opacity:1;margin:0!important;padding:9px 16px 9px 12px!important;gap:8px!important;font-size:15px!important;transition:box-shadow .2s ease!important}'
     + '.wd2-trio .grb-btn .grb-star{display:inline-block!important}'
     // the photo section is a little shorter on phones, so the blue line (and the next section) sits higher
-    + 'html.wd2-cta-on .wd2-hero .fluid-engine{margin-top:-90px!important}'
+    + 'html.wd2-cta-on .wd2-hero .fluid-engine{margin-top:-70px!important}'
     // tap feedback: the button dips and lights up the moment a finger lands on it
     + '.wd2-cta a{transition:transform .12s ease,box-shadow .15s ease,border-color .15s ease,background .15s ease;touch-action:manipulation}'
     + '.wd2-cta a.wd2-press,.wd2-cta a:active{transform:scale(.94);border-color:#3dc2bb!important;box-shadow:0 0 0 2px rgba(61,194,187,.75),0 0 20px rgba(61,194,187,.4)!important}'
@@ -213,7 +214,7 @@
     }
     function check() {
       if (!mq.matches) return;
-      var line = hero.getBoundingClientRect().bottom - 58;       // roughly where the blue line crosses the middle of the screen
+      var line = hero.getBoundingClientRect().bottom - 34;       // roughly where the blue line crosses the middle of the screen
       wrap.classList.toggle('wd2-trio-away', line < wrap.getBoundingClientRect().bottom + 6);
     }
     function place() {
