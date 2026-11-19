@@ -216,7 +216,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #musician-page .vp-loc a{color:var(--vp-accent-text);font-weight:500}\
 #musician-page .vp-map{width:100%;max-width:640px;height:300px;border:1px solid var(--vp-line);border-radius:var(--vp-radius);display:block;margin-bottom:12px;background:var(--vp-line)}\
 #musician-page .vp-form{background:var(--vp-surface);border:1px solid var(--vp-line);border-radius:20px;padding:20px 22px;display:grid;gap:9px;scroll-margin-top:24px}\
-#musician-page .vp-form h2{font-size:22px;margin:0 0 2px}#musician-page .vp-pick{display:flex;align-items:center;gap:12px;margin:10px 0 4px;padding:8px 14px 8px 8px;border-radius:999px;border:1.5px solid var(--vp-brass);background:rgba(61,194,187,.1);width:max-content;max-width:100%}#musician-page .vp-pick-av{position:relative;flex:none;width:52px;height:52px;border-radius:50%;box-shadow:0 0 0 2px var(--vp-brass),0 0 0 5px rgba(61,194,187,.22)}#musician-page .vp-pick-av img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;max-width:none}#musician-page .vp-pick-av i{position:absolute;right:-3px;bottom:-3px;width:21px;height:21px;border-radius:50%;background:var(--vp-brass);color:#1f2727;display:grid;place-items:center;box-shadow:0 0 0 2px #283232}#musician-page .vp-pick-av i svg{width:12px;height:12px}#musician-page .vp-pick-t{display:grid;line-height:1.2;min-width:0}#musician-page .vp-pick-t small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--vp-muted)}#musician-page .vp-pick-t b{font-family:var(--vp-display);font-weight:400;font-size:18px;color:var(--vp-on-dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#musician-page.vp-anim .vp-pick-av{animation:vpPop .5s cubic-bezier(.3,1.5,.5,1) .3s both}@keyframes vpPop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}#musician-page .vp-sheet-who{display:inline-flex;align-items:center;gap:10px;min-width:0}#musician-page .vp-pick-mini{flex:none;width:30px;height:30px;border-radius:50%;box-shadow:0 0 0 2px #1f2727}#musician-page .vp-pick-mini img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;max-width:none}\
+#musician-page .vp-form h2{font-size:22px;margin:0 0 2px}#musician-page .vp-who{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 4px}#musician-page .vp-who-o{display:flex;align-items:center;gap:10px;min-width:0;padding:7px 10px 7px 7px;border-radius:999px;border:1.5px solid var(--vp-line);background:rgba(234,230,221,.04);color:var(--vp-on-dark);font:inherit;text-align:left;cursor:pointer;transition:border-color .2s,background .2s,opacity .2s;opacity:.72}#musician-page .vp-who-o:hover{opacity:1;border-color:rgba(61,194,187,.6)}#musician-page .vp-who-o.vp-who-on{opacity:1;border-color:var(--vp-brass);background:rgba(61,194,187,.12)}#musician-page .vp-who-av{position:relative;flex:none;width:42px;height:42px;border-radius:50%;background:#364242;display:grid;place-items:center;color:var(--vp-brass);transition:box-shadow .2s}#musician-page .vp-who-av>svg{width:20px;height:20px}#musician-page .vp-who-av img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;max-width:none}#musician-page .vp-who-on .vp-who-av{box-shadow:0 0 0 2px var(--vp-brass),0 0 0 5px rgba(61,194,187,.22)}#musician-page .vp-who-av i{position:absolute;right:-4px;bottom:-4px;width:19px;height:19px;border-radius:50%;background:var(--vp-brass);color:#1f2727;display:grid;place-items:center;box-shadow:0 0 0 2px #283232;transform:scale(0);transition:transform .25s cubic-bezier(.3,1.5,.5,1)}#musician-page .vp-who-on .vp-who-av i{transform:none}#musician-page .vp-who-av i svg{width:11px;height:11px}#musician-page .vp-who-t{display:grid;line-height:1.2;min-width:0}#musician-page .vp-who-t small{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--vp-muted);white-space:nowrap}#musician-page .vp-who-t b{font-family:var(--vp-display);font-weight:400;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#musician-page .vp-who-mini{flex:none;width:28px;height:28px;border-radius:50%;object-fit:cover;max-width:none;margin:-4px 0;box-shadow:0 0 0 2px rgba(31,39,39,.6)}\
 #musician-page .vp-form .vp-sub{color:var(--vp-muted);font-size:14px;margin-top:-6px}\
 #musician-page .vp-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}\
 #musician-page .vp-field{display:grid;gap:4px;min-width:0}\
@@ -652,17 +652,21 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     // Enquiry form, same questions as the home page form, with the musician filled in
     var today = new Date(); today = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
     var opt = function (list) { return '<option value="">Select an option</option>' + list.map(function (x) { return '<option value="' + esc(x) + '">' + esc(x) + '</option>'; }).join(''); };
-    // "You're booking" chip: their photo in a ringed circle with a tick, so it's obvious who the enquiry is for
-    var pickPic = m.cardPhoto || m.photo, pickPos = m.cardPosition || m.photoPosition || 'center';
-    var pick = (!m.packages && pickPic) ? '<div class="vp-pick" aria-label="You are booking ' + esc(m.name) + '"><span class="vp-pick-av"><img src="' + img(pickPic, 200) + '" alt="" style="object-position:' + esc(pickPos) + '">'
-      + '<i aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></svg></i></span>'
-      + '<span class="vp-pick-t"><small>You\'re booking</small><b>' + esc(m.name) + '</b></span></div>' : '';
-    var pickMini = pick ? '<span class="vp-pick-mini"><img src="' + img(pickPic, 120) + '" alt="" style="object-position:' + esc(pickPos) + '"></span>' : '';
+    // Who the enquiry is for: this musician (their photo in a ringed circle with a tick) or any available musician
+    var whoPic = m.cardPhoto || m.photo, whoPos = m.cardPosition || m.photoPosition || 'center';
+    var whoOn = !m.packages && !m.builder && m.hideName && whoPic;
+    var TICK = '<i aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>';
+    var who = whoOn ? '<div class="vp-who" role="radiogroup" aria-label="Who is this enquiry for?">'
+      + '<button type="button" class="vp-who-o vp-who-on" role="radio" aria-checked="true" data-v="this"><span class="vp-who-av"><img src="' + img(whoPic, 200) + '" alt="" style="object-position:' + esc(whoPos) + '">' + TICK + '</span>'
+      + '<span class="vp-who-t"><small>This musician</small><b>' + esc(m.name) + '</b></span></button>'
+      + '<button type="button" class="vp-who-o" role="radio" aria-checked="false" data-v="any"><span class="vp-who-av vp-who-any"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 18V6l11-2v12M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm11-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>' + TICK + '</span>'
+      + '<span class="vp-who-t"><small>Open to</small><b>Any musician</b></span></button></div>' : '';
+    var whoMini = whoOn ? '<img class="vp-who-mini" src="' + img(whoPic, 120) + '" alt="" style="object-position:' + esc(whoPos) + '">' : '';
     h += '<aside class="vp-aside"><div class="vp-sheet">'
-      + '<button type="button" class="vp-sheet-bar" aria-expanded="false" aria-controls="vp-enquire"><span class="vp-sheet-who">' + pickMini + '<span>' + esc(m.formTitle || ('Book ' + m.name)) + '</span></span>'
+      + '<button type="button" class="vp-sheet-bar" aria-expanded="false" aria-controls="vp-enquire">' + whoMini + '<span>' + esc(m.formTitle || ('Book ' + m.name)) + '</span>'
       + '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M6 15l6-6 6 6"/></svg></button>'
       + '<form class="vp-form" id="vp-enquire" novalidate>'
-      + '<h2>' + esc(m.formTitle || ('Book ' + m.name)) + '</h2>' + pick
+      + '<h2>' + esc(m.formTitle || ('Book ' + m.name)) + '</h2>' + who
       + '<div class="vp-elist" hidden><span class="vp-elist-t">Also in your enquiry</span><div class="vp-el-bubbles"></div><ul></ul></div>'
       + '<div class="vp-row"><div class="vp-field"><label for="vp-fname">First name</label><input id="vp-fname" name="First name" autocomplete="given-name" required></div>'
       + '<div class="vp-field"><label for="vp-lname">Last name</label><input id="vp-lname" name="Last name" autocomplete="family-name" required></div></div>'
@@ -762,6 +766,19 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         pulseTimer = setTimeout(function () { bar.textContent = bar.getAttribute('data-label'); bar.parentNode.classList.remove('vp-bar-msg'); }, 2200);
       }
     };
+
+    // "This musician" / "Any musician": sets what the enquiry says in its Musician field
+    if (whoOn) (function () {
+      var opts = Array.prototype.slice.call(root.querySelectorAll('.vp-who-o')), field = root.querySelector('#vp-musician');
+      opts.forEach(function (o) {
+        o.addEventListener('click', function () {
+          var any = o.getAttribute('data-v') === 'any';
+          opts.forEach(function (x) { var on = x === o; x.classList.toggle('vp-who-on', on); x.setAttribute('aria-checked', on ? 'true' : 'false'); });
+          if (field) field.value = any ? 'Any available musician (enquired from ' + m.name + ')' : m.name;
+          var mini = root.querySelector('.vp-who-mini'); if (mini) mini.style.display = any ? 'none' : '';
+        });
+      });
+    })();
 
     // Packages page behaviour
     if (m.packages) (function () {
