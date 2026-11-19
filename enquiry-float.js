@@ -81,11 +81,17 @@
     var rb = document.querySelector('.grb-btn'), r = rb && rb.getBoundingClientRect();
     // Only when the reviews button is down in this corner (computers). On phones it sits at the top of the screen,
     // so the pills stay in the bottom corner on their own; stacking above it there pushed them, and their panel, off the top.
-    var near = r && r.height && r.top > window.innerHeight / 2 && getComputedStyle(rb).display !== 'none' && getComputedStyle(rb).visibility !== 'hidden';
+    // "In this corner" means the reviews button is pinned in the bottom-right corner itself. On the home page on phones it sits
+    // in the middle of the photo under the two buttons, and then the pills must stay right down in the corner, clear of everything.
+    var cs = rb && getComputedStyle(rb);
+    var near = r && r.height && cs.position === 'fixed' && cs.display !== 'none' && cs.visibility !== 'hidden'
+      && r.bottom > window.innerHeight - 70 && r.right > window.innerWidth - 70;
     var up = near ? Math.round(window.innerHeight - r.top) + 10 : 0;
     box.style.bottom = up ? up + 'px' : '';
   }
   window.addEventListener('resize', place);
+  // the reviews button can move after the page first draws (it slides in, or docks under the home page buttons), so check again shortly after
+  [800, 2000, 4500].forEach(function (ms) { setTimeout(place, ms); });
 
   function onFormPage() { return !!document.querySelector('#musician-page .vp-form, #venue-page .vp-form'); }
 
