@@ -181,7 +181,7 @@
   // Wide photo behind the heading, darkened so the text reads
   var HERO = only === 'ceremony'
     ? ['0a59b978-2181-4711-b4a2-2fc6cb3515cf/musician-t-orlaith-2.jpg', '80% 40%']
-    : ['bdca61da-023e-41a9-85f2-bca8ec528a2c/A+few+from+Gorey+Market+Festival+during+summer%2C+never+got+around+to+posting+but+better+late+tha.jpg', 'center 35%'];
+    : ['f31ae8b7-63ec-4fd3-aed6-a5e726ad9a41/IMG_0023.jpeg', '55% 30%'];
   var ABOUT = only === 'ceremony' ? 'About our ceremony musicians' : 'About our musicians';
   var INTRO = only === 'ceremony'
     ? 'Find live musicians for your wedding ceremony and drinks reception, in Dublin and across Ireland. Browse performer profiles, then tell Wedding Day 2 your date, venue and music preferences. We’ll check availability and help you find suitable options.'
