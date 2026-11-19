@@ -144,6 +144,11 @@
     // e: the existing "Build your own package" box moves up to the top left, under the logo; Contact us stays under the heading
     + '.wd2-byp-top{position:absolute!important;top:126px;left:16px;z-index:6;max-width:250px;margin:0!important}'
     + 'html.wd2-cta-on .wd2-byp-top{display:flex!important}'
+    // tap feedback: the button dips and lights up the moment a finger lands on it
+    + '.wd2-cta a{transition:transform .12s ease,box-shadow .15s ease,border-color .15s ease,background .15s ease;touch-action:manipulation}'
+    + '.wd2-cta a.wd2-press,.wd2-cta a:active{transform:scale(.94);border-color:#3dc2bb!important;box-shadow:0 0 0 2px rgba(61,194,187,.75),0 0 20px rgba(61,194,187,.4)!important}'
+    + '.wd2-cta .wd2-c1.wd2-press,.wd2-cta .wd2-c1:active{background:linear-gradient(135deg,rgba(120,230,224,.38),rgba(61,194,187,.18)),rgba(14,38,40,.55)}'
+    + '.wd2-cta-a .wd2-c2.wd2-press,.wd2-cta-a .wd2-c2:active{background:rgba(234,230,221,.32)}'
     + '.wd2-cta-d .wd2-c1{background:none;border:0;box-shadow:none;min-height:0;padding:2px 4px;font-weight:500;color:#eae6dd;text-decoration:underline!important;text-underline-offset:4px;text-shadow:0 1px 6px rgba(0,0,0,.6)}'
     + '}';
   document.head.appendChild(st);
@@ -176,4 +181,28 @@
   }
   var n = 0, t = setInterval(function () { if (build() || ++n > 20) clearInterval(t); }, 300);
   build();
+})();
+
+/* Home page: tap feedback. A finger landing on Contact us / Build a package (and the older versions of those
+   buttons) adds a "pressed" look straight away and keeps it for a moment, so there is a clear sign the tap registered. */
+(function () {
+  if (window.wd2Press || !document.body || !document.body.classList.contains('homepage')) return;
+  window.wd2Press = true;
+  var SEL = '.wd2-cta a, a.sqs-block-button-element, a.wd2-byp';
+  var st = document.createElement('style');
+  st.id = 'wd2-press-css';
+  st.textContent = 'body.homepage a.sqs-block-button-element.wd2-press,body.homepage a.wd2-byp.wd2-press{transform:scale(.95)!important;border-color:#3dc2bb!important;box-shadow:0 0 0 2px rgba(61,194,187,.75),0 0 20px rgba(61,194,187,.4)!important;transition:transform .12s ease,box-shadow .15s ease!important}';
+  document.head.appendChild(st);
+  var cur = null, t = 0;
+  function down(e) {
+    var a = e.target.closest && e.target.closest(SEL);
+    if (!a) return;
+    clearTimeout(t); if (cur && cur !== a) cur.classList.remove('wd2-press');
+    cur = a; a.classList.add('wd2-press');
+  }
+  function up() { if (!cur) return; var a = cur; t = setTimeout(function () { a.classList.remove('wd2-press'); if (cur === a) cur = null; }, 450); }
+  document.addEventListener('pointerdown', down, { passive: true });
+  document.addEventListener('touchstart', down, { passive: true });
+  ['pointerup', 'pointercancel', 'touchend', 'touchcancel'].forEach(function (ev) { document.addEventListener(ev, up, { passive: true }); });
+  window.addEventListener('pageshow', function () { if (cur) { cur.classList.remove('wd2-press'); cur = null; } });
 })();
