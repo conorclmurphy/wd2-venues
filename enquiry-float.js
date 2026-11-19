@@ -79,7 +79,10 @@
   // The Google reviews button sits in the same corner, so stack the pills just above it
   function place() {
     var rb = document.querySelector('.grb-btn'), r = rb && rb.getBoundingClientRect();
-    var up = r && r.height && getComputedStyle(rb).display !== 'none' && getComputedStyle(rb).visibility !== 'hidden' ? Math.round(window.innerHeight - r.top) + 10 : 0;
+    // Only when the reviews button is down in this corner (computers). On phones it sits at the top of the screen,
+    // so the pills stay in the bottom corner on their own; stacking above it there pushed them, and their panel, off the top.
+    var near = r && r.height && r.top > window.innerHeight / 2 && getComputedStyle(rb).display !== 'none' && getComputedStyle(rb).visibility !== 'hidden';
+    var up = near ? Math.round(window.innerHeight - r.top) + 10 : 0;
     box.style.bottom = up ? up + 'px' : '';
   }
   window.addEventListener('resize', place);
