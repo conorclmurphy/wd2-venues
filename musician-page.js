@@ -660,7 +660,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       + '<button type="button" class="vp-who-o vp-who-on" role="radio" aria-checked="true" data-v="this"><span class="vp-who-av"><img src="' + img(whoPic, 200) + '" alt="" style="object-position:' + esc(whoPos) + '">' + TICK + '</span>'
       + '<span class="vp-who-t"><small>This musician</small><b>' + esc(m.name) + '</b></span></button>'
       + '<button type="button" class="vp-who-o" role="radio" aria-checked="false" data-v="any"><span class="vp-who-av vp-who-any"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 18V6l11-2v12M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm11-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>' + TICK + '</span>'
-      + '<span class="vp-who-t"><small>Open to</small><b>Any musician</b></span></button></div>' : '';
+      + '<span class="vp-who-t"><small>Open to</small><b>Anyone</b></span></button></div>' : '';
     var whoMini = whoOn ? '<img class="vp-who-mini" src="' + img(whoPic, 120) + '" alt="" style="object-position:' + esc(whoPos) + '">' : '';
     h += '<aside class="vp-aside"><div class="vp-sheet">'
       + '<button type="button" class="vp-sheet-bar" aria-expanded="false" aria-controls="vp-enquire">' + whoMini + '<span>' + esc(m.formTitle || ('Book ' + m.name)) + '</span>'
