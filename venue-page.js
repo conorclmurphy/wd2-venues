@@ -664,10 +664,9 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
             // Start buffering the first few seconds as the video scrolls near the screen, so it plays straight away when tapped
             var started = false, kick = function () { if (!started) { started = true; hls._want = 1; if (hls._ok) hls.startLoad(-1); } };
             el.addEventListener('play', kick, { once: true });
-            if ('IntersectionObserver' in window) {
-              var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { kick(); io.disconnect(); } }); }, { rootMargin: '300px 0px' });
-              io.observe(el);
-            }
+            // Only start downloading the video when someone shows they want it (mouse moves over it, or a finger touches it),
+            // not just because it is on screen: an HD video is several MB, and most visitors never press play on every one.
+            ['pointerenter', 'pointerdown', 'touchstart', 'focusin'].forEach(function (ev) { (el.parentNode || el).addEventListener(ev, kick, { once: true, passive: true }); });
           } else { el.src = src; }
         });
       };

@@ -1356,7 +1356,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       arrows(); setTimeout(arrows, 400);
       // Fetch the video player script early, as the clips come near the screen, so the first tap starts straight away
       var getHls = function () { if (window.Hls || getHls.on) return; getHls.on = 1; var s = document.createElement('script'); s.src = HLS_URL; document.head.appendChild(s); };
-      if ('IntersectionObserver' in window) { var hio = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { getHls(); var w0 = warm(onstage[0]); if (w0 && w0.then) w0.then(function () { if (box.hidden) warm(onstage[1]); }); hio.disconnect(); } }, { rootMargin: '600px 0px' }); hio.observe(row); } else getHls();
+      if ('IntersectionObserver' in window) { var hio = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { getHls(); hio.disconnect(); }  /* clips are fetched when hovered or touched, not just for being on screen */ }, { rootMargin: '600px 0px' }); hio.observe(row); } else getHls();
       root.addEventListener('mouseover', function (e) { var t = e.target.closest && e.target.closest('.vp-os-t'); if (t) warm(onstage[+t.getAttribute('data-os')]); }, { passive: true });
       root.addEventListener('pointerdown', function (e) { var t = e.target.closest('.vp-os-t'); if (t) { getHls(); warm(onstage[+t.getAttribute('data-os')]); } }, { passive: true });
       root.addEventListener('click', function (e) { var t = e.target.closest('.vp-os-t'); if (t && root.contains(t)) show(+t.getAttribute('data-os')); });
@@ -1671,10 +1671,9 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
             // Start buffering the first few seconds as the video scrolls near the screen, so it plays straight away when tapped
             var started = false, kick = function () { if (!started) { started = true; wanted = true; if (parsed) hls.startLoad(-1); } };
             el.addEventListener('play', kick, { once: true });
-            if ('IntersectionObserver' in window) {
-              var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { kick(); io.disconnect(); } }); }, { rootMargin: '300px 0px' });
-              io.observe(el);
-            }
+            // Only start downloading the video when someone shows they want it (mouse moves over it, or a finger touches it),
+            // not just because it is on screen: an HD video is several MB, and most visitors never press play on every one.
+            ['pointerenter', 'pointerdown', 'touchstart', 'focusin'].forEach(function (ev) { (el.parentNode || el).addEventListener(ev, kick, { once: true, passive: true }); });
           } else { el.src = src; }
         });
       };
