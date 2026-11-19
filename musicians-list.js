@@ -218,7 +218,7 @@
     var size = 500; // card-sized photos (about 1.4MB for the whole page, instead of 8MB+)
     var DJC = D.djCard || {}; // same DJ card as on the musician pages
     var filters = [['all', 'Either'], ['day2', L.day2 || 'Day 2'], ['afterdinner', L.afterdinner || 'After dinner']];
-    if (only) filters = [['all', 'All musicians'], ['day2', 'Also plays ' + (L.day2 || 'Day 2')], ['afterdinner', 'Also plays ' + (L.afterdinner || 'after dinner').toLowerCase()], ['duo', 'Duo']];
+    if (only) filters = [['all', 'All musicians'], ['later', 'Also plays Day 2 / after dinner'], ['duo', 'Duo']];
     var h = '<header class="ml-hero"><img src="' + IMG + HERO[0] + '?format=2500w" alt="" style="object-position:' + HERO[1] + '" fetchpriority="high">'
       + '<div class="ml-hero-in"><p class="ml-eye">' + esc(EYE) + '</p><h1>' + esc(H1) + '</h1><p class="ml-lead">' + esc(LEAD) + '</p></div></header>'
       + '<nav class="ml-tabs" aria-label="Solo musicians">' + TABS.map(function (t) { return '<a class="ml-tab' + (t[3] ? ' ml-tab-on" aria-current="page' : '') + '" href="' + t[2] + '"><strong>' + esc(t[0]) + '</strong><span>' + esc(t[1]) + '</span></a>'; }).join('') + '</nav>'
@@ -232,7 +232,7 @@
       if (only && o.duo) tags.push(['duo', 'Duo']);
       if (only === 'ceremony') tags.unshift(['ceremony', 'Ceremony & reception']);  // every card on this tab says what it is for
       var p = lp ? lp[0] : (o.cardPhoto || o.photo);
-      h += '<a class="ml-card" data-slug="' + esc(o.slug) + '" href="' + esc(o.url + (only ? '?for=' + only : '')) + '" data-tags="' + esc(ev.concat(o.duo ? ['duo'] : []).concat(o.tradBand ? ['tradBand'] : []).join(' ')) + '">'
+      h += '<a class="ml-card" data-slug="' + esc(o.slug) + '" href="' + esc(o.url + (only ? '?for=' + only : '')) + '" data-tags="' + esc(ev.concat(ev.indexOf('day2') !== -1 || ev.indexOf('afterdinner') !== -1 ? ['later'] : []).concat(o.duo ? ['duo'] : []).concat(o.tradBand ? ['tradBand'] : []).join(' ')) + '">'
         + '<div class="ml-img"><img src="' + esc(/^https?:/.test(p) ? p : D.imageBase + p + '?format=' + (SHARPER[o.slug] || size) + 'w') + '" alt="' + esc(o.hideName ? 'Wedding musician' : o.name) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async"'
         + ' style="object-position:' + esc(lp ? lp[1] : (o.cardPosition || o.photoPosition || 'center')) + '"><span class="ml-tags">' + tags.map(function (t) { return '<span class="ml-tag" data-e="' + t[0] + '">' + esc(t[1]) + '</span>'; }).join('') + '</span>' + WM + (o.hideName ? '' : '<span class="ml-name">' + esc(o.name) + '</span>') + '<span class="ml-more">View profile →</span></div></a>';
     });
@@ -304,7 +304,7 @@
       var n = root.querySelectorAll('.ml-card:not([hidden])').length, who = n + ' musician' + (n === 1 ? '' : 's');
       var txt = f === 'all' ? 'Showing all ' + who + (only ? ' for ceremony & drinks reception' : ' for after dinner & Day 2') : only ? who + ': ' + FL[f].charAt(0).toLowerCase() + FL[f].slice(1) : who + ' for <strong>' + esc(FL[f]) + '</strong>';
       root.querySelector('.ml-count').innerHTML = txt;
-      Array.prototype.forEach.call(root.querySelectorAll('.ml-tag'), function (t) { t.classList.toggle('ml-hit', f !== 'all' && t.getAttribute('data-e') === f); });
+      Array.prototype.forEach.call(root.querySelectorAll('.ml-tag'), function (t) { var e = t.getAttribute('data-e'); t.classList.toggle('ml-hit', f !== 'all' && (e === f || (f === 'later' && (e === 'day2' || e === 'afterdinner')))); });
     };
     tell();
     Array.prototype.forEach.call(root.querySelectorAll('.ml-chip'), function (c) {
