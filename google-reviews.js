@@ -118,6 +118,13 @@
     function fromSaved(r) {
       return { rating: r.rating, text: r.text, relativePublishTimeDescription: r.when, authorAttribution: { displayName: r.name, photoURI: r.photo, uri: r.uri } };
     }
+    // "2 months ago" -> roughly how many days ago, so the newest reviews come first
+    function age(r) {
+      var t = String(r.relativePublishTimeDescription || '').toLowerCase(), m = t.match(/(\d+|an?)\s*(minute|hour|day|week|month|year)/);
+      if (!m) return 1e6;
+      var n = /^\d/.test(m[1]) ? +m[1] : 1;
+      return n * { minute: 1 / 1440, hour: 1 / 24, day: 1, week: 7, month: 30, year: 365 }[m[2]];
+    }
     function build(p, saved) {
       saved = saved || {};
       var live = (p.reviews || []).filter(function (r) { return r && r.text; }).map(function (r) { return { rating: r.rating, text: r.text, relativePublishTimeDescription: r.relativePublishTimeDescription, authorAttribution: r.authorAttribution }; });
@@ -125,7 +132,7 @@
       var have = {}; live.forEach(function (r) { have[key(r)] = 1; });
       var all = live.concat((saved.reviews || []).map(fromSaved).filter(function (r) { return !have[key(r)]; }));
       var revs = all.filter(function (r) { return (r.rating || 0) >= MIN_STARS && r.text; })
-        .sort(function (a, b) { return (b.rating || 0) - (a.rating || 0) || (b.text.length - a.text.length); });
+        .sort(function (a, b) { return age(a) - age(b) || (b.text.length - a.text.length); });  // newest first
       if (!p.rating) p.rating = saved.rating;
       var total = Math.max(p.userRatingCount || 0, saved.count || 0, all.length);
       if (!p.rating || !revs.length || window.wd2ReviewsBuilt) return;
@@ -138,7 +145,7 @@
       wrap.className = 'grb';
       wrap.innerHTML = '<div class="grb-dim"></div><button type="button" class="grb-btn" aria-haspopup="dialog" aria-expanded="false">' + GLOGO + '<b>' + rating + '</b>' + stars(p.rating) + '</button>'
         + '<div class="grb-panel" role="dialog" aria-label="Google reviews" aria-hidden="true"><div class="grb-grip" aria-hidden="true"></div>'
-        + '<div class="grb-head"><div><h2>' + esc(TITLE) + '</h2><div class="grb-score"><b>' + rating + '</b>' + stars(p.rating) + '<span>' + total + ' review' + (total === 1 ? '' : 's') + ' on Google</span></div></div>'
+        + '<div class="grb-head"><div><h2>' + esc(TITLE) + '</h2><div class="grb-score"><b>' + rating + '</b>' + stars(p.rating) + '<span>' + 'Most recent</span></div></div>'
         + '<button type="button" class="grb-x" aria-label="Close reviews">✕</button></div>'
         + '<div class="grb-list">' + revs.map(function (r) {
             var a = r.authorAttribution || {}, name = a.displayName || 'Google user';
