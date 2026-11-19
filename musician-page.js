@@ -696,7 +696,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         : m.hideName
         ? '<input type="hidden" id="vp-musician" name="Musician" value="' + esc(m.name) + '">'
         : '<div class="vp-field"><label for="vp-musician">' + esc(m.fieldLabel || 'Musician') + '</label><input id="vp-musician" name="Musician" value="' + esc(m.name) + '"></div>')
-      + '<div class="vp-field"><label for="vp-type">Event type</label><select id="vp-type" name="Event type">' + opt(['Wedding Day 2', 'Ceremony', 'Drinks Reception', 'Wedding Day After Dinner', 'Corporate', 'Other']) + '</select></div>'
+      + '<div class="vp-field"><label for="vp-type">Event type</label><select id="vp-type" name="Event type">' + opt(['Wedding Day 2', 'Ceremony', 'Drinks Reception', 'Wedding Day After Dinner', 'Other']) + '</select></div>'
       + '<div class="vp-field"><label for="vp-venue">Venue <i>(if chosen)</i></label><input id="vp-venue" name="Venue"></div>'
       + '<div class="vp-field"><label for="vp-heard">How did you hear about us?</label><select id="vp-heard" name="How they heard about us">' + opt(['Instagram', 'Google Search', 'Musician referral', 'Venue recommendation', 'Friends or family', 'Other']) + '</select></div>'
       + '<div class="vp-field"><label for="vp-msg">Let us know how we can help <i>(optional)</i></label><textarea id="vp-msg" name="Message" placeholder="Guest numbers, add-ons like trad band, DJ or karaoke, questions"></textarea></div>'
