@@ -216,7 +216,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 #musician-page .vp-loc a{color:var(--vp-accent-text);font-weight:500}\
 #musician-page .vp-map{width:100%;max-width:640px;height:300px;border:1px solid var(--vp-line);border-radius:var(--vp-radius);display:block;margin-bottom:12px;background:var(--vp-line)}\
 #musician-page .vp-form{background:var(--vp-surface);border:1px solid var(--vp-line);border-radius:20px;padding:20px 22px;display:grid;gap:9px;scroll-margin-top:24px}\
-#musician-page .vp-form h2{font-size:22px;margin:0 0 2px}\
+#musician-page .vp-form h2{font-size:22px;margin:0 0 2px}#musician-page .vp-pick{display:flex;align-items:center;gap:12px;margin:10px 0 4px;padding:8px 14px 8px 8px;border-radius:999px;border:1.5px solid var(--vp-brass);background:rgba(61,194,187,.1);width:max-content;max-width:100%}#musician-page .vp-pick-av{position:relative;flex:none;width:52px;height:52px;border-radius:50%;box-shadow:0 0 0 2px var(--vp-brass),0 0 0 5px rgba(61,194,187,.22)}#musician-page .vp-pick-av img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;max-width:none}#musician-page .vp-pick-av i{position:absolute;right:-3px;bottom:-3px;width:21px;height:21px;border-radius:50%;background:var(--vp-brass);color:#1f2727;display:grid;place-items:center;box-shadow:0 0 0 2px #283232}#musician-page .vp-pick-av i svg{width:12px;height:12px}#musician-page .vp-pick-t{display:grid;line-height:1.2;min-width:0}#musician-page .vp-pick-t small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--vp-muted)}#musician-page .vp-pick-t b{font-family:var(--vp-display);font-weight:400;font-size:18px;color:var(--vp-on-dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#musician-page.vp-anim .vp-pick-av{animation:vpPop .5s cubic-bezier(.3,1.5,.5,1) .3s both}@keyframes vpPop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}#musician-page .vp-sheet-who{display:inline-flex;align-items:center;gap:10px;min-width:0}#musician-page .vp-pick-mini{flex:none;width:30px;height:30px;border-radius:50%;box-shadow:0 0 0 2px #1f2727}#musician-page .vp-pick-mini img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;max-width:none}\
 #musician-page .vp-form .vp-sub{color:var(--vp-muted);font-size:14px;margin-top:-6px}\
 #musician-page .vp-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}\
 #musician-page .vp-field{display:grid;gap:4px;min-width:0}\
@@ -652,11 +652,17 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     // Enquiry form, same questions as the home page form, with the musician filled in
     var today = new Date(); today = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
     var opt = function (list) { return '<option value="">Select an option</option>' + list.map(function (x) { return '<option value="' + esc(x) + '">' + esc(x) + '</option>'; }).join(''); };
+    // "You're booking" chip: their photo in a ringed circle with a tick, so it's obvious who the enquiry is for
+    var pickPic = m.cardPhoto || m.photo, pickPos = m.cardPosition || m.photoPosition || 'center';
+    var pick = (!m.packages && pickPic) ? '<div class="vp-pick" aria-label="You are booking ' + esc(m.name) + '"><span class="vp-pick-av"><img src="' + img(pickPic, 200) + '" alt="" style="object-position:' + esc(pickPos) + '">'
+      + '<i aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></svg></i></span>'
+      + '<span class="vp-pick-t"><small>You\'re booking</small><b>' + esc(m.name) + '</b></span></div>' : '';
+    var pickMini = pick ? '<span class="vp-pick-mini"><img src="' + img(pickPic, 120) + '" alt="" style="object-position:' + esc(pickPos) + '"></span>' : '';
     h += '<aside class="vp-aside"><div class="vp-sheet">'
-      + '<button type="button" class="vp-sheet-bar" aria-expanded="false" aria-controls="vp-enquire"><span>' + esc(m.formTitle || ('Book ' + m.name)) + '</span>'
+      + '<button type="button" class="vp-sheet-bar" aria-expanded="false" aria-controls="vp-enquire"><span class="vp-sheet-who">' + pickMini + '<span>' + esc(m.formTitle || ('Book ' + m.name)) + '</span></span>'
       + '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M6 15l6-6 6 6"/></svg></button>'
       + '<form class="vp-form" id="vp-enquire" novalidate>'
-      + '<h2>' + esc(m.formTitle || ('Book ' + m.name)) + '</h2>'
+      + '<h2>' + esc(m.formTitle || ('Book ' + m.name)) + '</h2>' + pick
       + '<div class="vp-elist" hidden><span class="vp-elist-t">Also in your enquiry</span><div class="vp-el-bubbles"></div><ul></ul></div>'
       + '<div class="vp-row"><div class="vp-field"><label for="vp-fname">First name</label><input id="vp-fname" name="First name" autocomplete="given-name" required></div>'
       + '<div class="vp-field"><label for="vp-lname">Last name</label><input id="vp-lname" name="Last name" autocomplete="family-name" required></div></div>'
