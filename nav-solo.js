@@ -118,7 +118,7 @@
   if (window.wd2Cta || !document.body || !document.body.classList.contains('homepage')) return;
   window.wd2Cta = true;
   var LIVE = 'a';  // chosen 19 Nov 2026: side by side
-  var pick = (/[?&]buttons=([a-d])\b/i.exec(location.search) || [])[1];
+  var pick = (/[?&]buttons=([a-e])\b/i.exec(location.search) || [])[1];
   pick = (pick || LIVE).toLowerCase();
   if (!pick) return;
   var G = 'background:linear-gradient(135deg,rgba(120,230,224,.16),rgba(61,194,187,.06)),rgba(14,38,40,.55);border:1px solid rgba(160,240,235,.3);color:#dcefec;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 4px 14px rgba(0,0,0,.2)';
@@ -128,6 +128,7 @@
   st.textContent = '.wd2-cta{display:none}'
     + '@media (max-width:767px){'
     + 'html.wd2-cta-on body.homepage .wd2-cta-old{visibility:hidden!important;pointer-events:none!important}'
+    + '.wd2-byp-top{display:none!important}'
     + '.wd2-cta{display:flex;gap:10px;justify-content:center;margin:20px auto 0;width:100%;max-width:340px;font-family:Bitter,Georgia,serif}'
     + '.wd2-cta a{flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;gap:6px;min-height:50px;padding:10px 12px;font-size:15px;font-weight:600;line-height:1.2;text-align:center;text-decoration:none!important;white-space:nowrap;-webkit-tap-highlight-color:transparent}'
     + '.wd2-cta .wd2-c1{' + G + ';border-radius:45px 0}'
@@ -141,6 +142,9 @@
     + '.wd2-cta-c .wd2-c2{color:#3dc2bb!important;border-left:1px solid rgba(160,240,235,.3)!important}'
     // d: one main button, with contact as a quiet link under it
     + '.wd2-cta-d{flex-direction:column;align-items:center;gap:12px;max-width:270px}.wd2-cta-d a{flex:none}.wd2-cta-d .wd2-c2{order:-1;width:100%;border-radius:45px 0}'
+    // e: the existing "Build your own package" box moves up to the top left, under the logo; Contact us stays under the heading
+    + '.wd2-byp-top{position:absolute!important;top:126px;left:16px;z-index:6;max-width:250px;margin:0!important}'
+    + 'html.wd2-cta-on .wd2-byp-top{display:flex!important}'
     + '.wd2-cta-d .wd2-c1{background:none;border:0;box-shadow:none;min-height:0;padding:2px 4px;font-weight:500;color:#eae6dd;text-decoration:underline!important;text-underline-offset:4px;text-shadow:0 1px 6px rgba(0,0,0,.6)}'
     + '}';
   document.head.appendChild(st);
@@ -150,7 +154,15 @@
     var contact = hero && hero.querySelector('a.sqs-block-button-element');
     var card = hero && hero.querySelector('a.wd2-byp');
     if (!h1 || !contact || !card) return false;
-    if (hero.querySelector('.wd2-cta')) return true;
+    if (hero.querySelector('.wd2-cta, .wd2-byp-top')) return true;
+    if (pick === 'e') {
+      var top = card.cloneNode(true);
+      top.classList.add('wd2-byp-top');
+      hero.appendChild(top);
+      (card.closest('.fe-block') || card).classList.add('wd2-cta-old');
+      document.documentElement.classList.add('wd2-cta-on');
+      return true;
+    }
     var wide = { a: 'Build a package', b: 'Build your own package', c: 'Build a package', d: 'Build your own package' }[pick];
     var box = document.createElement('div');
     box.className = 'wd2-cta wd2-cta-' + pick;
