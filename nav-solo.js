@@ -125,10 +125,9 @@
   var C = 'background:#3dc2bb;border:1px solid #3dc2bb;color:#0e2628;box-shadow:0 6px 18px rgba(0,0,0,.28)';
   var st = document.createElement('style');
   st.id = 'wd2-cta-css';
-  st.textContent = '.wd2-cta{display:none}'
+  st.textContent = '.wd2-cta{display:none}.wd2-byp-top{display:none!important}'
     + '@media (max-width:767px){'
     + 'html.wd2-cta-on body.homepage .wd2-cta-old{visibility:hidden!important;pointer-events:none!important}'
-    + '.wd2-byp-top{display:none!important}'
     + '.wd2-cta{display:flex;gap:10px;justify-content:center;margin:20px auto 0;width:100%;max-width:340px;font-family:Bitter,Georgia,serif}'
     + '.wd2-cta a{flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;gap:6px;min-height:50px;padding:10px 12px;font-size:15px;font-weight:600;line-height:1.2;text-align:center;text-decoration:none!important;white-space:nowrap;-webkit-tap-highlight-color:transparent}'
     + '.wd2-cta .wd2-c1{' + G + ';border-radius:45px 0}'
