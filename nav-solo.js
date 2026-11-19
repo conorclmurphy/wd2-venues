@@ -144,11 +144,10 @@
     // e: the existing "Build your own package" box moves up to the top left, under the logo; Contact us stays under the heading
     + '.wd2-byp-top{position:absolute!important;top:126px;left:16px;z-index:6;max-width:250px;margin:0!important}'
     + 'html.wd2-cta-on .wd2-byp-top{display:flex!important}'
-    // Live phone layout: Contact us + Build a package side by side with the Google reviews button under them. The three hold their
-    // place on screen while the page scrolls, and because they live inside the photo section's own shape they slide away UNDER the
-    // blue line as the next section comes up - nothing fades, and no code runs while scrolling.
-    + 'html.wd2-cta-on .wd2-trio-hold{display:block;position:absolute;left:0;right:0;top:0;height:calc(100% + 700px);z-index:3;pointer-events:none}'
-    + 'html.wd2-cta-on .wd2-trio{display:flex;flex-direction:column;align-items:center;gap:12px;position:-webkit-sticky;position:sticky;top:58vh;box-sizing:border-box;width:100%;padding:0 16px;pointer-events:none;opacity:0;transition:opacity .5s ease}'
+    // Live phone layout: Contact us + Build a package side by side with the Google reviews button under them, just under the heading.
+    // They are part of the photo section and scroll away with it like everything else (no holding in place, no fading).
+    + 'html.wd2-cta-on .wd2-trio-hold{display:block;position:absolute;left:0;right:0;top:0;height:100%;z-index:3;pointer-events:none}'
+    + 'html.wd2-cta-on .wd2-trio{display:flex;flex-direction:column;align-items:center;gap:12px;position:absolute;left:0;right:0;top:58vh;box-sizing:border-box;width:100%;padding:0 16px;pointer-events:none;opacity:0;transition:opacity .5s ease}'
     + 'html.wd2-cta-on .wd2-trio.wd2-trio-in{opacity:1}'
     + '.wd2-trio.wd2-trio-in>*{pointer-events:auto}'
     + 'body.header--menu-open .wd2-trio{opacity:0!important}body.header--menu-open .wd2-trio>*{pointer-events:none!important}'
@@ -204,8 +203,7 @@
     var a1 = document.createElement('a'); a1.className = 'wd2-c1'; a1.href = contact.getAttribute('href'); a1.textContent = 'Contact us';
     var a2 = document.createElement('a'); a2.className = 'wd2-c2'; a2.href = card.getAttribute('href'); a2.textContent = 'Build a package \u2192';
     box.appendChild(a1); box.appendChild(a2); wrap.appendChild(box);
-    // The holder sits inside the photo section's clipped layer (the layer whose bottom edge is the angled blue line) and is taller
-    // than the section, so the sticky row keeps its place on screen until the line has passed right over it.
+    // The holder sits inside the photo section, so the row is simply part of that section.
     var layer = hero.querySelector('.section-border') || hero;
     var hold = document.createElement('div'); hold.className = 'wd2-trio-hold';
     hold.appendChild(wrap); layer.appendChild(hold);
@@ -223,7 +221,7 @@
     function place() {
       if (!mq.matches) return;
       // where the row sits on the first screen: just under the heading
-      wrap.style.top = Math.round(h1.getBoundingClientRect().bottom + (window.pageYOffset || 0) + 20) + 'px';
+      wrap.style.top = Math.round(h1.getBoundingClientRect().bottom - hero.getBoundingClientRect().top + 20) + 'px';
     }
     window.addEventListener('resize', function () { dock(); place(); });
     if (mq.addEventListener) mq.addEventListener('change', function () { dock(); place(); });
