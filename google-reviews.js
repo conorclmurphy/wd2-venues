@@ -138,7 +138,6 @@
       if (!p.rating || !revs.length || window.wd2ReviewsBuilt) return;
       window.wd2ReviewsBuilt = true;
       var url = p.googleMapsURI || 'https://www.google.com/maps/place/?q=place_id:' + encodeURIComponent(PLACE_ID);
-      var write = 'https://search.google.com/local/writereview?placeid=' + encodeURIComponent(PLACE_ID);
       var rating = p.rating.toFixed(1);
 
       var wrap = document.createElement('div');
@@ -157,7 +156,7 @@
               + stars(r.rating || 0) + '<p class="grb-text">' + esc(r.text) + '</p><button type="button" class="grb-more" hidden>Read more</button></article>';
           }).join('') + '</div>'
         + '<div class="grb-foot"><div class="grb-btns"><a class="grb-link" href="' + esc(url) + '" target="_blank" rel="noopener">See all</a>'
-        + '<a class="grb-link grb-solid" href="' + esc(write) + '" target="_blank" rel="noopener">Leave a review</a></div>'
+        + '</div>'
         + '<span class="grb-from">' + GLOGO + 'Reviews from Google</span></div></div>';
       document.body.appendChild(wrap);
 
