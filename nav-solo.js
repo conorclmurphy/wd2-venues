@@ -125,7 +125,7 @@
   var C = 'background:#3dc2bb;border:1px solid #3dc2bb;color:#0e2628;box-shadow:0 6px 18px rgba(0,0,0,.28)';
   var st = document.createElement('style');
   st.id = 'wd2-cta-css';
-  st.textContent = '.wd2-cta{display:none}.wd2-byp-top{display:none!important}'
+  st.textContent = '.wd2-cta{display:none}.wd2-byp-top{display:none!important}.wd2-trio{display:none}'
     + '@media (max-width:767px){'
     + 'html.wd2-cta-on body.homepage .wd2-cta-old{visibility:hidden!important;pointer-events:none!important}'
     + '.wd2-cta{display:flex;gap:10px;justify-content:center;margin:20px auto 0;width:100%;max-width:340px;font-family:Bitter,Georgia,serif}'
@@ -144,6 +144,17 @@
     // e: the existing "Build your own package" box moves up to the top left, under the logo; Contact us stays under the heading
     + '.wd2-byp-top{position:absolute!important;top:126px;left:16px;z-index:6;max-width:250px;margin:0!important}'
     + 'html.wd2-cta-on .wd2-byp-top{display:flex!important}'
+    // Live phone layout: Contact us + Build a package side by side with the Google reviews button under them. The three hold their
+    // place on screen and fade out together when the blue line at the bottom of the photo reaches them, so they never sit over the next section.
+    + 'html.wd2-cta-on .wd2-trio{display:flex;flex-direction:column;align-items:center;gap:12px;position:fixed;left:0;right:0;top:58vh;z-index:40;padding:0 16px;pointer-events:none;opacity:0;transition:opacity .5s ease}'
+    + 'html.wd2-cta-on .wd2-trio.wd2-trio-in{opacity:1}html.wd2-cta-on .wd2-trio.wd2-trio-away{opacity:0}'
+    + '.wd2-trio.wd2-trio-in:not(.wd2-trio-away)>*{pointer-events:auto}'
+    + 'body.header--menu-open .wd2-trio{opacity:0!important}body.header--menu-open .wd2-trio>*{pointer-events:none!important}'
+    + '.wd2-trio .wd2-cta{margin:0 auto}'
+    + '.wd2-trio .grb-btn{position:static!important;transform:none!important;opacity:1;margin:0!important;padding:9px 16px 9px 12px!important;gap:8px!important;font-size:15px!important;transition:box-shadow .2s ease!important}'
+    + '.wd2-trio .grb-btn .grb-star{display:inline-block!important}'
+    // the photo section is a little shorter on phones, so the blue line (and the next section) sits higher
+    + 'html.wd2-cta-on .wd2-hero .fluid-engine{margin-top:-90px!important}'
     // tap feedback: the button dips and lights up the moment a finger lands on it
     + '.wd2-cta a{transition:transform .12s ease,box-shadow .15s ease,border-color .15s ease,background .15s ease;touch-action:manipulation}'
     + '.wd2-cta a.wd2-press,.wd2-cta a:active{transform:scale(.94);border-color:#3dc2bb!important;box-shadow:0 0 0 2px rgba(61,194,187,.75),0 0 20px rgba(61,194,187,.4)!important}'
@@ -167,6 +178,7 @@
       document.documentElement.classList.add('wd2-cta-on');
       return true;
     }
+    if (pick === 'a') return trio(hero, h1, contact, card);
     var wide = { a: 'Build a package', b: 'Build your own package', c: 'Build a package', d: 'Build your own package' }[pick];
     var box = document.createElement('div');
     box.className = 'wd2-cta wd2-cta-' + pick;
@@ -177,6 +189,44 @@
     var b1 = contact.closest('.fe-block') || contact, b2 = card.closest('.fe-block') || card;
     b1.classList.add('wd2-cta-old'); b2.classList.add('wd2-cta-old');
     document.documentElement.classList.add('wd2-cta-on');
+    return true;
+  }
+  function trio(hero, h1, contact, card) {
+    if (document.querySelector('.wd2-trio')) return true;
+    var mq = window.matchMedia('(max-width:767px)');
+    var wrap = document.createElement('div'); wrap.className = 'wd2-trio';
+    var box = document.createElement('div'); box.className = 'wd2-cta wd2-cta-a';
+    var a1 = document.createElement('a'); a1.className = 'wd2-c1'; a1.href = contact.getAttribute('href'); a1.textContent = 'Contact us';
+    var a2 = document.createElement('a'); a2.className = 'wd2-c2'; a2.href = card.getAttribute('href'); a2.textContent = 'Build a package \u2192';
+    box.appendChild(a1); box.appendChild(a2); wrap.appendChild(box);
+    document.body.appendChild(wrap);
+    hero.classList.add('wd2-hero');
+    (contact.closest('.fe-block') || contact).classList.add('wd2-cta-old');
+    (card.closest('.fe-block') || card).classList.add('wd2-cta-old');
+    document.documentElement.classList.add('wd2-cta-on');
+    var home = null;
+    // on phones the Google reviews button moves in under the two buttons (full size, five stars); on bigger screens it goes back to its corner
+    function dock() {
+      var b = document.querySelector('.grb-btn'); if (!b) return;
+      if (mq.matches) { if (b.parentNode !== wrap) { home = home || { p: b.parentNode, n: b.nextSibling }; wrap.appendChild(b); } }
+      else if (home && b.parentNode === wrap) home.p.insertBefore(b, home.n && home.n.parentNode === home.p ? home.n : null);
+    }
+    function check() {
+      if (!mq.matches) return;
+      var line = hero.getBoundingClientRect().bottom - 58;       // roughly where the blue line crosses the middle of the screen
+      wrap.classList.toggle('wd2-trio-away', line < wrap.getBoundingClientRect().bottom + 6);
+    }
+    function place() {
+      if (!mq.matches) return;
+      wrap.style.top = Math.round(h1.getBoundingClientRect().bottom + (window.pageYOffset || 0) + 20) + 'px';
+      check();
+    }
+    var ticking = false;
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; check(); }); } }, { passive: true });
+    window.addEventListener('resize', function () { dock(); place(); });
+    if (mq.addEventListener) mq.addEventListener('change', function () { dock(); place(); });
+    var k = 0, t2 = setInterval(function () { dock(); place(); if (k === 3) wrap.classList.add('wd2-trio-in'); if (++k > 24) clearInterval(t2); }, 250);
+    dock(); place();
     return true;
   }
   var n = 0, t = setInterval(function () { if (build() || ++n > 20) clearInterval(t); }, 300);
