@@ -520,15 +520,12 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     else if (vids.length) h += '<section class="vp-about vp-split' + (vids[0].shape === 'tall' ? ' vp-split-tall' : '') + '"><div>' + aboutText + '</div>' + videoTag(vids[0], m.name) + '</section>';
     else h += '<section class="vp-about">' + aboutText + '</section>';
 
-    if (vids.length > (pair ? 2 : 1)) {
-      h += '<section><h2>More videos</h2><div class="vp-videos">';
-      vids.slice(pair ? 2 : 1).forEach(function (x) { h += videoTag(x, m.name); });
-      h += '</div></section>';
-    }
+    // Any videos beyond the ones beside the bio go first in "Recent videos" (no separate "More videos" section)
+    var extraVids = vids.slice(pair ? 2 : 1);
 
     // "On stage": short clips from the musician's social media, shown as tall tiles; tapping one opens it full screen.
     // Nothing here names the musician or links out, so anonymous profiles stay anonymous.
-    var onstage = cm.onstage || m.onstage || [];
+    var onstage = extraVids.concat(cm.onstage || m.onstage || []);
     if (onstage.length) {
       h += '<section class="vp-onstage"><h2>' + esc(m.onstageTitle || 'Recent videos') + '</h2><p class="vp-os-sub">' + esc(m.onstageSub || 'Real moments from recent gigs.') + '</p><div class="vp-os-w"><button type="button" class="vp-os-a vp-os-l" aria-label="Scroll clips left" disabled>‹</button><div class="vp-os">';
       onstage.forEach(function (x, i) {
