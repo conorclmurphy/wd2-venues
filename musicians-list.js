@@ -218,17 +218,18 @@
     var size = 500; // card-sized photos (about 1.4MB for the whole page, instead of 8MB+)
     var DJC = D.djCard || {}; // same DJ card as on the musician pages
     var filters = [['all', 'Either'], ['day2', L.day2 || 'Day 2'], ['afterdinner', L.afterdinner || 'After dinner']];
-    if (only) filters = [['all', 'All'], ['later', 'Also plays Day 2 / after dinner'], ['duo', 'Duo']];
+    if (only) filters = [['all', 'All'], ['later', 'Also plays Day 2 & after dinner'], ['duo', 'Duo']];
     var h = '<header class="ml-hero"><img src="' + IMG + HERO[0] + '?format=2500w" alt="" style="object-position:' + HERO[1] + '" fetchpriority="high">'
       + '<div class="ml-hero-in"><p class="ml-eye">' + esc(EYE) + '</p><h1>' + esc(H1) + '</h1><p class="ml-lead">' + esc(LEAD) + '</p></div></header>'
       + '<nav class="ml-tabs" aria-label="Solo musicians">' + TABS.map(function (t) { return '<a class="ml-tab' + (t[3] ? ' ml-tab-on" aria-current="page' : '') + '" href="' + t[2] + '"><strong>' + esc(t[0]) + '</strong><span>' + esc(t[1]) + '</span></a>'; }).join('') + '</nav>'
       + '<div class="ml-wrap"><div class="ml-top"><div class="ml-head"><h2>Pick your musician</h2><p class="ml-count" aria-live="polite"></p></div>'
-      + '<div class="ml-pick"><span class="ml-ask">' + (only ? 'Show' : 'Day 2 or after dinner?') + '</span>'
-      + '<div class="ml-chips">' + filters.map(function (f, i) { return '<button type="button" class="ml-chip' + (i ? '' : ' on') + '" data-f="' + f[0] + '" aria-pressed="' + (i ? 'false' : 'true') + '">' + esc(f[1]) + '</button>'; }).join('') + '</div></div></div><div class="ml-grid">';
+      + (only ? '<div class="ml-pick"><span class="ml-ask">Show</span>'
+      + '<div class="ml-chips">' + filters.map(function (f, i) { return '<button type="button" class="ml-chip' + (i ? '' : ' on') + '" data-f="' + f[0] + '" aria-pressed="' + (i ? 'false' : 'true') + '">' + esc(f[1]) + '</button>'; }).join('') + '</div></div>' : '') + '</div><div class="ml-grid">';
     list.forEach(function (o, i) {
       var lp = LIST_PHOTOS[o.slug];
       var ev = ORDER.filter(function (e) { return o.events.indexOf(e) !== -1; });
-      var tags = ev.filter(function (e) { return e !== only && (only || e !== 'ceremony'); }).map(function (e) { return [e, e === 'ceremony' ? 'Ceremony' : (L[e] || e)]; });
+      // Day 2 and after dinner are one offer now: everyone who plays one plays both
+      var tags = only && (ev.indexOf('day2') !== -1 || ev.indexOf('afterdinner') !== -1) ? [['later', 'Day 2 & after dinner']] : [];
       if (only && o.duo) tags.push(['duo', 'Duo']);
       if (only === 'ceremony') tags.unshift(['ceremony', 'Ceremony & reception']);  // every card on this tab says what it is for
       var p = lp ? lp[0] : (o.cardPhoto || o.photo);

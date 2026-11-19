@@ -154,10 +154,7 @@
         "Whether you wish to create a relaxed, mellow atmosphere during the early stage of your Day Two, or an upbeat, feel-good vibe later into the night, he has the setlist for you!",
         "He is also happy to work with couples on selecting the perfect soundtrack for their day, whether it's that favourite song or just simply a preferred genre."
       ],
-      "events": [
-        "ceremony",
-        "day2"
-      ],
+      "events": ["ceremony", "day2", "afterdinner"],
       "tradBand": false,
       "duo": true,
       "onstage": [{"id": "e45bc18e-4ff0-4307-af04-f70185913281", "seconds": 61}, {"id": "5a7290b6-145d-476d-8f4e-9de602ea1503", "seconds": 58}, {"id": "446b4241-4f36-4812-a514-315c87b20cb0", "seconds": 36}, {"id": "1df247be-9c38-482b-9723-252c95029bf7", "seconds": 59}], "videos": [
@@ -225,10 +222,7 @@
         "He is a professional singer-guitarist specialising in weddings and private events across Ireland.",
         "With a relaxed acoustic style and a repertoire spanning modern chart hits, timeless classics and Irish favourites he creates the perfect atmosphere for every event. Every performance is tailored to suit the guests, ensuring the music feels personal and memorable."
       ],
-      "events": [
-        "ceremony",
-        "day2"
-      ],
+      "events": ["ceremony", "day2", "afterdinner"],
       "tradBand": false,
       "duo": true,
       "onstage": [{"id": "6c283cf4-4166-4099-bcfb-0676b1407355", "seconds": 44}, {"id": "24e1c06f-f51b-4f8c-9940-9329c0acd45d", "seconds": 75}, {"id": "b6ca823d-f130-4ed1-b902-df1302e857c6", "seconds": 70}, {"id": "1bcdfaff-9008-477e-aecb-65df7c246c81", "seconds": 38}, {"id": "b978d69a-f370-4cd2-9408-fb162b05db5a", "seconds": 76}, {"id": "fe0a954c-0732-4373-8167-6085d54d7300", "seconds": 38}, {"id": "c5e0fa0c-6c2c-4aa5-a748-4af58ffa69c8", "seconds": 60}], "videos": [
@@ -282,9 +276,7 @@
         "He is a Galway-based musician with over 10 years of experience playing at weddings and events.",
         "He's known for keeping things relaxed while still getting people on the dance floor, mixing crowd favourites with a few personal touches, and the occasional harmonica thrown in."
       ],
-      "events": [
-        "day2"
-      ],
+      "events": ["day2", "afterdinner"],
       "tradBand": false,
       "duo": false,
       "videos": [
@@ -309,10 +301,7 @@
         "Whether it's upbeat party music or laid-back acoustic vibes, he has all the bases covered. With a huge repertoire of over 700 songs, he is more than happy to take requests and be your very own human jukebox.",
         "He has toured and performed across the UK, Ireland, Europe and America as a guitarist and vocalist with the legendary Sinéad O'Connor, making him incredibly experienced and ideal for any occasion."
       ],
-      "events": [
-        "ceremony",
-        "day2"
-      ],
+      "events": ["ceremony", "day2", "afterdinner"],
       "tradBand": false,
       "duo": false,
       "onstage": [{"id": "409118ac-8521-4347-a62c-28c21ab54c8c", "seconds": 90}, {"id": "8b7afbeb-7509-4579-b571-473f7ff9fec2", "seconds": 90}, {"id": "8899cf02-27ce-4d6b-854f-077f3c3b79cb", "seconds": 90}, {"id": "d881dae0-a8b7-4af9-b94f-3d6bf84d823c", "seconds": 90}, {"id": "ab0ee08d-7827-4dc3-8d27-724c7f7c3d85", "seconds": 90}], "videos": [
@@ -348,10 +337,7 @@
         "With a natural talent to read the crowd, he keeps the vibe upbeat and engaging from start to finish.",
         "With years of experience entertaining crowds across Ireland, he has built a setlist featuring modern hits, creative mashups, and classic sing-along favourites."
       ],
-      "events": [
-        "ceremony",
-        "day2"
-      ],
+      "events": ["ceremony", "day2", "afterdinner"],
       "tradBand": false,
       "duo": true,
       "ceremony": {"videos": [{"id": "e14ea79c-55a0-4f8d-b7f1-1d97020450ca", "seconds": 37, "shape": "tall"}], "onstage": [{"id": "eca51165-1168-4b5f-89ac-972f6f38bc7c", "seconds": 72}, {"id": "50099eb3-aba1-4a73-8972-004850f47fee", "seconds": 71}, {"id": "0cdb1c98-638b-4b5d-b442-7de7216066c4", "seconds": 43}, {"id": "adcda1ba-e105-46dd-a43a-7789d2e700a0", "seconds": 63}]},
@@ -379,9 +365,7 @@
         "His style blends popular contemporary songs with touches of traditional Irish music, creating a warm, lively, and memorable experience for guests of all ages.",
         "Whether performing laid-back acoustic favourites or getting everyone up dancing and singing along, his talent, charm, and love of music make him a highlight of any wedding celebration."
       ],
-      "events": [
-        "day2"
-      ],
+      "events": ["day2", "afterdinner"],
       "tradBand": false,
       "duo": false,
       "videos": [
@@ -407,10 +391,7 @@
         "Since beginning his career on the Irish pub circuit in 2008, he has gone on to perform at more than 1,000 weddings, drinks receptions, ceremonies, day-two celebrations, private events and corporate functions across Ireland, Europe and South America.",
         "Whether it's creating the perfect atmosphere for a wedding ceremony, providing easy-listening music for a drinks reception, or getting a crowd singing along late into the evening, he tailors every performance to suit the occasion."
       ],
-      "events": [
-        "ceremony",
-        "day2"
-      ],
+      "events": ["ceremony", "day2", "afterdinner"],
       "tradBand": false,
       "duo": false,
       "onstage": [{"id": "f86a9a97-3999-4dc6-8297-566eb026cae5", "seconds": 57}, {"id": "52c35c61-7857-4d24-be1f-16e9c8ca70a0", "seconds": 82}, {"id": "ce6c553c-2112-49f1-8925-33ee0e881b64", "seconds": 50}, {"id": "20e0c0ee-9dec-4179-b020-ff888ff3979f", "seconds": 63}, {"id": "68cc75fb-0694-4509-9730-39a0fb92d255", "seconds": 65}, {"id": "f0fd6b3c-03ed-4acc-bdc0-bf4a2ae8bbef", "seconds": 56}, {"id": "2f887339-91a9-45d0-9371-476a7c474947", "seconds": 79}, {"id": "c23eab85-81d8-4151-b87e-fade994ff4ad", "seconds": 21}], "videos": [
@@ -474,10 +455,7 @@
         "He is a Cork-based singer and guitarist who brings great energy and plenty of personality to weddings and events across Ireland.",
         "Whether you want a relaxed, laid-back soundtrack for your drinks reception or someone to get the whole crowd up singing and dancing later in the day, he reads the room and keeps the atmosphere just right from start to finish."
       ],
-      "events": [
-        "ceremony",
-        "day2"
-      ],
+      "events": ["ceremony", "day2", "afterdinner"],
       "tradBand": false,
       "duo": false,
       "videos": [
@@ -502,9 +480,7 @@
         "Born in Mayo, he has been singing and playing the guitar for two decades and is a familiar face in the lively Temple Bar area.",
         "He enjoys playing a mix of modern and classic songs in rock, pop, and folk styles. With dynamic and engaging performances, he has captivated music enthusiasts throughout Ireland and abroad."
       ],
-      "events": [
-        "day2"
-      ],
+      "events": ["day2", "afterdinner"],
       "tradBand": false,
       "duo": false,
       "videos": [
@@ -530,9 +506,7 @@
         "He is a solo singer-guitarist who plays weddings and private events all over Ireland. His sets are made for the dance floor: upbeat and feel good, moving from current chart hits to party anthems and much loved classics without a break in the energy.",
         "He reads a room well and adjusts the set to suit it, so guests are singing along from the first song to the last. Requests are always welcome, which helps every celebration feel like it was put together just for you."
       ],
-      "events": [
-        "day2"
-      ],
+      "events": ["day2", "afterdinner"],
       "tradBand": false,
       "duo": true,
       "onstage": [{"id": "35d237e8-63d8-4587-86a0-4b9cefd943cd", "seconds": 32}, {"id": "a7e68815-93e1-43cc-a656-eb159e8834f1", "seconds": 22}, {"id": "ae75f66f-7d31-4059-a7d9-129db0d0f4b4", "seconds": 65}, {"id": "8bd4bed7-d6f1-4a74-9515-a757c0d1325a", "seconds": 65}, {"id": "d6676066-b43a-4603-a8d2-5fce07a9703c", "seconds": 53}, {"id": "3642c689-301e-4f3b-9605-48358443f3c6", "seconds": 46}, {"id": "dde978ea-e066-40a9-9f37-308f859ab132", "seconds": 58}], "videos": [
