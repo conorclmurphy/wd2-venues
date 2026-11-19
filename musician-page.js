@@ -43,11 +43,11 @@
   // Start videos at 720p (sharp on a phone, quick to begin) and let the player step up to 1080p once it's running,
   // rather than waiting for a full 1080p chunk before anything plays.
   function vpStartLevel(lv) {
-    var best = -1, top = 0;
+    // smallest version that is at least 540p (so 720p if there is one, otherwise 1080p); never the 360p one
+    var best = -1, top = 0, sh = function (l) { return Math.min(l.width || l.height || 0, l.height || l.width || 0); };
     lv.forEach(function (l, i) {
-      var sh = Math.min(l.width || l.height || 0, l.height || l.width || 0);
-      if ((l.height || 0) > (lv[top].height || 0)) top = i;
-      if (sh && sh <= 720 && (best === -1 || sh > Math.min(lv[best].width || 0, lv[best].height || 0))) best = i;
+      if (sh(l) > sh(lv[top])) top = i;
+      if (sh(l) >= 540 && (best === -1 || sh(l) < sh(lv[best]))) best = i;
     });
     return best === -1 ? top : best;
   }
