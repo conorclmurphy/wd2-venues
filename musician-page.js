@@ -597,7 +597,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       });
       h += '<div class="vp-pk-addhead" hidden><strong>Add-ons</strong> <span>Optional. Add one or both.</span></div></div>'
         + '<div class="vp-pk-next" data-next="result" hidden><span class="vp-pk-next-t">Happy with your add-ons?</span><button type="button" class="vp-btn">Next: see your package ↓</button></div></section>';
-      h += '<section class="vp-build vp-pk-step" data-step="result" hidden><span class="vp-step">Your package</span><h2>Here\'s what you\'ve built</h2><div class="vp-pk-row">';
+      h += '<section class="vp-build vp-pk-step" data-step="result" hidden><span class="vp-step">Your package</span><h2>Here\'s what you\'ve built</h2><div class="vp-pk-row" hidden style="display:none!important">';
       P.list.forEach(function (x) {
         h += '<button type="button" class="vp-pk" data-id="' + esc(x.id) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(x.image, 500) + '" alt="' + esc(x.title) + ' wedding music package"' + (x.imagePosition ? ' style="object-position:' + esc(x.imagePosition) + '"' : '') + '><span class="vp-tick" aria-hidden="true">✓</span></div>'
           + '<strong>' + esc(x.title) + '</strong><em class="vp-pk-meta">' + esc(x.hours) + '</em><span>' + esc(x.text) + '</span><b class="vp-pk-price">From ' + euro(x.from) + '</b></button>';
