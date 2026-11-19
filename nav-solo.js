@@ -147,12 +147,13 @@
     // Live phone layout: Contact us + Build a package side by side with the Google reviews button under them. The three hold their
     // place on screen and fade out together when the blue line at the bottom of the photo reaches them, so they never sit over the next section.
     + 'html.wd2-cta-on .wd2-trio{display:flex;flex-direction:column;align-items:center;gap:12px;position:fixed;left:0;right:0;top:58vh;z-index:40;padding:0 16px;pointer-events:none;opacity:0;transition:opacity .5s ease}'
-    + 'html.wd2-cta-on .wd2-trio.wd2-trio-in{opacity:1}html.wd2-cta-on .wd2-trio.wd2-trio-away{opacity:0}'
-    + '.wd2-trio.wd2-trio-in:not(.wd2-trio-away)>*{pointer-events:auto}'
+    + 'html.wd2-cta-on .wd2-trio.wd2-trio-in{opacity:1}'
+    + '.wd2-trio>*{transition:opacity .45s ease}.wd2-trio>.wd2-away{opacity:0!important;pointer-events:none!important}'
+    + '.wd2-trio.wd2-trio-in>*{pointer-events:auto}'
     + 'body.header--menu-open .wd2-trio{opacity:0!important}body.header--menu-open .wd2-trio>*{pointer-events:none!important}'
     + '.wd2-trio .wd2-cta{margin:0 auto}'
     + '.wd2-trio{--grb-ink:#eae6dd;--grb-muted:#b8b3a8;--grb-accent:#3dc2bb;--grb-star:#f4c150;font-family:Bitter,Georgia,serif}'
-    + '.wd2-trio .grb-btn{position:static!important;transform:none!important;opacity:1;margin:0!important;padding:9px 16px 9px 12px!important;gap:8px!important;font-size:15px!important;transition:box-shadow .2s ease!important}'
+    + '.wd2-trio .grb-btn{position:static!important;transform:none!important;opacity:1;margin:0!important;padding:9px 16px 9px 12px!important;gap:8px!important;font-size:15px!important;transition:opacity .45s ease,box-shadow .2s ease!important}'
     + '.wd2-trio .grb-btn .grb-star{display:inline-block!important}'
     // the photo section is a little shorter on phones, so the blue line (and the next section) sits higher
     + 'html.wd2-cta-on .wd2-hero .fluid-engine{margin-top:-70px!important}'
@@ -215,7 +216,14 @@
     function check() {
       if (!mq.matches) return;
       var line = hero.getBoundingClientRect().bottom - 34;       // roughly where the blue line crosses the middle of the screen
-      wrap.classList.toggle('wd2-trio-away', line < wrap.getBoundingClientRect().bottom + 6);
+      // each one fades as the line reaches it: the reviews button (lowest) first, then the two buttons above it
+      var all = true;
+      for (var i = 0; i < wrap.children.length; i++) {
+        var c = wrap.children[i], gone = line < c.getBoundingClientRect().bottom + 4;
+        if (c.classList.contains('wd2-away') !== gone) c.classList.toggle('wd2-away', gone);
+        if (!gone) all = false;
+      }
+      wrap.classList.toggle('wd2-trio-away', all && wrap.children.length > 0);
     }
     function place() {
       if (!mq.matches) return;
