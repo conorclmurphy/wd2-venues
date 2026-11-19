@@ -160,7 +160,7 @@
       ],
       "tradBand": false,
       "duo": true,
-      "onstage": [{"id": "ccb57ad3-f3ea-452e-b24e-bc80a851e0ef", "seconds": 39}, {"id": "e45bc18e-4ff0-4307-af04-f70185913281", "seconds": 61}, {"id": "4b5f261e-9954-4a30-b4b9-9c1d7d05588a", "seconds": 42}, {"id": "5a7290b6-145d-476d-8f4e-9de602ea1503", "seconds": 58}, {"id": "446b4241-4f36-4812-a514-315c87b20cb0", "seconds": 36}, {"id": "1df247be-9c38-482b-9723-252c95029bf7", "seconds": 59}], "videos": [
+      "onstage": [{"id": "ccb57ad3-f3ea-452e-b24e-bc80a851e0ef", "seconds": 39}, {"id": "e45bc18e-4ff0-4307-af04-f70185913281", "seconds": 61}, {"id": "5a7290b6-145d-476d-8f4e-9de602ea1503", "seconds": 58}, {"id": "446b4241-4f36-4812-a514-315c87b20cb0", "seconds": 36}, {"id": "1df247be-9c38-482b-9723-252c95029bf7", "seconds": 59}], "videos": [
         {
           "id": "25d8d523-7bb5-4c8a-8fc7-441decd1dec0",
           "seconds": 168,
