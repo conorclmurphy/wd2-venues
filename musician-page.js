@@ -437,6 +437,15 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
   function render(DATA, m) {
     var img = function (p, w) { return /^https?:/.test(p) ? p : DATA.imageBase + p + '?format=' + w + 'w'; };
+    // Image descriptions for Google and for screen readers: say what the photo shows, in plain words
+    var actAlt = function (o) {
+      if (!o) return 'Live wedding music in Ireland';
+      if (o.packages) return 'Wedding music packages in Ireland';
+      if (o.builder || o.tradBand === 'band') return 'Modern trad band playing live at a wedding in Ireland';
+      if (o.related) return (o.subjectName || o.name) + ' for weddings in Ireland';
+      var ev = o.events || [], cer = ev.indexOf('ceremony') !== -1, late = ev.indexOf('day2') !== -1 || ev.indexOf('afterdinner') !== -1;
+      return (cer && !late ? 'Wedding ceremony and drinks reception musician' : 'Live wedding musician') + ' in Ireland, ' + o.name;
+    };
     // Heart button: saves this act to the couple's enquiry (their photo shows in every form) and lets them keep browsing
     var HEART = '<i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></i>';
     var heartBtn = function (extra, text) { return '<button type="button" class="vp-add vp-heart' + (extra ? ' ' + extra : '') + '" aria-pressed="false" aria-label="Save to my enquiry">' + HEART + (text ? '<span class="vp-heart-t">Save to my enquiry</span>' : '') + '</button>'; };
@@ -457,7 +466,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
     var h = '';
     var pos = m.photoPosition ? ' style="object-position:' + esc(m.photoPosition) + '"' : '';
-    h += '<header class="vp-hero"><img src="' + img(m.photo, 2500) + '" alt="' + esc(m.name) + '"' + pos + '>';
+    h += '<header class="vp-hero"><img src="' + img(m.photo, 2500) + '" alt="' + esc(actAlt(m)) + '"' + pos + '>';
     h += '<div class="vp-hero-in vp-pad"><div class="vp-eyebrow">Wedding Day 2 · ' + esc(m.eyebrow || 'Live musician') + '</div>';
     // Musicians with hidden names get no visible heading: the "Available for" line is the first thing under the photo
     h += '<h1' + (m.hideName ? ' class="vp-sr"' : '') + '>' + esc(m.hideName ? 'Live wedding musician' : m.name) + '</h1>';
@@ -493,7 +502,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var si = sets.push(list) - 1, shown = list.slice(0, n);
       var g = '<div class="vp-gallery' + (n === 6 ? ' vp-g6' : '') + '" data-set="' + si + '">';
       shown.forEach(function (p, i) {
-        g += '<button type="button" data-set="' + si + '" data-i="' + i + '" aria-label="Open photo ' + (i + 1) + ' of ' + list.length + ' of ' + esc(label) + '"><img loading="lazy" src="' + img(p, 750) + '" alt="' + esc(label) + ' photo ' + (i + 1) + '"></button>';
+        g += '<button type="button" data-set="' + si + '" data-i="' + i + '" aria-label="Open photo ' + (i + 1) + ' of ' + list.length + ' of ' + esc(label) + '"><img loading="lazy" src="' + img(p, 750) + '" alt="' + esc(label) + ' performing live at a wedding or event, photo ' + (i + 1) + '"></button>';
       });
       g += '</div>';
       if (list.length > shown.length) g += '<button class="vp-more" type="button" data-set="' + si + '" data-i="0">View all ' + list.length + ' photos</button>';
@@ -535,7 +544,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       onstage.forEach(function (x, i) {
         var mm = x.seconds ? Math.floor(x.seconds / 60) + ':' + ('0' + Math.round(x.seconds % 60)).slice(-2) : '';
         var th = x.poster ? img(x.poster, 750) : (x.base || DATA.videoBase) + x.id + '/thumbnail';
-        h += '<button type="button" class="vp-os-t" data-os="' + i + '" aria-label="Play clip ' + (i + 1) + ' of ' + onstage.length + '"><img loading="lazy" src="' + esc(th) + '" alt=""><span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 4l15 8-15 8z"/></svg>' + mm + '</span></button>';
+        h += '<button type="button" class="vp-os-t" data-os="' + i + '" aria-label="Play clip ' + (i + 1) + ' of ' + onstage.length + '"><img loading="lazy" src="' + esc(th) + '" alt="' + esc(actAlt(m)) + ', live video clip ' + (i + 1) + '"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 4l15 8-15 8z"/></svg>' + mm + '</span></button>';
       });
       h += '</div><button type="button" class="vp-os-a vp-os-r" aria-label="Scroll clips right">›</button></div></section>';
     }
@@ -582,7 +591,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       h += '<section class="vp-build vp-pk-step" data-step="pick"><span class="vp-step">Step 1</span><div class="vp-pk-parts" hidden></div><h2>What would you like?</h2><p class="vp-build-note vp-pk-picknote">Choose your main act. You can add the others next.</p><div class="vp-pk-mains">';
       OPTS.forEach(function (o) {
         h += '<div class="vp-pk-opt" data-o="' + o.id + '"><button type="button" class="vp-lineup vp-has-img vp-pk-card" data-o="' + o.id + '">'
-          + (o.image ? '<span class="vp-x-img"><img loading="lazy" src="' + img(o.image, 600) + '" alt=""></span>' : '')
+          + (o.image ? '<span class="vp-x-img"><img loading="lazy" src="' + img(o.image, 600) + '" alt="' + esc(o.title) + ' for weddings in Ireland"></span>' : '')
           + '<em class="vp-pk-addtag">Add-on</em><strong>' + esc(o.title) + ' <small class="vp-pk-cprice">' + esc(o.price) + '</small></strong><span>' + esc(o.text) + '</span><span class="vp-tick" aria-hidden="true">✓</span></button>'
           + '<div class="vp-pk-sub" hidden>' + o.sub + '</div></div>';
       });
@@ -590,7 +599,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         + '<div class="vp-pk-next" data-next="result" hidden><span class="vp-pk-next-t">Happy with your add-ons?</span><button type="button" class="vp-btn">Next: see your package ↓</button></div></section>';
       h += '<section class="vp-build vp-pk-step" data-step="result" hidden><span class="vp-step">Your package</span><h2>Here\'s what you\'ve built</h2><div class="vp-pk-row">';
       P.list.forEach(function (x) {
-        h += '<button type="button" class="vp-pk" data-id="' + esc(x.id) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(x.image, 500) + '" alt="' + esc(x.title) + '"' + (x.imagePosition ? ' style="object-position:' + esc(x.imagePosition) + '"' : '') + '><span class="vp-tick" aria-hidden="true">✓</span></div>'
+        h += '<button type="button" class="vp-pk" data-id="' + esc(x.id) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(x.image, 500) + '" alt="' + esc(x.title) + ' wedding music package"' + (x.imagePosition ? ' style="object-position:' + esc(x.imagePosition) + '"' : '') + '><span class="vp-tick" aria-hidden="true">✓</span></div>'
           + '<strong>' + esc(x.title) + '</strong><em class="vp-pk-meta">' + esc(x.hours) + '</em><span>' + esc(x.text) + '</span><b class="vp-pk-price">From ' + euro(x.from) + '</b></button>';
       });
       h += '</div><div class="vp-pk-total"><span class="vp-pk-tname"></span><strong></strong></div><div class="vp-pk-sum" hidden><h3>What\'s included</h3><ul></ul></div><div class="vp-pk-days" hidden></div><div class="vp-pk-more" hidden></div><div class="vp-pk-cta"><div class="vp-pk-btns"><button type="button" class="vp-btn vp-pk-nextpart" hidden></button><a class="vp-btn vp-pk-go" href="#vp-enquire">Check availability</a><button type="button" class="vp-btn vp-btn-ghost vp-pk-reset">↺ Start again</button></div>'
@@ -606,7 +615,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       m.related.forEach(function (sl) {
         var o = DATA.musicians.filter(function (x) { return x.slug === sl; })[0]; if (!o) return;
         var here = o.slug === m.slug;
-        h += '<a class="vp-card' + (here ? ' vp-here' : '') + '" href="' + esc(o.url) + '"' + (here ? ' aria-current="page"' : '') + '><div class="vp-card-img"><img loading="lazy" src="' + img(o.photo, 750) + '" alt="' + esc(o.name) + '"' + (o.cardPosition || o.photoPosition ? ' style="object-position:' + esc(o.cardPosition || o.photoPosition) + '"' : '') + '>' + (here ? '<span class="vp-here-tag">You\'re here</span>' : '') + '</div>'
+        h += '<a class="vp-card' + (here ? ' vp-here' : '') + '" href="' + esc(o.url) + '"' + (here ? ' aria-current="page"' : '') + '><div class="vp-card-img"><img loading="lazy" src="' + img(o.photo, 750) + '" alt="' + esc(actAlt(o)) + '"' + (o.cardPosition || o.photoPosition ? ' style="object-position:' + esc(o.cardPosition || o.photoPosition) + '"' : '') + '>' + (here ? '<span class="vp-here-tag">You\'re here</span>' : '') + '</div>'
           + '<h3>' + esc(o.name) + '</h3><p>' + esc(o.cardText || '') + '</p></a>';
       });
       h += '</div></section>';
@@ -634,7 +643,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       h += '<section><div class="vp-h2row"><h2>' + (cer ? 'Other ceremony musicians' : 'Other musicians') + '</h2><a class="vp-btn vp-btn-ghost" href="' + (cer ? '/ceremony-musicians' : '/musicians') + '">← ' + (cer ? 'All ceremony musicians' : 'All musicians') + '</a></div><div class="vp-similar vp-three">';
       others.forEach(function (o) {
         var oe = ORDER.filter(function (e) { return (o.events || []).indexOf(e) !== -1; }).map(function (e) { return L[e]; });
-        h += '<a class="vp-card" href="' + esc(o.url + cq) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(o.photo, 750) + '" alt="' + esc(o.name) + '"' + (o.photoPosition ? ' style="object-position:' + esc(o.photoPosition) + '"' : '') + '></div>'
+        h += '<a class="vp-card" href="' + esc(o.url + cq) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(o.photo, 750) + '" alt="' + esc(actAlt(o)) + '"' + (o.photoPosition ? ' style="object-position:' + esc(o.photoPosition) + '"' : '') + '></div>'
           + (o.hideName ? '' : '<h3>' + esc(o.name) + '</h3>') + '<p>' + esc(oe.join(' · ')) + '</p></a>';
       });
       h += '</div></section>';
@@ -645,8 +654,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     h += '<section class="vp-explore"' + (m.packages ? ' hidden' : '') + '><h2>Explore more</h2><div class="vp-similar vp-three">';
     h += '<a class="vp-card vp-venue-card" href="/venues" hidden><div class="vp-card-img"><img loading="lazy" alt=""></div><h3></h3><p></p></a>';
     var trad = DATA.tradCard;
-    if (trad && trad.url !== m.url) h += '<a class="vp-card" href="' + esc(trad.url) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(trad.image, 750) + '" alt="' + esc(trad.title) + '"></div><h3>' + esc(trad.title) + '</h3><p>' + esc(trad.text) + '</p></a>';
-    if (dj && !m.related) h += '<a class="vp-card vp-dj-card" href="' + esc(dj.url) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(dj.image, 750) + '" alt="' + esc(dj.title) + '"></div><h3>' + esc(dj.title) + '</h3><p>' + esc(dj.text) + '</p></a>';
+    if (trad && trad.url !== m.url) h += '<a class="vp-card" href="' + esc(trad.url) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(trad.image, 750) + '" alt="' + esc(trad.title) + ' for weddings in Ireland"></div><h3>' + esc(trad.title) + '</h3><p>' + esc(trad.text) + '</p></a>';
+    if (dj && !m.related) h += '<a class="vp-card vp-dj-card" href="' + esc(dj.url) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(dj.image, 750) + '" alt="' + esc(dj.title) + ' for weddings in Ireland"></div><h3>' + esc(dj.title) + '</h3><p>' + esc(dj.text) + '</p></a>';
     h += '</div></section>';
     h += '</div>';  // end of main column
 

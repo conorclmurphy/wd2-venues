@@ -228,7 +228,7 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
       els.empty.style.display = results.length ? 'none' : 'block';
       els.grid.innerHTML = results.map(function (v) {
         var imgBlock = '<div class="wdvs-card-imgwrap">' + (v.img
-          ? '<img class="wdvs-card-img" src="' + esc(v.img) + '" alt="' + esc(v.name) + '" loading="lazy" onerror="this.outerHTML=\'<div class=&quot;wdvs-card-img-fallback&quot;>' + esc(v.name.charAt(0)) + '</div>\'" />'
+          ? '<img class="wdvs-card-img" src="' + esc(v.img) + '" alt="' + esc(v.name + ' wedding venue' + (v.area ? ', ' + v.area : '') + (v.county ? ', ' + v.county : '')) + '" loading="lazy" onerror="this.outerHTML=\'<div class=&quot;wdvs-card-img-fallback&quot;>' + esc(v.name.charAt(0)) + '</div>\'" />'
           : '<div class="wdvs-card-img-fallback">' + esc(v.name.charAt(0)) + '</div>') + (v.img ? WD2_MARK_TAG : '') + '</div>';
         var inner = imgBlock +
           '<div class="wdvs-card-body">' +

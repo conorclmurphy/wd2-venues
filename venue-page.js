@@ -226,7 +226,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     if (rooms.length) facts.push(['Private spaces', String(rooms.length)]);
 
     var h = '';
-    h += '<header class="vp-hero"><img src="' + img(v.heroImg || v.cardImg, 2500) + '" alt="' + esc(v.name) + '"' + (v.heroPos ? ' style="object-position:' + esc(v.heroPos) + '"' : '') + '>';
+    h += '<header class="vp-hero"><img src="' + img(v.heroImg || v.cardImg, 2500) + '" alt="' + esc(v.name + ' wedding venue' + (v.area ? ', ' + v.area : '') + (v.county ? ', ' + v.county : '')) + '"' + (v.heroPos ? ' style="object-position:' + esc(v.heroPos) + '"' : '') + '>';
     h += '<div class="vp-hero-in vp-pad"><div class="vp-eyebrow">' + esc(area) + ' · Co. ' + esc(v.county) + '</div>';
     h += '<h1>' + esc(v.name) + '</h1><p class="vp-lede">' + esc(firstSentence(v.intro)) + '</p></div></header>';
 
@@ -253,7 +253,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var si = sets.push(list) - 1, n = list.length;
       var g = '<div class="vp-slider" data-set="' + si + '"><div class="vp-sl-track">';
       list.forEach(function (p, i) {
-        g += '<button type="button" class="vp-sl-slide" data-set="' + si + '" data-i="' + i + '" aria-label="Open photo ' + (i + 1) + ' of ' + n + ' of ' + esc(label) + '"><img src="' + img(p, 1000) + '" alt="' + esc(label) + ' photo ' + (i + 1) + '"' + (i > 1 ? ' loading="lazy"' : '') + ' decoding="async">' + WM_TAG + '</button>';
+        g += '<button type="button" class="vp-sl-slide" data-set="' + si + '" data-i="' + i + '" aria-label="Open photo ' + (i + 1) + ' of ' + n + ' of ' + esc(label) + '"><img src="' + img(p, 1000) + '" alt="' + esc(label === v.name ? v.name + ' wedding venue' + (v.county ? ', ' + v.county : '') : label + ' at ' + v.name + ', private event space' + (v.county ? ' in ' + v.county : '')) + ', photo ' + (i + 1) + '"' + (i > 1 ? ' loading="lazy"' : '') + ' decoding="async">' + WM_TAG + '</button>';
       });
       g += '</div>';
       if (n > 1) g += '<button type="button" class="vp-sl-arr vp-sl-prev" aria-label="Previous photo">' + ARW_L + '</button><button type="button" class="vp-sl-arr vp-sl-next" aria-label="Next photo">' + ARW_R + '</button><span class="vp-sl-count">1 / ' + n + '</span>';
@@ -306,7 +306,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     if (others.length) {
       h += '<section><h2>Similar venues</h2><div class="vp-similar">';
       others.forEach(function (o) {
-        h += '<a class="vp-card" href="' + esc(o.url) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(o.heroImg || o.cardImg, 750) + '" alt="' + esc(o.name) + '"></div>'
+        h += '<a class="vp-card" href="' + esc(o.url) + '"><div class="vp-card-img"><img loading="lazy" src="' + img(o.heroImg || o.cardImg, 750) + '" alt="' + esc(o.name + ' wedding venue' + (o.area ? ', ' + o.area : '') + (o.county ? ', ' + o.county : '')) + '"></div>'
           + '<h3>' + esc(o.name) + '</h3><p>' + esc(o.area || ('Co. ' + o.county)) + '</p><div class="vp-cap">Up to ' + esc(o.capacity) + ' guests</div></a>';
       });
       h += '</div></section>';

@@ -73,3 +73,31 @@
     if (hit || ++n > 40) clearInterval(t);
   }, 500);
 })();
+
+/* Home page image descriptions (for Google and for screen readers). The home page photos were added in
+   Squarespace without descriptions, so this fills them in. Matched by the photo's file name. */
+(function () {
+  if (window.wd2HomeAlt || !document.body || !document.body.classList.contains('homepage')) return;
+  window.wd2HomeAlt = true;
+  var ALT = [
+    [/\/1\.jpg/i, 'Solo wedding musicians in Ireland, singers with acoustic guitars performing live'],
+    [/\/2\.jpg/i, 'Modern trad band playing live at a wedding in Ireland'],
+    [/\/3\.jpg/i, 'Wedding DJ decks and lights, DJ packages for weddings in Ireland'],
+    [/\/4\.jpg/i, 'Private venue hire for a wedding Day 2 celebration in Dublin'],
+    [/unsplash-image-1h-64bCdVUI/i, 'Bride and groom kissing on the dance floor, surrounded by cheering wedding guests'],
+    [/unsplash-image-dhhbH-bNIG8/i, 'Guests enjoying live music at a wedding celebration'],
+    [/IMG_0023/i, 'Wedding musician singing and playing acoustic guitar live in a Dublin bar']
+  ];
+  function fill() {
+    var left = 0;
+    Array.prototype.forEach.call(document.querySelectorAll('main img, #sections img'), function (i) {
+      if (i.getAttribute('alt')) return;
+      var src = (i.getAttribute('src') || '') + ' ' + (i.getAttribute('data-src') || '') + ' ' + (i.getAttribute('data-image') || '');
+      for (var k = 0; k < ALT.length; k++) if (ALT[k][0].test(src)) { i.setAttribute('alt', ALT[k][1]); return; }
+      left++;
+    });
+    return left;
+  }
+  var n = 0, t = setInterval(function () { fill(); if (++n > 8) clearInterval(t); }, 600);
+  fill();
+})();

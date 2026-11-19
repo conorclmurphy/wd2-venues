@@ -220,7 +220,7 @@
     var DJC = D.djCard || {}; // same DJ card as on the musician pages
     var filters = [['all', 'Either'], ['day2', L.day2 || 'Day 2'], ['afterdinner', L.afterdinner || 'After dinner']];
     if (only) filters = [['all', 'All'], ['later', 'Also plays Day 2 & after dinner'], ['duo', 'Duo']];
-    var h = '<header class="ml-hero"><img src="' + IMG + HERO[0] + '?format=2500w" alt="" style="object-position:' + HERO[1] + '" fetchpriority="high">'
+    var h = '<header class="ml-hero"><img src="' + IMG + HERO[0] + '?format=2500w" alt="' + (only === 'ceremony' ? 'Wedding ceremony musician performing live in Ireland' : 'Solo wedding musician performing live in Ireland') + '" style="object-position:' + HERO[1] + '" fetchpriority="high">'
       + '<div class="ml-hero-in"><p class="ml-eye">' + esc(EYE) + '</p><h1>' + esc(H1) + '</h1><p class="ml-lead">' + esc(LEAD) + '</p></div></header>'
       + '<nav class="ml-tabs" aria-label="Solo musicians">' + TABS.map(function (t) { return '<a class="ml-tab' + (t[3] ? ' ml-tab-on" aria-current="page' : '') + '" href="' + t[2] + '"><strong>' + esc(t[0]) + '</strong><span>' + esc(t[1]) + '</span></a>'; }).join('') + '</nav>'
       + '<div class="ml-wrap"><div class="ml-top"><div class="ml-head"><h2>Pick your musician</h2><p class="ml-count" aria-live="polite"></p></div>'
@@ -235,17 +235,17 @@
       if (only === 'ceremony') tags.unshift(['ceremony', 'Ceremony & reception']);  // every card on this tab says what it is for
       var p = lp ? lp[0] : (o.cardPhoto || o.photo);
       h += '<a class="ml-card" data-slug="' + esc(o.slug) + '" href="' + esc(o.url + (only ? '?for=' + only : '')) + '" data-tags="' + esc(ev.concat(ev.indexOf('day2') !== -1 || ev.indexOf('afterdinner') !== -1 ? ['later'] : []).concat(o.duo ? ['duo'] : []).concat(o.tradBand ? ['tradBand'] : []).join(' ')) + '">'
-        + '<div class="ml-img"><img src="' + esc(/^https?:/.test(p) ? p : D.imageBase + p + '?format=' + (SHARPER[o.slug] || size) + 'w') + '" alt="' + esc(o.hideName ? 'Wedding musician' : o.name) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async"'
+        + '<div class="ml-img"><img src="' + esc(/^https?:/.test(p) ? p : D.imageBase + p + '?format=' + (SHARPER[o.slug] || size) + 'w') + '" alt="' + esc((only === 'ceremony' ? 'Wedding ceremony and drinks reception musician in Ireland' : 'Live wedding musician for after dinner and Day 2 in Ireland') + ', ' + o.name) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async"'
         + ' style="object-position:' + esc(lp ? lp[1] : (o.cardPosition || o.photoPosition || 'center')) + '"><span class="ml-tags">' + tags.map(function (t) { return '<span class="ml-tag" data-e="' + t[0] + '">' + esc(t[1]) + '</span>'; }).join('') + '</span>' + WM + (o.hideName ? '' : '<span class="ml-name">' + esc(o.name) + '</span>') + '<span class="ml-more">View profile →</span>'
         + '<button type="button" class="ml-heart" data-key="m:' + esc(o.slug) + '" aria-pressed="false" aria-label="Save to my enquiry"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button></div></a>';
     });
     h += '</div><details class="ml-about"><summary>' + esc(ABOUT) + '</summary><p>' + esc(INTRO) + '</p></details><div class="ml-more3"><h2>Explore more</h2><div class="ml-x">'
       + '<a class="ml-xk ml-venue" href="/venues"><span class="ml-xi"></span><strong>Our venues</strong><span class="ml-xp">Find the perfect place for your Day 2</span></a>'
-      + '<button type="button" class="ml-xk ml-dj"><span class="ml-xi"><img src="' + IMG + (DJC.image || DJ_IMG) + '?format=750w" alt="" loading="lazy">' + WM + '</span><strong>' + esc(DJC.title || 'Our DJ options') + '</strong><span class="ml-xp">' + esc(DJC.text || 'DJs, DJ & Sax and Karaoke') + '</span></button>'
+      + '<button type="button" class="ml-xk ml-dj"><span class="ml-xi"><img src="' + IMG + (DJC.image || DJ_IMG) + '?format=750w" alt="Wedding DJ in Ireland" loading="lazy">' + WM + '</span><strong>' + esc(DJC.title || 'Our DJ options') + '</strong><span class="ml-xp">' + esc(DJC.text || 'DJs, DJ & Sax and Karaoke') + '</span></button>'
       + '<a class="ml-xc ml-xg" href="/packages"><span class="ml-xt">Build your own package</span><span class="ml-xs">Pick your musician, add a trad band or DJ, and get an estimated price.</span><span class="ml-xb">Start building <span aria-hidden="true">→</span></span></a>'
       + '</div></div></div>'
       + '<div class="ml-pop" hidden><button type="button" class="ml-pop-x" aria-label="Close">&times;</button><div class="ml-pop-in"><h3>DJ Packages</h3><p>Pick an option to see what\'s available.</p><div class="ml-x">'
-      + DJS.map(function (d) { return '<a class="ml-xc" href="' + d[1] + '"><img src="' + d[2] + '" alt="" loading="lazy">' + WM + '<span class="ml-xt">' + d[0] + '</span></a>'; }).join('')
+      + DJS.map(function (d) { return '<a class="ml-xc" href="' + d[1] + '"><img src="' + d[2] + '" alt="' + esc(d[0]) + ' for weddings in Ireland" loading="lazy">' + WM + '<span class="ml-xt">' + d[0] + '</span></a>'; }).join('')
       + '</div></div></div>';
     root.innerHTML = h;
     bleed();
@@ -296,7 +296,7 @@
       if (fresh.length) vs = fresh;
       var v = vs[Math.floor(Math.random() * vs.length)], card = root.querySelector('.ml-venue');
       card.href = v.url;
-      card.innerHTML = '<span class="ml-xi"><img src="' + esc((V.imageBase || IMG) + (v.cardImg || v.heroImg) + '?format=750w') + '" alt="" loading="lazy">' + WM + '</span><strong>' + esc(v.name) + '</strong><span class="ml-xp">' + esc(v.area || v.county || '') + '</span>';
+      card.innerHTML = '<span class="ml-xi"><img src="' + esc((V.imageBase || IMG) + (v.cardImg || v.heroImg) + '?format=750w') + '" alt="' + esc(v.name + ' wedding venue' + (v.county ? ', ' + v.county : '')) + '" loading="lazy">' + WM + '</span><strong>' + esc(v.name) + '</strong><span class="ml-xp">' + esc(v.area || v.county || '') + '</span>';
       claim();
     }).catch(function () {});
 
