@@ -17,3 +17,59 @@
   var tries = 0, t = setInterval(function () { tidy(); if (++tries > 10) clearInterval(t); }, 400);
   tidy();
 })();
+
+/* Site footer (every page): the big logo no longer sits behind the text. A small logo sits on top,
+   with a row of page links under the name. The email and Privacy Policy lines are the ones already
+   in the Squarespace footer; nothing here retypes them. To go back to the old footer, delete this block. */
+(function () {
+  if (window.wd2Footer) return;
+  window.wd2Footer = true;
+  var st = document.createElement('style');
+  st.id = 'wd2-footer-css';
+  st.textContent = 'footer#footer-sections .section-background img{display:none!important}footer#footer-sections .section-background{background:#091a1c!important}footer#footer-sections .section-background-overlay{opacity:0!important}footer#footer-sections .sqs-html-content{text-align:center}footer#footer-sections .wd2f-logo{width:52px!important;height:auto!important;display:block;margin:0 auto 12px!important;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))}footer#footer-sections .wd2f-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 24px;margin:16px auto 18px;max-width:1000px;font:500 14px/1.3 Bitter,Georgia,serif}footer#footer-sections .wd2f-nav a{color:#eae6dd!important;text-decoration:none!important;opacity:.82;transition:color .2s,opacity .2s}footer#footer-sections .wd2f-nav a:hover{color:#3dc2bb!important;opacity:1}footer#footer-sections .sqs-html-content p{margin:6px 0!important;font-size:14px}@media (max-width:640px){footer#footer-sections .wd2f-nav{gap:12px 18px;max-width:320px}}';
+  document.head.appendChild(st);
+  function build() {
+    var f = document.querySelector('footer#footer-sections');
+    if (!f || f.getAttribute('data-wd2f')) return !!f;
+    var box = f.querySelector('.sqs-block-html .sqs-html-content');
+    if (!box) return false;
+    f.setAttribute('data-wd2f', '1');
+    var lg = document.querySelector('header .header-mobile-logo img');
+    var src = lg && (lg.getAttribute('src') || lg.getAttribute('data-src'));
+    var links = [['/musicians', 'Solo Musicians'], ['/ceremony-musicians', 'Ceremony & Reception'], ['/djs', 'DJs'], ['/trad', 'Trad Band'], ['/packages', 'Package Builder'], ['/venues', 'Venues'], ['/faq', 'FAQs'], ['/home#enquiremain', 'Enquire'], ['https://www.instagram.com/weddingday2.ie', 'Instagram']];
+    var nav = document.createElement('nav');
+    nav.className = 'wd2f-nav';
+    nav.setAttribute('aria-label', 'Footer');
+    links.forEach(function (l) {
+      var a = document.createElement('a');
+      a.href = l[0]; a.textContent = l[1];
+      if (/^http/.test(l[0])) { a.target = '_blank'; a.rel = 'noopener'; }
+      nav.appendChild(a);
+    });
+    var h = box.firstElementChild;
+    if (src) { var i = document.createElement('img'); i.className = 'wd2f-logo'; i.src = src; i.alt = 'Wedding Day 2 logo'; i.loading = 'lazy'; box.insertBefore(i, h); }
+    box.insertBefore(nav, h ? h.nextSibling : null);
+    return true;
+  }
+  var n = 0, t = setInterval(function () { if (build() || ++n > 20) clearInterval(t); }, 400);
+  build();
+})();
+
+/* Home page: the enquiry form and the buttons get the same glass look as the forms on the musician pages.
+   It is still the same Squarespace form underneath, so enquiries arrive exactly as before. */
+(function () {
+  if (window.wd2HomeForm || !document.body || !document.body.classList.contains('homepage')) return;
+  window.wd2HomeForm = true;
+  var st = document.createElement('style');
+  st.id = 'wd2-home-form-css';
+  st.textContent = 'html body.homepage .sqs-block:has(form.react-form-contents){border:1px solid #234749!important;border-radius:20px!important;background:rgba(22,52,54,.88)!important;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);padding:26px 26px 22px!important;box-shadow:0 20px 50px rgba(0,0,0,.35)}html body.homepage .fe-block:has(form.react-form-contents){mix-blend-mode:normal!important}html body.homepage form.react-form-contents.react-form-contents.react-form-contents label,html body.homepage form.react-form-contents.react-form-contents.react-form-contents legend,html body.homepage form.react-form-contents.react-form-contents.react-form-contents .title,html body.homepage form.react-form-contents.react-form-contents.react-form-contents .caption-text{color:#eae6dd!important}html body.homepage form.react-form-contents.react-form-contents.react-form-contents .description,html body.homepage form.react-form-contents.react-form-contents.react-form-contents p.description{color:#b8b3a8!important}html body.homepage form.react-form-contents.react-form-contents.react-form-contents input:not([type=checkbox]):not([type=radio]),html body.homepage form.react-form-contents.react-form-contents.react-form-contents select,html body.homepage form.react-form-contents.react-form-contents.react-form-contents textarea{background:#0e2628!important;background-color:#0e2628!important;border:1px solid #234749!important;border-radius:10px!important;color:#eae6dd!important;box-shadow:none!important;color-scheme:dark}html body.homepage form.react-form-contents.react-form-contents.react-form-contents select.show-placeholder{color:#b8b3a8!important}html body.homepage form.react-form-contents.react-form-contents.react-form-contents input:focus,html body.homepage form.react-form-contents.react-form-contents.react-form-contents select:focus,html body.homepage form.react-form-contents.react-form-contents.react-form-contents textarea:focus{border-color:#3dc2bb!important;outline:none!important}html body.homepage form.react-form-contents.react-form-contents.react-form-contents .form-input-effects{display:none!important}html body.homepage form.react-form-contents.react-form-contents.react-form-contents .option label span{background:rgba(234,230,221,.06)!important;border:1px solid rgba(234,230,221,.28)!important;border-radius:999px!important;color:#eae6dd!important;padding:6px 14px!important}html body.homepage form.react-form-contents.react-form-contents.react-form-contents .option label input:checked+span{background:linear-gradient(135deg,rgba(120,230,224,.22),rgba(61,194,187,.08))!important;border-color:rgba(160,240,235,.55)!important;color:#dcefec!important}html body.homepage form.react-form-contents.react-form-contents.react-form-contents .form-submit-button{background:linear-gradient(135deg,rgba(120,230,224,.13),rgba(61,194,187,.04)),rgba(14,38,40,.35)!important;-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(160,240,235,.26)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -1px 0 rgba(0,0,0,.15),0 4px 14px rgba(0,0,0,.18)!important;color:#dcefec!important;border-radius:999px!important;width:100%!important;padding:15px 26px!important;font-weight:600!important}html body.homepage form.react-form-contents.react-form-contents.react-form-contents .form-submit-button:hover{border-color:rgba(160,240,235,.42)!important}html body.homepage a.sqs-block-button-element.sqs-block-button-element{background:linear-gradient(135deg,rgba(120,230,224,.13),rgba(61,194,187,.04)),rgba(14,38,40,.35)!important;-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(160,240,235,.26)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -1px 0 rgba(0,0,0,.15),0 4px 14px rgba(0,0,0,.18)!important;color:#dcefec!important;border-radius:999px!important;white-space:nowrap}html body.homepage a.sqs-block-button-element.sqs-block-button-element:hover{border-color:rgba(160,240,235,.42)!important}@media (max-width:640px){html body.homepage .sqs-block:has(form.react-form-contents){padding:20px 16px 18px!important}}';
+  document.head.appendChild(st);
+  // the form adds a stray "in Greenwich Mean Time" note under the time box
+  var n = 0, t = setInterval(function () {
+    var hit = false;
+    Array.prototype.forEach.call(document.querySelectorAll('form.react-form-contents *'), function (e) {
+      if (!e.children.length && /^in Greenwich Mean Time$/.test((e.textContent || '').trim())) { e.style.display = 'none'; hit = true; }
+    });
+    if (hit || ++n > 40) clearInterval(t);
+  }, 500);
+})();
