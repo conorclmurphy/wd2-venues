@@ -195,7 +195,7 @@
       btn.addEventListener('click', open);
       x.addEventListener('click', close);
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && wrap.classList.contains('grb-open')) close(); });
-      document.addEventListener('click', function (e) { if (wrap.classList.contains('grb-open') && !wrap.contains(e.target)) close(); });
+      document.addEventListener('click', function (e) { if (wrap.classList.contains('grb-open') && !wrap.contains(e.target) && !btn.contains(e.target)) close(); });  // the button can live outside the wrapper (home page on phones)
       wrap.querySelector('.grb-dim').addEventListener('click', close);
       // Phones: drag the sheet down by its top bar to close it
       var head = wrap.querySelector('.grb-head'), grip = wrap.querySelector('.grb-grip'), y0 = null, dy = 0;
