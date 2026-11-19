@@ -120,7 +120,7 @@
     }
     function build(p, saved) {
       saved = saved || {};
-      var live = (p.reviews || []).map(function (r) { return { rating: r.rating, text: r.text, relativePublishTimeDescription: r.relativePublishTimeDescription, authorAttribution: r.authorAttribution }; });
+      var live = (p.reviews || []).filter(function (r) { return r && r.text; }).map(function (r) { return { rating: r.rating, text: r.text, relativePublishTimeDescription: r.relativePublishTimeDescription, authorAttribution: r.authorAttribution }; });
       var key = function (r) { return String(((r.authorAttribution || {}).displayName) || '').trim().toLowerCase(); };
       var have = {}; live.forEach(function (r) { have[key(r)] = 1; });
       var all = live.concat((saved.reviews || []).map(fromSaved).filter(function (r) { return !have[key(r)]; }));
@@ -212,24 +212,39 @@
       requestAnimationFrame(function () { setTimeout(function () { btn.classList.add('grb-in'); }, 400); });
     }
 
-    var savedP = fetch(SAVED_URL, { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
-    function useSavedOnly() { savedP.then(function (sv) { if (sv) build({}, sv); }); }
+    // Show the bubble straight away from the saved reviews (plus any live ones this visitor's browser fetched
+    // in the last day), and only ask Google at most once a day per visitor. Google has a daily limit on these
+    // lookups, and asking on every page view was using it up.
+    var CK = 'wd2GoogleReviews', cache = null;
+    try { cache = JSON.parse(localStorage.getItem(CK) || 'null'); } catch (e) {}
+    var fresh = cache && Date.now() - cache.t < 864e5;
+    fetch(SAVED_URL, { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+      .then(function (sv) { build({ rating: cache && cache.rating, userRatingCount: cache && cache.count, reviews: (cache && cache.reviews) || [], googleMapsURI: cache && cache.url }, sv || {}); });
+    if (fresh) return;
+    function remember(p) {
+      try {
+        localStorage.setItem(CK, JSON.stringify({ t: Date.now(), rating: p.rating, count: p.userRatingCount, url: p.googleMapsURI,
+          reviews: (p.reviews || []).map(function (r) { var a = r.authorAttribution || {}; return { rating: r.rating, text: r.text, relativePublishTimeDescription: r.relativePublishTimeDescription, authorAttribution: { displayName: a.displayName, photoURI: a.photoURI, uri: a.uri } }; }) }));
+      } catch (e) {}
+    }
+    function quiet() { try { localStorage.setItem(CK, JSON.stringify({ t: Date.now(), reviews: (cache && cache.reviews) || [] })); } catch (e) {} }
     function run() {
       google.maps.importLibrary('places').then(function (lib) {
         var p = new lib.Place({ id: PLACE_ID });
-        return p.fetchFields({ fields: ['rating', 'userRatingCount', 'reviews', 'googleMapsURI'] }).then(function () {
-          return savedP.then(function (sv) { build(p, sv); });
-        });
-      }).catch(function (e) { fail(e); useSavedOnly(); });
+        return p.fetchFields({ fields: ['rating', 'userRatingCount', 'reviews', 'googleMapsURI'] }).then(function () { remember(p); });
+      }).catch(function (e) { fail(e); quiet(); });
     }
-    if (window.google && google.maps && google.maps.importLibrary) run();
-    else {
-      window.wd2ReviewsReady = run;
-      var s = document.createElement('script');
-      s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(API_KEY) + '&v=weekly&loading=async&callback=wd2ReviewsReady';
-      s.async = true; s.onerror = function () { fail('Could not load Google Maps'); useSavedOnly(); };
-      document.head.appendChild(s);
-    }
+    // wait until the page has settled so the Google script never slows the page down
+    setTimeout(function () {
+      if (window.google && google.maps && google.maps.importLibrary) run();
+      else {
+        window.wd2ReviewsReady = run;
+        var s = document.createElement('script');
+        s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(API_KEY) + '&v=weekly&loading=async&callback=wd2ReviewsReady';
+        s.async = true; s.onerror = function () { fail('Could not load Google Maps'); quiet(); };
+        document.head.appendChild(s);
+      }
+    }, 4000);
   }
   if (document.body) start(); else document.addEventListener('DOMContentLoaded', start);
 })();
