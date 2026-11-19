@@ -125,7 +125,7 @@
   var C = 'background:#3dc2bb;border:1px solid #3dc2bb;color:#0e2628;box-shadow:0 6px 18px rgba(0,0,0,.28)';
   var st = document.createElement('style');
   st.id = 'wd2-cta-css';
-  st.textContent = '.wd2-cta{display:none}.wd2-byp-top{display:none!important}.wd2-trio{display:none}'
+  st.textContent = '.wd2-cta{display:none}.wd2-byp-top{display:none!important}.wd2-trio,.wd2-trio-hold{display:none}'
     + '@media (max-width:767px){'
     + 'html.wd2-cta-on body.homepage .wd2-cta-old{visibility:hidden!important;pointer-events:none!important}'
     + '.wd2-cta{display:flex;gap:10px;justify-content:center;margin:20px auto 0;width:100%;max-width:340px;font-family:Bitter,Georgia,serif}'
@@ -145,11 +145,15 @@
     + '.wd2-byp-top{position:absolute!important;top:126px;left:16px;z-index:6;max-width:250px;margin:0!important}'
     + 'html.wd2-cta-on .wd2-byp-top{display:flex!important}'
     // Live phone layout: Contact us + Build a package side by side with the Google reviews button under them. The three hold their
-    // place on screen and fade out together when the blue line at the bottom of the photo reaches them, so they never sit over the next section.
-    + 'html.wd2-cta-on .wd2-trio{display:flex;flex-direction:column;align-items:center;gap:12px;position:fixed;left:0;right:0;top:58vh;z-index:auto;padding:0 16px;pointer-events:none;opacity:0;transition:opacity .5s ease}'
+    // place on screen while the page scrolls, and because they live inside the photo section's own shape they slide away UNDER the
+    // blue line as the next section comes up - nothing fades, and no code runs while scrolling.
+    + 'html.wd2-cta-on .wd2-trio-hold{display:block;position:absolute;left:0;right:0;top:0;height:calc(100% + 700px);z-index:3;pointer-events:none}'
+    + 'html.wd2-cta-on .wd2-trio{display:flex;flex-direction:column;align-items:center;gap:12px;position:-webkit-sticky;position:sticky;top:58vh;box-sizing:border-box;width:100%;padding:0 16px;pointer-events:none;opacity:0;transition:opacity .5s ease}'
     + 'html.wd2-cta-on .wd2-trio.wd2-trio-in{opacity:1}'
     + '.wd2-trio.wd2-trio-in>*{pointer-events:auto}'
     + 'body.header--menu-open .wd2-trio{opacity:0!important}body.header--menu-open .wd2-trio>*{pointer-events:none!important}'
+    // the (invisible) layout layer over the photo must not swallow taps meant for the buttons underneath it
+    + 'html.wd2-cta-on .wd2-hero .content-wrapper{pointer-events:none}html.wd2-cta-on .wd2-hero .content-wrapper .fe-block:not(.wd2-cta-old){pointer-events:auto}'
     + '.wd2-trio .wd2-cta{margin:0 auto}'
     + '.wd2-trio{--grb-ink:#eae6dd;--grb-muted:#b8b3a8;--grb-accent:#3dc2bb;--grb-star:#f4c150;font-family:Bitter,Georgia,serif}'
     + '.wd2-trio .grb-btn{position:static!important;transform:none!important;opacity:1;margin:0!important;padding:9px 16px 9px 12px!important;gap:8px!important;font-size:15px!important;transition:box-shadow .2s ease!important;z-index:auto!important}'
@@ -200,8 +204,11 @@
     var a1 = document.createElement('a'); a1.className = 'wd2-c1'; a1.href = contact.getAttribute('href'); a1.textContent = 'Contact us';
     var a2 = document.createElement('a'); a2.className = 'wd2-c2'; a2.href = card.getAttribute('href'); a2.textContent = 'Build a package \u2192';
     box.appendChild(a1); box.appendChild(a2); wrap.appendChild(box);
-    // placed straight after the photo section in the page, so it is drawn above the photo but underneath every section that follows
-    hero.parentNode.insertBefore(wrap, hero.nextSibling);
+    // The holder sits inside the photo section's clipped layer (the layer whose bottom edge is the angled blue line) and is taller
+    // than the section, so the sticky row keeps its place on screen until the line has passed right over it.
+    var layer = hero.querySelector('.section-border') || hero;
+    var hold = document.createElement('div'); hold.className = 'wd2-trio-hold';
+    hold.appendChild(wrap); layer.appendChild(hold);
     hero.classList.add('wd2-hero');
     (contact.closest('.fe-block') || contact).classList.add('wd2-cta-old');
     (card.closest('.fe-block') || card).classList.add('wd2-cta-old');
@@ -213,19 +220,11 @@
       if (mq.matches) { if (b.parentNode !== wrap) { home = home || { p: b.parentNode, n: b.nextSibling }; wrap.appendChild(b); } }
       else if (home && b.parentNode === wrap) home.p.insertBefore(b, home.n && home.n.parentNode === home.p ? home.n : null);
     }
-    function check() {
-      if (!mq.matches) return;
-      // Nothing fades. The buttons sit behind the next section in the page's stacking order, so as you scroll the next
-      // section (and its blue line) simply slides up over them. Once the photo section has gone past, hide them altogether.
-      wrap.style.visibility = hero.getBoundingClientRect().bottom < wrap.getBoundingClientRect().top - 10 ? 'hidden' : '';
-    }
     function place() {
       if (!mq.matches) return;
+      // where the row sits on the first screen: just under the heading
       wrap.style.top = Math.round(h1.getBoundingClientRect().bottom + (window.pageYOffset || 0) + 20) + 'px';
-      check();
     }
-    var ticking = false;
-    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; check(); }); } }, { passive: true });
     window.addEventListener('resize', function () { dock(); place(); });
     if (mq.addEventListener) mq.addEventListener('change', function () { dock(); place(); });
     var k = 0, t2 = setInterval(function () { dock(); place(); if (k === 3) wrap.classList.add('wd2-trio-in'); if (++k > 24) clearInterval(t2); }, 250);
