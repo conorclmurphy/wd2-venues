@@ -511,7 +511,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     // On phones, a landscape + portrait pair also sits side by side: the landscape one is shown as a portrait crop
     // and opens full screen (in landscape) when played.
     var narrow = (window.innerWidth || 1000) <= 760;
-    var mix = narrow && vids.length >= 2 && (vids[0].shape === 'tall') !== (vids[1].shape === 'tall');
+    var mix = vids.length >= 2 && (vids[0].shape === 'tall') !== (vids[1].shape === 'tall');
     var pair = vids.length >= 2 && ((vids[0].shape === 'tall' && vids[1].shape === 'tall') || mix);
     if (pair) {
       var pv = mix ? (vids[0].shape === 'tall' ? [vids[1], vids[0]] : [vids[0], vids[1]]) : [vids[0], vids[1]];
@@ -1627,7 +1627,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           var crop = wrap.closest('.vp-crop');
           btn.addEventListener('click', function () {
             var pr = el.play(); if (pr && pr.catch) pr.catch(function () {});
-            if (crop) vpFull(wrap, el, true);
+            if (crop && (window.innerWidth || 1000) <= 760) vpFull(wrap, el, true);
           });
           if (crop) {
             el.addEventListener('play', function () { crop.classList.add('vp-open'); });
