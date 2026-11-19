@@ -110,3 +110,57 @@
   var n = 0, t = setInterval(function () { fill(); if (++n > 8) clearInterval(t); }, 600);
   fill();
 })();
+
+/* Home page, phones only: layout try-outs for the two buttons under the heading (Contact us + build a package).
+   Nothing changes for visitors unless the address ends in ?buttons=a, b, c or d - that is how Conor previews each one.
+   When one is chosen, set LIVE below to its letter and it becomes the layout for everyone. */
+(function () {
+  if (window.wd2Cta || !document.body || !document.body.classList.contains('homepage')) return;
+  window.wd2Cta = true;
+  var LIVE = '';
+  var pick = (/[?&]buttons=([a-d])\b/i.exec(location.search) || [])[1];
+  pick = (pick || LIVE).toLowerCase();
+  if (!pick) return;
+  var G = 'background:linear-gradient(135deg,rgba(120,230,224,.16),rgba(61,194,187,.06)),rgba(14,38,40,.55);border:1px solid rgba(160,240,235,.3);color:#dcefec;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 4px 14px rgba(0,0,0,.2)';
+  var C = 'background:#3dc2bb;border:1px solid #3dc2bb;color:#0e2628;box-shadow:0 6px 18px rgba(0,0,0,.28)';
+  var st = document.createElement('style');
+  st.id = 'wd2-cta-css';
+  st.textContent = '.wd2-cta{display:none}'
+    + '@media (max-width:767px){'
+    + 'html.wd2-cta-on body.homepage .wd2-cta-old{visibility:hidden!important;pointer-events:none!important}'
+    + '.wd2-cta{display:flex;gap:10px;justify-content:center;margin:20px auto 0;width:100%;max-width:340px;font-family:Bitter,Georgia,serif}'
+    + '.wd2-cta a{flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;gap:6px;min-height:50px;padding:10px 12px;font-size:15px;font-weight:600;line-height:1.2;text-align:center;text-decoration:none!important;white-space:nowrap;-webkit-tap-highlight-color:transparent}'
+    + '.wd2-cta .wd2-c1{' + G + ';border-radius:45px 0}'
+    + '.wd2-cta .wd2-c2{' + C + ';border-radius:0 45px}'
+    // b: stacked, same width, the package button first
+    + '.wd2-cta-b{flex-direction:column;max-width:270px}.wd2-cta-b a{flex:none}.wd2-cta-b .wd2-c2{order:-1;border-radius:45px 0}'
+    // c: one glass bar split in two
+    + '.wd2-cta-c{gap:0;' + G + ';border-radius:45px 0;overflow:hidden;max-width:330px}.wd2-cta-c a{background:none!important;border:0!important;box-shadow:none!important;border-radius:0!important;color:#dcefec!important}'
+    + '.wd2-cta-c .wd2-c2{color:#3dc2bb!important;border-left:1px solid rgba(160,240,235,.3)!important}'
+    // d: one main button, with contact as a quiet link under it
+    + '.wd2-cta-d{flex-direction:column;align-items:center;gap:12px;max-width:270px}.wd2-cta-d a{flex:none}.wd2-cta-d .wd2-c2{order:-1;width:100%;border-radius:45px 0}'
+    + '.wd2-cta-d .wd2-c1{background:none;border:0;box-shadow:none;min-height:0;padding:2px 4px;font-weight:500;color:#eae6dd;text-decoration:underline!important;text-underline-offset:4px;text-shadow:0 1px 6px rgba(0,0,0,.6)}'
+    + '}';
+  document.head.appendChild(st);
+  function build() {
+    var hero = document.querySelector('main section.page-section, #sections > section');
+    var h1 = hero && hero.querySelector('h1');
+    var contact = hero && hero.querySelector('a.sqs-block-button-element');
+    var card = hero && hero.querySelector('a.wd2-byp');
+    if (!h1 || !contact || !card) return false;
+    if (hero.querySelector('.wd2-cta')) return true;
+    var wide = { a: 'Build a package', b: 'Build your own package', c: 'Build a package', d: 'Build your own package' }[pick];
+    var box = document.createElement('div');
+    box.className = 'wd2-cta wd2-cta-' + pick;
+    var a1 = document.createElement('a'); a1.className = 'wd2-c1'; a1.href = contact.getAttribute('href'); a1.textContent = pick === 'd' ? 'or contact us' : 'Contact us';
+    var a2 = document.createElement('a'); a2.className = 'wd2-c2'; a2.href = card.getAttribute('href'); a2.textContent = wide + ' →';
+    box.appendChild(a1); box.appendChild(a2);
+    h1.parentNode.insertBefore(box, h1.nextSibling);
+    var b1 = contact.closest('.fe-block') || contact, b2 = card.closest('.fe-block') || card;
+    b1.classList.add('wd2-cta-old'); b2.classList.add('wd2-cta-old');
+    document.documentElement.classList.add('wd2-cta-on');
+    return true;
+  }
+  var n = 0, t = setInterval(function () { if (build() || ++n > 20) clearInterval(t); }, 300);
+  build();
+})();
