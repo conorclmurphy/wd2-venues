@@ -14,7 +14,7 @@
   var root = document.getElementById('musicians-list');
   if (!root) return;
   var only = root.getAttribute('data-event') || '';  // "ceremony" on the Ceremony & Reception page
-  var BG = '#13241d', SURFACE = '#1b3128';        // same dark grey-green as the musician profile pages
+  var BG = '#0e2628', SURFACE = '#163436';        // same dark grey-green as the musician profile pages
 
   // Keep the site's photo-link script from turning this whole block into one link
   for (var blk = root; blk && blk !== document.body; blk = blk.parentElement) {
@@ -34,7 +34,7 @@
   }
   var st = document.createElement('style');
   st.textContent = [
-    '#musicians-list{--c-bg:#13241d;--c-surface:#1b3128;--c-line:#284438;--c-ink:#eae6dd;--c-muted:#b8b3a8;--c-cyan:#3dc2bb;background:var(--c-bg);color:var(--c-ink);font-family:"Bitter",Georgia,serif;padding:4px clamp(12px,2.5vw,32px) 56px}',
+    '#musicians-list{--c-bg:#0e2628;--c-surface:#163436;--c-line:#234749;--c-ink:#eae6dd;--c-muted:#b8b3a8;--c-cyan:#3dc2bb;background:var(--c-bg);color:var(--c-ink);font-family:"Bitter",Georgia,serif;padding:4px clamp(12px,2.5vw,32px) 56px}',
     '#musicians-list *{box-sizing:border-box}',
     '#musicians-list .ml-wrap{max-width:1600px;margin:0 auto}',
     '#musicians-list .ml-eye{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--c-cyan);margin:0 0 8px}',
@@ -42,7 +42,7 @@
     '#musicians-list .ml-from{display:inline-flex;align-items:baseline;gap:8px;margin:0;padding:0;color:var(--c-cyan)}',
     '#musicians-list .ml-from span{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-cyan);opacity:.8}',
     '#musicians-list .ml-from strong{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:28px;line-height:1}',
-    '#musicians-list .ml-hero{position:relative;z-index:0;display:flex;align-items:flex-end;min-height:min(62vh,540px);margin:-4px 0 18px;overflow:hidden;background:#13241d;border-bottom:1px solid rgba(234,230,221,.22)}',
+    '#musicians-list .ml-hero{position:relative;z-index:0;display:flex;align-items:flex-end;min-height:min(62vh,540px);margin:-4px 0 18px;overflow:hidden;background:#0e2628;border-bottom:1px solid rgba(234,230,221,.22)}',
     '#musicians-list .ml-hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}',
     '#musicians-list .ml-hero:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.6) 45%,rgba(0,0,0,.35) 100%),linear-gradient(180deg,rgba(0,0,0,.6) 0%,rgba(0,0,0,.25) 35%,rgba(0,0,0,.75) 100%)}',
     '#musicians-list .ml-hero-in{position:relative;z-index:2;width:100%;padding:48px max(16px,4vw) 40px}',
@@ -116,7 +116,7 @@
     '#musicians-list .ml-more3{margin-top:44px}',
     '#musicians-list .ml-more3 h2{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:clamp(22px,2.6vw,30px);margin:0 0 16px;color:var(--c-ink)}',
     '#musicians-list .ml-x{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}',
-    '#musicians-list .ml-xc{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:260px;padding:20px;border-radius:18px;overflow:hidden;text-decoration:none!important;color:#eae6dd!important;font:inherit;text-align:left;cursor:pointer;border:1px solid rgba(234,230,221,.14);background:#13241d;transition:box-shadow .25s,transform .25s}',
+    '#musicians-list .ml-xc{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:260px;padding:20px;border-radius:18px;overflow:hidden;text-decoration:none!important;color:#eae6dd!important;font:inherit;text-align:left;cursor:pointer;border:1px solid rgba(234,230,221,.14);background:#0e2628;transition:box-shadow .25s,transform .25s}',
     '#musicians-list .ml-xc:hover{box-shadow:0 0 0 3px #3dc2bb,0 12px 30px rgba(0,0,0,.35);transform:translateY(-2px)}',
     '#musicians-list .ml-xc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}',
     '#musicians-list .ml-xc:hover img{transform:scale(1.04)}',
@@ -126,7 +126,7 @@
     '#musicians-list .ml-xt{font-family:"Young Serif",Georgia,serif;font-size:26px;line-height:1.1}',
     '#musicians-list .ml-xs{font-size:13.5px;color:rgba(234,230,221,.8);margin-top:4px}',
     '#musicians-list .ml-xk{display:grid;gap:6px;align-content:start;text-align:left;font:inherit;color:#eae6dd!important;background:none;border:0;padding:0;cursor:pointer;text-decoration:none!important}',
-    '#musicians-list .ml-xi{position:relative;display:block;aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:#13241d;transition:box-shadow .25s}',
+    '#musicians-list .ml-xi{position:relative;display:block;aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:#0e2628;transition:box-shadow .25s}',
     '#musicians-list .ml-xi img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}',
     '#musicians-list .ml-xk:hover .ml-xi{box-shadow:0 0 0 3px #3dc2bb,0 8px 24px rgba(0,0,0,.35)}',
     '#musicians-list .ml-xk:hover .ml-xi img:not(.ml-wm){transform:scale(1.04)}',
@@ -136,7 +136,7 @@
     '#musicians-list .ml-more3 .ml-xg{min-height:0;aspect-ratio:4/3;align-self:start}',
     '#musicians-list .ml-xg{background:rgba(234,230,221,.08);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);border-color:rgba(234,230,221,.28);justify-content:center}',
     '#musicians-list .ml-xg:after{display:none}',
-    '#musicians-list .ml-xb{align-self:flex-start;display:inline-flex;gap:6px;align-items:center;margin-top:14px;padding:9px 20px;border-radius:999px;background:#3dc2bb;color:#13241d;font-weight:600;font-size:14px;animation:mlBounce 2.6s ease-in-out infinite}',
+    '#musicians-list .ml-xb{align-self:flex-start;display:inline-flex;gap:6px;align-items:center;margin-top:14px;padding:9px 20px;border-radius:999px;background:#3dc2bb;color:#0e2628;font-weight:600;font-size:14px;animation:mlBounce 2.6s ease-in-out infinite}',
     '@keyframes mlBounce{0%,60%,100%{transform:translateY(0)}70%{transform:translateY(-5px)}80%{transform:translateY(0)}88%{transform:translateY(-2px)}}',
     '@media (prefers-reduced-motion:reduce){#musicians-list .ml-xb{animation:none}}',
     '#musicians-list .ml-pop{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.82);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px}',
@@ -369,4 +369,4 @@
     .catch(function () { root.innerHTML = '<p style="padding:30px">Musicians could not be loaded. Please refresh the page.</p>'; });
 })();
 
-;(function(){if(document.getElementById('wd2-glass-musicians-list'))return;var g=document.createElement('style');g.id='wd2-glass-musicians-list';g.textContent='#musicians-list .ml-chip.on,#musicians-list .ml-tag.ml-hit,#musicians-list .ml-xb{background:linear-gradient(135deg,rgba(120,230,224,.13),rgba(61,194,187,.04)),rgba(19,36,29,.35)!important;-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(160,240,235,.26)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -1px 0 rgba(0,0,0,.15),0 4px 14px rgba(0,0,0,.18)!important;color:#dcefec!important}#musicians-list .ml-xb:hover{background:linear-gradient(135deg,rgba(120,230,224,.22),rgba(61,194,187,.08)),rgba(19,36,29,.35)!important;border-color:rgba(160,240,235,.42)!important}#musicians-list .ml-chip.on svg,#musicians-list .ml-tag.ml-hit svg,#musicians-list .ml-xb svg{color:inherit!important}';document.head.appendChild(g);})();
+;(function(){if(document.getElementById('wd2-glass-musicians-list'))return;var g=document.createElement('style');g.id='wd2-glass-musicians-list';g.textContent='#musicians-list .ml-chip.on,#musicians-list .ml-tag.ml-hit,#musicians-list .ml-xb{background:linear-gradient(135deg,rgba(120,230,224,.13),rgba(61,194,187,.04)),rgba(14,38,40,.35)!important;-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(160,240,235,.26)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -1px 0 rgba(0,0,0,.15),0 4px 14px rgba(0,0,0,.18)!important;color:#dcefec!important}#musicians-list .ml-xb:hover{background:linear-gradient(135deg,rgba(120,230,224,.22),rgba(61,194,187,.08)),rgba(14,38,40,.35)!important;border-color:rgba(160,240,235,.42)!important}#musicians-list .ml-chip.on svg,#musicians-list .ml-tag.ml-hit svg,#musicians-list .ml-xb svg{color:inherit!important}';document.head.appendChild(g);})();

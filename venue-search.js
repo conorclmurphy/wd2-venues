@@ -32,9 +32,9 @@
   // Paint the whole page section dark grey-green (same as the musician pages) so the search runs right up to the top, with no patterned strip above it
   var sec = root.closest('section');
   if (sec) {
-    sec.style.backgroundColor = '#13241d';
+    sec.style.backgroundColor = '#0e2628';
     var sb = sec.querySelector('.section-background');
-    if (sb) { sb.style.backgroundColor = '#13241d'; Array.prototype.forEach.call(sb.children, function (c) { c.style.opacity = '0'; }); }
+    if (sb) { sb.style.backgroundColor = '#0e2628'; Array.prototype.forEach.call(sb.children, function (c) { c.style.opacity = '0'; }); }
   }
 
   if (!document.getElementById('wdvs-search-fonts')) {
@@ -45,7 +45,7 @@
   }
 
   var css = '\
-#wd2-venues-root{--ink:#f1ede2;--cream:#13241d;--card:#1b3128;--sage:#3dc2bb;--sage-dark:#8adcd7;--brass:#ffffff;--rose:#d9a394;--line:#284438;--radius:14px;\
+#wd2-venues-root{--ink:#f1ede2;--cream:#0e2628;--card:#163436;--sage:#3dc2bb;--sage-dark:#8adcd7;--brass:#ffffff;--rose:#d9a394;--line:#234749;--radius:14px;\
 font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color:var(--ink);background:var(--cream);padding:10px clamp(12px,2.5vw,32px) 56px;box-sizing:border-box;position:relative;overflow:hidden;border:0;border-radius:0}\
 #wd2-venues-root .wdvs-watermark{position:absolute;top:50%;left:50%;width:min(1100px,140vw);transform:translate(-50%,-50%);opacity:.05;filter:brightness(0) invert(1);pointer-events:none;z-index:0;user-select:none}\
 #wd2-venues-root>.wdvs-head,#wd2-venues-root>.wdvs-filters,#wd2-venues-root>.wdvs-reset,#wd2-venues-root>.wdvs-count,#wd2-venues-root>.wdvs-grid,#wd2-venues-root>.wdvs-empty{position:relative;z-index:1}\
@@ -281,4 +281,4 @@ font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color
   }
 })();
 
-;(function(){if(document.getElementById('wd2-glass-venue-search'))return;var g=document.createElement('style');g.id='wd2-glass-venue-search';g.textContent='#wd2-venues-root .wdvs-chip[aria-pressed="true"]{background:linear-gradient(135deg,rgba(120,230,224,.13),rgba(61,194,187,.04)),rgba(19,36,29,.35)!important;-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(160,240,235,.26)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -1px 0 rgba(0,0,0,.15),0 4px 14px rgba(0,0,0,.18)!important;color:#dcefec!important}#wd2-venues-root .wdvs-chip[aria-pressed="true"] svg{color:inherit!important}';document.head.appendChild(g);})();
+;(function(){if(document.getElementById('wd2-glass-venue-search'))return;var g=document.createElement('style');g.id='wd2-glass-venue-search';g.textContent='#wd2-venues-root .wdvs-chip[aria-pressed="true"]{background:linear-gradient(135deg,rgba(120,230,224,.13),rgba(61,194,187,.04)),rgba(14,38,40,.35)!important;-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(160,240,235,.26)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -1px 0 rgba(0,0,0,.15),0 4px 14px rgba(0,0,0,.18)!important;color:#dcefec!important}#wd2-venues-root .wdvs-chip[aria-pressed="true"] svg{color:inherit!important}';document.head.appendChild(g);})();
