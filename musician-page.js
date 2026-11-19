@@ -661,7 +661,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     var TICK = '<i aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>';
     var who = whoOn ? '<div class="vp-who" role="radiogroup" aria-label="Who is this enquiry for?">'
       + '<button type="button" class="vp-who-o vp-who-on" role="radio" aria-checked="true" data-v="this"><span class="vp-who-av"><span class="vp-who-clip"><img src="' + img(whoPic, 300) + '" alt="" style="object-position:' + esc(whoPos) + whoZoom + '"></span>' + TICK + '</span>'
-      + '<span class="vp-who-t"><small>Book</small><b>This musician</b></span></button>'
+      + '<span class="vp-who-t"><small>This</small><b>Musician</b></span></button>'
       + '<button type="button" class="vp-who-o" role="radio" aria-checked="false" data-v="any"><span class="vp-who-av vp-who-any"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 18V6l11-2v12M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm11-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>' + TICK + '</span>'
       + '<span class="vp-who-t"><small>Open to</small><b>Anyone</b></span></button></div>' : '';
     var whoMini = whoOn ? '<span class="vp-who-mini"><img src="' + img(whoPic, 200) + '" alt="" style="object-position:' + esc(whoPos) + whoZoom + '"></span>' : '';
