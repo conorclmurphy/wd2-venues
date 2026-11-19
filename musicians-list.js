@@ -218,7 +218,7 @@
     var size = 500; // card-sized photos (about 1.4MB for the whole page, instead of 8MB+)
     var DJC = D.djCard || {}; // same DJ card as on the musician pages
     var filters = [['all', 'Either'], ['day2', L.day2 || 'Day 2'], ['afterdinner', L.afterdinner || 'After dinner']];
-    if (only) filters = [['all', 'All musicians'], ['later', 'Also plays Day 2 / after dinner'], ['duo', 'Duo']];
+    if (only) filters = [['all', 'All'], ['later', 'Also plays Day 2 / after dinner'], ['duo', 'Duo']];
     var h = '<header class="ml-hero"><img src="' + IMG + HERO[0] + '?format=2500w" alt="" style="object-position:' + HERO[1] + '" fetchpriority="high">'
       + '<div class="ml-hero-in"><p class="ml-eye">' + esc(EYE) + '</p><h1>' + esc(H1) + '</h1><p class="ml-lead">' + esc(LEAD) + '</p></div></header>'
       + '<nav class="ml-tabs" aria-label="Solo musicians">' + TABS.map(function (t) { return '<a class="ml-tab' + (t[3] ? ' ml-tab-on" aria-current="page' : '') + '" href="' + t[2] + '"><strong>' + esc(t[0]) + '</strong><span>' + esc(t[1]) + '</span></a>'; }).join('') + '</nav>'
@@ -370,3 +370,4 @@
 })();
 
 ;(function(){if(document.getElementById('wd2-glass-musicians-list'))return;var g=document.createElement('style');g.id='wd2-glass-musicians-list';g.textContent='#musicians-list .ml-chip.on,#musicians-list .ml-tag.ml-hit,#musicians-list .ml-xb{background:linear-gradient(135deg,rgba(120,230,224,.13),rgba(61,194,187,.04)),rgba(14,38,40,.35)!important;-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(160,240,235,.26)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -1px 0 rgba(0,0,0,.15),0 4px 14px rgba(0,0,0,.18)!important;color:#dcefec!important}#musicians-list .ml-xb:hover{background:linear-gradient(135deg,rgba(120,230,224,.22),rgba(61,194,187,.08)),rgba(14,38,40,.35)!important;border-color:rgba(160,240,235,.42)!important}#musicians-list .ml-chip.on svg,#musicians-list .ml-tag.ml-hit svg,#musicians-list .ml-xb svg{color:inherit!important}';document.head.appendChild(g);})();
+;(function(){var g=document.createElement('style');g.id='ml-chip-row';g.textContent='@media (max-width:520px){#musicians-list .ml-chips{flex-wrap:nowrap!important;gap:6px}#musicians-list .ml-chip{white-space:nowrap;font-size:13px!important;padding:8px 11px!important}#musicians-list .ml-chip.on:before{margin-right:5px}}';document.head.appendChild(g);})();
