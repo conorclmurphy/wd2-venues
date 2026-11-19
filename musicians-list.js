@@ -368,3 +368,5 @@
     .then(render)
     .catch(function () { root.innerHTML = '<p style="padding:30px">Musicians could not be loaded. Please refresh the page.</p>'; });
 })();
+
+;(function(){if(document.getElementById('wd2-glass-musicians-list'))return;var g=document.createElement('style');g.id='wd2-glass-musicians-list';g.textContent='#musicians-list .ml-chip.on,#musicians-list .ml-tag.ml-hit,#musicians-list .ml-xb{background:linear-gradient(135deg,rgba(120,230,224,.13),rgba(61,194,187,.04)),rgba(19,36,29,.35)!important;-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(160,240,235,.26)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -1px 0 rgba(0,0,0,.15),0 4px 14px rgba(0,0,0,.18)!important;color:#dcefec!important}#musicians-list .ml-xb:hover{background:linear-gradient(135deg,rgba(120,230,224,.22),rgba(61,194,187,.08)),rgba(19,36,29,.35)!important;border-color:rgba(160,240,235,.42)!important}#musicians-list .ml-chip.on svg,#musicians-list .ml-tag.ml-hit svg,#musicians-list .ml-xb svg{color:inherit!important}';document.head.appendChild(g);})();
