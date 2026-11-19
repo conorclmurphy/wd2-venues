@@ -56,6 +56,8 @@
       'background:rgba(31,39,39,.62);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);border:1px solid rgba(234,230,221,.28);box-shadow:0 8px 24px rgba(0,0,0,.35);',
       'opacity:0;transform:translateY(12px);transition:opacity .35s,transform .35s,box-shadow .2s}',
       '.grb-btn.grb-in{opacity:1;transform:none}',
+      // the bubble steps aside while the site menu is open
+      'body.header--menu-open .grb-btn,body.header--menu-open .grb-btn.grb-in{opacity:0!important;pointer-events:none!important;transition:opacity .25s ease!important}',
       '.grb-btn:hover{box-shadow:0 0 0 2px var(--grb-accent),0 10px 26px rgba(0,0,0,.35)}',
       '.grb-btn b{font-weight:600}',
       '.grb-open .grb-btn{opacity:0;pointer-events:none}',

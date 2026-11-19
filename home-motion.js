@@ -21,8 +21,10 @@
     '.wd2m.wd2m-in{opacity:1;transform:none}',
     '.wd2m-w{display:inline-block;opacity:0;transform:translateY(.55em) rotate(2deg);transition:opacity .6s ease var(--wd,0ms),transform .8s cubic-bezier(.2,.7,.2,1) var(--wd,0ms)}',
     '.wd2m-in .wd2m-w,.wd2m-w.wd2m-in{opacity:1;transform:none}',
-    '.wd2m-kb{animation:wd2mDrift 26s ease-in-out infinite alternate;transform-origin:50% 40%}',
-    '@keyframes wd2mDrift{from{transform:scale(1)}to{transform:scale(1.09) translate3d(-1.2%,-1%,0)}}',
+    // slow drift on the main photo: on its own graphics layer so it glides instead of stepping; off on phones and tablets, where it stutters
+    '.wd2m-kb{animation:wd2mDrift 30s linear infinite alternate;transform-origin:50% 40%;will-change:transform;backface-visibility:hidden;-webkit-backface-visibility:hidden}',
+    '@keyframes wd2mDrift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(-1.2%,-1%,0) scale(1.09)}}',
+    '@media (max-width:1000px){.wd2m-kb{animation:none;will-change:auto}}',
     '.wd2-why-item svg,.wd2-why-item img{transition:transform .6s cubic-bezier(.3,1.5,.5,1) calc(var(--wd,0ms) + 200ms)}',
     '.wd2-why-item.wd2m:not(.wd2m-in) svg,.wd2-why-item.wd2m:not(.wd2m-in) img{transform:scale(.4) rotate(-20deg)}'
   ].join('');
