@@ -97,9 +97,9 @@
         + 'transform:translate3d(0,var(--grb-drop,0px),0);will-change:transform;transition:opacity .35s,transform .5s cubic-bezier(.2,.75,.2,1)}'
         + '.grb-btn.grb-in{transform:translate3d(0,var(--grb-drop,0px),0)}'
         + '.grb-btn .grb-g{width:18px;height:18px}.grb-btn .grb-star,.grb-btn .grb-star svg{width:14px;height:14px}'
-        // once the menu has scrolled away: a small pill (G, score, one star) that tucks away while scrolling down and comes back on scroll up
-        + '.grb-mini .grb-btn{padding:6px 10px 6px 8px;gap:6px;font-size:13px}.grb-mini .grb-btn .grb-star:nth-child(n+2){display:none}'
-        + '.grb-away .grb-btn,.grb-away .grb-btn.grb-in{transform:translate3d(0,-80px,0);opacity:0;pointer-events:none}'
+        // phones: the bubble keeps its five stars; scrolling down fades it out slowly where it sits, scrolling back up fades it in again
+        + '.grb-away .grb-btn,.grb-away .grb-btn.grb-in{opacity:0;pointer-events:none;transition:opacity 1.3s ease,transform .5s cubic-bezier(.2,.75,.2,1)}'
+        + '.grb:not(.grb-away) .grb-btn.grb-in{transition:opacity .6s ease,transform .5s cubic-bezier(.2,.75,.2,1)}'
         + '.grb-dim{display:block;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .3s}'
         + '.grb-open .grb-dim{opacity:1;pointer-events:auto}'
         + '.grb-panel{left:0;right:0;bottom:0;top:auto;width:100%;max-height:84vh;max-height:84dvh;border-radius:20px 20px 0 0;border-bottom:0;'
@@ -211,14 +211,13 @@
         if (!phone() || !hdr || document.body.style.position === 'fixed') return;
         var hb = hdr.getBoundingClientRect().bottom, low = hb > 56;
         var y = window.pageYOffset || 0, dy = y - lastY;
-        if (low || Math.abs(dy) > 6) {
-          var a = !low && dy > 0 && !wrap.classList.contains('grb-open');
+        if (Math.abs(dy) > 6 || y <= 30) {
+          var a = y > 30 && dy > 0 && !wrap.classList.contains('grb-open');
           if (a !== away) { away = a; wrap.classList.toggle('grb-away', a); }
           lastY = y;
         }
         if (low === state) return;
         state = low;
-        wrap.classList.toggle('grb-mini', !low);
         wrap.style.setProperty('--grb-drop', low ? Math.max(0, Math.round(hdr.offsetHeight - 2)) + 'px' : '0px');
       }
       function queue() { if (!ticking) { ticking = true; requestAnimationFrame(place); } }
