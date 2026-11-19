@@ -3,7 +3,7 @@
   "imageBase": "https://images.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "videoBase": "https://video.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "formAccessKey": "e22edaa4-9aee-4226-a8fc-120ab344273d",
-  "ceremonyList": ["orlaith", "mathew", "cathal", "conort", "craig", "karl", "emmett", "phil", "james"],
+  "ceremonyList": ["orlaith", "mathew", "cathal", "conort", "craig", "karl", "emmett", "phil", "james", "curtis"],
   "eventLabels": {
     "ceremony": "Ceremony & drinks reception",
     "day2": "Day 2",
@@ -613,6 +613,58 @@
       "duo": false,
       "videos": [{"id": "6d3adaae-a140-4e17-8423-eff5eec49038", "seconds": 88, "shape": "tall"}, {"id": "1ec4834d-acb9-4b3b-b9b9-ad970a0a4d1b", "seconds": 71, "shape": "wide"}, {"id": "e1809e78-bedd-4653-a981-1197ab9c4360", "seconds": 60, "shape": "wide"}],
       "onstage": [{"id": "3947cb72-9adf-4a51-b398-68842f7eb89d", "seconds": 68}, {"id": "75c92c52-3300-4115-b023-7110e6e9c84d", "seconds": 28}],
+      "gallery": [],
+      "aboutTitle": "Bio",
+      "hideName": true,
+      "formTitle": "Book this musician"
+    },
+    {
+      "slug": "curtis",
+      "name": "Musician U",
+      "live": true,
+      "url": "https://weddingday2.ie/musician-u",
+      "photo": "03030179-1b9a-4faa-ac82-049b2c06c8d3/musician-u-curtis-1.jpg",
+      "photoPosition": "50% 30%",
+      "cardPhoto": "03030179-1b9a-4faa-ac82-049b2c06c8d3/musician-u-curtis-1.jpg",
+      "cardPosition": "50% 40%",
+      "bio": [
+        "He is an acoustic singer and guitarist with a warm, heartfelt voice, made for the moments that matter most on a wedding day.",
+        "From walking down the aisle to the drinks reception, he plays stripped-back versions of the songs you love, from Lewis Capaldi to the classics, and is happy to learn a song that's special to you."
+      ],
+      "events": [
+        "ceremony"
+      ],
+      "tradBand": false,
+      "duo": false,
+      "videos": [
+        {
+          "id": "986ff5f4-2cca-49d1-be3f-8f6a89478904",
+          "seconds": 71,
+          "shape": "tall"
+        }
+      ],
+      "onstage": [
+        {
+          "id": "bade1a62-3a5a-4e48-98f5-a3ba19379b4c",
+          "seconds": 19
+        },
+        {
+          "id": "886c3d36-f8a2-4b89-96d7-876a0450f4b2",
+          "seconds": 22
+        },
+        {
+          "id": "1e5dcc45-c38c-4944-9292-d6bd4dea9a7b",
+          "seconds": 19
+        },
+        {
+          "id": "1420385a-cd73-4690-ba24-ffe4e658fa5f",
+          "seconds": 18
+        },
+        {
+          "id": "647a9cd3-5c03-4e53-b7bd-da0df82b3109",
+          "seconds": 15
+        }
+      ],
       "gallery": [],
       "aboutTitle": "Bio",
       "hideName": true,
