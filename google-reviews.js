@@ -207,19 +207,36 @@
       });
       // Phones: under the menu while it's on screen, then one smooth glide up to the corner once it has scrolled away
       var hdr = document.querySelector('#header') || document.querySelector('header'), ticking = false, state = null, lastY = window.pageYOffset || 0, away = false;
+      // The bubble only ever moves while it is visible in one case: sliding down under the menu. When it is fading out
+      // (or hidden) its position is changed without any movement, so it never darts up to the corner before it fades.
+      var dropNow = null, awayT = 0;
+      function isLow() { return hdr.getBoundingClientRect().bottom > 56; }
+      function setDrop(low, snap) {
+        var v = low ? Math.max(0, Math.round(hdr.offsetHeight - 2)) + 'px' : '0px';
+        if (v === dropNow) return;
+        dropNow = v;
+        if (snap) { btn.style.transition = 'none'; wrap.style.setProperty('--grb-drop', v); void btn.offsetWidth; btn.style.transition = ''; }
+        else wrap.style.setProperty('--grb-drop', v);
+      }
       function place() {
         ticking = false;
         if (!phone() || !hdr || document.body.style.position === 'fixed') return;
-        var hb = hdr.getBoundingClientRect().bottom, low = hb > 56;
+        var low = isLow();
         var y = window.pageYOffset || 0, dy = y - lastY;
         if (Math.abs(dy) > 6 || y <= 30) {
           var a = y > 30 && dy > 0 && !wrap.classList.contains('grb-open');
-          if (a !== away) { away = a; wrap.classList.toggle('grb-away', a); }
+          if (a !== away) {
+            away = a;
+            clearTimeout(awayT);
+            if (!a) setDrop(low, true);  // coming back: put it in the right spot first, unseen, then fade in
+            wrap.classList.toggle('grb-away', a);
+            if (a) awayT = setTimeout(function () { if (away) setDrop(isLow(), true); }, 1500);  // once fully faded
+          }
           lastY = y;
         }
         if (low === state) return;
         state = low;
-        wrap.style.setProperty('--grb-drop', low ? Math.max(0, Math.round(hdr.offsetHeight - 2)) + 'px' : '0px');
+        if (!away) setDrop(low, false);
       }
       function queue() { if (!ticking) { ticking = true; requestAnimationFrame(place); } }
       window.addEventListener('scroll', queue, { passive: true });
