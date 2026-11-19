@@ -117,7 +117,7 @@
 (function () {
   if (window.wd2Cta || !document.body || !document.body.classList.contains('homepage')) return;
   window.wd2Cta = true;
-  var LIVE = '';
+  var LIVE = 'a';  // chosen 19 Nov 2026: side by side
   var pick = (/[?&]buttons=([a-d])\b/i.exec(location.search) || [])[1];
   pick = (pick || LIVE).toLowerCase();
   if (!pick) return;
@@ -132,6 +132,8 @@
     + '.wd2-cta a{flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;gap:6px;min-height:50px;padding:10px 12px;font-size:15px;font-weight:600;line-height:1.2;text-align:center;text-decoration:none!important;white-space:nowrap;-webkit-tap-highlight-color:transparent}'
     + '.wd2-cta .wd2-c1{' + G + ';border-radius:45px 0}'
     + '.wd2-cta .wd2-c2{' + C + ';border-radius:0 45px}'
+    // a (the live one): the package button keeps the pale glass of the old "Build your own package" card
+    + '.wd2-cta-a .wd2-c2{background:rgba(234,230,221,.14);border:1px solid rgba(234,230,221,.34);color:#eae6dd;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 4px 14px rgba(0,0,0,.2)}'
     // b: stacked, same width, the package button first
     + '.wd2-cta-b{flex-direction:column;max-width:270px}.wd2-cta-b a{flex:none}.wd2-cta-b .wd2-c2{order:-1;border-radius:45px 0}'
     // c: one glass bar split in two
