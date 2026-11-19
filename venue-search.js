@@ -32,9 +32,9 @@
   // Paint the whole page section dark grey-green (same as the musician pages) so the search runs right up to the top, with no patterned strip above it
   var sec = root.closest('section');
   if (sec) {
-    sec.style.backgroundColor = '#1f2727';
+    sec.style.backgroundColor = '#13241d';
     var sb = sec.querySelector('.section-background');
-    if (sb) { sb.style.backgroundColor = '#1f2727'; Array.prototype.forEach.call(sb.children, function (c) { c.style.opacity = '0'; }); }
+    if (sb) { sb.style.backgroundColor = '#13241d'; Array.prototype.forEach.call(sb.children, function (c) { c.style.opacity = '0'; }); }
   }
 
   if (!document.getElementById('wdvs-search-fonts')) {
@@ -45,7 +45,7 @@
   }
 
   var css = '\
-#wd2-venues-root{--ink:#f1ede2;--cream:#1f2727;--card:#283232;--sage:#3dc2bb;--sage-dark:#8adcd7;--brass:#ffffff;--rose:#d9a394;--line:#364242;--radius:14px;\
+#wd2-venues-root{--ink:#f1ede2;--cream:#13241d;--card:#1b3128;--sage:#3dc2bb;--sage-dark:#8adcd7;--brass:#ffffff;--rose:#d9a394;--line:#284438;--radius:14px;\
 font-family:"Jost","Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;color:var(--ink);background:var(--cream);padding:10px clamp(12px,2.5vw,32px) 56px;box-sizing:border-box;position:relative;overflow:hidden;border:0;border-radius:0}\
 #wd2-venues-root .wdvs-watermark{position:absolute;top:50%;left:50%;width:min(1100px,140vw);transform:translate(-50%,-50%);opacity:.05;filter:brightness(0) invert(1);pointer-events:none;z-index:0;user-select:none}\
 #wd2-venues-root>.wdvs-head,#wd2-venues-root>.wdvs-filters,#wd2-venues-root>.wdvs-reset,#wd2-venues-root>.wdvs-count,#wd2-venues-root>.wdvs-grid,#wd2-venues-root>.wdvs-empty{position:relative;z-index:1}\
