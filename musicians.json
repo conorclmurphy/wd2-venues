@@ -794,9 +794,9 @@
         "list": [
           {
             "id": "double-trouble",
-            "title": "Double Trouble",
+            "title": "Two solo musicians",
             "hours": "4 hours of live music",
-            "text": "Solo musician + solo musician (2 × €750)",
+            "text": "One after the other, 2 hours each (2 × €750)",
             "from": 1500,
             "extras": [
               "second"
@@ -806,9 +806,9 @@
           },
           {
             "id": "celebration",
-            "title": "The Celebration",
+            "title": "Solo musician + DJ",
             "hours": "4 hours of live music",
-            "text": "Solo musician + DJ",
+            "text": "A solo musician, followed by a DJ",
             "from": 1500,
             "extras": [
               "dj"
@@ -817,9 +817,9 @@
           },
           {
             "id": "party",
-            "title": "The Party",
+            "title": "Solo musician + trad band",
             "hours": "4 hours of live music",
-            "text": "Solo musician, followed by a trad band",
+            "text": "A solo musician, followed by our trad band",
             "from": 2100,
             "extras": [
               "trad"
@@ -828,9 +828,9 @@
           },
           {
             "id": "full-experience",
-            "title": "The Full Experience",
+            "title": "Solo musician + trad band + DJ",
             "hours": "6 hours of live music",
-            "text": "Solo musician, followed by a trad band, then a DJ",
+            "text": "A solo musician, followed by our trad band, then a DJ",
             "from": 2850,
             "extras": [
               "trad",

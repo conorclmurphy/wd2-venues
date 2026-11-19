@@ -816,7 +816,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         var price = 0, name = '', extra = [];
         if (pk) {
           price = pk.from; name = pk.title;
-          if (two && trad) { price += soloFrom(); extra.push(dj ? 'Double Trouble' : 'second solo musician'); }  // trad packages only include one musician
+          if (two && trad) { price += soloFrom(); extra.push('second solo musician'); }  // trad packages only include one musician
         } else if (solo && two && dj) { price = 2 * soloFrom() + P.djFrom; name = 'Two solo musicians + DJ'; }
         else if (solo) { price = soloFrom(); name = 'Solo musician'; }
         else if (trad) { price = tradPrice; name = 'Trad band (' + line + ')'; if (dj) { price += P.djFrom; extra.push('DJ'); } }
