@@ -97,7 +97,8 @@
         + 'transform:translate3d(0,var(--grb-drop,0px),0);will-change:transform;transition:opacity .35s,transform .5s cubic-bezier(.2,.75,.2,1)}'
         + '.grb-btn.grb-in{transform:translate3d(0,var(--grb-drop,0px),0)}'
         + '.grb-btn .grb-g{width:18px;height:18px}.grb-btn .grb-star,.grb-btn .grb-star svg{width:14px;height:14px}'
-        // phones: the bubble keeps its five stars; scrolling down fades it out slowly where it sits, scrolling back up fades it in again
+        // phones: always the small round pill (G, score, one star); scrolling down fades it out slowly where it sits, scrolling back up fades it in again
+        + '.grb-btn{padding:6px 10px 6px 8px;gap:6px;font-size:13px}.grb-btn .grb-star:nth-child(n+2){display:none}'
         + '.grb-away .grb-btn,.grb-away .grb-btn.grb-in{opacity:0;pointer-events:none;transition:opacity 1.3s ease,transform .5s cubic-bezier(.2,.75,.2,1)}'
         + '.grb:not(.grb-away) .grb-btn.grb-in{transition:opacity .6s ease,transform .5s cubic-bezier(.2,.75,.2,1)}'
         + '.grb-dim{display:block;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .3s}'
