@@ -230,6 +230,7 @@
       var ev = ORDER.filter(function (e) { return o.events.indexOf(e) !== -1; });
       var tags = ev.filter(function (e) { return e !== only && (only || e !== 'ceremony'); }).map(function (e) { return [e, e === 'ceremony' ? 'Ceremony' : (L[e] || e)]; });
       if (only && o.duo) tags.push(['duo', 'Duo']);
+      if (only === 'ceremony') tags.unshift(['ceremony', 'Ceremony & reception']);  // every card on this tab says what it is for
       var p = lp ? lp[0] : (o.cardPhoto || o.photo);
       h += '<a class="ml-card" data-slug="' + esc(o.slug) + '" href="' + esc(o.url + (only ? '?for=' + only : '')) + '" data-tags="' + esc(ev.concat(o.duo ? ['duo'] : []).concat(o.tradBand ? ['tradBand'] : []).join(' ')) + '">'
         + '<div class="ml-img"><img src="' + esc(/^https?:/.test(p) ? p : D.imageBase + p + '?format=' + (SHARPER[o.slug] || size) + 'w') + '" alt="' + esc(o.hideName ? 'Wedding musician' : o.name) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async"'
