@@ -546,6 +546,62 @@
   document.head.appendChild(st);
 })();
 
+/* Home page: try-out animations for the four service cards. Nothing changes for visitors until LIVE below is filled in.
+   Preview by adding ?cards=1 (or 2, 3, 4, or several together such as ?cards=12) to the home page address.
+   1 dealt in one by one as the section arrives   2 the photo zooms slowly inside the card on hover (desktop)
+   3 a soft band of light crosses each card once as it arrives   4 the photo leans towards the mouse (desktop)
+   The card frame itself never moves up or grows, so nothing can cross the blue line. */
+(function () {
+  if (window.wd2CardFx || !document.body || !document.body.classList.contains('homepage')) return;
+  window.wd2CardFx = true;
+  var LIVE = ''; // e.g. '12' for effects 1 and 2
+  var pick = (/[?&]cards=([1-4]{1,4})\b/.exec(location.search) || [])[1] || LIVE;
+  if (!pick) return;
+  var calm = window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if (calm) return;
+  var html = document.documentElement, has = function (n) { return pick.indexOf(n) !== -1; };
+  pick.split('').forEach(function (n) { html.classList.add('wd2-cf-' + n); });
+  var C = 'body.homepage .wd2-cards a', st = document.createElement('style');
+  st.id = 'wd2-cardfx-css';
+  st.textContent = C + ':nth-child(1){--i:0}' + C + ':nth-child(2){--i:1}' + C + ':nth-child(3){--i:2}' + C + ':nth-child(4){--i:3}'
+    // 1: dealt in (uses "translate", which is separate from the transform the older hover script controls)
+    + 'html.wd2-cf-1 body.homepage .sqs-block-content:has(.wd2-cards){opacity:1!important;transform:none!important}'
+    + 'html.wd2-cf-1 ' + C + '{opacity:0;translate:0 34px}'
+    + 'html.wd2-cf-1 body.homepage .wd2-cards.wd2-cf-in a{animation:wd2Deal .75s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0) * 140ms)}'
+    + '@keyframes wd2Deal{from{opacity:0;translate:0 34px}to{opacity:1;translate:0 0}}'
+    // 2: slow zoom of the photo inside the frame
+    + '@media (hover:hover) and (pointer:fine){html.wd2-cf-2 ' + C + ' img{transition:transform 1.1s cubic-bezier(.2,.6,.2,1)}html.wd2-cf-2 ' + C + ':hover img{transform:scale(1.08)}}'
+    // 3: one sweep of light
+    + 'html.wd2-cf-3 ' + C + ':after{content:"";position:absolute;top:0;bottom:0;left:-70%;width:55%;pointer-events:none;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(200,250,246,.2),rgba(255,255,255,0));transform:skewX(-18deg);opacity:0}'
+    + 'html.wd2-cf-3 body.homepage .wd2-cards.wd2-cf-in a:after{animation:wd2Sweep 1.3s ease-out both;animation-delay:calc(300ms + var(--i,0) * 160ms)}'
+    + '@keyframes wd2Sweep{0%{opacity:1;translate:0 0}99%{opacity:1;translate:330% 0}100%{opacity:0;translate:330% 0}}'
+    // 4: lean
+    + 'html.wd2-cf-4 ' + C + ' img{transition:transform .25s ease-out;will-change:transform}';
+  document.head.appendChild(st);
+  function start() {
+    var nav = document.querySelector('.wd2-cards'); if (!nav) return false;
+    if (nav.wd2Fx) return true; nav.wd2Fx = true;
+    if (window.IntersectionObserver) {
+      var io = new IntersectionObserver(function (en) { if (en[en.length - 1].isIntersecting) { nav.classList.add('wd2-cf-in'); io.disconnect(); } }, { threshold: 0.2 });
+      io.observe(nav);
+    } else nav.classList.add('wd2-cf-in');
+    if (has('4') && window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+      Array.prototype.forEach.call(nav.querySelectorAll('a'), function (a) {
+        var img = a.querySelector('img'), raf = 0, px = 0, py = 0;
+        if (!img) return;
+        a.addEventListener('pointermove', function (e) {
+          var r = a.getBoundingClientRect(); px = (e.clientX - r.left) / r.width - .5; py = (e.clientY - r.top) / r.height - .5;
+          if (!raf) raf = requestAnimationFrame(function () { raf = 0; img.style.transform = 'perspective(700px) rotateY(' + (px * 9).toFixed(2) + 'deg) rotateX(' + (-py * 9).toFixed(2) + 'deg) scale(1.07)'; });
+        });
+        a.addEventListener('pointerleave', function () { img.style.transform = ''; });
+      });
+    }
+    return true;
+  }
+  var n = 0, t = setInterval(function () { if (start() || ++n > 20) clearInterval(t); }, 300);
+  if (start()) clearInterval(t);
+})();
+
 /* Home page: tap feedback. A finger landing on Contact us / Build a package (and the older versions of those
    buttons) adds a "pressed" look straight away and keeps it for a moment, so there is a clear sign the tap registered. */
 (function () {
