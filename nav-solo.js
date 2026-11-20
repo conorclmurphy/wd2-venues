@@ -119,7 +119,7 @@
   window.wd2Cta = true;
   var LIVE = 'a';  // chosen 19 Nov 2026: side by side
   var LOOK = '';   // which plain look the pair uses for everyone ('' = the glass pair); preview others with ?look=1 to 5
-  var look = (/[?&]look=([1-5])\b/.exec(location.search) || [])[1] || LOOK;
+  var look = (/[?&]look=(\d{1,2})\b/.exec(location.search) || [])[1] || LOOK;
   var pick = (/[?&]buttons=([a-e])\b/i.exec(location.search) || [])[1];
   pick = (pick || LIVE).toLowerCase();
   if (!pick) return;
@@ -146,6 +146,14 @@
     + '.wd2-cta.wd2-look-3 a{border:1.5px solid #eae6dd!important;color:#eae6dd!important}'
     // 4: flat dark fill with a cyan edge
     + '.wd2-cta.wd2-look-4 a{background:#0e2628!important;border:1.5px solid #3dc2bb;color:#eae6dd;text-shadow:none}'
+    // 6 to 11: different SHAPES. Same colours in each (cyan outline for Contact us, solid cyan for the package button) so only the shape changes.
+    + '.wd2-cta.wd2-os .wd2-c1{border:2px solid #3dc2bb;color:#3dc2bb}.wd2-cta.wd2-os .wd2-c2{background:#3dc2bb!important;border:2px solid #3dc2bb;color:#0e2628;font-weight:600;text-shadow:none}'
+    + '.wd2-cta.wd2-look-6 a{border-radius:999px!important}'
+    + '.wd2-cta.wd2-look-7 a{border-radius:2px!important}'
+    + '.wd2-cta.wd2-look-8{gap:0}.wd2-cta.wd2-look-8 .wd2-c1{border-radius:14px 0 0 14px!important;border-right:0}.wd2-cta.wd2-look-8 .wd2-c2{border-radius:0 14px 14px 0!important}'
+    + '.wd2-cta.wd2-look-9{gap:14px}.wd2-cta.wd2-look-9 a{border-radius:3px!important;transform:skewX(-14deg)}.wd2-cta.wd2-look-9 a>span{display:inline-block;transform:skewX(14deg)}.wd2-cta.wd2-look-9 a.wd2-press,.wd2-cta.wd2-look-9 a:active{transform:skewX(-14deg) scale(.94)}'
+    + '.wd2-cta.wd2-look-10 .wd2-c1{border:0!important;background:none!important;color:#eae6dd;text-decoration:underline!important;text-underline-offset:6px;text-decoration-thickness:1.5px}.wd2-cta.wd2-look-10 .wd2-c2{border-radius:999px!important}'
+    + '.wd2-cta.wd2-look-11 a{border-radius:26px 26px 4px 4px!important}'
     // 5: plain rounded rectangles instead of the leaf shape, cyan outline
     + '.wd2-cta.wd2-look-5 a{border:2px solid #3dc2bb;color:#3dc2bb;border-radius:8px!important}'
     // b: stacked, same width, the package button first
@@ -213,9 +221,9 @@
     if (document.querySelector('.wd2-trio')) return true;
     var mq = window.matchMedia('(max-width:767px)');
     var wrap = document.createElement('div'); wrap.className = 'wd2-trio';
-    var box = document.createElement('div'); box.className = 'wd2-cta wd2-cta-a' + (look ? ' wd2-look-' + look : '');
-    var a1 = document.createElement('a'); a1.className = 'wd2-c1'; a1.href = contact.getAttribute('href'); a1.textContent = 'Contact us';
-    var a2 = document.createElement('a'); a2.className = 'wd2-c2'; a2.href = card.getAttribute('href'); a2.textContent = 'Build a package \u2192';
+    var box = document.createElement('div'); box.className = 'wd2-cta wd2-cta-a' + (look ? ' wd2-look-' + look : '') + (+look >= 6 ? ' wd2-os' : '');
+    var a1 = document.createElement('a'); a1.className = 'wd2-c1'; a1.href = contact.getAttribute('href'); a1.innerHTML = '<span>Contact us</span>';
+    var a2 = document.createElement('a'); a2.className = 'wd2-c2'; a2.href = card.getAttribute('href'); a2.innerHTML = '<span>Build a package \u2192</span>';
     box.appendChild(a1); box.appendChild(a2); wrap.appendChild(box);
     // The holder sits inside the photo section, so the row is simply part of that section.
     var layer = hero.querySelector('.section-border') || hero;
