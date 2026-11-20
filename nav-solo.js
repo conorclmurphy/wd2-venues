@@ -83,6 +83,76 @@
   var m = 0, t2 = setInterval(function () { relabel(); if (++m > 40) clearInterval(t2); }, 500);
 })();
 
+/* Home page form: smaller option buttons, and a "Max budget" slider.
+   The slider appears when the form in Squarespace has a text box whose label contains the word "budget"
+   (e.g. "Max budget"). The text box itself is hidden and the slider fills it in, so the answer arrives with the
+   enquiry like any other answer ("Up to EUR 1,500", or "No max" when the slider is left at the far right end).
+   To change the range, edit MIN, MAX and STEP below. */
+(function () {
+  if (window.wd2Budget || !document.body || !document.body.classList.contains('homepage')) return;
+  window.wd2Budget = true;
+  var MIN = 300, MAX = 4000, STEP = 100;
+  var F = 'html body.homepage form.react-form-contents.react-form-contents.react-form-contents';
+  var st = document.createElement('style');
+  st.id = 'wd2-budget-css';
+  st.textContent = F + ' .option label span{padding:3px 10px!important;font-size:14px!important;line-height:1.35!important;gap:5px}'
+    + F + ' .option{margin:0 1px 1px 0!important}'
+    + F + ' .option label input:checked+span{box-shadow:0 0 0 2px rgba(61,194,187,.22)!important}'
+    + F + ' .option label input:checked+span:before{font-size:11px}'
+    + F + ' .wd2-budget-item{grid-column:1/-1!important;order:6!important}'
+    + F + ' .wd2-budget-item input:not(.wd2-budget-range),' + F + ' .wd2-budget-item .description{display:none!important}'
+    + '.wd2-budget{display:flex;align-items:center;gap:14px;padding:2px 0 0}'
+    + '.wd2-budget-out{flex:0 0 auto;min-width:104px;text-align:right;font:600 15px/1.2 Bitter,Georgia,serif;color:#3dc2bb;font-variant-numeric:tabular-nums}'
+    + '.wd2-budget-out.wd2-budget-any{color:#b8b3a8;font-weight:500}'
+    + 'html body.homepage form.react-form-contents input.wd2-budget-range.wd2-budget-range{-webkit-appearance:none!important;appearance:none!important;flex:1 1 auto;min-width:0;width:auto!important;height:28px!important;min-height:0!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;cursor:pointer;touch-action:pan-y}'
+    + 'input.wd2-budget-range::-webkit-slider-runnable-track{height:4px;border-radius:0;background:linear-gradient(90deg,#3dc2bb var(--wd2-b,100%),rgba(234,230,221,.25) var(--wd2-b,100%))}'
+    + 'input.wd2-budget-range::-moz-range-track{height:4px;border-radius:0;background:linear-gradient(90deg,#3dc2bb var(--wd2-b,100%),rgba(234,230,221,.25) var(--wd2-b,100%))}'
+    + 'input.wd2-budget-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;margin-top:-8px;border:2px solid #3dc2bb;border-radius:7px 0;background:#0e2628;box-shadow:0 2px 8px rgba(0,0,0,.35)}'
+    + 'input.wd2-budget-range::-moz-range-thumb{width:16px;height:16px;border:2px solid #3dc2bb;border-radius:7px 0;background:#0e2628;box-shadow:0 2px 8px rgba(0,0,0,.35)}'
+    + 'input.wd2-budget-range:focus{outline:none}input.wd2-budget-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 3px rgba(61,194,187,.35)}';
+  document.head.appendChild(st);
+  function money(n) { return '€' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  // Squarespace's form keeps its own copy of every answer, so the hidden box has to be told about a change the way typing would
+  function fill(inp, text) {
+    var d = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value');
+    if (d && d.set) d.set.call(inp, text); else inp.value = text;
+    inp.dispatchEvent(new Event('input', { bubbles: true }));
+    inp.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+  function build() {
+    var form = document.querySelector('form.react-form-contents'); if (!form) return false;
+    var items = form.querySelectorAll('.field-list > .form-item'), item = null, inp = null, i;
+    for (i = 0; i < items.length; i++) {
+      var t = items[i].querySelector('.title, legend, label');
+      var q = items[i].querySelector('input[type="text"], input[type="number"], input:not([type])');
+      if (t && q && /budget/i.test(t.textContent || '')) { item = items[i]; inp = q; break; }
+    }
+    if (!item) return false;
+    if (item.querySelector('.wd2-budget')) return true;
+    item.classList.add('wd2-budget-item');
+    var box = document.createElement('div'); box.className = 'wd2-budget';
+    var r = document.createElement('input'); r.type = 'range'; r.className = 'wd2-budget-range';
+    r.min = MIN; r.max = MAX; r.step = STEP; r.value = MAX; r.setAttribute('aria-label', 'Max budget');
+    var out = document.createElement('span'); out.className = 'wd2-budget-out wd2-budget-any'; out.textContent = 'No max';
+    function show() {
+      var v = +r.value, any = v >= MAX;
+      out.textContent = any ? 'No max' : 'Up to ' + money(v);
+      out.classList.toggle('wd2-budget-any', any);
+      r.style.setProperty('--wd2-b', ((v - MIN) / (MAX - MIN) * 100) + '%');
+      r.setAttribute('aria-valuetext', out.textContent);
+    }
+    function save() { var live = item.querySelector('input:not(.wd2-budget-range)'); if (live) fill(live, +r.value >= MAX ? 'No max' : 'Up to ' + money(+r.value)); }
+    r.addEventListener('input', show);
+    r.addEventListener('change', function () { show(); save(); });
+    box.appendChild(r); box.appendChild(out);
+    (inp.closest('.form-item') === item ? item : form).appendChild(box);
+    show();
+    return true;
+  }
+  var n = 0, t = setInterval(function () { build(); if (++n > 30) clearInterval(t); }, 1000);
+  build();
+})();
+
 /* Home page image descriptions (for Google and for screen readers). The home page photos were added in
    Squarespace without descriptions, so this fills them in. Matched by the photo's file name. */
 (function () {
@@ -118,7 +188,7 @@
   if (window.wd2Cta || !document.body || !document.body.classList.contains('homepage')) return;
   window.wd2Cta = true;
   var LIVE = 'a';  // chosen 19 Nov 2026: side by side
-  var LOOK = '14'; // chosen 20 Nov 2026: joined slim pair, glass Contact us + solid cyan package button. ('' = the old glass pair); preview others with ?look=1 to 17
+  var LOOK = '18'; // chosen 20 Nov 2026: joined slim pair, number 17 made a bit lighter (teal Contact us with a cyan edge + solid cyan package button). ('' = the old glass pair); preview others with ?look=1 to 19
   var look = (/[?&]look=(\d{1,2})\b/.exec(location.search) || [])[1] || LOOK;
   var pick = (/[?&]buttons=([a-e])\b/i.exec(location.search) || [])[1];
   pick = (pick || LIVE).toLowerCase();
@@ -161,6 +231,8 @@
     + '.wd2-cta.wd2-look-15 a{border:2px solid #3dc2bb;color:#3dc2bb}.wd2-cta.wd2-look-15 .wd2-c2{color:#eae6dd}'
     + '.wd2-cta.wd2-look-16 .wd2-c1{border:1.5px solid #eae6dd;color:#eae6dd}.wd2-cta.wd2-look-16 .wd2-c2{background:#eae6dd!important;border:1.5px solid #eae6dd;color:#0e2628;font-weight:600;text-shadow:none}'
     + '.wd2-cta.wd2-look-17 .wd2-c1{background:#0e2628!important;border:2px solid #3dc2bb;color:#3dc2bb;text-shadow:none}.wd2-cta.wd2-look-17 .wd2-c2{background:#3dc2bb!important;border:2px solid #3dc2bb;color:#0e2628;font-weight:600;text-shadow:none}'
+    + '.wd2-cta.wd2-look-18 .wd2-c1{background:#234749!important;border:1.5px solid #5ad0c9;color:#8fe6e0;text-shadow:none}.wd2-cta.wd2-look-18 .wd2-c2{background:#5ad0c9!important;border:1.5px solid #5ad0c9;color:#0e2628;font-weight:600;text-shadow:none}'
+    + '.wd2-cta.wd2-look-19 .wd2-c1{background:#2f5a5c!important;border:1.5px solid #7adcd6;color:#b4f0eb;text-shadow:none}.wd2-cta.wd2-look-19 .wd2-c2{background:#7adcd6!important;border:1.5px solid #7adcd6;color:#0e2628;font-weight:600;text-shadow:none}'
     // 5: plain rounded rectangles instead of the leaf shape, cyan outline
     + '.wd2-cta.wd2-look-5 a{border:2px solid #3dc2bb;color:#3dc2bb;border-radius:8px!important}'
     // b: stacked, same width, the package button first
@@ -260,6 +332,135 @@
   }
   var n = 0, t = setInterval(function () { if (build() || ++n > 20) clearInterval(t); }, 300);
   build();
+})();
+
+/* Home page, phones only: each part of the page rolls up over the one before it.
+   The photo stays where it is while the cards - led by their angled blue line - slide up over it. When the cards reach the top
+   they stay too, and the next part rolls up over them with its own blue line, and so on down to the booking form.
+   It uses the browser's own "sticky" positioning, so nothing runs while the finger is scrolling.
+   To see the page without it, add ?stack=off to the address. */
+(function () {
+  if (window.wd2Stack || !document.body || !document.body.classList.contains('homepage')) return;
+  window.wd2Stack = true;
+  if (/[?&]stack=off\b/.test(location.search)) return;
+  if (!window.CSS || !CSS.supports || !CSS.supports('top', 'min(0px, calc(100svh - 10px))') || !window.IntersectionObserver) return;
+  var mq = window.matchMedia('(max-width:767px)');
+  var NS = 'http://www.w3.org/2000/svg';
+  var st = document.createElement('style');
+  st.id = 'wd2-stack-css';
+  st.textContent = '.wd2-st-line,.wd2-st-mark{display:none}'
+    + '@media (max-width:767px){'
+    // a part taller than the screen scrolls until its end is in view, then stays; a shorter one stays as soon as it reaches the top
+    + 'html.wd2-stack-on .wd2-st{position:-webkit-sticky!important;position:sticky!important;top:min(0px,calc(100svh - var(--wd2-st-h,0px)))!important}'
+    + 'html.wd2-stack-on .wd2-z1{z-index:2!important}html.wd2-stack-on .wd2-z2{z-index:4!important}html.wd2-stack-on .wd2-z3{z-index:6!important}html.wd2-stack-on .wd2-z4{z-index:8!important}html.wd2-stack-on .wd2-z5{z-index:10!important}html.wd2-stack-on .wd2-z6{z-index:12!important}'
+    // the top edge of each part is cut to the shape of the blue line above it, and carries that line with it
+    + 'html.wd2-stack-on .wd2-ov>.section-border>.section-background{-webkit-clip-path:var(--wd2-ov-clip);clip-path:var(--wd2-ov-clip)}'
+    + 'html.wd2-stack-on .wd2-ov>.wd2-st-line{display:block;position:absolute;left:0;width:100%;overflow:visible;z-index:6;pointer-events:none}'
+    + 'html.wd2-stack-on .wd2-st-src>.section-divider-display .section-divider-stroke{visibility:hidden}'
+    + 'html.wd2-stack-on .wd2-st-mark{display:block;position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none}'
+    // a part that is completely covered is switched off so the phone is not drawing it for nothing
+    + 'html.wd2-stack-on .wd2-st.wd2-st-off{visibility:hidden}'
+    // the menu bar stays with the photo and is covered along with it
+    + 'html.wd2-stack-on #header{position:fixed!important;z-index:3!important}html.wd2-stack-on body.header--menu-open #header{z-index:9999!important}'
+    + '}';
+  document.head.appendChild(st);
+  var secs = [], obs = [], timer = 0;
+  // the corner points of a section's blue line (Squarespace draws it as a zig-zag in 0-1 units of that section)
+  function points(d) {
+    var i = d.lastIndexOf('M'); if (i < 0) return null;
+    var s = d.slice(i); if (/[^MLl\d\s.,e-]/.test(s)) return null;
+    var re = /([MLl])\s*(-?[\d.]+(?:e-?\d+)?)[\s,]+(-?[\d.]+(?:e-?\d+)?)/g, m, x = 0, y = 0, out = [];
+    while ((m = re.exec(s))) {
+      var a = parseFloat(m[2]), b = parseFloat(m[3]);
+      if (m[1] === 'l') { x += a; y += b; } else { x = a; y = b; }
+      var last = out[out.length - 1];
+      if (!last || last[0] !== x || last[1] !== y) out.push([x, y]);
+    }
+    return out.length > 1 ? out : null;
+  }
+  // keep only the stretch of the line between two sides
+  function cut(p, a, b) {
+    var out = [];
+    for (var i = 0; i < p.length - 1; i++) {
+      var p0 = p[i], p1 = p[i + 1], dx = p1[0] - p0[0];
+      if (dx <= 0 || p1[0] < a || p0[0] > b) continue;
+      var q0 = p0[0] < a ? [a, p0[1] + (p1[1] - p0[1]) * (a - p0[0]) / dx] : p0;
+      var q1 = p1[0] > b ? [b, p0[1] + (p1[1] - p0[1]) * (b - p0[0]) / dx] : p1;
+      if (!out.length) out.push(q0);
+      out.push(q1);
+    }
+    return out.length > 1 ? out : null;
+  }
+  function r2(n) { return Math.round(n * 100) / 100; }
+  function layout() {
+    if (!mq.matches || !secs.length) return;
+    var vh = window.innerHeight, i;
+    for (i = 0; i < secs.length - 1; i++) secs[i].style.setProperty('--wd2-st-h', secs[i].offsetHeight + 'px');
+    for (i = 1; i < secs.length; i++) {
+      var s = secs[i], prev = secs[i - 1], ok = false;
+      var stroke = prev.querySelector('.section-divider-display .section-divider-stroke');
+      var sb = null, k;
+      for (k = 0; k < s.children.length; k++) if (s.children[k].classList.contains('section-border')) sb = s.children[k];
+      var line = s.querySelector('.wd2-st-line');
+      if (stroke && stroke.ownerSVGElement && sb) {
+        var all = points(stroke.getAttribute('d') || ''), p = all && cut(all, -0.01, 1.01);
+        var H = stroke.ownerSVGElement.getBoundingClientRect().height;
+        if (p && H > 0) {
+          var ys = p.map(function (q) { return q[1]; }), y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
+          var D = (y1 - y0) * H, up = sb.getBoundingClientRect().top - s.getBoundingClientRect().top; // up: how far the background starts above the section (negative)
+          if (D > 1 && D < 200) {
+            var wide = cut(all, -0.5, 1.5) || p;
+            var poly = wide.map(function (q) { return r2(q[0] * 100) + '% ' + r2((q[1] - 1) * H - up) + 'px'; });
+            s.style.setProperty('--wd2-ov-clip', 'polygon(' + poly.join(',') + ',150% 100%,-50% 100%)');
+            if (!line) {
+              line = document.createElementNS(NS, 'svg');
+              line.setAttribute('class', 'wd2-st-line'); line.setAttribute('viewBox', '0 0 1 1'); line.setAttribute('preserveAspectRatio', 'none'); line.setAttribute('aria-hidden', 'true');
+              var path = document.createElementNS(NS, 'path');
+              path.setAttribute('fill', 'none'); path.setAttribute('vector-effect', 'non-scaling-stroke');
+              line.appendChild(path); s.appendChild(line);
+            }
+            var cs = window.getComputedStyle(stroke), pe = line.firstChild;
+            pe.setAttribute('stroke', cs.stroke && cs.stroke !== 'none' ? cs.stroke : '#3dc2bb');
+            pe.setAttribute('stroke-width', parseFloat(cs.strokeWidth) || 2);
+            pe.setAttribute('d', p.map(function (q, n) { return (n ? 'L' : 'M') + r2(q[0] * 1000) / 1000 + ',' + Math.round((q[1] - y0) / (y1 - y0) * 1000) / 1000; }).join(' '));
+            line.style.top = r2((y0 - 1) * H) + 'px'; line.style.height = r2(D) + 'px';
+            ok = true;
+          }
+        }
+      }
+      s.classList.toggle('wd2-ov', ok); prev.classList.toggle('wd2-st-src', ok);
+    }
+    // switch a part off once the part two below it has rolled well up over the one in between (so it is long out of sight), and back on before it can show again
+    obs.forEach(function (o) { o.disconnect(); }); obs = [];
+    for (i = 0; i < secs.length - 2; i++) (function (hide, mid, mark) {
+      var T = Math.min(mid.offsetHeight, vh) - 140;
+      if (!mark || T < 80) { hide.classList.remove('wd2-st-off'); return; }
+      var o = new IntersectionObserver(function (en) { hide.classList.toggle('wd2-st-off', en[en.length - 1].isIntersecting); }, { rootMargin: '20000px 0px -' + Math.round(vh - T) + 'px 0px' });
+      o.observe(mark); obs.push(o);
+    })(secs[i], secs[i + 1], secs[i + 2].querySelector('.wd2-st-mark'));
+  }
+  function soon() { clearTimeout(timer); timer = setTimeout(layout, 120); }
+  function start() {
+    var art = document.querySelector('#page-regions, main#page');
+    var list = art ? [].slice.call(art.querySelectorAll('section.page-section')) : [];
+    if (list.length < 2 || list.length > 6) return list.length > 6;
+    // wait for the photo section's buttons to be in place, so nothing is measured half-built
+    secs = list;
+    secs.forEach(function (s, i) {
+      s.classList.add('wd2-z' + (i + 1));
+      if (i < secs.length - 1) s.classList.add('wd2-st');
+      if (i > 1) { var mk = document.createElement('span'); mk.className = 'wd2-st-mark'; mk.setAttribute('aria-hidden', 'true'); s.appendChild(mk); }
+    });
+    document.documentElement.classList.add('wd2-stack-on');
+    layout();
+    window.addEventListener('resize', soon);
+    if (mq.addEventListener) mq.addEventListener('change', soon);
+    if (window.ResizeObserver) { var ro = new ResizeObserver(soon); secs.forEach(function (s) { ro.observe(s); }); }
+    [600, 1500, 3500].forEach(function (ms) { setTimeout(layout, ms); });
+    return true;
+  }
+  var n = 0, t = setInterval(function () { if (start() || ++n > 20) clearInterval(t); }, 300);
+  if (start()) clearInterval(t);
 })();
 
 /* Home page: tap feedback. A finger landing on Contact us / Build a package (and the older versions of those
