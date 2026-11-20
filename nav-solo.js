@@ -118,6 +118,8 @@
   if (window.wd2Cta || !document.body || !document.body.classList.contains('homepage')) return;
   window.wd2Cta = true;
   var LIVE = 'a';  // chosen 19 Nov 2026: side by side
+  var LOOK = '';   // which plain look the pair uses for everyone ('' = the glass pair); preview others with ?look=1 to 5
+  var look = (/[?&]look=([1-5])\b/.exec(location.search) || [])[1] || LOOK;
   var pick = (/[?&]buttons=([a-e])\b/i.exec(location.search) || [])[1];
   pick = (pick || LIVE).toLowerCase();
   if (!pick) return;
@@ -134,6 +136,18 @@
     + '.wd2-cta .wd2-c2{' + C + ';border-radius:0 45px}'
     // a (the live one): the package button keeps the pale glass of the old "Build your own package" card
     + '.wd2-cta-a .wd2-c2{background:rgba(234,230,221,.14);border:1px solid rgba(234,230,221,.34);color:#eae6dd;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 4px 14px rgba(0,0,0,.2)}'
+    // Plainer looks for the side-by-side pair, no glass (preview with ?look=1 to 5; set LOOK below to make one live)
+    + '.wd2-cta[class*=wd2-look-] a{background:transparent;box-shadow:none;font-weight:500;font-size:16px;text-shadow:0 1px 8px rgba(0,0,0,.5)}'
+    // 1: the original outline, both buttons
+    + '.wd2-look-1 a{border:2px solid #3dc2bb!important;color:#3dc2bb!important}'
+    // 2: original outline for Contact us, solid cyan for the package button
+    + '.wd2-look-2 .wd2-c1{border:2px solid #3dc2bb;color:#3dc2bb}.wd2-look-2 .wd2-c2{background:#3dc2bb!important;border:2px solid #3dc2bb;color:#0e2628;font-weight:600;text-shadow:none}'
+    // 3: thin cream outline, both buttons
+    + '.wd2-look-3 a{border:1.5px solid #eae6dd!important;color:#eae6dd!important}'
+    // 4: flat dark fill with a cyan edge
+    + '.wd2-look-4 a{background:#0e2628!important;border:1.5px solid #3dc2bb;color:#eae6dd;text-shadow:none}'
+    // 5: plain rounded rectangles instead of the leaf shape, cyan outline
+    + '.wd2-look-5 a{border:2px solid #3dc2bb;color:#3dc2bb;border-radius:8px!important}'
     // b: stacked, same width, the package button first
     + '.wd2-cta-b{flex-direction:column;max-width:270px}.wd2-cta-b a{flex:none}.wd2-cta-b .wd2-c2{order:-1;border-radius:45px 0}'
     // c: one glass bar split in two
@@ -199,7 +213,7 @@
     if (document.querySelector('.wd2-trio')) return true;
     var mq = window.matchMedia('(max-width:767px)');
     var wrap = document.createElement('div'); wrap.className = 'wd2-trio';
-    var box = document.createElement('div'); box.className = 'wd2-cta wd2-cta-a';
+    var box = document.createElement('div'); box.className = 'wd2-cta wd2-cta-a' + (look ? ' wd2-look-' + look : '');
     var a1 = document.createElement('a'); a1.className = 'wd2-c1'; a1.href = contact.getAttribute('href'); a1.textContent = 'Contact us';
     var a2 = document.createElement('a'); a2.className = 'wd2-c2'; a2.href = card.getAttribute('href'); a2.textContent = 'Build a package \u2192';
     box.appendChild(a1); box.appendChild(a2); wrap.appendChild(box);
