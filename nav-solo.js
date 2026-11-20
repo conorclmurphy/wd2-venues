@@ -357,7 +357,7 @@
     + 'html.wd2-stack-on .wd2-ov>.section-border>.section-background{-webkit-clip-path:var(--wd2-ov-clip);clip-path:var(--wd2-ov-clip)}'
     + 'html.wd2-stack-on .wd2-ov>.wd2-st-line{display:block;position:absolute;left:0;width:100%;overflow:visible;z-index:6;pointer-events:none}'
     + 'html.wd2-stack-on .wd2-st-src>.section-divider-display .section-divider-stroke{visibility:hidden}'
-    + 'html.wd2-stack-on .wd2-st-mark{display:block;position:absolute;left:0;top:0;width:1px;height:1px;pointer-events:none}'
+    + 'html.wd2-stack-on .wd2-st-mark{display:block;position:absolute;left:0;top:0;width:1px;height:100%;pointer-events:none}'
     // a part that is completely covered is switched off so the phone is not drawing it for nothing
     + 'html.wd2-stack-on .wd2-st.wd2-st-off{visibility:hidden}'
     // the menu bar stays with the photo and is covered along with it
@@ -435,7 +435,7 @@
     for (i = 0; i < secs.length - 2; i++) (function (hide, mid, mark) {
       var T = Math.min(mid.offsetHeight, vh) - 140;
       if (!mark || T < 80) { hide.classList.remove('wd2-st-off'); return; }
-      var o = new IntersectionObserver(function (en) { hide.classList.toggle('wd2-st-off', en[en.length - 1].isIntersecting); }, { rootMargin: '20000px 0px -' + Math.round(vh - T) + 'px 0px' });
+      var o = new IntersectionObserver(function (en) { hide.classList.toggle('wd2-st-off', en[en.length - 1].isIntersecting); }, { rootMargin: '0px 0px -' + Math.round(vh - T) + 'px 0px' });
       o.observe(mark); obs.push(o);
     })(secs[i], secs[i + 1], secs[i + 2].querySelector('.wd2-st-mark'));
   }
@@ -444,7 +444,6 @@
     var art = document.querySelector('#page-regions, main#page');
     var list = art ? [].slice.call(art.querySelectorAll('section.page-section')) : [];
     if (list.length < 2 || list.length > 6) return list.length > 6;
-    // wait for the photo section's buttons to be in place, so nothing is measured half-built
     secs = list;
     secs.forEach(function (s, i) {
       s.classList.add('wd2-z' + (i + 1));
