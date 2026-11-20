@@ -494,7 +494,7 @@
 (function () {
   if (window.wd2Cu || !document.body || !document.body.classList.contains('homepage')) return;
   window.wd2Cu = true;
-  var LIVE = ''; // '' = the button as it was
+  var LIVE = '27'; // chosen 20 Nov 2026: cyan outline in the button's own leaf shape, filling with cyan when pointed at ('' = the button as it was)
   var pick = (/[?&]contact=(2[1-8]|1[0-6]|[1-9])\b/.exec(location.search) || [])[1] || LIVE;
   if (!pick) return;
   document.documentElement.classList.add('wd2-cu-' + pick);
@@ -529,7 +529,8 @@
     + N(24) + '{background:#0e2628!important;border-color:#3dc2bb!important;color:#3dc2bb!important}'
     + N(25) + '{background:#eae6dd!important;border-color:#eae6dd!important;color:#0e2628!important;font-weight:600!important;text-shadow:none!important}'
     + N(26) + '{background:rgba(14,38,40,.28)!important;border-color:#eae6dd!important;color:#eae6dd!important}'
-    + N(27) + '{background:rgba(14,38,40,.3)!important;border-color:#5ad0c9!important;color:#8fe6e0!important}'
+    + N(27) + '{background:rgba(14,38,40,.3)!important;border-color:#5ad0c9!important;color:#8fe6e0!important;transition:background-color .25s ease,color .25s ease,border-color .25s ease,box-shadow .25s ease!important}'
+    + N(27) + ':hover,' + N(27) + ':focus-visible{background:#5ad0c9!important;border-color:#5ad0c9!important;color:#0e2628!important;text-shadow:none!important}'
     + N(28) + '{background:linear-gradient(100deg,#5ad0c9,#2a8f89)!important;border-color:transparent!important;color:#0e2628!important;font-weight:600!important;text-shadow:none!important}'
     + [21,22,23,24,25,26,27,28].map(function (n) { return N(n) + ' *{color:inherit!important}'; }).join('')
     + '}';
