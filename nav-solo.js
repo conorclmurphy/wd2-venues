@@ -361,7 +361,7 @@
     // a part that is completely covered is switched off so the phone is not drawing it for nothing
     + 'html.wd2-stack-on .wd2-st.wd2-st-off{visibility:hidden}'
     // the menu bar stays with the photo and is covered along with it
-    + 'html.wd2-stack-on #header{position:fixed!important;z-index:3!important}html.wd2-stack-on body.header--menu-open #header{z-index:9999!important}'
+    + 'html.wd2-stack-on main#page{z-index:auto!important}html.wd2-stack-on #header{position:fixed!important;z-index:3!important}html.wd2-stack-on body.header--menu-open #header{z-index:9999!important}'
     + '}';
   document.head.appendChild(st);
   var secs = [], obs = [], timer = 0;
