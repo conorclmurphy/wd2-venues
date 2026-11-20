@@ -483,6 +483,33 @@
   if (start()) clearInterval(t);
 })();
 
+/* Home page, desktop only: looks for the "Contact us" button under the heading, in the same slim shape as the phone buttons.
+   Nothing changes for visitors until LIVE below is set to a number. Preview each one by adding ?contact=1 (to 4) to the address.
+   1 teal with a cyan edge (like Contact us on phones)   2 solid cyan (like Build a package on phones)
+   3 glass with a cyan edge   4 cream outline */
+(function () {
+  if (window.wd2Cu || !document.body || !document.body.classList.contains('homepage')) return;
+  window.wd2Cu = true;
+  var LIVE = ''; // '' = the button as it was
+  var pick = (/[?&]contact=([1-4])\b/.exec(location.search) || [])[1] || LIVE;
+  if (!pick) return;
+  document.documentElement.classList.add('wd2-cu', 'wd2-cu-' + pick);
+  var B = 'html.wd2-cu body.homepage .wd2-hero a.sqs-block-button-element.sqs-block-button-element.sqs-block-button-element';
+  var N = function (n) { return 'html.wd2-cu-' + n + ' body.homepage .wd2-hero a.sqs-block-button-element.sqs-block-button-element.sqs-block-button-element'; };
+  var st = document.createElement('style');
+  st.id = 'wd2-cu-css';
+  st.textContent = '@media (min-width:768px){'
+    + B + '{border-radius:12px!important;min-height:46px!important;padding:10px 40px!important;font-size:16.5px!important;line-height:1.2!important;display:inline-flex!important;align-items:center;justify-content:center;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;text-shadow:none!important;box-shadow:0 6px 18px rgba(0,0,0,.28)!important}'
+    + B + ' *{color:inherit!important}'
+    + B + ':hover{box-shadow:0 0 0 2px rgba(61,194,187,.5),0 6px 18px rgba(0,0,0,.28)!important}'
+    + N(1) + '{background:#234749!important;border:1.5px solid #5ad0c9!important;color:#8fe6e0!important}'
+    + N(2) + '{background:#5ad0c9!important;border:1.5px solid #5ad0c9!important;color:#0e2628!important;font-weight:600!important}'
+    + N(3) + '{background:linear-gradient(135deg,rgba(120,230,224,.26),rgba(61,194,187,.12)),rgba(14,38,40,.45)!important;-webkit-backdrop-filter:blur(10px) saturate(150%)!important;backdrop-filter:blur(10px) saturate(150%)!important;border:1.5px solid rgba(160,240,235,.55)!important;color:#eae6dd!important}'
+    + N(4) + '{background:rgba(14,38,40,.28)!important;border:1.5px solid #eae6dd!important;color:#eae6dd!important}'
+    + '}';
+  document.head.appendChild(st);
+})();
+
 /* Home page: tap feedback. A finger landing on Contact us / Build a package (and the older versions of those
    buttons) adds a "pressed" look straight away and keeps it for a moment, so there is a clear sign the tap registered. */
 (function () {
