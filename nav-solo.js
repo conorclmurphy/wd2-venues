@@ -101,7 +101,7 @@
     + F + ' .option label input:checked+span:before{font-size:11px}'
     + F + ' .wd2-budget-item{grid-column:1/-1!important;order:6!important}'
     + F + ' .wd2-budget-item input:not(.wd2-budget-range),' + F + ' .wd2-budget-item .description{display:none!important}'
-    + 'html body.homepage .wd2-form-note{margin:0 0 14px!important;padding:0;font:500 13.5px/1.4 Bitter,Georgia,serif;color:#b8b3a8;text-align:left}'
+    + 'html body.homepage .wd2-form-note{margin-top:0;margin-right:0;margin-bottom:14px;padding:0;font:500 13.5px/1.4 Bitter,Georgia,serif;color:#b8b3a8;text-align:left}'
     + '.wd2-budget{display:flex;align-items:center;gap:14px;padding:2px 0 0}'
     + '.wd2-budget-out{flex:0 0 auto;min-width:104px;text-align:right;font:600 15px/1.2 Bitter,Georgia,serif;color:#3dc2bb;font-variant-numeric:tabular-nums}'
     + '.wd2-budget-out.wd2-budget-any{color:#b8b3a8;font-weight:500}'
@@ -154,10 +154,16 @@
   function note() {
     var form = document.querySelector('form.react-form-contents'); if (!form) return;
     var host = form.closest('.sqs-block-content') || form.parentNode;
-    if (!host || host.querySelector('.wd2-form-note')) return;
-    var p = document.createElement('p'); p.className = 'wd2-form-note';
-    p.textContent = 'We will never send spam to your inbox.';
-    host.insertBefore(p, host.firstChild);
+    if (!host) return;
+    var p = host.querySelector('.wd2-form-note');
+    if (!p) {
+      p = document.createElement('p'); p.className = 'wd2-form-note';
+      p.textContent = 'We will never send spam to your inbox.';
+      host.insertBefore(p, host.firstChild);
+    }
+    // line it up with the left edge of the boxes below it
+    var first = form.querySelector('.field-list > .form-item');
+    if (first) { p.style.marginLeft = '0px'; var gap = Math.round(first.getBoundingClientRect().left - p.getBoundingClientRect().left); p.style.marginLeft = (gap > 0 && gap < 60 ? gap : 0) + 'px'; }
   }
   var n = 0, t = setInterval(function () { build(); note(); if (++n > 30) clearInterval(t); }, 1000);
   build(); note();
