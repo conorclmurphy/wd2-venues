@@ -150,10 +150,17 @@
     + '.wd2-cta.wd2-os .wd2-c1{border:2px solid #3dc2bb;color:#3dc2bb}.wd2-cta.wd2-os .wd2-c2{background:#3dc2bb!important;border:2px solid #3dc2bb;color:#0e2628;font-weight:600;text-shadow:none}'
     + '.wd2-cta.wd2-look-6 a{border-radius:999px!important}'
     + '.wd2-cta.wd2-look-7 a{border-radius:2px!important}'
-    + '.wd2-cta.wd2-look-8{gap:0;max-width:320px}.wd2-cta.wd2-look-8 a{box-sizing:border-box;min-height:44px;padding:4px 12px;font-size:15px}.wd2-cta.wd2-look-8 .wd2-c1{border-radius:12px 0 0 12px!important;border-right:0}.wd2-cta.wd2-look-8 .wd2-c2{border-radius:0 12px 12px 0!important}'
+    + '.wd2-cta.wd2-join{gap:0;max-width:320px}.wd2-cta.wd2-join a{box-sizing:border-box;min-height:44px;padding:4px 12px;font-size:15px}.wd2-cta.wd2-join .wd2-c1{border-radius:12px 0 0 12px!important;border-right-width:0}.wd2-cta.wd2-join .wd2-c2{border-radius:0 12px 12px 0!important}'
     + '.wd2-cta.wd2-look-9{gap:14px}.wd2-cta.wd2-look-9 a{border-radius:3px!important;transform:skewX(-14deg)}.wd2-cta.wd2-look-9 a>span{display:inline-block;transform:skewX(14deg)}.wd2-cta.wd2-look-9 a.wd2-press,.wd2-cta.wd2-look-9 a:active{transform:skewX(-14deg) scale(.94)}'
     + '.wd2-cta.wd2-look-10 .wd2-c1{border:0!important;background:none!important;color:#eae6dd;text-decoration:underline!important;text-underline-offset:6px;text-decoration-thickness:1.5px}.wd2-cta.wd2-look-10 .wd2-c2{border-radius:999px!important}'
     + '.wd2-cta.wd2-look-11 a{border-radius:26px 26px 4px 4px!important}'
+    // 12 to 17: the joined, slim shape (same as 8) in different designs
+    + '.wd2-cta.wd2-look-12 .wd2-c1{background:linear-gradient(135deg,rgba(120,230,224,.26),rgba(61,194,187,.12))!important;-webkit-backdrop-filter:blur(10px) saturate(150%);backdrop-filter:blur(10px) saturate(150%);border:1px solid rgba(160,240,235,.45);color:#eafffd;text-shadow:none}.wd2-cta.wd2-look-12 .wd2-c2{background:rgba(234,230,221,.18)!important;-webkit-backdrop-filter:blur(10px) saturate(150%);backdrop-filter:blur(10px) saturate(150%);border:1px solid rgba(234,230,221,.42);color:#eae6dd;text-shadow:none}'
+    + '.wd2-cta.wd2-look-13 a{background:rgba(234,230,221,.18)!important;-webkit-backdrop-filter:blur(10px) saturate(150%);backdrop-filter:blur(10px) saturate(150%);border:1px solid rgba(234,230,221,.42);color:#eae6dd;text-shadow:none}.wd2-cta.wd2-look-13 .wd2-c2{border-left:1px solid rgba(234,230,221,.42);color:#7fe0d9;font-weight:600}'
+    + '.wd2-cta.wd2-look-14 .wd2-c1{background:linear-gradient(135deg,rgba(120,230,224,.26),rgba(61,194,187,.12))!important;-webkit-backdrop-filter:blur(10px) saturate(150%);backdrop-filter:blur(10px) saturate(150%);border:1px solid rgba(160,240,235,.45);color:#eafffd;text-shadow:none}.wd2-cta.wd2-look-14 .wd2-c2{background:#3dc2bb!important;border:1px solid #3dc2bb;color:#0e2628;font-weight:600;text-shadow:none}'
+    + '.wd2-cta.wd2-look-15 a{border:2px solid #3dc2bb;color:#3dc2bb}.wd2-cta.wd2-look-15 .wd2-c2{color:#eae6dd}'
+    + '.wd2-cta.wd2-look-16 .wd2-c1{border:1.5px solid #eae6dd;color:#eae6dd}.wd2-cta.wd2-look-16 .wd2-c2{background:#eae6dd!important;border:1.5px solid #eae6dd;color:#0e2628;font-weight:600;text-shadow:none}'
+    + '.wd2-cta.wd2-look-17 .wd2-c1{background:#0e2628!important;border:2px solid #3dc2bb;color:#3dc2bb;text-shadow:none}.wd2-cta.wd2-look-17 .wd2-c2{background:#3dc2bb!important;border:2px solid #3dc2bb;color:#0e2628;font-weight:600;text-shadow:none}'
     // 5: plain rounded rectangles instead of the leaf shape, cyan outline
     + '.wd2-cta.wd2-look-5 a{border:2px solid #3dc2bb;color:#3dc2bb;border-radius:8px!important}'
     // b: stacked, same width, the package button first
@@ -221,7 +228,7 @@
     if (document.querySelector('.wd2-trio')) return true;
     var mq = window.matchMedia('(max-width:767px)');
     var wrap = document.createElement('div'); wrap.className = 'wd2-trio';
-    var box = document.createElement('div'); box.className = 'wd2-cta wd2-cta-a' + (look ? ' wd2-look-' + look : '') + (+look >= 6 ? ' wd2-os' : '');
+    var box = document.createElement('div'); box.className = 'wd2-cta wd2-cta-a' + (look ? ' wd2-look-' + look : '') + (+look >= 6 && +look <= 11 ? ' wd2-os' : '') + (+look === 8 || +look >= 12 ? ' wd2-join' : '');
     var a1 = document.createElement('a'); a1.className = 'wd2-c1'; a1.href = contact.getAttribute('href'); a1.innerHTML = '<span>Contact us</span>';
     var a2 = document.createElement('a'); a2.className = 'wd2-c2'; a2.href = card.getAttribute('href'); a2.innerHTML = '<span>Build a package \u2192</span>';
     box.appendChild(a1); box.appendChild(a2); wrap.appendChild(box);
