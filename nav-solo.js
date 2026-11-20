@@ -488,14 +488,17 @@
    1 teal with a cyan edge (like Contact us on phones)   2 solid cyan (like Build a package on phones)
    3 glass with a cyan edge   4 cream outline   5 leaf shape, solid cyan   6 leaf shape, teal with a cyan edge
    7 solid cream   8 solid cyan with an arrow   9 square corners, cyan outline   10 plain words with a cyan underline
-   11 to 16 are colour changes on the slim shape: 11 dark with cyan edge   12 deeper cyan   13 cyan outline   14 frosted cream glass   15 deep teal, cream words   16 cyan fading to teal */
+   11 to 16 are colour changes on the slim shape: 11 dark with cyan edge   12 deeper cyan   13 cyan outline   14 frosted cream glass   15 deep teal, cream words   16 cyan fading to teal
+   21 to 28 keep the button's own leaf shape and change the colour only: 21 solid cyan   22 deeper cyan   23 teal with cyan edge
+   24 dark with cyan edge   25 solid cream   26 cream outline   27 cyan outline   28 cyan fading to teal */
 (function () {
   if (window.wd2Cu || !document.body || !document.body.classList.contains('homepage')) return;
   window.wd2Cu = true;
   var LIVE = ''; // '' = the button as it was
-  var pick = (/[?&]contact=(1[0-6]|[1-9])\b/.exec(location.search) || [])[1] || LIVE;
+  var pick = (/[?&]contact=(2[1-8]|1[0-6]|[1-9])\b/.exec(location.search) || [])[1] || LIVE;
   if (!pick) return;
-  document.documentElement.classList.add('wd2-cu', 'wd2-cu-' + pick);
+  document.documentElement.classList.add('wd2-cu-' + pick);
+  if (+pick < 21) document.documentElement.classList.add('wd2-cu'); // 21 and up leave the shape alone
   var B = 'html.wd2-cu body.homepage .wd2-hero a.sqs-block-button-element.sqs-block-button-element.sqs-block-button-element';
   var N = function (n) { return 'html.wd2-cu-' + n + ' body.homepage .wd2-hero a.sqs-block-button-element.sqs-block-button-element.sqs-block-button-element'; };
   var st = document.createElement('style');
@@ -520,6 +523,15 @@
     + N(14) + '{background:rgba(234,230,221,.2)!important;-webkit-backdrop-filter:blur(10px)!important;backdrop-filter:blur(10px)!important;border:1.5px solid rgba(234,230,221,.5)!important;color:#eae6dd!important}'
     + N(15) + '{background:#163436!important;border:1.5px solid #163436!important;color:#eae6dd!important}'
     + N(16) + '{background:linear-gradient(100deg,#5ad0c9,#2a8f89)!important;border:0!important;color:#0e2628!important;font-weight:600!important}'
+    + N(21) + '{background:#5ad0c9!important;border-color:#5ad0c9!important;color:#0e2628!important;font-weight:600!important;text-shadow:none!important}'
+    + N(22) + '{background:#3dc2bb!important;border-color:#3dc2bb!important;color:#0e2628!important;font-weight:600!important;text-shadow:none!important}'
+    + N(23) + '{background:#234749!important;border-color:#5ad0c9!important;color:#8fe6e0!important}'
+    + N(24) + '{background:#0e2628!important;border-color:#3dc2bb!important;color:#3dc2bb!important}'
+    + N(25) + '{background:#eae6dd!important;border-color:#eae6dd!important;color:#0e2628!important;font-weight:600!important;text-shadow:none!important}'
+    + N(26) + '{background:rgba(14,38,40,.28)!important;border-color:#eae6dd!important;color:#eae6dd!important}'
+    + N(27) + '{background:rgba(14,38,40,.3)!important;border-color:#5ad0c9!important;color:#8fe6e0!important}'
+    + N(28) + '{background:linear-gradient(100deg,#5ad0c9,#2a8f89)!important;border-color:transparent!important;color:#0e2628!important;font-weight:600!important;text-shadow:none!important}'
+    + [21,22,23,24,25,26,27,28].map(function (n) { return N(n) + ' *{color:inherit!important}'; }).join('')
     + '}';
   document.head.appendChild(st);
 })();
