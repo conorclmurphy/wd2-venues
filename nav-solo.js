@@ -484,14 +484,15 @@
 })();
 
 /* Home page, desktop only: looks for the "Contact us" button under the heading, in the same slim shape as the phone buttons.
-   Nothing changes for visitors until LIVE below is set to a number. Preview each one by adding ?contact=1 (to 4) to the address.
+   Nothing changes for visitors until LIVE below is set to a number. Preview each one by adding ?contact=1 (to 10) to the address.
    1 teal with a cyan edge (like Contact us on phones)   2 solid cyan (like Build a package on phones)
-   3 glass with a cyan edge   4 cream outline */
+   3 glass with a cyan edge   4 cream outline   5 leaf shape, solid cyan   6 leaf shape, teal with a cyan edge
+   7 solid cream   8 solid cyan with an arrow   9 square corners, cyan outline   10 plain words with a cyan underline */
 (function () {
   if (window.wd2Cu || !document.body || !document.body.classList.contains('homepage')) return;
   window.wd2Cu = true;
   var LIVE = ''; // '' = the button as it was
-  var pick = (/[?&]contact=([1-4])\b/.exec(location.search) || [])[1] || LIVE;
+  var pick = (/[?&]contact=(10|[1-9])\b/.exec(location.search) || [])[1] || LIVE;
   if (!pick) return;
   document.documentElement.classList.add('wd2-cu', 'wd2-cu-' + pick);
   var B = 'html.wd2-cu body.homepage .wd2-hero a.sqs-block-button-element.sqs-block-button-element.sqs-block-button-element';
@@ -506,6 +507,12 @@
     + N(2) + '{background:#5ad0c9!important;border:1.5px solid #5ad0c9!important;color:#0e2628!important;font-weight:600!important}'
     + N(3) + '{background:linear-gradient(135deg,rgba(120,230,224,.26),rgba(61,194,187,.12)),rgba(14,38,40,.45)!important;-webkit-backdrop-filter:blur(10px) saturate(150%)!important;backdrop-filter:blur(10px) saturate(150%)!important;border:1.5px solid rgba(160,240,235,.55)!important;color:#eae6dd!important}'
     + N(4) + '{background:rgba(14,38,40,.28)!important;border:1.5px solid #eae6dd!important;color:#eae6dd!important}'
+    + N(5) + '{border-radius:26px 0!important;background:#5ad0c9!important;border:1.5px solid #5ad0c9!important;color:#0e2628!important;font-weight:600!important}'
+    + N(6) + '{border-radius:26px 0!important;background:#234749!important;border:1.5px solid #5ad0c9!important;color:#8fe6e0!important}'
+    + N(7) + '{background:#eae6dd!important;border:1.5px solid #eae6dd!important;color:#0e2628!important;font-weight:600!important}'
+    + N(8) + '{background:#5ad0c9!important;border:1.5px solid #5ad0c9!important;color:#0e2628!important;font-weight:600!important;padding:10px 30px!important}' + N(8) + ':before{content:"\\2192";order:2;margin-left:10px;font-weight:600}'
+    + N(9) + '{border-radius:0!important;background:rgba(14,38,40,.35)!important;border:1.5px solid #5ad0c9!important;color:#8fe6e0!important;letter-spacing:.04em}'
+    + N(10) + '{background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;min-height:0!important;padding:4px 2px!important;color:#eae6dd!important;font-size:19px!important;text-decoration:underline!important;text-decoration-color:#5ad0c9!important;text-decoration-thickness:2px!important;text-underline-offset:7px!important;text-shadow:0 1px 8px rgba(0,0,0,.6)!important}' + N(10) + ':hover{box-shadow:none!important;color:#8fe6e0!important}'
     + '}';
   document.head.appendChild(st);
 })();
