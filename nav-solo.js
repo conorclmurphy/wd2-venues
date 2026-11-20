@@ -456,9 +456,18 @@
     for (i = 0; i < secs.length - 2; i++) (function (hide, mid, mark) {
       var T = Math.min(mid.offsetHeight, vh) - 140;
       if (!mark || T < 80) { hide.classList.remove('wd2-st-off'); return; }
-      var o = new IntersectionObserver(function (en) { hide.classList.toggle('wd2-st-off', en[en.length - 1].isIntersecting); }, { rootMargin: '0px 0px -' + Math.round(vh - T) + 'px 0px' });
+      var o = new IntersectionObserver(function (en) { var covered = en[en.length - 1].isIntersecting; hide.classList.toggle('wd2-st-off', covered); motion(hide, !covered); }, { rootMargin: '0px 0px -' + Math.round(vh - T) + 'px 0px' });
       o.observe(mark); obs.push(o);
     })(secs[i], secs[i + 1], secs[i + 2].querySelector('.wd2-st-mark'));
+  }
+  // A part with a moving Squarespace background (the knit behind the cards) only needs to move while it can be seen.
+  // Squarespace gives that background its own pause and play buttons (hidden on this site), so they are pressed for the visitor:
+  // pause once the part is completely covered, play again just before it comes back into view.
+  function motion(sec, play) {
+    var pause = sec.querySelector('.background-pause-button:not(.paused)'), go = sec.querySelector('.background-pause-button.paused');
+    if (!pause) return;
+    var playing = pause.classList.contains('visible') || (go ? !go.classList.contains('visible') : false);
+    if (play !== playing) { try { (play ? (go || pause) : pause).click(); } catch (e) {} }
   }
   function soon() { clearTimeout(timer); timer = setTimeout(layout, 120); }
   function start() {
