@@ -139,15 +139,15 @@
     // Plainer looks for the side-by-side pair, no glass (preview with ?look=1 to 5; set LOOK below to make one live)
     + '.wd2-cta[class*=wd2-look-] a{background:transparent;box-shadow:none;font-weight:500;font-size:16px;text-shadow:0 1px 8px rgba(0,0,0,.5)}'
     // 1: the original outline, both buttons
-    + '.wd2-look-1 a{border:2px solid #3dc2bb!important;color:#3dc2bb!important}'
+    + '.wd2-cta.wd2-look-1 a{border:2px solid #3dc2bb!important;color:#3dc2bb!important}'
     // 2: original outline for Contact us, solid cyan for the package button
-    + '.wd2-look-2 .wd2-c1{border:2px solid #3dc2bb;color:#3dc2bb}.wd2-look-2 .wd2-c2{background:#3dc2bb!important;border:2px solid #3dc2bb;color:#0e2628;font-weight:600;text-shadow:none}'
+    + '.wd2-cta.wd2-look-2 .wd2-c1{border:2px solid #3dc2bb;color:#3dc2bb}.wd2-cta.wd2-look-2 .wd2-c2{background:#3dc2bb!important;border:2px solid #3dc2bb;color:#0e2628;font-weight:600;text-shadow:none}'
     // 3: thin cream outline, both buttons
-    + '.wd2-look-3 a{border:1.5px solid #eae6dd!important;color:#eae6dd!important}'
+    + '.wd2-cta.wd2-look-3 a{border:1.5px solid #eae6dd!important;color:#eae6dd!important}'
     // 4: flat dark fill with a cyan edge
-    + '.wd2-look-4 a{background:#0e2628!important;border:1.5px solid #3dc2bb;color:#eae6dd;text-shadow:none}'
+    + '.wd2-cta.wd2-look-4 a{background:#0e2628!important;border:1.5px solid #3dc2bb;color:#eae6dd;text-shadow:none}'
     // 5: plain rounded rectangles instead of the leaf shape, cyan outline
-    + '.wd2-look-5 a{border:2px solid #3dc2bb;color:#3dc2bb;border-radius:8px!important}'
+    + '.wd2-cta.wd2-look-5 a{border:2px solid #3dc2bb;color:#3dc2bb;border-radius:8px!important}'
     // b: stacked, same width, the package button first
     + '.wd2-cta-b{flex-direction:column;max-width:270px}.wd2-cta-b a{flex:none}.wd2-cta-b .wd2-c2{order:-1;border-radius:45px 0}'
     // c: one glass bar split in two
