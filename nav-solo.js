@@ -352,7 +352,7 @@
   build();
 })();
 
-/* Home page, phones only: each part of the page rolls up over the one before it.
+/* Home page, phones and desktop: each part of the page rolls up over the one before it.
    The photo stays where it is while the cards - led by their angled blue line - slide up over it. When the cards reach the top
    they stay too, and the next part rolls up over them with its own blue line, and so on down to the booking form.
    It uses the browser's own "sticky" positioning, so nothing runs while the finger is scrolling.
@@ -362,12 +362,12 @@
   window.wd2Stack = true;
   if (/[?&]stack=off\b/.test(location.search)) return;
   if (!window.CSS || !CSS.supports || !CSS.supports('top', 'min(0px, calc(100svh - 10px))') || !window.IntersectionObserver) return;
-  var mq = window.matchMedia('(max-width:767px)');
+  var mq = { matches: true }; // every screen size (it was phones only until 20 Nov 2026; put window.matchMedia('(max-width:767px)') back here and in the style below to undo)
   var NS = 'http://www.w3.org/2000/svg';
   var st = document.createElement('style');
   st.id = 'wd2-stack-css';
   st.textContent = '.wd2-st-line,.wd2-st-mark{display:none}'
-    + '@media (max-width:767px){'
+    + '@media (min-width:0){'
     // a part taller than the screen scrolls until its end is in view, then stays; a shorter one stays as soon as it reaches the top
     + 'html.wd2-stack-on .wd2-st{position:-webkit-sticky!important;position:sticky!important;top:min(0px,calc(100svh - var(--wd2-st-h,0px)))!important}'
     + 'html.wd2-stack-on .wd2-z1{z-index:2!important}html.wd2-stack-on .wd2-z2{z-index:4!important}html.wd2-stack-on .wd2-z3{z-index:6!important}html.wd2-stack-on .wd2-z4{z-index:8!important}html.wd2-stack-on .wd2-z5{z-index:10!important}html.wd2-stack-on .wd2-z6{z-index:12!important}'
