@@ -104,7 +104,7 @@
     + '.wd2-budget{display:flex;align-items:center;gap:14px;padding:2px 0 0}'
     + '.wd2-budget-out{flex:0 0 auto;min-width:104px;text-align:right;font:600 15px/1.2 Bitter,Georgia,serif;color:#3dc2bb;font-variant-numeric:tabular-nums}'
     + '.wd2-budget-out.wd2-budget-any{color:#b8b3a8;font-weight:500}'
-    + 'html body.homepage form.react-form-contents input.wd2-budget-range.wd2-budget-range{-webkit-appearance:none!important;appearance:none!important;flex:1 1 auto;min-width:0;width:auto!important;height:28px!important;min-height:0!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;cursor:pointer;touch-action:pan-y}'
+    + F + ' .wd2-budget-item input.wd2-budget-range.wd2-budget-range{-webkit-appearance:none!important;appearance:none!important;flex:1 1 auto;min-width:0;width:auto!important;height:28px!important;min-height:0!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;outline:none!important;cursor:pointer;touch-action:pan-y}'
     + 'input.wd2-budget-range::-webkit-slider-runnable-track{height:4px;border-radius:0;background:linear-gradient(90deg,#3dc2bb var(--wd2-b,100%),rgba(234,230,221,.25) var(--wd2-b,100%))}'
     + 'input.wd2-budget-range::-moz-range-track{height:4px;border-radius:0;background:linear-gradient(90deg,#3dc2bb var(--wd2-b,100%),rgba(234,230,221,.25) var(--wd2-b,100%))}'
     + 'input.wd2-budget-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;margin-top:-8px;border:2px solid #3dc2bb;border-radius:7px 0;background:#0e2628;box-shadow:0 2px 8px rgba(0,0,0,.35)}'
