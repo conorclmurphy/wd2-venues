@@ -83,7 +83,7 @@
   var m = 0, t2 = setInterval(function () { relabel(); if (++m > 40) clearInterval(t2); }, 500);
 })();
 
-/* Home page form: smaller option buttons, and a "Max budget" slider.
+/* Home page form: smaller option buttons, a line saying we never send spam, and a "Max budget" slider.
    The slider appears when the form in Squarespace has a text box whose label contains the word "budget"
    (e.g. "Max budget"). The text box itself is hidden and the slider fills it in, so the answer arrives with the
    enquiry like any other answer ("Up to EUR 1,500", or "No max" when the slider is left at the far right end).
@@ -101,6 +101,7 @@
     + F + ' .option label input:checked+span:before{font-size:11px}'
     + F + ' .wd2-budget-item{grid-column:1/-1!important;order:6!important}'
     + F + ' .wd2-budget-item input:not(.wd2-budget-range),' + F + ' .wd2-budget-item .description{display:none!important}'
+    + 'html body.homepage .wd2-form-note{margin:0 0 14px!important;padding:0;font:500 13.5px/1.4 Bitter,Georgia,serif;color:#b8b3a8;text-align:left}'
     + '.wd2-budget{display:flex;align-items:center;gap:14px;padding:2px 0 0}'
     + '.wd2-budget-out{flex:0 0 auto;min-width:104px;text-align:right;font:600 15px/1.2 Bitter,Georgia,serif;color:#3dc2bb;font-variant-numeric:tabular-nums}'
     + '.wd2-budget-out.wd2-budget-any{color:#b8b3a8;font-weight:500}'
@@ -149,8 +150,17 @@
     show();
     return true;
   }
-  var n = 0, t = setInterval(function () { build(); if (++n > 30) clearInterval(t); }, 1000);
-  build();
+  // a short promise at the top of the form box
+  function note() {
+    var form = document.querySelector('form.react-form-contents'); if (!form) return;
+    var host = form.closest('.sqs-block-content') || form.parentNode;
+    if (!host || host.querySelector('.wd2-form-note')) return;
+    var p = document.createElement('p'); p.className = 'wd2-form-note';
+    p.textContent = 'We will never send spam to your inbox.';
+    host.insertBefore(p, host.firstChild);
+  }
+  var n = 0, t = setInterval(function () { build(); note(); if (++n > 30) clearInterval(t); }, 1000);
+  build(); note();
 })();
 
 /* Home page image descriptions (for Google and for screen readers). The home page photos were added in
