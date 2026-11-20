@@ -491,7 +491,9 @@
   var SEL = '.wd2-cta a, a.sqs-block-button-element, a.wd2-byp';
   var st = document.createElement('style');
   st.id = 'wd2-press-css';
-  st.textContent = 'body.homepage a.sqs-block-button-element.wd2-press,body.homepage a.wd2-byp.wd2-press{transform:scale(.95)!important;border-color:#3dc2bb!important;box-shadow:0 0 0 2px rgba(61,194,187,.75),0 0 20px rgba(61,194,187,.4)!important;transition:transform .12s ease,box-shadow .15s ease!important}';
+  st.textContent = 'body.homepage .wd2-cards a.wd2-hover.wd2-hover,body.homepage .wd2-cards a.wd2-hover.wd2-hover:hover,body.homepage .wd2-cards a.wd2-tap.wd2-tap{transform:none!important;border-radius:20px!important}body.homepage .wd2-cards a.wd2-hover.wd2-hover:active{transform:scale(.97)!important}'
+    // (above) the four home page cards never grow when pointed at or tapped, so a card cannot lip over the blue line
+    + 'body.homepage a.sqs-block-button-element.wd2-press,body.homepage a.wd2-byp.wd2-press{transform:scale(.95)!important;border-color:#3dc2bb!important;box-shadow:0 0 0 2px rgba(61,194,187,.75),0 0 20px rgba(61,194,187,.4)!important;transition:transform .12s ease,box-shadow .15s ease!important}';
   document.head.appendChild(st);
   var cur = null, t = 0;
   function down(e) {
