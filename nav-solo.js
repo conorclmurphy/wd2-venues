@@ -354,7 +354,8 @@
     + 'html.wd2-stack-on .wd2-st{position:-webkit-sticky!important;position:sticky!important;top:min(0px,calc(100svh - var(--wd2-st-h,0px)))!important}'
     + 'html.wd2-stack-on .wd2-z1{z-index:2!important}html.wd2-stack-on .wd2-z2{z-index:4!important}html.wd2-stack-on .wd2-z3{z-index:6!important}html.wd2-stack-on .wd2-z4{z-index:8!important}html.wd2-stack-on .wd2-z5{z-index:10!important}html.wd2-stack-on .wd2-z6{z-index:12!important}'
     // the top edge of each part is cut to the shape of the blue line above it, and carries that line with it
-    + 'html.wd2-stack-on .wd2-ov>.section-border>.section-background{-webkit-clip-path:var(--wd2-ov-clip);clip-path:var(--wd2-ov-clip)}'
+    + 'html.wd2-stack-on .wd2-ov>.section-border{background-color:transparent!important}'
+    + 'html.wd2-stack-on .wd2-ov>.section-border>.section-background{background-color:var(--wd2-ov-bg,transparent);-webkit-clip-path:var(--wd2-ov-clip);clip-path:var(--wd2-ov-clip)}'
     + 'html.wd2-stack-on .wd2-ov>.wd2-st-line{display:block;position:absolute;left:0;width:100%;overflow:visible;z-index:6;pointer-events:none}'
     + 'html.wd2-stack-on .wd2-st-src>.section-divider-display .section-divider-stroke{visibility:hidden}'
     + 'html.wd2-stack-on .wd2-st-mark{display:block;position:absolute;left:0;top:0;width:1px;height:100%;pointer-events:none}'
@@ -402,6 +403,8 @@
       var sb = null, k;
       for (k = 0; k < s.children.length; k++) if (s.children[k].classList.contains('section-border')) sb = s.children[k];
       var line = s.querySelector('.wd2-st-line');
+      // the section's own colour sits on a layer that cannot be cut to shape, so it is moved onto the one that can
+      if (sb && !s.wd2Bg) { s.wd2Bg = window.getComputedStyle(sb).backgroundColor || 'transparent'; s.style.setProperty('--wd2-ov-bg', s.wd2Bg); }
       if (stroke && stroke.ownerSVGElement && sb) {
         var all = points(stroke.getAttribute('d') || ''), p = all && cut(all, -0.01, 1.01);
         var H = stroke.ownerSVGElement.getBoundingClientRect().height;
