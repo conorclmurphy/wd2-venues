@@ -1,7 +1,7 @@
 <style>
 /* Wedding Day 2 home page: the four service cards. One light block instead of four image blocks and a moving background.
    A card never grows or moves up when pointed at or tapped (only a ring, and a slight press-in), so it cannot cross the blue line. */
-.wd2-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;width:92%;max-width:1500px;margin:0 auto;padding:1px 0 0}
+.wd2-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;width:92%;margin:0 auto;padding:1px 0 0;container-type:inline-size}
 .wd2-cards a{display:block;position:relative;aspect-ratio:231/336;border-radius:20px;overflow:hidden;background:#0e2628;transition:transform .25s ease,box-shadow .25s ease;-webkit-tap-highlight-color:transparent}
 .wd2-cards img{display:block;width:100%!important;height:100%!important;object-fit:cover;border-radius:0!important}
 .wd2-cards a:hover{box-shadow:0 0 0 2px rgba(61,194,187,.65),0 10px 26px rgba(0,0,0,.45)}
@@ -10,6 +10,8 @@
 .fluid-engine:has(.wd2-cards){display:block!important}
 .fe-block:has(.wd2-cards),.fe-block:has(.wd2-cards) .sqs-block{display:block!important;width:auto!important;height:auto!important;padding:0!important;margin:0!important}
 section.page-section:has(.wd2-cards) .section-background{background-color:#030809!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='230' height='270' fill='none' stroke='%233dc2bb' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath opacity='.5' d='M14 22l4 7 4-7M22 34l4 7 4-7M6 34l4 7 4-7'/%3E%3Cpath opacity='.32' d='M156 148l4 7 4-7M148 160l4 7 4-7M196 236l4 7 4-7'/%3E%3C/svg%3E"),linear-gradient(90deg,rgba(61,194,187,0) 0,rgba(61,194,187,.10) 26%,rgba(61,194,187,.03) 50%,rgba(61,194,187,.09) 76%,rgba(61,194,187,0) 100%),radial-gradient(circle,rgba(61,194,187,.17) .8px,rgba(61,194,187,0) 1.25px);background-size:230px 270px,100% 100%,3.5px 3.5px;background-position:0 0,0 0,0 0}
+/* on bigger screens the cards keep the same height the old layout gave them at every width */
+@supports (height:1cqw){@media (min-width:768px){.wd2-cards a{aspect-ratio:auto;height:calc(23.65cqw + 110px)}}}
 @media (max-width:767px){.wd2-cards{grid-template-columns:repeat(2,minmax(0,1fr));width:auto;margin:0 24px}.wd2-cards a{aspect-ratio:167/234}}
 @media (hover:none){.wd2-cards a:hover{box-shadow:none}}
 </style>
