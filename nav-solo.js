@@ -484,15 +484,16 @@
 })();
 
 /* Home page, desktop only: looks for the "Contact us" button under the heading, in the same slim shape as the phone buttons.
-   Nothing changes for visitors until LIVE below is set to a number. Preview each one by adding ?contact=1 (to 10) to the address.
+   Nothing changes for visitors until LIVE below is set to a number. Preview each one by adding ?contact=1 (to 16) to the address.
    1 teal with a cyan edge (like Contact us on phones)   2 solid cyan (like Build a package on phones)
    3 glass with a cyan edge   4 cream outline   5 leaf shape, solid cyan   6 leaf shape, teal with a cyan edge
-   7 solid cream   8 solid cyan with an arrow   9 square corners, cyan outline   10 plain words with a cyan underline */
+   7 solid cream   8 solid cyan with an arrow   9 square corners, cyan outline   10 plain words with a cyan underline
+   11 to 16 are colour changes on the slim shape: 11 dark with cyan edge   12 deeper cyan   13 cyan outline   14 frosted cream glass   15 deep teal, cream words   16 cyan fading to teal */
 (function () {
   if (window.wd2Cu || !document.body || !document.body.classList.contains('homepage')) return;
   window.wd2Cu = true;
   var LIVE = ''; // '' = the button as it was
-  var pick = (/[?&]contact=(10|[1-9])\b/.exec(location.search) || [])[1] || LIVE;
+  var pick = (/[?&]contact=(1[0-6]|[1-9])\b/.exec(location.search) || [])[1] || LIVE;
   if (!pick) return;
   document.documentElement.classList.add('wd2-cu', 'wd2-cu-' + pick);
   var B = 'html.wd2-cu body.homepage .wd2-hero a.sqs-block-button-element.sqs-block-button-element.sqs-block-button-element';
@@ -513,6 +514,12 @@
     + N(8) + '{background:#5ad0c9!important;border:1.5px solid #5ad0c9!important;color:#0e2628!important;font-weight:600!important;padding:10px 30px!important}' + N(8) + ':before{content:"\\2192";order:2;margin-left:10px;font-weight:600}'
     + N(9) + '{border-radius:0!important;background:rgba(14,38,40,.35)!important;border:1.5px solid #5ad0c9!important;color:#8fe6e0!important;letter-spacing:.04em}'
     + N(10) + '{background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;min-height:0!important;padding:4px 2px!important;color:#eae6dd!important;font-size:19px!important;text-decoration:underline!important;text-decoration-color:#5ad0c9!important;text-decoration-thickness:2px!important;text-underline-offset:7px!important;text-shadow:0 1px 8px rgba(0,0,0,.6)!important}' + N(10) + ':hover{box-shadow:none!important;color:#8fe6e0!important}'
+    + N(11) + '{background:#0e2628!important;border:1.5px solid #3dc2bb!important;color:#3dc2bb!important}'
+    + N(12) + '{background:#3dc2bb!important;border:1.5px solid #3dc2bb!important;color:#0e2628!important;font-weight:600!important}'
+    + N(13) + '{background:rgba(14,38,40,.3)!important;border:1.5px solid #5ad0c9!important;color:#8fe6e0!important}'
+    + N(14) + '{background:rgba(234,230,221,.2)!important;-webkit-backdrop-filter:blur(10px)!important;backdrop-filter:blur(10px)!important;border:1.5px solid rgba(234,230,221,.5)!important;color:#eae6dd!important}'
+    + N(15) + '{background:#163436!important;border:1.5px solid #163436!important;color:#eae6dd!important}'
+    + N(16) + '{background:linear-gradient(100deg,#5ad0c9,#2a8f89)!important;border:0!important;color:#0e2628!important;font-weight:600!important}'
     + '}';
   document.head.appendChild(st);
 })();
