@@ -348,9 +348,9 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     + '#musician-page .vp-elist .vp-el-who img{width:38px;height:38px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--vp-brass)}#musician-page .vp-el-bubbles{display:flex;flex-wrap:wrap;gap:12px;margin:4px 0 2px}#musician-page .vp-el-bubbles:empty{display:none}#musician-page .vp-el-bub{position:relative;width:60px;height:60px;flex:none}#musician-page .vp-el-bub img{width:60px;height:60px;border-radius:50%;object-fit:cover;display:block;border:2px solid var(--vp-brass)}#musician-page .vp-el-bub button{position:absolute;top:-4px;right:-4px;width:22px;height:22px;border-radius:50%;border:0;background:#171d1d;color:#eae6dd;font-size:11px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0;box-shadow:0 0 0 2px var(--vp-brass)}#musician-page .vp-el-bub button:hover{background:var(--vp-brass);color:#0e2628}#musician-page .vp-elist ul:empty{display:none}#musician-page .vp-el-bubbles:not(:empty)+ul:not(:empty){margin-top:10px}'
     + '#musician-page .vp-choose{display:grid;gap:10px;justify-items:start}#musician-page .vp-choose.vp-choose-tight{margin-bottom:-48px}#musician-page .vp-choose .vp-add{margin:0;font:inherit;font-weight:600;cursor:pointer;padding:14px 26px}#musician-page .vp-choose .vp-add[disabled]{opacity:.6}#musician-page .vp-choose .vp-add-note{color:var(--vp-muted);font-size:14.5px;max-width:60ch}#musician-page .vp-choose .vp-add-note a{color:var(--vp-brass)}'
     + '@media (max-width:640px){#musician-page .vp-choose.vp-choose-tight{margin-bottom:-36px}#musician-page .vp-choose .vp-add{width:100%}}'
-    + '#musician-page .vp-addpk{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 28px;padding:22px 24px;border-radius:var(--vp-radius);border:1px solid rgba(61,194,187,.45);background:rgba(61,194,187,.08)}'
-    + '#musician-page .vp-addpk h2{font-size:clamp(22px,2.6vw,28px)!important;margin:0 0 6px!important}#musician-page .vp-addpk p{color:var(--vp-muted);max-width:52ch;font-size:15.5px}'
-    + '#musician-page .vp-addpk .vp-addpk-btn{margin:0;white-space:nowrap}'
+    + '#musician-page .vp-addpk{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 18px;padding:12px 16px;border-radius:var(--vp-radius);border:1px solid rgba(61,194,187,.45);background:rgba(61,194,187,.08)}'
+    + '#musician-page .vp-addpk>div{flex:1 1 200px;min-width:0}#musician-page .vp-addpk h2{font-size:17px!important;line-height:1.25!important;margin:0 0 2px!important}#musician-page .vp-addpk p{color:var(--vp-muted);max-width:52ch;font-size:14px;line-height:1.35;margin:0}'
+    + '#musician-page#musician-page .vp-addpk .vp-addpk-btn.vp-addpk-btn{margin:0;white-space:nowrap;padding:9px 16px!important;font-size:14.5px!important;min-height:0!important;line-height:1.2!important}'
     + '#musician-page .vp-pk-with{margin:0 0 16px;padding:12px 16px;border-radius:var(--vp-radius-sm);background:rgba(61,194,187,.12);border:1px solid var(--vp-brass);color:var(--vp-on-dark);font-size:15px}#musician-page .vp-pk-with strong{color:var(--vp-brass)}'
     + '#musician-page.vp-anon .vp-hero{min-height:min(48vh,420px)}#musician-page.vp-anon .vp-hero-in{padding-bottom:28px}'
     + '#musician-page.vp-anon .vp-body{padding-top:36px}#musician-page.vp-anon .vp-main h2{margin-bottom:12px}'
@@ -554,7 +554,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     // Solo musician profiles: offer to add this musician to a package
     var soloPage = !m.builder && !m.packages && !m.related;
     if (soloPage) h += '<section class="vp-choose vp-choose-tight">' + heartBtn('', true) + '<p class="vp-add-note" hidden></p></section>';
-    if (soloPage) h += '<section class="vp-addpk"><div><h2>Add this musician to a package</h2><p>Want more than 2 hours of music? Pair this musician with a second musician, our trad band or a DJ. We\'ll keep this musician in your enquiry while you choose.</p></div>'
+    if (soloPage) h += '<section class="vp-addpk"><div><h2>Want more than 2 hours of music?</h2><p>Pair with a second musician, our trad band or a DJ.</p></div>'
       + '<a class="vp-btn vp-addpk-btn" href="/packages">Add to a package →</a></section>';
 
     // Build-your-band pages (the trad band): step 1 pick the line-up, step 2 pick the solo performer
@@ -607,7 +607,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         + '<div class="vp-pk-other"><div><strong>Want something different?</strong><span>Tell us what you have in mind and we\'ll put together something just for you.</span></div><a class="vp-btn vp-btn-ghost" href="/home#enquiremain">Send us a general enquiry →</a></div></section>';
     }
     if (!soloPage && !m.packages) h += '<section class="vp-choose' + (m.related ? ' vp-choose-tight' : '') + '">' + heartBtn('', true) + '<p class="vp-add-note" hidden></p></section>';
-    if (m.related) h += '<section class="vp-addpk"><div><h2>Add the DJ to a package</h2><p>Want live music too? Start with ' + esc(m.subjectName || m.name) + ' and add a solo musician or our trad band to build a full package.</p></div>'
+    if (m.related) h += '<section class="vp-addpk"><div><h2>Want live music too?</h2><p>Add a solo musician or our trad band.</p></div>'
       + '<a class="vp-btn vp-addpk-btn" href="/packages?dj=' + encodeURIComponent(m.slug) + '">Add to a package →</a></section>';
     // DJ pages: show the other DJ options as cards (DJ / DJ & Sax / Karaoke), with this one marked
     if (m.related) {
