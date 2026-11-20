@@ -118,7 +118,7 @@
   if (window.wd2Cta || !document.body || !document.body.classList.contains('homepage')) return;
   window.wd2Cta = true;
   var LIVE = 'a';  // chosen 19 Nov 2026: side by side
-  var LOOK = '8';  // chosen 20 Nov 2026: the joined pair, slim. ('' = the old glass pair); preview others with ?look=1 to 11
+  var LOOK = '14'; // chosen 20 Nov 2026: joined slim pair, glass Contact us + solid cyan package button. ('' = the old glass pair); preview others with ?look=1 to 17
   var look = (/[?&]look=(\d{1,2})\b/.exec(location.search) || [])[1] || LOOK;
   var pick = (/[?&]buttons=([a-e])\b/i.exec(location.search) || [])[1];
   pick = (pick || LIVE).toLowerCase();
