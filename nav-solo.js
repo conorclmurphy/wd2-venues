@@ -582,7 +582,7 @@
     var nav = document.querySelector('.wd2-cards'); if (!nav) return false;
     if (nav.wd2Fx) return true; nav.wd2Fx = true;
     if (window.IntersectionObserver) {
-      var io = new IntersectionObserver(function (en) { if (en[en.length - 1].isIntersecting) { nav.classList.add('wd2-cf-in'); io.disconnect(); } }, { threshold: 0.2 });
+      var io = new IntersectionObserver(function (en) { if (en[en.length - 1].isIntersecting) { nav.classList.add('wd2-cf-in'); io.disconnect(); } }, { rootMargin: '0px 0px -32% 0px', threshold: 0.1 }); // waits until the cards are well up the screen, not just peeping in at the bottom
       io.observe(nav);
     } else nav.classList.add('wd2-cf-in');
     if (has('4') && window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
