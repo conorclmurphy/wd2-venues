@@ -86,7 +86,8 @@
 /* Home page form: smaller option buttons, a line saying we never send spam, and a "Max budget" slider.
    The slider appears when the form in Squarespace has a text box whose label contains the word "budget"
    (e.g. "Max budget"). The text box itself is hidden and the slider fills it in, so the answer arrives with the
-   enquiry like any other answer ("Up to EUR 1,500", or "No max" when the slider is left at the far right end).
+   enquiry like any other answer ("Up to EUR 1,500"). It starts as "Not set" at the far left, which sends nothing;
+   the far right end means the top figure or more.
    To change the range, edit MIN, MAX and STEP below. */
 (function () {
   if (window.wd2Budget || !document.body || !document.body.classList.contains('homepage')) return;
@@ -112,6 +113,7 @@
     + 'input.wd2-budget-range::-moz-range-thumb{width:16px;height:16px;border:2px solid #3dc2bb;border-radius:7px 0;background:#0e2628;box-shadow:0 2px 8px rgba(0,0,0,.35)}'
     + 'input.wd2-budget-range:focus{outline:none}input.wd2-budget-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 3px rgba(61,194,187,.35)}';
   document.head.appendChild(st);
+  function words(v) { return v < MIN ? '' : v >= MAX ? money(MAX) + '+' : 'Up to ' + money(v); }
   function money(n) { return '€' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
   // Squarespace's form keeps its own copy of every answer, so the hidden box has to be told about a change the way typing would
   function fill(inp, text) {
@@ -133,16 +135,16 @@
     item.classList.add('wd2-budget-item');
     var box = document.createElement('div'); box.className = 'wd2-budget';
     var r = document.createElement('input'); r.type = 'range'; r.className = 'wd2-budget-range';
-    r.min = MIN; r.max = MAX; r.step = STEP; r.value = MAX; r.setAttribute('aria-label', 'Max budget');
-    var out = document.createElement('span'); out.className = 'wd2-budget-out wd2-budget-any'; out.textContent = 'No max';
+    r.min = MIN - STEP; r.max = MAX; r.step = STEP; r.value = MIN - STEP; // one notch below MIN is "Not set" r.setAttribute('aria-label', 'Max budget');
+    var out = document.createElement('span'); out.className = 'wd2-budget-out wd2-budget-any'; out.textContent = 'Not set';
     function show() {
-      var v = +r.value, any = v >= MAX;
-      out.textContent = any ? 'No max' : 'Up to ' + money(v);
-      out.classList.toggle('wd2-budget-any', any);
-      r.style.setProperty('--wd2-b', ((v - MIN) / (MAX - MIN) * 100) + '%');
+      var v = +r.value, unset = v < MIN, lo = MIN - STEP;
+      out.textContent = words(v) || 'Not set';
+      out.classList.toggle('wd2-budget-any', unset);
+      r.style.setProperty('--wd2-b', ((v - lo) / (MAX - lo) * 100) + '%');
       r.setAttribute('aria-valuetext', out.textContent);
     }
-    function save() { var live = item.querySelector('input:not(.wd2-budget-range)'); if (live) fill(live, +r.value >= MAX ? 'No max' : 'Up to ' + money(+r.value)); }
+    function save() { var live = item.querySelector('input:not(.wd2-budget-range)'); if (live) fill(live, words(+r.value)); }
     r.addEventListener('input', show);
     r.addEventListener('change', function () { show(); save(); });
     box.appendChild(r); box.appendChild(out);
