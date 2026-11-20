@@ -554,7 +554,7 @@
 (function () {
   if (window.wd2CardFx || !document.body || !document.body.classList.contains('homepage')) return;
   window.wd2CardFx = true;
-  var LIVE = ''; // e.g. '12' for effects 1 and 2
+  var LIVE = '123'; // chosen 20 Nov 2026: dealt in + photo zoom + a subtle light sweep ('' = no card animations)
   var pick = (/[?&]cards=([1-4]{1,4})\b/.exec(location.search) || [])[1] || LIVE;
   if (!pick) return;
   var calm = window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches;
@@ -572,8 +572,8 @@
     // 2: slow zoom of the photo inside the frame
     + '@media (hover:hover) and (pointer:fine){html.wd2-cf-2 ' + C + ' img{transition:transform 1.1s cubic-bezier(.2,.6,.2,1)}html.wd2-cf-2 ' + C + ':hover img{transform:scale(1.08)}}'
     // 3: one sweep of light
-    + 'html.wd2-cf-3 ' + C + ':after{content:"";position:absolute;top:0;bottom:0;left:-70%;width:55%;pointer-events:none;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(200,250,246,.2),rgba(255,255,255,0));transform:skewX(-18deg);opacity:0}'
-    + 'html.wd2-cf-3 body.homepage .wd2-cards.wd2-cf-in a:after{animation:wd2Sweep 1.3s ease-out both;animation-delay:calc(300ms + var(--i,0) * 160ms)}'
+    + 'html.wd2-cf-3 ' + C + ':after{content:"";position:absolute;top:0;bottom:0;left:-70%;width:55%;pointer-events:none;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(200,250,246,.085),rgba(255,255,255,0));transform:skewX(-18deg);opacity:0}'
+    + 'html.wd2-cf-3 body.homepage .wd2-cards.wd2-cf-in a:after{animation:wd2Sweep 1.7s ease-out both;animation-delay:calc(500ms + var(--i,0) * 160ms)}'
     + '@keyframes wd2Sweep{0%{opacity:1;translate:0 0}99%{opacity:1;translate:330% 0}100%{opacity:0;translate:330% 0}}'
     // 4: lean
     + 'html.wd2-cf-4 ' + C + ' img{transition:transform .25s ease-out;will-change:transform}';
