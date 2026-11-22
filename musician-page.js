@@ -624,6 +624,12 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         + '<div class="vp-pk-other"><div><strong>Want something different?</strong><span>Tell us what you have in mind and we\'ll put together something just for you.</span></div><a class="vp-btn vp-btn-ghost" href="/home#enquiremain">Send us a general enquiry →</a></div></section>';
     }
     if (!soloPage && !m.packages) h += '<section class="vp-choose' + (m.related ? ' vp-choose-tight' : '') + '">' + heartBtn('', true) + '<p class="vp-add-note" hidden></p></section>';
+    // Optional add-on box on an option page (House of Trad: add a ceili). Set in musicians.json as
+    // "addon": { "title": "...", "text": "...", "options": ["Ceili", "Irish dancer"] }. What is ticked goes to us with the enquiry as "Add-on".
+    if (m.addon) {
+      h += '<section class="vp-addon"><span class="vp-addon-tag">Add-on</span><h2>' + esc(m.addon.title) + '</h2><p>' + esc(m.addon.text) + '</p><div class="vp-addon-opts">'
+        + (m.addon.options || []).map(function (o) { return '<button type="button" class="vp-addon-opt" aria-pressed="false" data-addon="' + esc(o) + '">' + esc(o) + '</button>'; }).join('') + '</div></section>';
+    }
     // "Add to a package" box on option pages. DJ pages use the wording below; other option pages (House of Trad) set their own in musicians.json as "addpk".
     var apk = m.addpk || { title: 'Want live music too?', text: 'Add a solo musician or our trad band.', href: '/packages?dj=' + encodeURIComponent(m.slug) };
     if (m.related) h += '<section class="vp-addpk"><div><h2>' + esc(apk.title) + '</h2><p>' + esc(apk.text) + '</p></div>'
@@ -714,7 +720,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
         : m.hideName
         ? '<input type="hidden" id="vp-musician" name="Musician" value="' + esc(m.name) + '">'
-        : '<div class="vp-field"><label for="vp-musician">' + esc(m.fieldLabel || 'Musician') + '</label><input id="vp-musician" name="Musician" value="' + esc(m.name) + '"></div>')
+        : '<div class="vp-field"><label for="vp-musician">' + esc(m.fieldLabel || 'Musician') + '</label><input id="vp-musician" name="Musician" value="' + esc(m.name) + '"></div>'
+          + (m.addon ? '<input type="hidden" id="vp-addon" name="Add-on">' : ''))
       + '<div class="vp-field"><label for="vp-type">Event type</label><select id="vp-type" name="Event type">' + opt(['Wedding Day 2', 'Ceremony', 'Drinks Reception', 'Wedding Day After Dinner', 'Other']) + '</select></div>'
       + '<div class="vp-field"><label for="vp-venue">Venue <i>(if chosen)</i></label><input id="vp-venue" name="Venue"></div>'
       + '<div class="vp-field"><label for="vp-heard">How did you hear about us?</label><select id="vp-heard" name="How they heard about us">' + opt(['Instagram', 'Google Search', 'Musician referral', 'Venue recommendation', 'Friends or family', 'Other']) + '</select></div>'
@@ -812,6 +819,21 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     })();
 
     // Packages page behaviour
+    if (m.addon) {
+      if (!document.getElementById('vp-addon-css')) { var aoCss = document.createElement('style'); aoCss.id = 'vp-addon-css';
+        aoCss.textContent = '#musician-page .vp-addon{position:relative;padding:14px 16px;border-radius:var(--vp-radius);border:1px dashed rgba(61,194,187,.5);background:rgba(61,194,187,.05)}'
+          + '#musician-page .vp-addon-tag{display:inline-block;margin-bottom:6px;padding:2px 9px;border-radius:999px;background:rgba(61,194,187,.16);color:var(--vp-brass);font-size:11px;letter-spacing:.12em;text-transform:uppercase}'
+          + '#musician-page .vp-addon h2{font-size:19px!important;line-height:1.25!important;margin:0 0 4px!important}#musician-page .vp-addon p{margin:0 0 10px;font-size:14.5px;line-height:1.4;color:var(--vp-muted);max-width:60ch}'
+          + '#musician-page .vp-addon-opts{display:flex;flex-wrap:wrap;gap:8px}'
+          + '#musician-page .vp-addon-opt{font:inherit;font-size:14px;font-weight:600;padding:8px 14px;border-radius:999px;border:1.5px solid #3dc2bb;background:none;color:#8fe6e0;cursor:pointer;transition:background .2s,color .2s}'
+          + '#musician-page .vp-addon-opt:before{content:"+ "}#musician-page .vp-addon-opt[aria-pressed=true]{background:#3dc2bb;color:#0e2628}#musician-page .vp-addon-opt[aria-pressed=true]:before{content:"\\2713  "}';
+        document.head.appendChild(aoCss); }
+      Array.prototype.forEach.call(root.querySelectorAll('.vp-addon-opt'), function (b) { b.addEventListener('click', function () {
+        b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+        var on = Array.prototype.filter.call(root.querySelectorAll('.vp-addon-opt'), function (x) { return x.getAttribute('aria-pressed') === 'true'; }).map(function (x) { return x.getAttribute('data-addon'); });
+        var f = root.querySelector('#vp-addon'); if (f) f.value = on.join(' + ');
+      }); });
+    }
     if (m.instagram && !document.getElementById('vp-ig-css')) { var igCss = document.createElement('style'); igCss.id = 'vp-ig-css';
       igCss.textContent = '#musician-page .vp-ig-card{display:block;max-width:560px;padding:16px;border-radius:var(--vp-radius);border:1px solid rgba(61,194,187,.4);background:rgba(61,194,187,.07);text-decoration:none!important;color:inherit;transition:border-color .2s,box-shadow .2s}'
         + '#musician-page .vp-ig-card:hover{border-color:#3dc2bb;box-shadow:0 0 0 1px rgba(61,194,187,.5)}'

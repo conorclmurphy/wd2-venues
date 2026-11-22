@@ -770,13 +770,14 @@
         "bio": [
           "House of Trad as a duo: a singer-guitarist joined by a fiddle or banjo player.",
           "Bringing a fresh twist to traditional Irish music, the duo blends contemporary hits, much-loved Irish favourites and lively traditional instrumentals to create a sound that gets everyone involved.",
-          "Want a bigger sound? Go for the trio, or add a céilí to get your guests dancing."
+          "Want a bigger sound? Go for the trio. You can also add a céilí to get your guests dancing."
         ],
         "addpk": {
           "title": "Want more music?",
           "text": "Add a solo musician or a DJ.",
           "href": "/packages?trad=duo"
-        }
+        },
+      "addon": {"title": "Add a céilí", "text": "We can add a céilí before the band's set to get your guests up on the floor together, with an Irish dancer as an option. Available for after dinner or Day 2.", "options": ["Céilí", "Irish dancer"]}
       },
       {
         "live": true,
@@ -846,7 +847,8 @@
           "title": "Want more music?",
           "text": "Add a solo musician or a DJ.",
           "href": "/packages?trad=trio"
-        }
+        },
+      "addon": {"title": "Add a céilí", "text": "We can add a céilí before the band's set to get your guests up on the floor together, with an Irish dancer as an option. Available for after dinner or Day 2.", "options": ["Céilí", "Irish dancer"]}
       },
       {
         "live": true,
