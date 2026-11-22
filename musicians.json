@@ -707,7 +707,7 @@
       ],
       "gallery": [],
       "aboutTitle": "About our Modern Trad Band",
-      "instagram": { "handle": "", "name": "House of Trad" }
+      "instagram": { "handle": "houseoftradmusic", "name": "House of Trad", "url": "https://www.instagram.com/houseoftradmusic/reels/" }
     },
     {
       "slug": "packages",
