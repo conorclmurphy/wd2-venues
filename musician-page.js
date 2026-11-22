@@ -493,7 +493,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     function videoTag(x, label, crop) {
       var mm = x.seconds ? Math.floor(x.seconds / 60) + ':' + ('0' + Math.round(x.seconds % 60)).slice(-2) : '';
       allVideos.push(x);
-      return '<figure class="vp-video' + (x.shape === 'tall' ? ' vp-tall' : '') + (crop ? ' vp-tall vp-crop' : '') + '"><div class="vp-vwrap"><video data-v="' + (allVideos.length - 1) + '" playsinline preload="none" poster="' + (x.poster ? img(x.poster, 1500) : DATA.videoBase + x.id + '/thumbnail') + '" aria-label="Video of ' + esc(label) + '"></video>'
+      return '<figure class="vp-video' + (x.shape === 'tall' ? ' vp-tall' : '') + (crop ? ' vp-tall vp-crop' : '') + '"><div class="vp-vwrap"><video data-v="' + (allVideos.length - 1) + '" playsinline preload="none" poster="' + (x.posterUrl ? x.posterUrl : x.poster ? img(x.poster, 1500) : DATA.videoBase + x.id + '/thumbnail') + '" aria-label="Video of ' + esc(label) + '"></video>'
         + '<button type="button" class="vp-play" aria-label="Play video of ' + esc(label) + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 4l15 8-15 8z"/></svg></button></div><figcaption>' + esc(x.title || (m.hideName ? 'Live video' : label + ' live')) + (mm ? ' · ' + mm : '') + '</figcaption></figure>';
     }
     function galleryTag(list, label) {
@@ -544,7 +544,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       h += '<section class="vp-onstage"><h2>' + esc(m.onstageTitle || 'Recent videos') + '</h2><p class="vp-os-sub">' + esc(m.onstageSub || 'Real moments from recent gigs.') + '</p><div class="vp-os-w"><button type="button" class="vp-os-a vp-os-l" aria-label="Scroll clips left" disabled>‹</button><div class="vp-os">';
       onstage.forEach(function (x, i) {
         var mm = x.seconds ? Math.floor(x.seconds / 60) + ':' + ('0' + Math.round(x.seconds % 60)).slice(-2) : '';
-        var th = x.poster ? img(x.poster, 750) : (x.base || DATA.videoBase) + x.id + '/thumbnail';
+        var th = x.posterUrl ? x.posterUrl : x.poster ? img(x.poster, 750) : (x.base || DATA.videoBase) + x.id + '/thumbnail';
         h += '<button type="button" class="vp-os-t" data-os="' + i + '" aria-label="Play clip ' + (i + 1) + ' of ' + onstage.length + '"><img loading="lazy" src="' + esc(th) + '" alt="' + esc(actAlt(m)) + ', live video clip ' + (i + 1) + '"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 4l15 8-15 8z"/></svg>' + mm + '</span></button>';
       });
       h += '</div><button type="button" class="vp-os-a vp-os-r" aria-label="Scroll clips right">›</button></div></section>';
@@ -559,7 +559,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       // musicians.json as instagram.tiles (these open Instagram). Phones show 3, desktop up to 5.
       var igVidTile = function (x) {
         allVideos.push(x);
-        return '<span class="vp-ig-t vp-ig-vid"><span class="vp-vwrap"><video data-v="' + (allVideos.length - 1) + '" playsinline preload="none" poster="' + esc(x.poster ? img(x.poster, 750) : (x.base || DATA.videoBase) + x.id + '/thumbnail') + '" aria-label="' + esc(igName) + ' video"></video>'
+        return '<span class="vp-ig-t vp-ig-vid"><span class="vp-vwrap"><video data-v="' + (allVideos.length - 1) + '" playsinline preload="none" poster="' + esc(x.posterUrl ? x.posterUrl : x.poster ? img(x.poster, 750) : (x.base || DATA.videoBase) + x.id + '/thumbnail') + '" aria-label="' + esc(igName) + ' video"></video>'
           + '<button type="button" class="vp-play" aria-label="Play video"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 4l15 8-15 8z"/></svg></button></span></span>';
       };
       var igImgTile = function (src) { return '<a class="vp-ig-t" href="' + esc(igUrl) + '" target="_blank" rel="noopener" aria-label="' + esc(igName) + ' on Instagram"><img loading="lazy" src="' + esc(src) + '" alt=""></a>'; };
@@ -1442,7 +1442,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       // pressed, and the next one while the current one plays), so it starts almost straight away when opened.
       var warmed = {}, saver = (navigator.connection || {}).saveData;
       function warm(x) {
-        if (!x || saver || !window.fetch) return Promise.resolve();
+        if (!x || x.mp4 || saver || !window.fetch) return Promise.resolve();
         if (warmed[x.id]) return warmed[x.id];
         return (warmed[x.id] = warm1(x));
       }
@@ -1497,7 +1497,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       function br0(pl) { return pl.match(/#EXT-X-BYTERANGE:(\d+)(?:@(\d+))?/); }
       function load(i) {
         at = (i + onstage.length) % onstage.length;
-        var x = onstage[at], src = (x.base || DATA.videoBase) + x.id + '/playlist.m3u8';
+        var x = onstage[at], src = x.mp4 || (x.base || DATA.videoBase) + x.id + '/playlist.m3u8';
         n.textContent = (at + 1) + ' / ' + onstage.length;
         if (hls) { hls.destroy(); hls = null; }
         // Always start the new clip from the beginning (not where the last one was) and show a spinner until it plays
@@ -1508,9 +1508,9 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         // once this clip is under way, quietly fetch the start of the next one
         clearTimeout(nextT);
         v.addEventListener('playing', function once2() { v.removeEventListener('playing', once2); if (cur !== mine) return; nextT = setTimeout(function () { if (cur === mine) warm(onstage[(at + 1) % onstage.length]); }, 2500); });
-        v.poster = x.poster ? img(x.poster, 1500) : (x.base || DATA.videoBase) + x.id + '/thumbnail';
+        v.poster = x.posterUrl ? x.posterUrl : x.poster ? img(x.poster, 1500) : (x.base || DATA.videoBase) + x.id + '/thumbnail';
         var go = function () { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); };
-        if (window.Hls && window.Hls.isSupported()) {
+        if (!x.mp4 && window.Hls && window.Hls.isSupported()) {
           var hcfg = { autoStartLoad: false, startPosition: 0, abrEwmaDefaultEstimate: 6000000, capLevelToPlayerSize: false, maxBufferLength: 10, testBandwidth: false };
           try { hcfg.fLoader = cachedLoader(); } catch (e) {}
           hls = new window.Hls(hcfg);
@@ -1823,7 +1823,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     if (allVideos.length) {
       var setup = function () {
         allVideos.forEach(function (x, i) {
-          var el = root.querySelector('video[data-v="' + i + '"]'), src = DATA.videoBase + x.id + '/playlist.m3u8';
+          var el = root.querySelector('video[data-v="' + i + '"]'), src = x.mp4 || DATA.videoBase + x.id + '/playlist.m3u8';
           if (!el || el.getAttribute('data-ready')) return;  // page re-drawn or already set up
           el.setAttribute('data-ready', '1');
           var wrap = el.parentNode, btn = wrap.querySelector('.vp-play');
@@ -1840,7 +1840,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           }
           vpCtl(wrap, el);
           el.addEventListener('ended', function () { wrap.classList.remove('vp-playing'); });
-          if (window.Hls && window.Hls.isSupported()) {
+          if (!x.mp4 && window.Hls && window.Hls.isSupported()) {
             var hls = new window.Hls({ autoStartLoad: false, abrEwmaDefaultEstimate: 6000000, capLevelToPlayerSize: false, maxBufferLength: 10, startFragPrefetch: true, testBandwidth: false });
             // Always start in the top quality (1080p), on phones too, instead of letting the phone pick the low 360p version first
             // Loading must only begin once the video's list of qualities has arrived and the starting quality is set;

@@ -1253,9 +1253,12 @@
           "shape": "wide"
         },
         {
-          "id": "89779ade-6140-426f-9f94-b3ade15c3a76",
-          "seconds": 22,
-          "shape": "tall"
+          "id": "DZvP4YRx2W8",
+          "seconds": 41,
+          "shape": "tall",
+          "title": "House of Trad live",
+          "mp4": "https://cdn.jsdelivr.net/gh/conorclmurphy/wd2-venues@main/video/house-of-trad-DZvP4YRx2W8.mp4",
+          "posterUrl": "https://cdn.jsdelivr.net/gh/conorclmurphy/wd2-venues@main/img/house-of-trad/DZvP4YRx2W8-poster.jpg"
         },
         {
           "id": "28ec977b-4497-4907-ae72-026accbd7a9c",
