@@ -615,7 +615,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
             + '<div class="vp-pk-bud-scale"><span>€650</span><span>€1,500</span></div>'
             + '<div class="vp-pk-bud-ok"><button type="button" class="vp-btn vp-pk-bud-btn">Confirm budget</button><span class="vp-pk-bud-msg" role="status" aria-live="polite"></span></div></div>' },
         { id: 'trad', title: 'Trad band', price: 'From ' + euro(P.duoFrom), text: 'House of Trad, our trad band, as a duo or trio.', image: xImg('trad'),
-          sub: '<h3 class="vp-pk-group">Trad band size</h3><div class="vp-pk-pills">' + P.lineups.map(function (x) { return pill('line', x.title, x.title, 'from ' + euro(x.title === 'Trio' ? P.trioFrom : P.duoFrom)); }).join('') + '</div>' },
+          sub: '<h3 class="vp-pk-group">Trad band size</h3><div class="vp-pk-pills">' + P.lineups.map(function (x) { return pill('line', x.title, x.title, 'from ' + euro(x.title === 'Trio' ? P.trioFrom : P.duoFrom)); }).join('') + '</div>'
+            + '<h3 class="vp-pk-group">Add the céilí package?</h3><p class="vp-pk-bud-note">A céilí before the band\'s set, with an Irish dancer to get everyone up on the floor.</p><div class="vp-pk-pills">' + pill('ceili', '', 'No céilí', '') + pill('ceili', '1', '+ Céilí package', '+' + euro(P.ceiliPrice || 400)) + '</div>' },
         { id: 'dj', title: 'DJ', price: 'From ' + euro(P.djFrom), text: 'A DJ set with professional audio and lighting.', image: xImg('dj'),
           sub: '<h3 class="vp-pk-group">Add to the DJ</h3><div class="vp-pk-pills">' + pill('dx', '', 'DJ only', '') + P.djExtras.map(function (x) { return pill('dx', x.title, '+ ' + x.title, '+' + (x.priceFrom ? 'from ' : '') + euro(x.price)); }).join('') + '</div>' }
       ];
@@ -733,6 +734,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           + '<input type="hidden" id="vp-estimate" name="Estimated price"><input type="hidden" id="vp-summary" name="Included"><input type="hidden" id="vp-when" name="Part of the day"><input type="hidden" id="vp-budget" name="Maximum budget for solo musician">'
         : m.builder
         ? '<div class="vp-field"><label for="vp-lineup">Line-up</label><select id="vp-lineup" name="Line-up">' + opt(m.builder.lineups.map(function (x) { return x.title; })) + '</select></div>'
+          + (m.addon ? '<input type="hidden" id="vp-addon" name="Add-on">' : '')
 
         : m.hideName
         ? '<input type="hidden" id="vp-musician" name="Musician" value="' + esc(m.name) + '">'
@@ -865,7 +867,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var $ = function (q) { return root.querySelector(q); }, $$ = function (q) { return Array.prototype.slice.call(root.querySelectorAll(q)); };
       var step = function (n) { return $('.vp-pk-step[data-step="' + n + '"]'); };
       var go = function (el) { if (el) setTimeout(function () { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60); };
-      var main = '', adds = [], soloN = '1', line = 'Duo', dx = '', when = [], lastSnap = null, lastName = '', budget = 650, budgetOk = false;
+      var main = '', adds = [], soloN = '1', line = 'Duo', dx = '', ceili = '', when = [], lastSnap = null, lastName = '', budget = 650, budgetOk = false;
       var partIdx = 0, saved = {};  // music for more than one part of the day: one package per part, built in order
       var has = function (id) { return main === id || adds.indexOf(id) !== -1; };
       // Phones: one thing per screen, with dots, Next, a back button and swipe.
@@ -942,6 +944,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         else if (dj) { price = P.djFrom; name = 'DJ'; }
         var d = P.djExtras.filter(function (x) { return x.title === dx; })[0];
         if (d && dj) { price += d.price; extra.push(d.title); }
+        if (trad && ceili) { price += P.ceiliPrice || 400; extra.push('Céilí package'); }
         var hours = (solo ? (two ? 4 : 2) : 0) + (trad ? 2 : 0) + (dj ? 2 : 0);  // each act plays about 2 hours
         return { pk: pk, price: price, hours: hours, name: name + (extra.length ? ' + ' + extra.join(' + ') : '') };
       }
@@ -950,17 +953,18 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var PICKS = events.concat(['other']);  // the three times of day, plus "Other" (an event that isn't one of them)
       if (!L.other) L.other = 'Other';
       var parts = function () { return PART_ORDER.concat(['other']).filter(function (e) { return when.indexOf(e) !== -1 && PICKS.indexOf(e) !== -1; }); };
-      var snapPart = function () { return { main: main, adds: adds.slice(), soloN: soloN, line: line, dx: dx, budget: budget, budgetOk: budgetOk }; };
-      var loadPart = function (st) { st = st || {}; main = st.main || ''; adds = (st.adds || []).slice(); soloN = st.soloN || '1'; line = st.line || 'Duo'; dx = st.dx || ''; budget = st.budget || 650; budgetOk = !!st.budgetOk; };
+      var snapPart = function () { return { main: main, adds: adds.slice(), soloN: soloN, line: line, dx: dx, ceili: ceili, budget: budget, budgetOk: budgetOk }; };
+      var loadPart = function (st) { st = st || {}; main = st.main || ''; adds = (st.adds || []).slice(); soloN = st.soloN || '1'; line = st.line || 'Duo'; dx = st.dx || ''; ceili = st.ceili || ''; budget = st.budget || 650; budgetOk = !!st.budgetOk; };
       var partName = function (e) { return e === 'day2' ? 'Day 2' : e === 'afterdinner' ? 'after dinner' : e === 'other' ? 'your event' : 'ceremony & drinks reception'; };
       // What the current choices add up to (used for the part being built and for parts already built)
       function describe() {
         var solo = has('solo'), trad = has('trad'), dj = has('dj'), d = dj ? dx : '', r = match(), it = [];
         if (solo) it.push(soloN === '2' ? 'Two solo musicians, back to back (4 hours)' : 'Solo musician (2 hours)');
         if (trad) it.push('Trad band ' + line.toLowerCase() + (solo ? (soloN === '2' ? ', after your solo musicians' : ', after your solo musician') : ''));
+        if (trad && ceili) it.push('Céilí package with an Irish dancer, before the trad band');
         if (dj) it.push('DJ set' + (d ? (d === 'Saxophone' ? ' with live saxophone' : ' with karaoke') : ''));
         if (solo && budgetOk) it.push((soloN === '2' ? 'Maximum budget for each solo musician: ' : 'Maximum budget for solo musician: ') + euro(budget));
-        return { r: r, items: it, started: !!main, line: trad ? line : '', dx: d, budget: solo && budgetOk ? euro(budget) + (soloN === '2' ? ' each' : '') : '' };
+        return { r: r, items: it, started: !!main, line: trad ? line : '', dx: [d, trad && ceili ? 'Céilí package' : ''].filter(Boolean).join(' + '), budget: solo && budgetOk ? euro(budget) + (soloN === '2' ? ' each' : '') : '' };
       }
       function describePart(st, e) { var keep = snapPart(); pricePart = e || null; loadPart(st); var d = describe(); loadPart(keep); pricePart = null; return d; }
       function render() {
@@ -970,7 +974,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         var PP = parts(); if (partIdx > PP.length - 1) partIdx = Math.max(0, PP.length - 1);
         var multi = PP.length > 1, curPart = multi ? PP[partIdx] : '';
         var nextPart = multi ? PP.filter(function (e, i) { return i !== partIdx && !(saved[e] && saved[e].main); })[0] || '' : '';
-        if (!dj) dx = '';
+        if (!dj) dx = ''; if (!trad) ceili = '';
         if (partIdx !== wsPart) { if (wsPart !== -1) { ws = 1; wzFirst = main || ''; } wsPart = partIdx; }  // a new part of the day starts at its first screen
         if (ws < 1 || ws > 5 || (ws === 5 && !started)) ws = 1;
         root.classList.toggle('vp-pk-wz', wiz());
@@ -1041,6 +1045,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         $$('.vp-pk-pill[data-solo]').forEach(function (b) { b.classList.toggle('vp-picked', b.getAttribute('data-solo') === soloN); });
         $$('.vp-pk-pill[data-line]').forEach(function (b) { b.classList.toggle('vp-picked', b.getAttribute('data-line') === line); });
         $$('.vp-pk-pill[data-dx]').forEach(function (b) { b.classList.toggle('vp-picked', b.getAttribute('data-dx') === dx); });
+        $$('.vp-pk-pill[data-ceili]').forEach(function (b) { b.classList.toggle('vp-picked', b.getAttribute('data-ceili') === ceili); });
         $$('.vp-pk-tag').forEach(function (b) { var on = when.indexOf(b.getAttribute('data-when')) !== -1; b.classList.toggle('vp-picked', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
         var wt = $('.vp-when-tags'); if (wt) wt.classList.toggle('vp-none', !when.length);
         var wn = $('.vp-pk-next-when');
@@ -1105,7 +1110,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         $('#vp-summary').value = started ? items.join('; ') : '';
         $('#vp-package').value = started ? r.name : '';
         $('.vp-pk-linefield').hidden = !trad; $('#vp-lineup').value = trad ? line : '';
-        $('#vp-addons').value = dx;
+        $('#vp-addons').value = [dj ? dx : '', trad && ceili ? 'Céilí package' : ''].filter(Boolean).join(', ');
         $('#vp-estimate').value = started ? 'From ' + euro(r.price) : '';
         $('#vp-when').value = wl.join(', ');
         $('#vp-budget').value = solo && budgetOk ? euro(budget) + (soloN === '2' ? ' each (two musicians)' : '') : '';
@@ -1163,6 +1168,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         if (b.hasAttribute('data-solo')) soloN = b.getAttribute('data-solo');
         if (b.hasAttribute('data-line')) line = b.getAttribute('data-line');
         if (b.hasAttribute('data-dx')) dx = b.getAttribute('data-dx');
+        if (b.hasAttribute('data-ceili')) ceili = b.getAttribute('data-ceili');
         render();
       }); });
       $$('.vp-pk-tag').forEach(function (b) { b.addEventListener('click', function () {
@@ -1223,7 +1229,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         if (bx) { bx.scrollIntoView({ behavior: 'smooth', block: 'center' }); bx.classList.remove('vp-flashfield'); void bx.offsetWidth; bx.classList.add('vp-flashfield'); }
         return false;
       };
-      $('.vp-pk-reset').addEventListener('click', function () { main = ''; adds = []; soloN = '1'; line = 'Duo'; dx = ''; when = []; budget = 650; budgetOk = false; partIdx = 0; saved = {}; ws = 1; wzFirst = ''; render(); go(wiz() ? wbar : step('pick')); });
+      $('.vp-pk-reset').addEventListener('click', function () { main = ''; adds = []; soloN = '1'; line = 'Duo'; dx = ''; ceili = ''; when = []; budget = 650; budgetOk = false; partIdx = 0; saved = {}; ws = 1; wzFirst = ''; render(); go(wiz() ? wbar : step('pick')); });
       $('.vp-pk-go').addEventListener('click', function (e) { e.preventDefault(); if (!window.wd2PkCheck()) return; window.wd2OpenForm && window.wd2OpenForm(); });
       var want = (location.search.match(/[?&]package=([^&]+)/) || [])[1], wc = want && PK[decodeURIComponent(want)];
       if (wc) { main = wc[0]; adds = wc[1].slice(); soloN = wc[2]; ws = 5; }
@@ -1653,7 +1659,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       }
       if (m.builder) {
         var ln = v('#vp-lineup'), pf = v('#vp-musician');
-        return { key: 'trad', label: 'Modern Trad Band' + (ln ? ' (' + ln + ')' : '') + (pf ? ' with ' + pf : ''), url: location.pathname, img: img(m.photo, 150), pos: m.cardPosition || m.photoPosition || '' };
+        return { key: 'trad', label: 'House of Trad' + (ln ? ' (' + ln + ')' : '') + (pf ? ' with ' + pf : ''), url: location.pathname, img: img(m.photo, 150), pos: m.cardPosition || m.photoPosition || '' };
       }
       return { key: 'm:' + m.slug, label: m.related ? (m.subjectName || m.name) : 'Musician: ' + m.name, url: location.pathname, img: img(m.photo, 150), pos: m.cardPosition || m.photoPosition || '' };
     };

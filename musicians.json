@@ -3,7 +3,18 @@
   "imageBase": "https://images.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "videoBase": "https://video.squarespace-cdn.com/content/v1/68e3e2b74d7ab5214f499b88/",
   "formAccessKey": "e22edaa4-9aee-4226-a8fc-120ab344273d",
-  "ceremonyList": ["orlaith", "curtis", "mathew", "cathal", "conort", "craig", "karl", "emmett", "phil", "james"],
+  "ceremonyList": [
+    "orlaith",
+    "curtis",
+    "mathew",
+    "cathal",
+    "conort",
+    "craig",
+    "karl",
+    "emmett",
+    "phil",
+    "james"
+  ],
   "eventLabels": {
     "ceremony": "Ceremony & drinks reception",
     "day2": "Day 2",
@@ -26,7 +37,33 @@
       ],
       "tradBand": true,
       "duo": true,
-      "onstage": [{"id": "2afdda67-3ae7-4947-aa03-702d782b0cf2", "seconds": 34}, {"id": "77980b56-5105-4a85-bc22-00352bc34e59", "seconds": 20}, {"id": "8b08e209-dfe2-40d2-afcf-40509d90bff1", "seconds": 32}, {"id": "06642f49-5d5a-40ae-88aa-a3e7ecf397aa", "seconds": 10}, {"id": "ff123695-580b-48f3-ad95-1aef0be3b4f7", "seconds": 72}, {"id": "a964f9ca-a443-494f-a5e9-ffb8ee6ea05c", "seconds": 36}], "videos": [
+      "onstage": [
+        {
+          "id": "2afdda67-3ae7-4947-aa03-702d782b0cf2",
+          "seconds": 34
+        },
+        {
+          "id": "77980b56-5105-4a85-bc22-00352bc34e59",
+          "seconds": 20
+        },
+        {
+          "id": "8b08e209-dfe2-40d2-afcf-40509d90bff1",
+          "seconds": 32
+        },
+        {
+          "id": "06642f49-5d5a-40ae-88aa-a3e7ecf397aa",
+          "seconds": 10
+        },
+        {
+          "id": "ff123695-580b-48f3-ad95-1aef0be3b4f7",
+          "seconds": 72
+        },
+        {
+          "id": "a964f9ca-a443-494f-a5e9-ffb8ee6ea05c",
+          "seconds": 36
+        }
+      ],
+      "videos": [
         {
           "id": "a7a7547c-3e3c-4462-9ea4-cc33e04ef0f2",
           "seconds": 62,
@@ -56,8 +93,60 @@
       ],
       "tradBand": true,
       "duo": true,
-      "ceremony": {"videos": [{"id": "13e2b4fb-0033-4267-81f8-d0f7cbd3dd4a", "seconds": 90, "shape": "tall"}], "onstage": [{"id": "d5bd2543-6e1a-470d-8aa9-85fcbd92b9c6", "seconds": 87}, {"id": "4f44cf4b-3979-44a1-9762-47434de676b1", "seconds": 86}, {"id": "df92c25e-2440-483e-beba-f82b4dcc8920", "seconds": 37}, {"id": "887dcffc-9865-44ed-8dde-e8046defd040", "seconds": 53}, {"id": "8c31deb5-c2db-42ec-b2c5-36716963ec1d", "seconds": 90}]},
-      "onstage": [{"id": "2841cc7c-287b-4dac-9f02-69cdca6b6bcb", "seconds": 70}, {"id": "a982e006-589e-4b84-a9b7-d32e5890d42c", "seconds": 54}, {"id": "c69f641f-f527-4ac1-84a5-d29e0acd22e4", "seconds": 52}, {"id": "33dd6f94-baf1-4cc8-8ba9-3130a497cec6", "seconds": 33}, {"id": "887dcffc-9865-44ed-8dde-e8046defd040", "seconds": 53}], "videos": [
+      "ceremony": {
+        "videos": [
+          {
+            "id": "13e2b4fb-0033-4267-81f8-d0f7cbd3dd4a",
+            "seconds": 90,
+            "shape": "tall"
+          }
+        ],
+        "onstage": [
+          {
+            "id": "d5bd2543-6e1a-470d-8aa9-85fcbd92b9c6",
+            "seconds": 87
+          },
+          {
+            "id": "4f44cf4b-3979-44a1-9762-47434de676b1",
+            "seconds": 86
+          },
+          {
+            "id": "df92c25e-2440-483e-beba-f82b4dcc8920",
+            "seconds": 37
+          },
+          {
+            "id": "887dcffc-9865-44ed-8dde-e8046defd040",
+            "seconds": 53
+          },
+          {
+            "id": "8c31deb5-c2db-42ec-b2c5-36716963ec1d",
+            "seconds": 90
+          }
+        ]
+      },
+      "onstage": [
+        {
+          "id": "2841cc7c-287b-4dac-9f02-69cdca6b6bcb",
+          "seconds": 70
+        },
+        {
+          "id": "a982e006-589e-4b84-a9b7-d32e5890d42c",
+          "seconds": 54
+        },
+        {
+          "id": "c69f641f-f527-4ac1-84a5-d29e0acd22e4",
+          "seconds": 52
+        },
+        {
+          "id": "33dd6f94-baf1-4cc8-8ba9-3130a497cec6",
+          "seconds": 33
+        },
+        {
+          "id": "887dcffc-9865-44ed-8dde-e8046defd040",
+          "seconds": 53
+        }
+      ],
+      "videos": [
         {
           "id": "d00741c7-4c31-47c5-8156-3486c44b0f6b",
           "seconds": 38,
@@ -85,7 +174,37 @@
       ],
       "tradBand": false,
       "duo": false,
-      "onstage": [{"id": "3d308277-5ce9-4909-be8a-ed53bdaac7c9", "seconds": 25}, {"id": "52fc142a-0d87-49a5-8a0e-e2c6c6eba80a", "seconds": 19}, {"id": "0fa224e7-9255-4bf3-ae80-44ce2beeafe8", "seconds": 20}, {"id": "97ce7c7f-fc24-451e-b050-2e88eeabdbf0", "seconds": 24}, {"id": "06f1f342-5942-4d54-a909-39904e3a846f", "seconds": 36}, {"id": "840d5024-7514-406b-ad48-5235d95df5c3", "seconds": 39}, {"id": "b9651ad2-7b2a-49bb-8b50-872d3c253fdb", "seconds": 42}], "videos": [
+      "onstage": [
+        {
+          "id": "3d308277-5ce9-4909-be8a-ed53bdaac7c9",
+          "seconds": 25
+        },
+        {
+          "id": "52fc142a-0d87-49a5-8a0e-e2c6c6eba80a",
+          "seconds": 19
+        },
+        {
+          "id": "0fa224e7-9255-4bf3-ae80-44ce2beeafe8",
+          "seconds": 20
+        },
+        {
+          "id": "97ce7c7f-fc24-451e-b050-2e88eeabdbf0",
+          "seconds": 24
+        },
+        {
+          "id": "06f1f342-5942-4d54-a909-39904e3a846f",
+          "seconds": 36
+        },
+        {
+          "id": "840d5024-7514-406b-ad48-5235d95df5c3",
+          "seconds": 39
+        },
+        {
+          "id": "b9651ad2-7b2a-49bb-8b50-872d3c253fdb",
+          "seconds": 42
+        }
+      ],
+      "videos": [
         {
           "id": "3d98c33f-2e03-412f-872d-777481423e36",
           "seconds": 89,
@@ -120,8 +239,72 @@
       ],
       "tradBand": false,
       "duo": false,
-      "ceremony": {"videos": [{"id": "f3d8863a-e57a-41bb-8d0c-b57c20bb621a", "seconds": 61, "shape": "tall"}], "onstage": [{"id": "adf19123-24ee-4af0-8c5b-b062351f417a", "seconds": 50}, {"id": "0ba8b71f-ea4c-4283-b27a-88b05032f538", "seconds": 70}, {"id": "323f76b6-3814-4666-9f26-de083f65a0a6", "seconds": 54}, {"id": "28fa3eae-0a8d-4150-9232-cfd0c8e742dd", "seconds": 82}, {"id": "75f291ab-7bf6-4b3e-9efa-e4daec36d698", "seconds": 70}]},
-      "onstage": [{"id": "cf73e803-fa13-4b48-bccc-645bdb434135", "seconds": 17}, {"id": "955aed7d-daae-44ba-a18d-71d635c0f488", "seconds": 34}, {"id": "6aceb802-16ff-439a-bb20-efdf2493b141", "seconds": 59}, {"id": "48493756-0513-4200-a074-3ab3683611d6", "seconds": 23}, {"id": "cb07e8c6-ddf7-41ef-ab1f-ac91aada40c4", "seconds": 32}, {"id": "ea1736b8-f934-4e45-861a-d5a0f01e76b3", "seconds": 67}, {"id": "dbac2387-fc35-4af7-a2e0-87104a2a1d04", "seconds": 109}, {"id": "6b2f0624-e6b5-4ffe-aa3f-12397d848a4b", "seconds": 47}], "videos": [
+      "ceremony": {
+        "videos": [
+          {
+            "id": "f3d8863a-e57a-41bb-8d0c-b57c20bb621a",
+            "seconds": 61,
+            "shape": "tall"
+          }
+        ],
+        "onstage": [
+          {
+            "id": "adf19123-24ee-4af0-8c5b-b062351f417a",
+            "seconds": 50
+          },
+          {
+            "id": "0ba8b71f-ea4c-4283-b27a-88b05032f538",
+            "seconds": 70
+          },
+          {
+            "id": "323f76b6-3814-4666-9f26-de083f65a0a6",
+            "seconds": 54
+          },
+          {
+            "id": "28fa3eae-0a8d-4150-9232-cfd0c8e742dd",
+            "seconds": 82
+          },
+          {
+            "id": "75f291ab-7bf6-4b3e-9efa-e4daec36d698",
+            "seconds": 70
+          }
+        ]
+      },
+      "onstage": [
+        {
+          "id": "cf73e803-fa13-4b48-bccc-645bdb434135",
+          "seconds": 17
+        },
+        {
+          "id": "955aed7d-daae-44ba-a18d-71d635c0f488",
+          "seconds": 34
+        },
+        {
+          "id": "6aceb802-16ff-439a-bb20-efdf2493b141",
+          "seconds": 59
+        },
+        {
+          "id": "48493756-0513-4200-a074-3ab3683611d6",
+          "seconds": 23
+        },
+        {
+          "id": "cb07e8c6-ddf7-41ef-ab1f-ac91aada40c4",
+          "seconds": 32
+        },
+        {
+          "id": "ea1736b8-f934-4e45-861a-d5a0f01e76b3",
+          "seconds": 67
+        },
+        {
+          "id": "dbac2387-fc35-4af7-a2e0-87104a2a1d04",
+          "seconds": 109
+        },
+        {
+          "id": "6b2f0624-e6b5-4ffe-aa3f-12397d848a4b",
+          "seconds": 47
+        }
+      ],
+      "videos": [
         {
           "id": "ed375d2d-902f-4370-be46-1efa8f2ea102",
           "seconds": 16,
@@ -154,10 +337,32 @@
         "Whether you wish to create a relaxed, mellow atmosphere during the early stage of your Day Two, or an upbeat, feel-good vibe later into the night, he has the setlist for you!",
         "He is also happy to work with couples on selecting the perfect soundtrack for their day, whether it's that favourite song or just simply a preferred genre."
       ],
-      "events": ["ceremony", "day2", "afterdinner"],
+      "events": [
+        "ceremony",
+        "day2",
+        "afterdinner"
+      ],
       "tradBand": false,
       "duo": true,
-      "onstage": [{"id": "e45bc18e-4ff0-4307-af04-f70185913281", "seconds": 61}, {"id": "5a7290b6-145d-476d-8f4e-9de602ea1503", "seconds": 58}, {"id": "446b4241-4f36-4812-a514-315c87b20cb0", "seconds": 36}, {"id": "1df247be-9c38-482b-9723-252c95029bf7", "seconds": 59}], "videos": [
+      "onstage": [
+        {
+          "id": "e45bc18e-4ff0-4307-af04-f70185913281",
+          "seconds": 61
+        },
+        {
+          "id": "5a7290b6-145d-476d-8f4e-9de602ea1503",
+          "seconds": 58
+        },
+        {
+          "id": "446b4241-4f36-4812-a514-315c87b20cb0",
+          "seconds": 36
+        },
+        {
+          "id": "1df247be-9c38-482b-9723-252c95029bf7",
+          "seconds": 59
+        }
+      ],
+      "videos": [
         {
           "id": "25d8d523-7bb5-4c8a-8fc7-441decd1dec0",
           "seconds": 168,
@@ -190,7 +395,33 @@
       ],
       "tradBand": false,
       "duo": false,
-      "onstage": [{"id": "2ded3da0-3aee-456e-a27e-5cd26b5b7153", "seconds": 34}, {"id": "e5e645ba-78f6-41ba-bd54-125a854b6070", "seconds": 28}, {"id": "07d8ab49-0a17-4b45-afdb-3427d415e779", "seconds": 84}, {"id": "3fd7c4b1-43fa-4096-acc3-5f61bf2bf3a0", "seconds": 19}, {"id": "514e4dca-860c-46a2-bd54-1b6b7bda68d6", "seconds": 55}, {"id": "15d4e2d5-80a2-4efb-9db1-0df1b8a015f6", "seconds": 16}], "videos": [
+      "onstage": [
+        {
+          "id": "2ded3da0-3aee-456e-a27e-5cd26b5b7153",
+          "seconds": 34
+        },
+        {
+          "id": "e5e645ba-78f6-41ba-bd54-125a854b6070",
+          "seconds": 28
+        },
+        {
+          "id": "07d8ab49-0a17-4b45-afdb-3427d415e779",
+          "seconds": 84
+        },
+        {
+          "id": "3fd7c4b1-43fa-4096-acc3-5f61bf2bf3a0",
+          "seconds": 19
+        },
+        {
+          "id": "514e4dca-860c-46a2-bd54-1b6b7bda68d6",
+          "seconds": 55
+        },
+        {
+          "id": "15d4e2d5-80a2-4efb-9db1-0df1b8a015f6",
+          "seconds": 16
+        }
+      ],
+      "videos": [
         {
           "id": "133e93e5-7872-4d34-813f-18910fabfb8d",
           "seconds": 39,
@@ -222,10 +453,44 @@
         "He is a professional singer-guitarist specialising in weddings and private events across Ireland.",
         "With a relaxed acoustic style and a repertoire spanning modern chart hits, timeless classics and Irish favourites he creates the perfect atmosphere for every event. Every performance is tailored to suit the guests, ensuring the music feels personal and memorable."
       ],
-      "events": ["ceremony", "day2", "afterdinner"],
+      "events": [
+        "ceremony",
+        "day2",
+        "afterdinner"
+      ],
       "tradBand": false,
       "duo": true,
-      "onstage": [{"id": "6c283cf4-4166-4099-bcfb-0676b1407355", "seconds": 44}, {"id": "24e1c06f-f51b-4f8c-9940-9329c0acd45d", "seconds": 75}, {"id": "b6ca823d-f130-4ed1-b902-df1302e857c6", "seconds": 70}, {"id": "1bcdfaff-9008-477e-aecb-65df7c246c81", "seconds": 38}, {"id": "b978d69a-f370-4cd2-9408-fb162b05db5a", "seconds": 76}, {"id": "fe0a954c-0732-4373-8167-6085d54d7300", "seconds": 38}, {"id": "c5e0fa0c-6c2c-4aa5-a748-4af58ffa69c8", "seconds": 60}], "videos": [
+      "onstage": [
+        {
+          "id": "6c283cf4-4166-4099-bcfb-0676b1407355",
+          "seconds": 44
+        },
+        {
+          "id": "24e1c06f-f51b-4f8c-9940-9329c0acd45d",
+          "seconds": 75
+        },
+        {
+          "id": "b6ca823d-f130-4ed1-b902-df1302e857c6",
+          "seconds": 70
+        },
+        {
+          "id": "1bcdfaff-9008-477e-aecb-65df7c246c81",
+          "seconds": 38
+        },
+        {
+          "id": "b978d69a-f370-4cd2-9408-fb162b05db5a",
+          "seconds": 76
+        },
+        {
+          "id": "fe0a954c-0732-4373-8167-6085d54d7300",
+          "seconds": 38
+        },
+        {
+          "id": "c5e0fa0c-6c2c-4aa5-a748-4af58ffa69c8",
+          "seconds": 60
+        }
+      ],
+      "videos": [
         {
           "id": "4f4674c0-958a-4f66-ac87-22bfaa2bb81f",
           "seconds": 52,
@@ -254,7 +519,21 @@
       ],
       "tradBand": false,
       "duo": true,
-      "onstage": [{"id": "7efca379-b48d-4302-8e0c-f992e90833af", "seconds": 83}, {"id": "dbe727b3-e452-4b83-9d72-7fa1c2d55483", "seconds": 32}, {"id": "c3717638-6956-4b19-8eb2-3bacfb52aaa3", "seconds": 37}], "videos": [
+      "onstage": [
+        {
+          "id": "7efca379-b48d-4302-8e0c-f992e90833af",
+          "seconds": 83
+        },
+        {
+          "id": "dbe727b3-e452-4b83-9d72-7fa1c2d55483",
+          "seconds": 32
+        },
+        {
+          "id": "c3717638-6956-4b19-8eb2-3bacfb52aaa3",
+          "seconds": 37
+        }
+      ],
+      "videos": [
         {
           "id": "8bb5b79f-f84e-4cbe-89b9-79487f42dc79",
           "seconds": 121,
@@ -276,7 +555,10 @@
         "He is a Galway-based musician with over 10 years of experience playing at weddings and events.",
         "He's known for keeping things relaxed while still getting people on the dance floor, mixing crowd favourites with a few personal touches, and the occasional harmonica thrown in."
       ],
-      "events": ["day2", "afterdinner"],
+      "events": [
+        "day2",
+        "afterdinner"
+      ],
       "tradBand": false,
       "duo": false,
       "videos": [
@@ -301,10 +583,36 @@
         "Whether it's upbeat party music or laid-back acoustic vibes, he has all the bases covered. With a huge repertoire of over 700 songs, he is more than happy to take requests and be your very own human jukebox.",
         "He has toured and performed across the UK, Ireland, Europe and America as a guitarist and vocalist with the legendary Sinéad O'Connor, making him incredibly experienced and ideal for any occasion."
       ],
-      "events": ["ceremony", "day2", "afterdinner"],
+      "events": [
+        "ceremony",
+        "day2",
+        "afterdinner"
+      ],
       "tradBand": false,
       "duo": false,
-      "onstage": [{"id": "409118ac-8521-4347-a62c-28c21ab54c8c", "seconds": 90}, {"id": "8b7afbeb-7509-4579-b571-473f7ff9fec2", "seconds": 90}, {"id": "8899cf02-27ce-4d6b-854f-077f3c3b79cb", "seconds": 90}, {"id": "d881dae0-a8b7-4af9-b94f-3d6bf84d823c", "seconds": 90}, {"id": "ab0ee08d-7827-4dc3-8d27-724c7f7c3d85", "seconds": 90}], "videos": [
+      "onstage": [
+        {
+          "id": "409118ac-8521-4347-a62c-28c21ab54c8c",
+          "seconds": 90
+        },
+        {
+          "id": "8b7afbeb-7509-4579-b571-473f7ff9fec2",
+          "seconds": 90
+        },
+        {
+          "id": "8899cf02-27ce-4d6b-854f-077f3c3b79cb",
+          "seconds": 90
+        },
+        {
+          "id": "d881dae0-a8b7-4af9-b94f-3d6bf84d823c",
+          "seconds": 90
+        },
+        {
+          "id": "ab0ee08d-7827-4dc3-8d27-724c7f7c3d85",
+          "seconds": 90
+        }
+      ],
+      "videos": [
         {
           "id": "7ccb33e1-1c37-4196-af95-c87e21d7570a",
           "seconds": 67,
@@ -337,11 +645,67 @@
         "With a natural talent to read the crowd, he keeps the vibe upbeat and engaging from start to finish.",
         "With years of experience entertaining crowds across Ireland, he has built a setlist featuring modern hits, creative mashups, and classic sing-along favourites."
       ],
-      "events": ["ceremony", "day2", "afterdinner"],
+      "events": [
+        "ceremony",
+        "day2",
+        "afterdinner"
+      ],
       "tradBand": false,
       "duo": true,
-      "ceremony": {"videos": [{"id": "e14ea79c-55a0-4f8d-b7f1-1d97020450ca", "seconds": 37, "shape": "tall"}], "onstage": [{"id": "eca51165-1168-4b5f-89ac-972f6f38bc7c", "seconds": 72}, {"id": "50099eb3-aba1-4a73-8972-004850f47fee", "seconds": 71}, {"id": "0cdb1c98-638b-4b5d-b442-7de7216066c4", "seconds": 43}, {"id": "adcda1ba-e105-46dd-a43a-7789d2e700a0", "seconds": 63}]},
-      "onstage": [{"id": "a88444ef-0509-4913-a12c-c76b39d40be2", "seconds": 67}, {"id": "f49dd002-7f0e-4260-84f1-4e56084e21ca", "seconds": 109}, {"id": "2dc7ea9d-f440-4694-8bd2-a002236d4916", "seconds": 33}, {"id": "5717caa9-a4a8-4c52-8959-c1c9fff79d74", "seconds": 34}, {"id": "e14ea79c-55a0-4f8d-b7f1-1d97020450ca", "seconds": 37}, {"id": "f8c7d608-2a94-434d-896b-f508402f9645", "seconds": 64}], "videos": [
+      "ceremony": {
+        "videos": [
+          {
+            "id": "e14ea79c-55a0-4f8d-b7f1-1d97020450ca",
+            "seconds": 37,
+            "shape": "tall"
+          }
+        ],
+        "onstage": [
+          {
+            "id": "eca51165-1168-4b5f-89ac-972f6f38bc7c",
+            "seconds": 72
+          },
+          {
+            "id": "50099eb3-aba1-4a73-8972-004850f47fee",
+            "seconds": 71
+          },
+          {
+            "id": "0cdb1c98-638b-4b5d-b442-7de7216066c4",
+            "seconds": 43
+          },
+          {
+            "id": "adcda1ba-e105-46dd-a43a-7789d2e700a0",
+            "seconds": 63
+          }
+        ]
+      },
+      "onstage": [
+        {
+          "id": "a88444ef-0509-4913-a12c-c76b39d40be2",
+          "seconds": 67
+        },
+        {
+          "id": "f49dd002-7f0e-4260-84f1-4e56084e21ca",
+          "seconds": 109
+        },
+        {
+          "id": "2dc7ea9d-f440-4694-8bd2-a002236d4916",
+          "seconds": 33
+        },
+        {
+          "id": "5717caa9-a4a8-4c52-8959-c1c9fff79d74",
+          "seconds": 34
+        },
+        {
+          "id": "e14ea79c-55a0-4f8d-b7f1-1d97020450ca",
+          "seconds": 37
+        },
+        {
+          "id": "f8c7d608-2a94-434d-896b-f508402f9645",
+          "seconds": 64
+        }
+      ],
+      "videos": [
         {
           "id": "0952979f-f248-4f01-9d57-84ace0e3b8a0",
           "seconds": 67,
@@ -365,7 +729,10 @@
         "His style blends popular contemporary songs with touches of traditional Irish music, creating a warm, lively, and memorable experience for guests of all ages.",
         "Whether performing laid-back acoustic favourites or getting everyone up dancing and singing along, his talent, charm, and love of music make him a highlight of any wedding celebration."
       ],
-      "events": ["day2", "afterdinner"],
+      "events": [
+        "day2",
+        "afterdinner"
+      ],
       "tradBand": false,
       "duo": false,
       "videos": [
@@ -391,10 +758,48 @@
         "Since beginning his career on the Irish pub circuit in 2008, he has gone on to perform at more than 1,000 weddings, drinks receptions, ceremonies, day-two celebrations, private events and corporate functions across Ireland, Europe and South America.",
         "Whether it's creating the perfect atmosphere for a wedding ceremony, providing easy-listening music for a drinks reception, or getting a crowd singing along late into the evening, he tailors every performance to suit the occasion."
       ],
-      "events": ["ceremony", "day2", "afterdinner"],
+      "events": [
+        "ceremony",
+        "day2",
+        "afterdinner"
+      ],
       "tradBand": false,
       "duo": false,
-      "onstage": [{"id": "f86a9a97-3999-4dc6-8297-566eb026cae5", "seconds": 57}, {"id": "52c35c61-7857-4d24-be1f-16e9c8ca70a0", "seconds": 82}, {"id": "ce6c553c-2112-49f1-8925-33ee0e881b64", "seconds": 50}, {"id": "20e0c0ee-9dec-4179-b020-ff888ff3979f", "seconds": 63}, {"id": "68cc75fb-0694-4509-9730-39a0fb92d255", "seconds": 65}, {"id": "f0fd6b3c-03ed-4acc-bdc0-bf4a2ae8bbef", "seconds": 56}, {"id": "2f887339-91a9-45d0-9371-476a7c474947", "seconds": 79}, {"id": "c23eab85-81d8-4151-b87e-fade994ff4ad", "seconds": 21}], "videos": [
+      "onstage": [
+        {
+          "id": "f86a9a97-3999-4dc6-8297-566eb026cae5",
+          "seconds": 57
+        },
+        {
+          "id": "52c35c61-7857-4d24-be1f-16e9c8ca70a0",
+          "seconds": 82
+        },
+        {
+          "id": "ce6c553c-2112-49f1-8925-33ee0e881b64",
+          "seconds": 50
+        },
+        {
+          "id": "20e0c0ee-9dec-4179-b020-ff888ff3979f",
+          "seconds": 63
+        },
+        {
+          "id": "68cc75fb-0694-4509-9730-39a0fb92d255",
+          "seconds": 65
+        },
+        {
+          "id": "f0fd6b3c-03ed-4acc-bdc0-bf4a2ae8bbef",
+          "seconds": 56
+        },
+        {
+          "id": "2f887339-91a9-45d0-9371-476a7c474947",
+          "seconds": 79
+        },
+        {
+          "id": "c23eab85-81d8-4151-b87e-fade994ff4ad",
+          "seconds": 21
+        }
+      ],
+      "videos": [
         {
           "id": "856aaebc-02e6-4cc5-b6e2-846878013b8a",
           "seconds": 59,
@@ -455,7 +860,11 @@
         "He is a Cork-based singer and guitarist who brings great energy and plenty of personality to weddings and events across Ireland.",
         "Whether you want a relaxed, laid-back soundtrack for your drinks reception or someone to get the whole crowd up singing and dancing later in the day, he reads the room and keeps the atmosphere just right from start to finish."
       ],
-      "events": ["ceremony", "day2", "afterdinner"],
+      "events": [
+        "ceremony",
+        "day2",
+        "afterdinner"
+      ],
       "tradBand": false,
       "duo": false,
       "videos": [
@@ -480,7 +889,10 @@
         "Born in Mayo, he has been singing and playing the guitar for two decades and is a familiar face in the lively Temple Bar area.",
         "He enjoys playing a mix of modern and classic songs in rock, pop, and folk styles. With dynamic and engaging performances, he has captivated music enthusiasts throughout Ireland and abroad."
       ],
-      "events": ["day2", "afterdinner"],
+      "events": [
+        "day2",
+        "afterdinner"
+      ],
       "tradBand": false,
       "duo": false,
       "videos": [
@@ -506,10 +918,43 @@
         "He is a solo singer-guitarist who plays weddings and private events all over Ireland. His sets are made for the dance floor: upbeat and feel good, moving from current chart hits to party anthems and much loved classics without a break in the energy.",
         "He reads a room well and adjusts the set to suit it, so guests are singing along from the first song to the last. Requests are always welcome, which helps every celebration feel like it was put together just for you."
       ],
-      "events": ["day2", "afterdinner"],
+      "events": [
+        "day2",
+        "afterdinner"
+      ],
       "tradBand": false,
       "duo": true,
-      "onstage": [{"id": "35d237e8-63d8-4587-86a0-4b9cefd943cd", "seconds": 32}, {"id": "a7e68815-93e1-43cc-a656-eb159e8834f1", "seconds": 22}, {"id": "ae75f66f-7d31-4059-a7d9-129db0d0f4b4", "seconds": 65}, {"id": "8bd4bed7-d6f1-4a74-9515-a757c0d1325a", "seconds": 65}, {"id": "d6676066-b43a-4603-a8d2-5fce07a9703c", "seconds": 53}, {"id": "3642c689-301e-4f3b-9605-48358443f3c6", "seconds": 46}, {"id": "dde978ea-e066-40a9-9f37-308f859ab132", "seconds": 58}], "videos": [
+      "onstage": [
+        {
+          "id": "35d237e8-63d8-4587-86a0-4b9cefd943cd",
+          "seconds": 32
+        },
+        {
+          "id": "a7e68815-93e1-43cc-a656-eb159e8834f1",
+          "seconds": 22
+        },
+        {
+          "id": "ae75f66f-7d31-4059-a7d9-129db0d0f4b4",
+          "seconds": 65
+        },
+        {
+          "id": "8bd4bed7-d6f1-4a74-9515-a757c0d1325a",
+          "seconds": 65
+        },
+        {
+          "id": "d6676066-b43a-4603-a8d2-5fce07a9703c",
+          "seconds": 53
+        },
+        {
+          "id": "3642c689-301e-4f3b-9605-48358443f3c6",
+          "seconds": 46
+        },
+        {
+          "id": "dde978ea-e066-40a9-9f37-308f859ab132",
+          "seconds": 58
+        }
+      ],
+      "videos": [
         {
           "id": "b5f19092-0ffe-4c34-a174-c2d59531f884",
           "seconds": 93,
@@ -537,7 +982,18 @@
       ],
       "tradBand": false,
       "duo": false,
-      "videos": [{"id": "ff24d464-8df0-4aa3-b5e1-aa0ff7648f5c", "seconds": 66, "shape": "tall"}, {"id": "8ddc6f0b-c1fe-459c-9ccf-ed6ac8354c83", "seconds": 42, "shape": "tall"}],
+      "videos": [
+        {
+          "id": "ff24d464-8df0-4aa3-b5e1-aa0ff7648f5c",
+          "seconds": 66,
+          "shape": "tall"
+        },
+        {
+          "id": "8ddc6f0b-c1fe-459c-9ccf-ed6ac8354c83",
+          "seconds": 42,
+          "shape": "tall"
+        }
+      ],
       "gallery": [],
       "aboutTitle": "Bio",
       "hideName": true,
@@ -561,7 +1017,40 @@
       ],
       "tradBand": false,
       "duo": false,
-      "onstage": [{"id": "1bfddb77-326b-4a45-83a1-4aadb6c1c069", "seconds": 41}, {"id": "2d1e4f15-f3f7-42c3-9e4d-ae3973bcd142", "seconds": 24}, {"id": "19cd7b51-24b2-4019-82ea-441832a330e5", "seconds": 71}, {"id": "af37b861-1d13-4b72-af49-06c215bf3187", "seconds": 95}, {"id": "288015d2-931c-45a6-bbe8-964292432b8f", "seconds": 73}], "videos": [{"id": "40cb6aa2-e130-4c3f-ac43-ae823b5af090", "seconds": 32, "shape": "tall"}, {"id": "49b95203-9ebc-427b-80b1-00ea258d53df", "seconds": 58, "shape": "tall"}],
+      "onstage": [
+        {
+          "id": "1bfddb77-326b-4a45-83a1-4aadb6c1c069",
+          "seconds": 41
+        },
+        {
+          "id": "2d1e4f15-f3f7-42c3-9e4d-ae3973bcd142",
+          "seconds": 24
+        },
+        {
+          "id": "19cd7b51-24b2-4019-82ea-441832a330e5",
+          "seconds": 71
+        },
+        {
+          "id": "af37b861-1d13-4b72-af49-06c215bf3187",
+          "seconds": 95
+        },
+        {
+          "id": "288015d2-931c-45a6-bbe8-964292432b8f",
+          "seconds": 73
+        }
+      ],
+      "videos": [
+        {
+          "id": "40cb6aa2-e130-4c3f-ac43-ae823b5af090",
+          "seconds": 32,
+          "shape": "tall"
+        },
+        {
+          "id": "49b95203-9ebc-427b-80b1-00ea258d53df",
+          "seconds": 58,
+          "shape": "tall"
+        }
+      ],
       "gallery": [],
       "aboutTitle": "Bio",
       "hideName": true,
@@ -585,8 +1074,33 @@
       ],
       "tradBand": false,
       "duo": false,
-      "videos": [{"id": "6d3adaae-a140-4e17-8423-eff5eec49038", "seconds": 88, "shape": "tall"}, {"id": "1ec4834d-acb9-4b3b-b9b9-ad970a0a4d1b", "seconds": 71, "shape": "wide"}, {"id": "e1809e78-bedd-4653-a981-1197ab9c4360", "seconds": 60, "shape": "wide"}],
-      "onstage": [{"id": "3947cb72-9adf-4a51-b398-68842f7eb89d", "seconds": 68}, {"id": "75c92c52-3300-4115-b023-7110e6e9c84d", "seconds": 28}],
+      "videos": [
+        {
+          "id": "6d3adaae-a140-4e17-8423-eff5eec49038",
+          "seconds": 88,
+          "shape": "tall"
+        },
+        {
+          "id": "1ec4834d-acb9-4b3b-b9b9-ad970a0a4d1b",
+          "seconds": 71,
+          "shape": "wide"
+        },
+        {
+          "id": "e1809e78-bedd-4653-a981-1197ab9c4360",
+          "seconds": 60,
+          "shape": "wide"
+        }
+      ],
+      "onstage": [
+        {
+          "id": "3947cb72-9adf-4a51-b398-68842f7eb89d",
+          "seconds": 68
+        },
+        {
+          "id": "75c92c52-3300-4115-b023-7110e6e9c84d",
+          "seconds": 28
+        }
+      ],
       "gallery": [],
       "aboutTitle": "Bio",
       "hideName": true,
@@ -600,7 +1114,10 @@
       "photo": "03030179-1b9a-4faa-ac82-049b2c06c8d3/musician-u-curtis-1.jpg",
       "photoPosition": "50% 30%",
       "cardPhoto": "03030179-1b9a-4faa-ac82-049b2c06c8d3/musician-u-curtis-1.jpg",
-      "avatar": {"pos": "57% 30%", "zoom": 2.6},
+      "avatar": {
+        "pos": "57% 30%",
+        "zoom": 2.6
+      },
       "cardPosition": "50% 40%",
       "bio": [
         "An acoustic singer and guitarist for your ceremony and drinks reception. He plays stripped-back covers, from Lewis Capaldi to the classics, and can learn a song for your first walk down the aisle."
@@ -707,217 +1224,264 @@
       ],
       "gallery": [],
       "aboutTitle": "About our Modern Trad Band",
-      "instagram": { "handle": "houseoftradmusic", "name": "House of Trad", "url": "https://www.instagram.com/houseoftradmusic/reels/", "reels": ["DgAfCm4oCMW", "Df76n9WxIf0", "DcZErUuKvIp", "DbJWkw7xAQ5", "DZvP4YRx2W8", "DYrIxK5KFbV"] }
+      "instagram": {
+        "handle": "houseoftradmusic",
+        "name": "House of Trad",
+        "url": "https://www.instagram.com/houseoftradmusic/reels/",
+        "reels": [
+          "DgAfCm4oCMW",
+          "Df76n9WxIf0",
+          "DcZErUuKvIp",
+          "DbJWkw7xAQ5",
+          "DZvP4YRx2W8",
+          "DYrIxK5KFbV"
+        ]
+      }
     },
-      {
-        "live": true,
-        "listed": false,
-        "tradBand": false,
-        "duo": false,
-        "related": [
-          "trad-duo",
-          "trad-trio"
-        ],
-        "relatedTitle": "House of Trad options",
-        "fieldLabel": "Booking",
-        "gallery": [],
-        "photo": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG",
-        "videos": [
-          {
-            "id": "3162d84a-b047-404b-a97f-1a9dd6c04bc0",
-            "seconds": 41,
-            "shape": "wide"
-          },
-          {
-            "id": "89779ade-6140-426f-9f94-b3ade15c3a76",
-            "seconds": 22,
-            "shape": "tall"
-          },
-          {
-            "id": "28ec977b-4497-4907-ae72-026accbd7a9c",
-            "seconds": 38,
-            "shape": "tall"
-          }
-        ],
-        "instagram": {
-          "handle": "houseoftradmusic",
-          "name": "House of Trad",
-          "url": "https://www.instagram.com/houseoftradmusic/reels/",
-          "reels": ["DgAfCm4oCMW", "Df76n9WxIf0", "DcZErUuKvIp", "DbJWkw7xAQ5", "DZvP4YRx2W8", "DYrIxK5KFbV"]
+    {
+      "live": true,
+      "listed": false,
+      "tradBand": false,
+      "duo": false,
+      "fieldLabel": "Booking",
+      "gallery": [],
+      "photo": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG",
+      "videos": [
+        {
+          "id": "3162d84a-b047-404b-a97f-1a9dd6c04bc0",
+          "seconds": 41,
+          "shape": "wide"
         },
-        "slug": "trad-duo",
-        "name": "Trad Duo",
-        "url": "https://weddingday2.ie/trad-duo",
-        "eyebrow": "House of Trad",
-        "aboutTitle": "About our Trad Duo",
-        "subjectName": "House of Trad (Duo)",
-        "formTitle": "Book the Trad Duo",
-        "cardText": "Guitar and vocals with a fiddle or banjo player.",
-        "facts": [
-          {
-            "label": "Made up of",
-            "value": "Singer-guitarist + fiddle or banjo"
-          }
-        ],
-        "tags": [
-          "Fiddle or banjo"
-        ],
-        "events": [
-          "ceremony",
-          "day2",
-          "afterdinner"
-        ],
-        "bio": [
-          "House of Trad as a duo: a singer-guitarist joined by a fiddle or banjo player.",
-          "Bringing a fresh twist to traditional Irish music, the duo blends contemporary hits, much-loved Irish favourites and lively traditional instrumentals to create a sound that gets everyone involved.",
-          "Want a bigger sound? Go for the trio. You can also add a céilí to get your guests dancing."
-        ],
-        "addpk": {
-          "title": "Want more music?",
-          "text": "Add a solo musician or a DJ.",
-          "href": "/packages?trad=duo"
+        {
+          "id": "89779ade-6140-426f-9f94-b3ade15c3a76",
+          "seconds": 22,
+          "shape": "tall"
         },
-      "addon": {"title": "Add the céilí package", "text": "We can add our céilí package before the band's set, with an Irish dancer to get your guests up on the floor together. Available for after dinner or Day 2.", "options": ["Céilí package"]}
-      },
-      {
-        "live": true,
-        "listed": false,
-        "tradBand": false,
-        "duo": false,
-        "related": [
-          "trad-duo",
-          "trad-trio"
-        ],
-        "relatedTitle": "House of Trad options",
-        "fieldLabel": "Booking",
-        "gallery": [],
-        "photo": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG",
-        "videos": [
-          {
-            "id": "3162d84a-b047-404b-a97f-1a9dd6c04bc0",
-            "seconds": 41,
-            "shape": "wide"
-          },
-          {
-            "id": "89779ade-6140-426f-9f94-b3ade15c3a76",
-            "seconds": 22,
-            "shape": "tall"
-          },
-          {
-            "id": "28ec977b-4497-4907-ae72-026accbd7a9c",
-            "seconds": 38,
-            "shape": "tall"
-          }
-        ],
-        "instagram": {
-          "handle": "houseoftradmusic",
-          "name": "House of Trad",
-          "url": "https://www.instagram.com/houseoftradmusic/reels/",
-          "reels": ["DgAfCm4oCMW", "Df76n9WxIf0", "DcZErUuKvIp", "DbJWkw7xAQ5", "DZvP4YRx2W8", "DYrIxK5KFbV"]
-        },
-        "slug": "trad-trio",
-        "name": "Trad Trio",
-        "url": "https://weddingday2.ie/trad-trio",
-        "eyebrow": "House of Trad",
-        "aboutTitle": "About our Trad Trio",
-        "subjectName": "House of Trad (Trio)",
-        "formTitle": "Book the Trad Trio",
-        "cardText": "Guitar and vocals with fiddle and banjo.",
-        "facts": [
-          {
-            "label": "Made up of",
-            "value": "Singer-guitarist + fiddle + banjo"
-          }
-        ],
-        "tags": [
-          "Fiddle",
-          "Banjo"
-        ],
-        "events": [
-          "ceremony",
-          "day2",
-          "afterdinner"
-        ],
-        "bio": [
-          "House of Trad as a trio: a singer-guitarist with both fiddle and banjo, for the fullest trad sound.",
-          "Bringing a fresh twist to traditional Irish music, the trio blends contemporary hits, much-loved Irish favourites and lively traditional instrumentals to create a sound that gets everyone involved.",
-          "Want to get everyone up dancing? Add a céilí to your trad set."
-        ],
-        "addpk": {
-          "title": "Want more music?",
-          "text": "Add a solo musician or a DJ.",
-          "href": "/packages?trad=trio"
-        },
-      "addon": {"title": "Add the céilí package", "text": "We can add our céilí package before the band's set, with an Irish dancer to get your guests up on the floor together. Available for after dinner or Day 2.", "options": ["Céilí package"]}
-      },
-      {
-        "live": true,
-        "listed": false,
-        "tradBand": false,
-        "duo": false,
-        "related": [
-          "trad-duo",
-          "trad-trio"
-        ],
-        "relatedTitle": "House of Trad options",
-        "fieldLabel": "Booking",
-        "gallery": [],
-        "photo": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG",
-        "videos": [
-          {
-            "id": "3162d84a-b047-404b-a97f-1a9dd6c04bc0",
-            "seconds": 41,
-            "shape": "wide"
-          },
-          {
-            "id": "89779ade-6140-426f-9f94-b3ade15c3a76",
-            "seconds": 22,
-            "shape": "tall"
-          },
-          {
-            "id": "28ec977b-4497-4907-ae72-026accbd7a9c",
-            "seconds": 38,
-            "shape": "tall"
-          }
-        ],
-        "instagram": {
-          "handle": "houseoftradmusic",
-          "name": "House of Trad",
-          "url": "https://www.instagram.com/houseoftradmusic/reels/",
-          "reels": ["DgAfCm4oCMW", "Df76n9WxIf0", "DcZErUuKvIp", "DbJWkw7xAQ5", "DZvP4YRx2W8", "DYrIxK5KFbV"]
-        },
-        "slug": "trad-ceili",
-        "name": "Trad + Céilí",
-        "url": "https://weddingday2.ie/trad-ceili",
-        "eyebrow": "House of Trad",
-        "aboutTitle": "About Trad + Céilí",
-        "subjectName": "House of Trad (Trad + Céilí)",
-        "formTitle": "Book Trad + Céilí",
-        "cardText": "Live trad with a céilí first, and an Irish dancer if you'd like.",
-        "facts": [
-          {
-            "label": "Made up of",
-            "value": "Trad band + céilí"
-          }
-        ],
-        "tags": [
-          "Céilí",
-        "Irish dancer option"
-        ],
-        "events": [
-          "day2",
-          "afterdinner"
-        ],
-        "bio": [
-          "House of Trad with a céilí: we can add a céilí before the band's set to get your guests up on the floor together, with an Irish dancer as an option.",
-          "Available for after dinner or Day 2. Tell us what you have in mind and we'll put the right combination together for you."
-        ],
-        "addpk": {
-          "title": "Want more music?",
-          "text": "Add a solo musician or a DJ.",
-          "href": "/packages?trad=duo"
+        {
+          "id": "28ec977b-4497-4907-ae72-026accbd7a9c",
+          "seconds": 38,
+          "shape": "tall"
         }
+      ],
+      "instagram": {
+        "handle": "houseoftradmusic",
+        "name": "House of Trad",
+        "url": "https://www.instagram.com/houseoftradmusic/reels/",
+        "reels": [
+          "DgAfCm4oCMW",
+          "Df76n9WxIf0",
+          "DcZErUuKvIp",
+          "DbJWkw7xAQ5",
+          "DZvP4YRx2W8",
+          "DYrIxK5KFbV"
+        ]
       },
+      "slug": "trad-duo",
+      "name": "House of Trad",
+      "url": "https://weddingday2.ie/trad-duo",
+      "eyebrow": "House of Trad",
+      "aboutTitle": "About House of Trad",
+      "subjectName": "House of Trad",
+      "formTitle": "Book House of Trad",
+      "cardText": "Our modern trad band, as a duo or trio.",
+      "facts": [
+        {
+          "label": "Line-up",
+          "value": "Duo or trio"
+        }
+      ],
+      "tags": [
+        "Duo",
+        "Trio",
+        "Fiddle",
+        "Banjo"
+      ],
+      "events": [
+        "ceremony",
+        "day2",
+        "afterdinner"
+      ],
+      "bio": [
+        "House of Trad brings a fresh twist to traditional Irish music, blending contemporary hits, much-loved Irish favourites and lively traditional instrumentals to create a sound that gets everyone involved.",
+        "Go for the duo (a singer-guitarist with a fiddle or banjo player) or the trio (with both fiddle and banjo) for the fullest trad sound. You can also add our céilí package to get your guests up dancing."
+      ],
+      "addpk": {
+        "title": "Want more music?",
+        "text": "Add a solo musician or a DJ.",
+        "href": "/packages?trad=duo"
+      },
+      "addon": {
+        "title": "Add the céilí package",
+        "text": "We can add our céilí package before the band's set, with an Irish dancer to get your guests up on the floor together. Available for after dinner or Day 2.",
+        "options": [
+          "Céilí package"
+        ]
+      },
+      "builder": {
+        "step1": "Choose your line-up",
+        "lineups": [
+          {
+            "title": "Duo",
+            "text": "Singer-guitarist plus a fiddle or banjo player."
+          },
+          {
+            "title": "Trio",
+            "text": "Singer-guitarist plus fiddle and banjo."
+          }
+        ]
+      }
+    },
+    {
+      "live": false,
+      "listed": false,
+      "tradBand": false,
+      "duo": false,
+      "relatedTitle": "House of Trad options",
+      "fieldLabel": "Booking",
+      "gallery": [],
+      "photo": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG",
+      "videos": [
+        {
+          "id": "3162d84a-b047-404b-a97f-1a9dd6c04bc0",
+          "seconds": 41,
+          "shape": "wide"
+        },
+        {
+          "id": "89779ade-6140-426f-9f94-b3ade15c3a76",
+          "seconds": 22,
+          "shape": "tall"
+        },
+        {
+          "id": "28ec977b-4497-4907-ae72-026accbd7a9c",
+          "seconds": 38,
+          "shape": "tall"
+        }
+      ],
+      "instagram": {
+        "handle": "houseoftradmusic",
+        "name": "House of Trad",
+        "url": "https://www.instagram.com/houseoftradmusic/reels/",
+        "reels": [
+          "DgAfCm4oCMW",
+          "Df76n9WxIf0",
+          "DcZErUuKvIp",
+          "DbJWkw7xAQ5",
+          "DZvP4YRx2W8",
+          "DYrIxK5KFbV"
+        ]
+      },
+      "slug": "trad-trio",
+      "name": "Trad Trio",
+      "url": "https://weddingday2.ie/trad-trio",
+      "eyebrow": "House of Trad",
+      "aboutTitle": "About our Trad Trio",
+      "subjectName": "House of Trad (Trio)",
+      "formTitle": "Book the Trad Trio",
+      "cardText": "Guitar and vocals with fiddle and banjo.",
+      "facts": [
+        {
+          "label": "Made up of",
+          "value": "Singer-guitarist + fiddle + banjo"
+        }
+      ],
+      "tags": [
+        "Fiddle",
+        "Banjo"
+      ],
+      "events": [
+        "ceremony",
+        "day2",
+        "afterdinner"
+      ],
+      "bio": [
+        "House of Trad as a trio: a singer-guitarist with both fiddle and banjo, for the fullest trad sound.",
+        "Bringing a fresh twist to traditional Irish music, the trio blends contemporary hits, much-loved Irish favourites and lively traditional instrumentals to create a sound that gets everyone involved.",
+        "Want to get everyone up dancing? Add a céilí to your trad set."
+      ],
+      "addpk": {
+        "title": "Want more music?",
+        "text": "Add a solo musician or a DJ.",
+        "href": "/packages?trad=trio"
+      },
+      "addon": {
+        "title": "Add the céilí package",
+        "text": "We can add our céilí package before the band's set, with an Irish dancer to get your guests up on the floor together. Available for after dinner or Day 2.",
+        "options": [
+          "Céilí package"
+        ]
+      }
+    },
+    {
+      "live": false,
+      "listed": false,
+      "tradBand": false,
+      "duo": false,
+      "relatedTitle": "House of Trad options",
+      "fieldLabel": "Booking",
+      "gallery": [],
+      "photo": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG",
+      "videos": [
+        {
+          "id": "3162d84a-b047-404b-a97f-1a9dd6c04bc0",
+          "seconds": 41,
+          "shape": "wide"
+        },
+        {
+          "id": "89779ade-6140-426f-9f94-b3ade15c3a76",
+          "seconds": 22,
+          "shape": "tall"
+        },
+        {
+          "id": "28ec977b-4497-4907-ae72-026accbd7a9c",
+          "seconds": 38,
+          "shape": "tall"
+        }
+      ],
+      "instagram": {
+        "handle": "houseoftradmusic",
+        "name": "House of Trad",
+        "url": "https://www.instagram.com/houseoftradmusic/reels/",
+        "reels": [
+          "DgAfCm4oCMW",
+          "Df76n9WxIf0",
+          "DcZErUuKvIp",
+          "DbJWkw7xAQ5",
+          "DZvP4YRx2W8",
+          "DYrIxK5KFbV"
+        ]
+      },
+      "slug": "trad-ceili",
+      "name": "Trad + Céilí",
+      "url": "https://weddingday2.ie/trad-ceili",
+      "eyebrow": "House of Trad",
+      "aboutTitle": "About Trad + Céilí",
+      "subjectName": "House of Trad (Trad + Céilí)",
+      "formTitle": "Book Trad + Céilí",
+      "cardText": "Live trad with a céilí first, and an Irish dancer if you'd like.",
+      "facts": [
+        {
+          "label": "Made up of",
+          "value": "Trad band + céilí"
+        }
+      ],
+      "tags": [
+        "Céilí",
+        "Irish dancer option"
+      ],
+      "events": [
+        "day2",
+        "afterdinner"
+      ],
+      "bio": [
+        "House of Trad with a céilí: we can add a céilí before the band's set to get your guests up on the floor together, with an Irish dancer as an option.",
+        "Available for after dinner or Day 2. Tell us what you have in mind and we'll put the right combination together for you."
+      ],
+      "addpk": {
+        "title": "Want more music?",
+        "text": "Add a solo musician or a DJ.",
+        "href": "/packages?trad=duo"
+      }
+    },
     {
       "slug": "packages",
       "name": "Build your package",
@@ -1087,7 +1651,8 @@
             "title": "Jazz",
             "text": "Smooth, relaxed and elegant."
           }
-        ]
+        ],
+        "ceiliPrice": 400
       },
       "videos": [],
       "gallery": [],
