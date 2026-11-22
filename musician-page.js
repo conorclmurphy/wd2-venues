@@ -551,7 +551,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
 
     // Instagram box that links straight to an account we own (the trad band's House of Trad page). Set in musicians.json as
     // "instagram": { "handle": "...", "name": "House of Trad" }. Solo musicians don't get one: their profiles stay anonymous.
-    var ig = m.instagram, igHandle = ig && String(ig.handle || (location.search.match(/[?&]ig=([A-Za-z0-9._]{2,30})\b/) || [])[1] || '').replace(/^@/, '');
+    var ig = m.instagram, igHandle = ig && String(ig.handle || '').replace(/^@/, '');
     if (ig && igHandle && /^[A-Za-z0-9._]{2,30}$/.test(igHandle)) {
       var igUrl = 'https://www.instagram.com/' + igHandle + '/', igName = ig.name || m.name;
       var igTiles = (m.videos || []).slice(0, 3).map(function (x) { return x.poster ? img(x.poster, 500) : (x.base || DATA.videoBase) + x.id + '/thumbnail'; });
