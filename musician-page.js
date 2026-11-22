@@ -623,7 +623,12 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
             + '<div class="vp-pk-bud-ok"><button type="button" class="vp-btn vp-pk-bud-btn">Confirm budget</button><span class="vp-pk-bud-msg" role="status" aria-live="polite"></span></div></div>' },
         { id: 'trad', title: 'Trad band', price: 'From ' + euro(P.duoFrom), text: 'House of Trad, our trad band, as a duo or trio.', image: xImg('trad'),
           sub: '<h3 class="vp-pk-group">Trad band size</h3><div class="vp-pk-pills">' + P.lineups.map(function (x) { return pill('line', x.title, x.title, 'from ' + euro(x.title === 'Trio' ? P.trioFrom : P.duoFrom)); }).join('') + '</div>'
-            + '<h3 class="vp-pk-group">Add the céilí package?</h3><p class="vp-pk-bud-note">A céilí before the band\'s set, with an Irish dancer to get everyone up on the floor.</p><div class="vp-pk-pills">' + pill('ceili', '', 'No céilí', '') + pill('ceili', '1', '+ Céilí package', '+' + euro(P.ceiliPrice || 400)) + '</div>' },
+            + '<div class="vp-pk-ceili"><span class="vp-pk-ceili-t"><strong>Céilí package</strong><span>With an Irish dancer, before the band</span></span>'
+            + '<button type="button" class="vp-pk-pill vp-pk-ceili-b" data-ceili="1"><span class="vp-ca">+ Add</span><span class="vp-cb">✓ Added</span> <em>' + euro(P.ceiliPrice || 400) + '</em></button></div>'
+            + '<style>#musician-page .vp-pk-ceili{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(234,230,221,.12)}'
+            + '#musician-page .vp-pk-ceili-t{display:flex;flex-direction:column;gap:1px;min-width:0}#musician-page .vp-pk-ceili-t strong{font-size:15px;line-height:1.25;color:var(--vp-on-dark)}#musician-page .vp-pk-ceili-t span{font-size:12.5px;line-height:1.35;color:var(--vp-muted)}'
+            + '#musician-page .vp-pk-pill.vp-pk-ceili-b{flex:none;white-space:nowrap;padding:7px 13px!important;font-size:13.5px!important}#musician-page .vp-pk-ceili-b em{font-style:normal;opacity:.75}'
+            + '#musician-page .vp-pk-ceili-b .vp-cb,#musician-page .vp-pk-ceili-b.vp-picked .vp-ca{display:none}#musician-page .vp-pk-ceili-b.vp-picked .vp-cb{display:inline}</style>' },
         { id: 'dj', title: 'DJ', price: 'From ' + euro(P.djFrom), text: 'A DJ set with professional audio and lighting.', image: xImg('dj'),
           sub: '<h3 class="vp-pk-group">Add to the DJ</h3><div class="vp-pk-pills">' + pill('dx', '', 'DJ only', '') + P.djExtras.map(function (x) { return pill('dx', x.title, '+ ' + x.title, '+' + (x.priceFrom ? 'from ' : '') + euro(x.price)); }).join('') + '</div>' }
       ];
@@ -1184,7 +1189,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         if (b.hasAttribute('data-solo')) soloN = b.getAttribute('data-solo');
         if (b.hasAttribute('data-line')) line = b.getAttribute('data-line');
         if (b.hasAttribute('data-dx')) dx = b.getAttribute('data-dx');
-        if (b.hasAttribute('data-ceili')) ceili = b.getAttribute('data-ceili');
+        if (b.hasAttribute('data-ceili')) ceili = ceili ? '' : '1';
         render();
       }); });
       $$('.vp-pk-tag').forEach(function (b) { b.addEventListener('click', function () {
