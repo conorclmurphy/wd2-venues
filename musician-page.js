@@ -555,7 +555,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     if (ig && igHandle && /^[A-Za-z0-9._]{2,30}$/.test(igHandle)) {
       var igUrl = 'https://www.instagram.com/' + igHandle + '/', igName = ig.name || m.name;
       var igTiles = (m.videos || []).slice(0, 3).map(function (x) { return x.poster ? img(x.poster, 500) : (x.base || DATA.videoBase) + x.id + '/thumbnail'; });
-      h += '<section class="vp-ig"><h2>' + esc(ig.title || 'Follow the band on Instagram') + '</h2>'
+      h += '<section class="vp-ig">' + (ig.title ? '<h2>' + esc(ig.title) + '</h2>' : '')  // no heading unless "title" is set in musicians.json
         + '<a class="vp-ig-card" href="' + esc(igUrl) + '" target="_blank" rel="noopener" aria-label="' + esc(igName) + ' on Instagram (opens Instagram)">'
         + '<span class="vp-ig-head">' + (m.photo ? '<img class="vp-ig-av" loading="lazy" src="' + esc(img(m.photo, 300)) + '" alt="">' : '')
         + '<span class="vp-ig-id"><strong>' + esc(igName) + '</strong><em>@' + esc(igHandle) + '</em></span>'
