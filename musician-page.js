@@ -857,6 +857,8 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       }
       function describePart(st, e) { var keep = snapPart(); pricePart = e || null; loadPart(st); var d = describe(); loadPart(keep); pricePart = null; return d; }
       function render() {
+        // the budget slider starts at the solo musician's starting price for this part of the day (€750 for Day 2 and after dinner, €650 for ceremony & drinks reception)
+        var budMin = soloFrom() || 650; if (budget < budMin) { budget = budMin; budgetOk = false; }
         var started = !!main, solo = has('solo'), trad = has('trad'), dj = has('dj');
         var PP = parts(); if (partIdx > PP.length - 1) partIdx = Math.max(0, PP.length - 1);
         var multi = PP.length > 1, curPart = multi ? PP[partIdx] : '';
@@ -998,7 +1000,10 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         var budH = $('.vp-pk-budget h3'), budT = soloN === '2' ? 'Maximum budget for each solo musician' : 'Maximum budget for your solo musician';
         if (budH && budH.textContent !== budT) { budH.textContent = budT; $('#vp-pk-range').setAttribute('aria-label', budT); }
         $('.vp-pk-bud-val').textContent = euro(budget); $('#vp-pk-range').value = budget;
-        $('#vp-pk-range').style.setProperty('--vp-fill', ((budget - 650) / 8.5) + '%');
+        var rng = $('#vp-pk-range'), sc0 = $('.vp-pk-bud-scale span');
+        if (+rng.min !== budMin) { rng.min = budMin; rng.value = budget; }
+        if (sc0) sc0.textContent = euro(budMin);
+        rng.style.setProperty('--vp-fill', ((budget - budMin) / (1500 - budMin) * 100) + '%');
         var bb = $('.vp-pk-bud-btn'), bm = $('.vp-pk-bud-msg');
         if (bb) { bb.textContent = budgetOk ? '✓ Budget confirmed' : 'Confirm ' + euro(budget) + (soloN === '2' ? ' each' : ''); bb.classList.toggle('vp-ok', budgetOk); }
         if (bm && budgetOk) { bm.textContent = ''; bm.classList.remove('vp-err'); }
