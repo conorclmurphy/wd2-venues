@@ -835,7 +835,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var wzCss = document.createElement('style'); wzCss.id = 'vp-pk-wz2-css';
       wzCss.textContent = '#musician-page .vp-pk-wnav{display:none}'
         // the Add button on each card (bigger screens; phones have their own)
-        + '#musician-page .vp-pk-cta{justify-self:start;margin:10px 20px 0;padding:9px 16px;border-radius:999px;border:1.5px solid #3dc2bb;background:#3dc2bb;color:#0e2628;font-size:14.5px;font-weight:600;line-height:1.2;transition:background .2s,color .2s}'
+        + '#musician-page .vp-pk-cta{justify-self:start;margin:10px 20px 0;padding:9px 16px;border-radius:999px;border:1.5px solid #3dc2bb;background:#3dc2bb;color:#0e2628;font-size:14.5px;font-weight:600;line-height:1.2;white-space:nowrap;transition:background .2s,color .2s}'
         + '#musician-page .vp-pk-card:hover .vp-pk-cta{background:#5ad0c9;border-color:#5ad0c9}'
         + '#musician-page .vp-pk-card.vp-picked .vp-pk-cta,#musician-page .vp-pk-card.vp-picked:hover .vp-pk-cta{background:none;border-color:rgba(61,194,187,.6);color:#8fe6e0;font-weight:500}'
         + '#musician-page.vp-pk-wz .vp-pk-cta{display:none}'
@@ -928,7 +928,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           o.classList.toggle('vp-pk-wide', !!main && id === others[1]);
           o.classList.toggle('vp-on', on);
           o.querySelector('.vp-pk-card').classList.toggle('vp-picked', on);
-          var cta = o.querySelector('.vp-pk-cta'); if (cta) cta.textContent = on ? '\u2713 Added \u00b7 tap to remove' : '+ Add to package';
+          var cta = o.querySelector('.vp-pk-cta'); if (cta) cta.textContent = on ? '\u2713 Added \u00b7 remove' : '+ Add to package';
           o.querySelector('.vp-pk-sub').hidden = !on;
         });
         mains.classList.toggle('vp-pk-started', !!main);
