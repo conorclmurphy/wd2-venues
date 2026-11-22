@@ -776,7 +776,7 @@
           "text": "Add a solo musician or a DJ.",
           "href": "/packages?trad=duo"
         },
-      "addon": {"title": "Add a céilí", "text": "We can add a céilí before the band's set to get your guests up on the floor together, with an Irish dancer as an option. Available for after dinner or Day 2.", "options": ["Céilí", "Irish dancer"]}
+      "addon": {"title": "Add the céilí package", "text": "We can add our céilí package before the band's set, with an Irish dancer to get your guests up on the floor together. Available for after dinner or Day 2.", "options": ["Céilí package"]}
       },
       {
         "live": true,
@@ -846,7 +846,7 @@
           "text": "Add a solo musician or a DJ.",
           "href": "/packages?trad=trio"
         },
-      "addon": {"title": "Add a céilí", "text": "We can add a céilí before the band's set to get your guests up on the floor together, with an Irish dancer as an option. Available for after dinner or Day 2.", "options": ["Céilí", "Irish dancer"]}
+      "addon": {"title": "Add the céilí package", "text": "We can add our céilí package before the band's set, with an Irish dancer to get your guests up on the floor together. Available for after dinner or Day 2.", "options": ["Céilí package"]}
       },
       {
         "live": true,
