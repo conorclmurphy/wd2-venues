@@ -637,7 +637,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       OPTS.forEach(function (o) {
         h += '<div class="vp-pk-opt" data-o="' + o.id + '"><button type="button" class="vp-lineup vp-has-img vp-pk-card" data-o="' + o.id + '">'
           + (o.image ? '<span class="vp-x-img"><img loading="lazy" src="' + img(o.image, 600) + '" alt="' + esc(o.title) + ' for weddings in Ireland"></span>' : '')
-          + '<em class="vp-pk-addtag">Add-on</em><strong>' + esc(o.title) + ' <small class="vp-pk-cprice">' + esc(o.price) + '</small></strong><span>' + esc(o.text) + '</span><b class="vp-pk-cta">+ Add to package</b><span class="vp-tick" aria-hidden="true">✓</span></button>'
+          + '<em class="vp-pk-addtag">Add-on</em><strong>' + esc(o.title) + ' <small class="vp-pk-cprice">' + esc(o.price) + '</small></strong><span>' + esc(o.text) + '</span><b class="vp-pk-addcta">+ Add to package</b><span class="vp-tick" aria-hidden="true">✓</span></button>'
           + '<div class="vp-pk-sub" hidden>' + o.sub + '</div></div>';
       });
       h += '<div class="vp-pk-addhead" hidden><strong>Add-ons</strong> <span>Optional. Add one or both.</span></div></div>'
@@ -901,10 +901,10 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var wzCss = document.createElement('style'); wzCss.id = 'vp-pk-wz2-css';
       wzCss.textContent = '#musician-page .vp-pk-wnav{display:none}'
         // the Add button on each card (bigger screens; phones have their own)
-        + '#musician-page .vp-pk-cta{justify-self:start;margin:10px 20px 0;padding:9px 16px;border-radius:999px;border:1.5px solid #3dc2bb;background:#3dc2bb;color:#0e2628;font-size:14.5px;font-weight:600;line-height:1.2;white-space:nowrap;transition:background .2s,color .2s}'
-        + '#musician-page .vp-pk-card:hover .vp-pk-cta{background:#5ad0c9;border-color:#5ad0c9}'
-        + '#musician-page .vp-pk-card.vp-picked .vp-pk-cta,#musician-page .vp-pk-card.vp-picked:hover .vp-pk-cta{background:none;border-color:rgba(61,194,187,.6);color:#8fe6e0;font-weight:500}'
-        + '#musician-page.vp-pk-wz .vp-pk-cta{display:none}'
+        + '#musician-page .vp-pk-addcta{justify-self:start;margin:10px 20px 0;padding:9px 16px;border-radius:999px;border:1.5px solid #3dc2bb;background:#3dc2bb;color:#0e2628;font-size:14.5px;font-weight:600;line-height:1.2;white-space:nowrap;transition:background .2s,color .2s}'
+        + '#musician-page .vp-pk-card:hover .vp-pk-addcta{background:#5ad0c9;border-color:#5ad0c9}'
+        + '#musician-page .vp-pk-card.vp-picked .vp-pk-addcta,#musician-page .vp-pk-card.vp-picked:hover .vp-pk-addcta{background:none;border-color:rgba(61,194,187,.6);color:#8fe6e0;font-weight:500}'
+        + '#musician-page.vp-pk-wz .vp-pk-addcta{display:none}'
         // phones: the "How it works" block is cut right down - a small heading, one short line and smaller buttons
         + '#musician-page.vp-pk-wz .vp-about{padding-top:14px!important;padding-bottom:0!important;margin-bottom:0!important}'
         + '#musician-page.vp-pk-wz .vp-about h2{font-size:21px!important;line-height:1.2!important;margin:0 0 6px!important}'
@@ -1018,7 +1018,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           o.classList.toggle('vp-pk-wide', !!main && id === others[1]);
           o.classList.toggle('vp-on', on);
           o.querySelector('.vp-pk-card').classList.toggle('vp-picked', on);
-          var cta = o.querySelector('.vp-pk-cta'); if (cta) cta.textContent = on ? '\u2713 Added \u00b7 remove' : '+ Add to package';
+          var cta = o.querySelector('.vp-pk-addcta'); if (cta) cta.textContent = on ? '\u2713 Added \u00b7 remove' : '+ Add to package';
           o.querySelector('.vp-pk-sub').hidden = !on;
         });
         mains.classList.toggle('vp-pk-started', !!main);
