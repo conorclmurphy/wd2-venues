@@ -598,7 +598,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
             + '<input type="range" id="vp-pk-range" class="vp-pk-range" min="650" max="1500" step="50" value="650" aria-label="Maximum budget for your solo musician">'
             + '<div class="vp-pk-bud-scale"><span>€650</span><span>€1,500</span></div>'
             + '<div class="vp-pk-bud-ok"><button type="button" class="vp-btn vp-pk-bud-btn">Confirm budget</button><span class="vp-pk-bud-msg" role="status" aria-live="polite"></span></div></div>' },
-        { id: 'trad', title: 'Trad band', price: 'From ' + euro(P.duoFrom), text: 'Our modern trad band as a duo or trio.', image: xImg('trad'),
+        { id: 'trad', title: 'Trad band', price: 'From ' + euro(P.duoFrom), text: 'House of Trad, our trad band, as a duo or trio.', image: xImg('trad'),
           sub: '<h3 class="vp-pk-group">Trad band size</h3><div class="vp-pk-pills">' + P.lineups.map(function (x) { return pill('line', x.title, x.title, 'from ' + euro(x.title === 'Trio' ? P.trioFrom : P.duoFrom)); }).join('') + '</div>' },
         { id: 'dj', title: 'DJ', price: 'From ' + euro(P.djFrom), text: 'A DJ set with professional audio and lighting.', image: xImg('dj'),
           sub: '<h3 class="vp-pk-group">Add to the DJ</h3><div class="vp-pk-pills">' + pill('dx', '', 'DJ only', '') + P.djExtras.map(function (x) { return pill('dx', x.title, '+ ' + x.title, '+' + (x.priceFrom ? 'from ' : '') + euro(x.price)); }).join('') + '</div>' }
@@ -1686,7 +1686,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       l.push(me); setList(l);
       renderList();
       if (ab.classList.contains('vp-heart')) { ab.classList.remove('vp-pop'); void ab.offsetWidth; ab.classList.add('vp-pop'); }
-      var noteHtml = 'Added. Have a look at our other <a href="/musicians">musicians</a>, the <a href="/trad">trad band</a> or <a href="/packages">packages</a>, then send everything in one enquiry. Your details are saved.';
+      var noteHtml = 'Added. Have a look at our other <a href="/musicians">musicians</a>, <a href="/trad-duo">House of Trad</a> or <a href="/packages">packages</a>, then send everything in one enquiry. Your details are saved.';
       addNotes.forEach(function (n) { n.hidden = false; n.innerHTML = noteHtml; });
     }); });
     var addPk = root.querySelector('.vp-addpk-btn');

@@ -36,7 +36,7 @@
     f.setAttribute('data-wd2f', '1');
     var lg = document.querySelector('header .header-mobile-logo img');
     var src = lg && (lg.getAttribute('src') || lg.getAttribute('data-src'));
-    var links = [['/musicians', 'Solo Musicians'], ['/ceremony-musicians', 'Ceremony & Reception'], ['/djs', 'DJs'], ['/trad', 'Trad Band'], ['/packages', 'Package Builder'], ['/venues', 'Venues'], ['/faq', 'FAQs'], ['/home#enquiremain', 'Enquire'], ['https://www.instagram.com/weddingday2.ie', 'Instagram']];
+    var links = [['/musicians', 'Solo Musicians'], ['/ceremony-musicians', 'Ceremony & Reception'], ['/djs', 'DJs'], ['/trad-duo', 'House of Trad'], ['/packages', 'Package Builder'], ['/venues', 'Venues'], ['/faq', 'FAQs'], ['/home#enquiremain', 'Enquire'], ['https://www.instagram.com/weddingday2.ie', 'Instagram']];
     var nav = document.createElement('nav');
     nav.className = 'wd2f-nav';
     nav.setAttribute('aria-label', 'Footer');
