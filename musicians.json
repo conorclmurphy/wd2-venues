@@ -707,7 +707,7 @@
       ],
       "gallery": [],
       "aboutTitle": "About our Modern Trad Band",
-      "instagram": { "handle": "houseoftradmusic", "name": "House of Trad", "url": "https://www.instagram.com/houseoftradmusic/reels/" }
+      "instagram": { "handle": "houseoftradmusic", "name": "House of Trad", "url": "https://www.instagram.com/houseoftradmusic/reels/", "reels": ["DgAfCm4oCMW", "Df76n9WxIf0", "DcZErUuKvIp", "DbJWkw7xAQ5", "DZvP4YRx2W8", "DYrIxK5KFbV"] }
     },
       {
         "live": true,
@@ -742,7 +742,8 @@
         "instagram": {
           "handle": "houseoftradmusic",
           "name": "House of Trad",
-          "url": "https://www.instagram.com/houseoftradmusic/reels/"
+          "url": "https://www.instagram.com/houseoftradmusic/reels/",
+          "reels": ["DgAfCm4oCMW", "Df76n9WxIf0", "DcZErUuKvIp", "DbJWkw7xAQ5", "DZvP4YRx2W8", "DYrIxK5KFbV"]
         },
         "slug": "trad-duo",
         "name": "Trad Duo",
@@ -811,7 +812,8 @@
         "instagram": {
           "handle": "houseoftradmusic",
           "name": "House of Trad",
-          "url": "https://www.instagram.com/houseoftradmusic/reels/"
+          "url": "https://www.instagram.com/houseoftradmusic/reels/",
+          "reels": ["DgAfCm4oCMW", "Df76n9WxIf0", "DcZErUuKvIp", "DbJWkw7xAQ5", "DZvP4YRx2W8", "DYrIxK5KFbV"]
         },
         "slug": "trad-trio",
         "name": "Trad Trio",
@@ -881,7 +883,8 @@
         "instagram": {
           "handle": "houseoftradmusic",
           "name": "House of Trad",
-          "url": "https://www.instagram.com/houseoftradmusic/reels/"
+          "url": "https://www.instagram.com/houseoftradmusic/reels/",
+          "reels": ["DgAfCm4oCMW", "Df76n9WxIf0", "DcZErUuKvIp", "DbJWkw7xAQ5", "DZvP4YRx2W8", "DYrIxK5KFbV"]
         },
         "slug": "trad-ceili",
         "name": "Trad + Céilí",

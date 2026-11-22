@@ -563,12 +563,21 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           + '<button type="button" class="vp-play" aria-label="Play video"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 4l15 8-15 8z"/></svg></button></span></span>';
       };
       var igImgTile = function (src) { return '<a class="vp-ig-t" href="' + esc(igUrl) + '" target="_blank" rel="noopener" aria-label="' + esc(igName) + ' on Instagram"><img loading="lazy" src="' + esc(src) + '" alt=""></a>'; };
-      var igList = (m.videos || []).map(function (x) { return { v: x }; }).concat(m.photo ? [{ i: img(m.photo, 750) }] : []).concat((ig.tiles || []).map(function (t) { return { i: img(t, 500) }; })).slice(0, 5);
+      // Reels from the account itself (musicians.json "instagram.reels": the codes from each reel's link). Each tile shows the reel's
+      // own cover through Instagram's embed and opens that reel on Instagram when tapped (Instagram won't play reels inside other sites).
+      var igReel = function (c) {
+        var u = 'https://www.instagram.com/reel/' + c + '/';
+        return '<a class="vp-ig-t vp-ig-reel" href="' + esc(u) + '" target="_blank" rel="noopener" aria-label="Watch this ' + esc(igName) + ' reel on Instagram">'
+          + '<iframe src="' + esc(u) + 'embed/" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true" title=""></iframe>'
+          + '<span class="vp-ig-rp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4.5l13 7.5-13 7.5z"/></svg></span></a>';
+      };
+      if (ig.reels && ig.reels.length) igVidTile = null;
+      var igList = ig.reels && ig.reels.length ? ig.reels.slice(0, 5).map(function (c) { return { r: c }; }) : (m.videos || []).map(function (x) { return { v: x }; }).concat(m.photo ? [{ i: img(m.photo, 750) }] : []).concat((ig.tiles || []).map(function (t) { return { i: img(t, 500) }; })).slice(0, 5);
       h += '<section class="vp-ig">' + (ig.title ? '<h2>' + esc(ig.title) + '</h2>' : '')  // no heading unless "title" is set in musicians.json
         + '<div class="vp-ig-card"><a class="vp-ig-head" href="' + esc(igUrl) + '" target="_blank" rel="noopener" aria-label="' + esc(igName) + ' on Instagram (opens Instagram)">' + (m.photo ? '<img class="vp-ig-av" loading="lazy" src="' + esc(img(m.photo, 300)) + '" alt="">' : '')
         + '<span class="vp-ig-id"><strong>' + esc(igName) + '</strong><em>@' + esc(igHandle) + '</em></span>'
         + '<span class="vp-ig-go"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>View on Instagram</span></a>'
-        + (igList.length ? '<div class="vp-ig-grid">' + igList.map(function (t) { return t.v ? igVidTile(t.v) : igImgTile(t.i); }).join('') + '</div>' : '')
+        + (igList.length ? '<div class="vp-ig-grid">' + igList.map(function (t) { return t.r ? igReel(t.r) : t.v ? igVidTile(t.v) : igImgTile(t.i); }).join('') + '</div>' : '')
         + '<a class="vp-ig-note" href="' + esc(igUrl) + '" target="_blank" rel="noopener">' + esc(ig.text || 'More clips, sessions and behind the scenes.') + '</a></div></section>';
     }
 
@@ -849,7 +858,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         + '#musician-page .vp-ig-id{min-width:0}#musician-page .vp-ig-id strong{display:block;font-size:17px;line-height:1.2;color:var(--vp-on-dark)}#musician-page .vp-ig-id em{font-style:normal;font-size:14px;color:var(--vp-muted)}'
         + '#musician-page .vp-ig-go{margin-left:auto;display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;background:#3dc2bb;color:#0e2628;font-size:14px;font-weight:600;white-space:nowrap}#musician-page .vp-ig-go svg{width:17px;height:17px}'
         + '#musician-page .vp-ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px}#musician-page .vp-ig-grid>.vp-ig-t:nth-child(n+4){display:none}@media (min-width:1001px){#musician-page .vp-ig-grid{grid-template-columns:none;grid-auto-columns:minmax(0,1fr);grid-auto-flow:column}#musician-page .vp-ig-grid>.vp-ig-t:nth-child(n+4){display:block}#musician-page .vp-ig-t{aspect-ratio:4/5}}#musician-page .vp-ig-t{display:block;position:relative;aspect-ratio:3/2;overflow:hidden;border-radius:8px;background:#0e2628}#musician-page .vp-ig-t img,#musician-page .vp-ig-t video{width:100%!important;height:100%!important;max-height:none!important;object-fit:cover;display:block;border-radius:0!important}#musician-page .vp-ig-t .vp-vwrap{position:absolute;inset:0;display:block;border-radius:0}#musician-page .vp-ig-t .vp-play{width:48px;height:48px}#musician-page .vp-ig-t .vp-play svg{width:20px;height:20px}'
-        + '#musician-page .vp-ig-note{display:block;margin-top:10px;font-size:14px;color:var(--vp-muted);text-decoration:none!important}#musician-page .vp-ig-note:hover{color:var(--vp-on-dark)}';
+        + '#musician-page .vp-ig-reel{aspect-ratio:4/5!important}#musician-page .vp-ig-reel iframe{position:absolute;left:0;top:-54px;width:100%;height:calc(125% + 160px);border:0;pointer-events:none;background:#0e2628}#musician-page .vp-ig-rp{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(14,38,40,.6);border:1.5px solid rgba(234,230,221,.7);color:#eae6dd;display:grid;place-items:center;transition:background .2s,transform .2s}#musician-page .vp-ig-rp svg{width:18px;height:18px;margin-left:3px}#musician-page .vp-ig-reel:hover .vp-ig-rp{background:#3dc2bb;color:#0e2628;border-color:#3dc2bb;transform:scale(1.06)}#musician-page .vp-ig-note{display:block;margin-top:10px;font-size:14px;color:var(--vp-muted);text-decoration:none!important}#musician-page .vp-ig-note:hover{color:var(--vp-on-dark)}';
       document.head.appendChild(igCss); }
     if (m.packages) (function () {
       var P = m.packages, euro = function (n) { return '€' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
