@@ -596,7 +596,11 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       b.lineups.forEach(function (x) {
         h += '<button type="button" class="vp-lineup" data-lineup="' + esc(x.title) + '" data-needs="' + esc(x.needs || '') + '"><strong>' + esc(x.title) + '</strong><span>' + esc(x.text) + '</span></button>';
       });
-      h += '</div></section>';
+      h += '</div>';
+      // House of Trad: once a line-up is picked, a small add-on pops up underneath (the céilí package). Ticking it changes the form's line-up to e.g. "Duo + Céilí package"
+      if (m.addon) h += '<div class="vp-lu-addon" hidden><div class="vp-lu-addon-t"><strong>' + esc(m.addon.title) + '?</strong><span>' + esc(m.addon.short || m.addon.text) + '</span></div>'
+        + '<button type="button" class="vp-addon-opt vp-lu-ceili" aria-pressed="false" data-addon="' + esc((m.addon.options || ['Add-on'])[0]) + '">' + esc((m.addon.options || ['Add-on'])[0]) + '</button></div>';
+      h += '</section>';
       var pool = [];
     }
 
@@ -643,7 +647,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     if (!soloPage && !m.packages) h += '<section class="vp-choose' + (m.related ? ' vp-choose-tight' : '') + '">' + heartBtn('', true) + '<p class="vp-add-note" hidden></p></section>';
     // Optional add-on box on an option page (House of Trad: add a ceili). Set in musicians.json as
     // "addon": { "title": "...", "text": "...", "options": ["Ceili", "Irish dancer"] }. What is ticked goes to us with the enquiry as "Add-on".
-    if (m.addon) {
+    if (m.addon && !m.builder) {
       h += '<section class="vp-addon"><span class="vp-addon-tag">Add-on</span><h2>' + esc(m.addon.title) + '</h2><p>' + esc(m.addon.text) + '</p><div class="vp-addon-opts">'
         + (m.addon.options || []).map(function (o) { return '<button type="button" class="vp-addon-opt" aria-pressed="false" data-addon="' + esc(o) + '">' + esc(o) + '</button>'; }).join('') + '</div></section>';
     }
@@ -733,7 +737,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           + '<div class="vp-field"><label for="vp-addons">Extras</label><input id="vp-addons" name="Extras" placeholder="None"></div>'
           + '<input type="hidden" id="vp-estimate" name="Estimated price"><input type="hidden" id="vp-summary" name="Included"><input type="hidden" id="vp-when" name="Part of the day"><input type="hidden" id="vp-budget" name="Maximum budget for solo musician">'
         : m.builder
-        ? '<div class="vp-field"><label for="vp-lineup">Line-up</label><select id="vp-lineup" name="Line-up">' + opt(m.builder.lineups.map(function (x) { return x.title; })) + '</select></div>'
+        ? '<div class="vp-field"><label for="vp-lineup">Line-up</label><select id="vp-lineup" name="Line-up">' + opt(m.builder.lineups.map(function (x) { return x.title; }).concat(m.addon ? m.builder.lineups.map(function (x) { return x.title + ' + ' + (m.addon.options || ['Add-on'])[0]; }) : [])) + '</select></div>'
           + (m.addon ? '<input type="hidden" id="vp-addon" name="Add-on">' : '')
 
         : m.hideName
@@ -843,6 +847,11 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           + '#musician-page .vp-addon-tag{display:inline-block;margin-bottom:6px;padding:2px 9px;border-radius:999px;background:rgba(61,194,187,.16);color:var(--vp-brass);font-size:11px;letter-spacing:.12em;text-transform:uppercase}'
           + '#musician-page .vp-addon h2{font-size:19px!important;line-height:1.25!important;margin:0 0 4px!important}#musician-page .vp-addon p{margin:0 0 10px;font-size:14.5px;line-height:1.4;color:var(--vp-muted);max-width:60ch}'
           + '#musician-page .vp-addon-opts{display:flex;flex-wrap:wrap;gap:8px}'
+          + '#musician-page .vp-lu-addon{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;padding:10px 12px 10px 14px;border-radius:12px;border:1px dashed rgba(61,194,187,.5);background:rgba(61,194,187,.06);animation:vpLuPop .28s ease both}'
+          + '#musician-page .vp-lu-addon[hidden]{display:none!important}#musician-page .vp-lu-addon-t{display:flex;flex-direction:column;gap:1px;min-width:0}#musician-page .vp-lu-addon-t strong{font-size:15px;line-height:1.25}#musician-page .vp-lu-addon-t span{font-size:13px;line-height:1.35;color:var(--vp-muted)}'
+          + '#musician-page .vp-lu-addon .vp-addon-opt{flex:none;font-size:13.5px;padding:7px 13px;white-space:nowrap}'
+          + '@keyframes vpLuPop{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:none}}'
+          + '@media (max-width:520px){#musician-page .vp-lu-addon{flex-wrap:wrap}#musician-page .vp-lu-addon .vp-addon-opt{width:100%}}'
           + '#musician-page .vp-addon-opt{font:inherit;font-size:14px;font-weight:600;padding:8px 14px;border-radius:999px;border:1.5px solid #3dc2bb;background:none;color:#8fe6e0;cursor:pointer;transition:background .2s,color .2s}'
           + '#musician-page .vp-addon-opt:before{content:"+ "}#musician-page .vp-addon-opt[aria-pressed=true]{background:#3dc2bb;color:#0e2628}#musician-page .vp-addon-opt[aria-pressed=true]:before{content:"\\2713  "}';
         document.head.appendChild(aoCss); }
@@ -1310,9 +1319,29 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       if (lineSel) lineSel.addEventListener('change', function () { if (window.wd2RenderList) setTimeout(window.wd2RenderList, 0); });
       if (lineSel) lineSel.addEventListener('change', function () {
         var hit = null;
-        root.querySelectorAll('.vp-lineup').forEach(function (x) { var on = x.getAttribute('data-lineup') === lineSel.value; x.classList.toggle('vp-picked', on); if (on) hit = x; });
+        root.querySelectorAll('.vp-lineup').forEach(function (x) { var on = x.getAttribute('data-lineup') === lineSel.value.split(' + ')[0]; x.classList.toggle('vp-picked', on); if (on) hit = x; });
         showFor(hit ? hit.getAttribute('data-needs') : '');
       });
+      // The céilí add-on under the line-up: shows once Duo or Trio is picked, and adds " + Céilí package" to the form's line-up
+      var luAdd = root.querySelector('.vp-lu-addon'), luBtn = root.querySelector('.vp-lu-ceili');
+      if (luAdd && luBtn && lineSel) {
+        var luName = luBtn.getAttribute('data-addon'), luSuffix = ' + ' + luName;
+        var luSync = function () {
+          var base = (lineSel.value || '').split(' + ')[0], on = luBtn.getAttribute('aria-pressed') === 'true';
+          luAdd.hidden = !base;
+          if (base) lineSel.value = base + (on ? luSuffix : '');
+          var f = root.querySelector('#vp-addon'); if (f) f.value = base && on ? luName : '';
+        };
+        root.querySelectorAll('.vp-lineup').forEach(function (b) { b.addEventListener('click', luSync); });
+        luBtn.addEventListener('click', function () {
+          luSync();
+          var on = luBtn.getAttribute('aria-pressed') === 'true';
+          lineSel.classList.remove('vp-flashfield'); void lineSel.offsetWidth; lineSel.classList.add('vp-flashfield');
+          pulseForm(on ? 'Added to your form: ' + lineSel.value : 'Removed: ' + luName);
+          if (window.wd2RenderList) setTimeout(window.wd2RenderList, 0);
+        });
+        lineSel.addEventListener('change', function () { luBtn.setAttribute('aria-pressed', lineSel.value.indexOf(luSuffix) !== -1 ? 'true' : 'false'); luSync(); });
+      }
       var perfSel = root.querySelector('#vp-musician');
       if (perfSel) perfSel.addEventListener('change', function () {
         root.querySelectorAll('.vp-pick').forEach(function (x) { x.classList.toggle('vp-picked', x.getAttribute('data-name') === perfSel.value); });
@@ -1671,10 +1700,11 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         var tl = getList(), ti = -1; tl.forEach(function (x, i) { if (x.key === 'trad') ti = i; });
         if (ti !== -1) {
           // Coming back to the trad page: fill the form with their saved Duo / Trio instead of losing it
-          var savedLine = ((tl[ti].label || '').match(/\((Duo|Trio)\)/) || [])[1], ls = root.querySelector('#vp-lineup');
+          var savedLine = ((tl[ti].label || '').match(/\(((?:Duo|Trio)[^)]*)\)/) || [])[1], ls = root.querySelector('#vp-lineup');
           if (savedLine && ls && !ls.value) {
             ls.value = savedLine;
-            root.querySelectorAll('.vp-lineup').forEach(function (b) { b.classList.toggle('vp-picked', b.getAttribute('data-lineup') === savedLine); });
+            root.querySelectorAll('.vp-lineup').forEach(function (b) { b.classList.toggle('vp-picked', b.getAttribute('data-lineup') === savedLine.split(' + ')[0]); });
+            var lb = root.querySelector('.vp-lu-ceili'); if (lb) { lb.setAttribute('aria-pressed', / \+ /.test(savedLine) ? 'true' : 'false'); var la = root.querySelector('.vp-lu-addon'); if (la) la.hidden = false; }
             me = curItem();
           }
           if (tl[ti].label !== me.label) { tl[ti] = me; setList(tl); }

@@ -1315,7 +1315,8 @@
         "text": "We can add our céilí package before the band's set, with an Irish dancer to get your guests up on the floor together. Available for after dinner or Day 2.",
         "options": [
           "Céilí package"
-        ]
+        ],
+        "short": "Before the band's set, with an Irish dancer. After dinner or Day 2."
       },
       "builder": {
         "step1": "Choose your line-up",
