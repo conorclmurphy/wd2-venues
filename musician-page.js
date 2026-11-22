@@ -624,7 +624,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         { id: 'trad', title: 'Trad band', price: 'From ' + euro(P.duoFrom), text: 'House of Trad, our trad band, as a duo or trio.', image: xImg('trad'),
           sub: '<h3 class="vp-pk-group">Trad band size</h3><div class="vp-pk-pills">' + P.lineups.map(function (x) { return pill('line', x.title, x.title, 'from ' + euro(x.title === 'Trio' ? P.trioFrom : P.duoFrom)); }).join('') + '</div>'
             + '<div class="vp-pk-ceili"><span class="vp-pk-ceili-t"><strong>Céilí package</strong><span>With an Irish dancer, before the band</span></span>'
-            + '<button type="button" class="vp-pk-pill vp-pk-ceili-b" data-ceili="1"><span class="vp-ca">+ Add</span><span class="vp-cb">✓ Added</span> <em>' + euro(P.ceiliPrice || 400) + '</em></button></div>'
+            + '<button type="button" class="vp-pk-pill vp-pk-ceili-b" data-ceili="1"><span class="vp-ca">+ Add</span><span class="vp-cb">✓ Added</span> <em>from ' + euro(P.ceiliPrice || 250) + '</em></button></div>'
             + '<style>#musician-page .vp-pk-ceili{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(234,230,221,.12)}'
             + '#musician-page .vp-pk-ceili-t{display:flex;flex-direction:column;gap:1px;min-width:0}#musician-page .vp-pk-ceili-t strong{font-size:15px;line-height:1.25;color:var(--vp-on-dark)}#musician-page .vp-pk-ceili-t span{font-size:12.5px;line-height:1.35;color:var(--vp-muted)}'
             + '#musician-page .vp-pk-pill.vp-pk-ceili-b{flex:none;white-space:nowrap;padding:7px 13px!important;font-size:13.5px!important}#musician-page .vp-pk-ceili-b em{font-style:normal;opacity:.75}'
@@ -965,7 +965,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         else if (dj) { price = P.djFrom; name = 'DJ'; }
         var d = P.djExtras.filter(function (x) { return x.title === dx; })[0];
         if (d && dj) { price += d.price; extra.push(d.title); }
-        if (trad && ceili) { price += P.ceiliPrice || 400; extra.push('Céilí package'); }
+        if (trad && ceili) { price += P.ceiliPrice || 250; extra.push('Céilí package'); }
         var hours = (solo ? (two ? 4 : 2) : 0) + (trad ? 2 : 0) + (dj ? 2 : 0);  // each act plays about 2 hours
         return { pk: pk, price: price, hours: hours, name: name + (extra.length ? ' + ' + extra.join(' + ') : '') };
       }
