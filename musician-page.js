@@ -835,13 +835,13 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       }); });
     }
     if (m.instagram && !document.getElementById('vp-ig-css')) { var igCss = document.createElement('style'); igCss.id = 'vp-ig-css';
-      igCss.textContent = '#musician-page .vp-ig-card{display:block;max-width:560px;padding:16px;border-radius:var(--vp-radius);border:1px solid rgba(61,194,187,.4);background:rgba(61,194,187,.07);text-decoration:none!important;color:inherit;transition:border-color .2s,box-shadow .2s}'
+      igCss.textContent = '#musician-page .vp-ig-card{display:block;max-width:none;padding:16px;border-radius:var(--vp-radius);border:1px solid rgba(61,194,187,.4);background:rgba(61,194,187,.07);text-decoration:none!important;color:inherit;transition:border-color .2s,box-shadow .2s}'
         + '#musician-page .vp-ig-card:hover{border-color:#3dc2bb;box-shadow:0 0 0 1px rgba(61,194,187,.5)}'
         + '#musician-page .vp-ig-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}'
         + '#musician-page .vp-ig-av{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid #3dc2bb;flex:none}'
         + '#musician-page .vp-ig-id{min-width:0}#musician-page .vp-ig-id strong{display:block;font-size:17px;line-height:1.2;color:var(--vp-on-dark)}#musician-page .vp-ig-id em{font-style:normal;font-size:14px;color:var(--vp-muted)}'
         + '#musician-page .vp-ig-go{margin-left:auto;display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;background:#3dc2bb;color:#0e2628;font-size:14px;font-weight:600;white-space:nowrap}#musician-page .vp-ig-go svg{width:17px;height:17px}'
-        + '#musician-page .vp-ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px}#musician-page .vp-ig-grid span{display:block;aspect-ratio:1/1;overflow:hidden;border-radius:8px;background:#0e2628}#musician-page .vp-ig-grid img{width:100%;height:100%;object-fit:cover;display:block}'
+        + '#musician-page .vp-ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px}#musician-page .vp-ig-grid span{display:block;aspect-ratio:3/2;overflow:hidden;border-radius:8px;background:#0e2628}#musician-page .vp-ig-grid img{width:100%;height:100%;object-fit:cover;display:block}'
         + '#musician-page .vp-ig-note{display:block;margin-top:10px;font-size:14px;color:var(--vp-muted)}';
       document.head.appendChild(igCss); }
     if (m.packages) (function () {
