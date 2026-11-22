@@ -1166,7 +1166,7 @@
       "name": "Modern Trad Band",
       "live": true,
       "listed": false,
-      "url": "https://weddingday2.ie/trad-duo",
+      "url": "https://weddingday2.ie/house-of-trad",
       "eyebrow": "Modern trad band",
       "photo": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG",
       "bio": [
@@ -1278,7 +1278,7 @@
       },
       "slug": "trad-duo",
       "name": "House of Trad",
-      "url": "https://weddingday2.ie/trad-duo",
+      "url": "https://weddingday2.ie/house-of-trad",
       "eyebrow": "House of Trad",
       "aboutTitle": "About House of Trad",
       "subjectName": "House of Trad",
@@ -1810,7 +1810,7 @@
     "text": "DJs, DJ & Sax and Karaoke"
   },
   "tradCard": {
-    "url": "https://weddingday2.ie/trad-duo",
+    "url": "https://weddingday2.ie/house-of-trad",
     "image": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG",
     "title": "House of Trad",
     "text": "Trad Duo, Trad Trio and Trad + Céilí"

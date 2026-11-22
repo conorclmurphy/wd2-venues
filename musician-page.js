@@ -1730,7 +1730,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       l.push(me); setList(l);
       renderList();
       if (ab.classList.contains('vp-heart')) { ab.classList.remove('vp-pop'); void ab.offsetWidth; ab.classList.add('vp-pop'); }
-      var noteHtml = 'Added. Have a look at our other <a href="/musicians">musicians</a>, <a href="/trad-duo">House of Trad</a> or <a href="/packages">packages</a>, then send everything in one enquiry. Your details are saved.';
+      var noteHtml = 'Added. Have a look at our other <a href="/musicians">musicians</a>, <a href="/house-of-trad">House of Trad</a> or <a href="/packages">packages</a>, then send everything in one enquiry. Your details are saved.';
       addNotes.forEach(function (n) { n.hidden = false; n.innerHTML = noteHtml; });
     }); });
     var addPk = root.querySelector('.vp-addpk-btn');
