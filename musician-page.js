@@ -555,16 +555,21 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     var ig = m.instagram, igHandle = ig && String(ig.handle || '').replace(/^@/, '');
     if (ig && igHandle && /^[A-Za-z0-9._]{2,30}$/.test(igHandle)) {
       var igUrl = /^https:\/\/(www\.)?instagram\.com\//.test(ig.url || '') ? ig.url : 'https://www.instagram.com/' + igHandle + '/', igName = ig.name || m.name;
-      // tiles: the page's video stills, then the band photo, then any extra images listed in musicians.json as instagram.tiles. Phones show 3, desktop up to 5.
-      var igTiles = (m.videos || []).map(function (x) { return x.poster ? img(x.poster, 500) : (x.base || DATA.videoBase) + x.id + '/thumbnail'; })
-        .concat(m.photo ? [img(m.photo, 750)] : []).concat((ig.tiles || []).map(function (t) { return img(t, 500); })).slice(0, 5);
+      // tiles: the page's videos (they play right in the box), then the band photo, then any extra images listed in
+      // musicians.json as instagram.tiles (these open Instagram). Phones show 3, desktop up to 5.
+      var igVidTile = function (x) {
+        allVideos.push(x);
+        return '<span class="vp-ig-t vp-ig-vid"><span class="vp-vwrap"><video data-v="' + (allVideos.length - 1) + '" playsinline preload="none" poster="' + esc(x.poster ? img(x.poster, 750) : (x.base || DATA.videoBase) + x.id + '/thumbnail') + '" aria-label="' + esc(igName) + ' video"></video>'
+          + '<button type="button" class="vp-play" aria-label="Play video"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 4l15 8-15 8z"/></svg></button></span></span>';
+      };
+      var igImgTile = function (src) { return '<a class="vp-ig-t" href="' + esc(igUrl) + '" target="_blank" rel="noopener" aria-label="' + esc(igName) + ' on Instagram"><img loading="lazy" src="' + esc(src) + '" alt=""></a>'; };
+      var igList = (m.videos || []).map(function (x) { return { v: x }; }).concat(m.photo ? [{ i: img(m.photo, 750) }] : []).concat((ig.tiles || []).map(function (t) { return { i: img(t, 500) }; })).slice(0, 5);
       h += '<section class="vp-ig">' + (ig.title ? '<h2>' + esc(ig.title) + '</h2>' : '')  // no heading unless "title" is set in musicians.json
-        + '<a class="vp-ig-card" href="' + esc(igUrl) + '" target="_blank" rel="noopener" aria-label="' + esc(igName) + ' on Instagram (opens Instagram)">'
-        + '<span class="vp-ig-head">' + (m.photo ? '<img class="vp-ig-av" loading="lazy" src="' + esc(img(m.photo, 300)) + '" alt="">' : '')
+        + '<div class="vp-ig-card"><a class="vp-ig-head" href="' + esc(igUrl) + '" target="_blank" rel="noopener" aria-label="' + esc(igName) + ' on Instagram (opens Instagram)">' + (m.photo ? '<img class="vp-ig-av" loading="lazy" src="' + esc(img(m.photo, 300)) + '" alt="">' : '')
         + '<span class="vp-ig-id"><strong>' + esc(igName) + '</strong><em>@' + esc(igHandle) + '</em></span>'
-        + '<span class="vp-ig-go"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>View on Instagram</span></span>'
-        + (igTiles.length ? '<span class="vp-ig-grid">' + igTiles.map(function (t) { return '<span><img loading="lazy" src="' + esc(t) + '" alt=""></span>'; }).join('') + '</span>' : '')
-        + '<span class="vp-ig-note">' + esc(ig.text || 'More clips, sessions and behind the scenes.') + '</span></a></section>';
+        + '<span class="vp-ig-go"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>View on Instagram</span></a>'
+        + (igList.length ? '<div class="vp-ig-grid">' + igList.map(function (t) { return t.v ? igVidTile(t.v) : igImgTile(t.i); }).join('') + '</div>' : '')
+        + '<a class="vp-ig-note" href="' + esc(igUrl) + '" target="_blank" rel="noopener">' + esc(ig.text || 'More clips, sessions and behind the scenes.') + '</a></div></section>';
     }
 
     if (m.gallery && m.gallery.length) h += '<section><h2>Gallery</h2>' + galleryTag(m.gallery, m.name) + '</section>';
@@ -838,13 +843,13 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     }
     if (m.instagram && !document.getElementById('vp-ig-css')) { var igCss = document.createElement('style'); igCss.id = 'vp-ig-css';
       igCss.textContent = '#musician-page .vp-ig-card{display:block;max-width:none;padding:16px;border-radius:var(--vp-radius);border:1px solid rgba(61,194,187,.4);background:rgba(61,194,187,.07);text-decoration:none!important;color:inherit;transition:border-color .2s,box-shadow .2s}'
-        + '#musician-page .vp-ig-card:hover{border-color:#3dc2bb;box-shadow:0 0 0 1px rgba(61,194,187,.5)}'
+        + '#musician-page .vp-ig-head{text-decoration:none!important;color:inherit}#musician-page .vp-ig-head:hover .vp-ig-go{background:#5ad0c9}'
         + '#musician-page .vp-ig-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}'
         + '#musician-page .vp-ig-av{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid #3dc2bb;flex:none}'
         + '#musician-page .vp-ig-id{min-width:0}#musician-page .vp-ig-id strong{display:block;font-size:17px;line-height:1.2;color:var(--vp-on-dark)}#musician-page .vp-ig-id em{font-style:normal;font-size:14px;color:var(--vp-muted)}'
         + '#musician-page .vp-ig-go{margin-left:auto;display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;background:#3dc2bb;color:#0e2628;font-size:14px;font-weight:600;white-space:nowrap}#musician-page .vp-ig-go svg{width:17px;height:17px}'
-        + '#musician-page .vp-ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px}#musician-page .vp-ig-grid span:nth-child(n+4){display:none}@media (min-width:1001px){#musician-page .vp-ig-grid{grid-template-columns:repeat(auto-fit,minmax(0,1fr));grid-auto-flow:column}#musician-page .vp-ig-grid span:nth-child(n+4){display:block}#musician-page .vp-ig-grid span{aspect-ratio:4/5}}#musician-page .vp-ig-grid span{display:block;aspect-ratio:3/2;overflow:hidden;border-radius:8px;background:#0e2628}#musician-page .vp-ig-grid img{width:100%;height:100%;object-fit:cover;display:block}'
-        + '#musician-page .vp-ig-note{display:block;margin-top:10px;font-size:14px;color:var(--vp-muted)}';
+        + '#musician-page .vp-ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px}#musician-page .vp-ig-grid>.vp-ig-t:nth-child(n+4){display:none}@media (min-width:1001px){#musician-page .vp-ig-grid{grid-template-columns:none;grid-auto-columns:minmax(0,1fr);grid-auto-flow:column}#musician-page .vp-ig-grid>.vp-ig-t:nth-child(n+4){display:block}#musician-page .vp-ig-t{aspect-ratio:4/5}}#musician-page .vp-ig-t{display:block;position:relative;aspect-ratio:3/2;overflow:hidden;border-radius:8px;background:#0e2628}#musician-page .vp-ig-t img,#musician-page .vp-ig-t video{width:100%!important;height:100%!important;max-height:none!important;object-fit:cover;display:block;border-radius:0!important}#musician-page .vp-ig-t .vp-vwrap{position:absolute;inset:0;display:block;border-radius:0}#musician-page .vp-ig-t .vp-play{width:48px;height:48px}#musician-page .vp-ig-t .vp-play svg{width:20px;height:20px}'
+        + '#musician-page .vp-ig-note{display:block;margin-top:10px;font-size:14px;color:var(--vp-muted);text-decoration:none!important}#musician-page .vp-ig-note:hover{color:var(--vp-on-dark)}';
       document.head.appendChild(igCss); }
     if (m.packages) (function () {
       var P = m.packages, euro = function (n) { return '€' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
