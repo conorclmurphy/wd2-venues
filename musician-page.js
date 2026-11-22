@@ -515,6 +515,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     if (m.packages) var tags = '<p class="vp-build-note vp-when-hint">' + esc(m.packages.whenHint || 'When do you need music? Tap all that apply.') + '</p><div class="vp-tags vp-when-tags">'
       + events.map(function (e) { return '<button type="button" class="vp-tag vp-pk-tag" data-when="' + esc(e) + '" aria-pressed="false">' + esc(L[e]) + '</button>'; }).join('')
       + '<button type="button" class="vp-tag vp-pk-tag" data-when="other" aria-pressed="false">Other</button></div>'
+      + '<button type="button" class="vp-pk-reset2" hidden>\u21ba Start again</button>'
       + '<div class="vp-pk-next vp-pk-next-when" data-next="pick" hidden><span class="vp-pk-next-t"></span><button type="button" class="vp-btn">Next: choose your music ↓</button></div>';
     else var tags = '<div class="vp-tags">' + events.map(function (e) { return '<span class="vp-tag">' + esc(L[e]) + '</span>'; }).join('')
       + extras.concat(m.tags || []).map(function (x) { return '<span class="vp-tag">' + esc(x) + '</span>'; }).join('') + '</div>';
@@ -602,7 +603,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         { id: 'dj', title: 'DJ', price: 'From ' + euro(P.djFrom), text: 'A DJ set with professional audio and lighting.', image: xImg('dj'),
           sub: '<h3 class="vp-pk-group">Add to the DJ</h3><div class="vp-pk-pills">' + pill('dx', '', 'DJ only', '') + P.djExtras.map(function (x) { return pill('dx', x.title, '+ ' + x.title, '+' + (x.priceFrom ? 'from ' : '') + euro(x.price)); }).join('') + '</div>' }
       ];
-      h += '<div class="vp-pk-wbar" aria-hidden="true"><button type="button" class="vp-pk-back" hidden>‹ Back</button><span class="vp-pk-dots"><i></i><i></i><i></i><i></i></span><span class="vp-pk-wlabel"></span></div>';
+      h += '<div class="vp-pk-wbar" aria-hidden="true"><button type="button" class="vp-pk-back" hidden>‹ Back</button><span class="vp-pk-dots"><i></i><i></i><i></i><i></i><i></i></span><span class="vp-pk-wlabel"></span></div>';
       h += '<section class="vp-build vp-pk-step" data-step="pick"><span class="vp-step">Step 1</span><div class="vp-pk-parts" hidden></div><h2>What would you like?</h2><p class="vp-build-note vp-pk-picknote">Choose your main act. You can add the others next.</p><div class="vp-pk-mains">';
       OPTS.forEach(function (o) {
         h += '<div class="vp-pk-opt" data-o="' + o.id + '"><button type="button" class="vp-lineup vp-has-img vp-pk-card" data-o="' + o.id + '">'
@@ -829,11 +830,13 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var main = '', adds = [], soloN = '1', line = 'Duo', dx = '', when = [], lastSnap = null, lastName = '', budget = 650, budgetOk = false;
       var partIdx = 0, saved = {};  // music for more than one part of the day: one package per part, built in order
       var has = function (id) { return main === id || adds.indexOf(id) !== -1; };
-      // Phones: one thing per screen (1 solo musician, 2 trad band, 3 DJ, 4 your package), with dots, Next, a back button and swipe.
-      // On each of the first three screens you add that act (or not), set its options, then tap Next and the next one slides in.
+      // Phones: one thing per screen, with dots, Next, a back button and swipe.
+      // 1 the three acts side by side - tap one to start; 2 that act's options; 3 and 4 the other two acts, one each (add or skip); 5 your package.
       var mq = window.matchMedia('(max-width:760px)'), ws = 1, wsPart = -1, wbar = $('.vp-pk-wbar');
       var wiz = function () { return mq.matches; };
-      var WL = ['', 'Solo musician', 'Trad band', 'DJ', 'Your package'], WID = ['', 'solo', 'trad', 'dj'];
+      var WN = { solo: 'Solo musician', trad: 'Trad band', dj: 'DJ' }, wzFirst = '';
+      var wzSeq = function () { var f = wzFirst || main || 'solo'; return [f].concat(['solo', 'trad', 'dj'].filter(function (x) { return x !== f; })); };
+      var wzAct = function () { return ws >= 2 && ws <= 4 ? wzSeq()[ws - 2] : ''; };
       var wzCss = document.createElement('style'); wzCss.id = 'vp-pk-wz2-css';
       wzCss.textContent = '#musician-page .vp-pk-wnav{display:none}'
         // the Add button on each card (bigger screens; phones have their own)
@@ -849,11 +852,22 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         + '#musician-page.vp-pk-wz .vp-when-tags{gap:6px!important;margin-top:0!important}'
         + '#musician-page.vp-pk-wz .vp-pk-tag{font-size:13px!important;padding:7px 12px!important;border-width:1.5px!important}'
         + '#musician-page.vp-pk-wz .vp-pk-next-when{margin-top:10px!important;padding:8px 8px 8px 14px!important}#musician-page.vp-pk-wz .vp-pk-next-when .vp-btn{padding:8px 14px!important;font-size:13.5px!important}'
-        + '#musician-page.vp-pk-wz[data-wz="1"] .vp-pk-opt:not([data-o="solo"]),#musician-page.vp-pk-wz[data-wz="2"] .vp-pk-opt:not([data-o="trad"]),#musician-page.vp-pk-wz[data-wz="3"] .vp-pk-opt:not([data-o="dj"]){display:none!important}'
+        + '#musician-page.vp-pk-wz[data-wzact="solo"] .vp-pk-opt:not([data-o="solo"]),#musician-page.vp-pk-wz[data-wzact="trad"] .vp-pk-opt:not([data-o="trad"]),#musician-page.vp-pk-wz[data-wzact="dj"] .vp-pk-opt:not([data-o="dj"]){display:none!important}'
+        // first screen: the three acts side by side, picture on top
+        + '#musician-page.vp-pk-wz[data-wz="1"] .vp-pk-mains,#musician-page.vp-pk-wz[data-wz="1"] .vp-pk-mains.vp-pk-started{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}'
+        + '#musician-page.vp-pk-wz[data-wz="1"] .vp-pk-card.vp-lineup.vp-has-img{display:flex!important;flex-direction:column;align-items:stretch;gap:1px;padding:0 0 9px!important;min-height:0;height:100%!important}'
+        + '#musician-page.vp-pk-wz[data-wz="1"] .vp-pk-card .vp-x-img{width:100%;height:auto;aspect-ratio:1/1!important;border-radius:0;margin:0 0 6px}'
+        + '#musician-page.vp-pk-wz[data-wz="1"] .vp-pk-card>strong{padding:0 8px!important;font-size:14px;line-height:1.2}#musician-page.vp-pk-wz[data-wz="1"] .vp-pk-card>strong small{font-size:11.5px}'
+        + '#musician-page.vp-pk-wz[data-wz="1"] .vp-pk-card>span:not(.vp-x-img):not(.vp-tick){display:none!important}'
+        + '#musician-page.vp-pk-wz[data-wz="1"] .vp-pk-card::after{display:none!important}#musician-page.vp-pk-wz[data-wz="1"] .vp-pk-card.vp-lineup.vp-has-img:not(.vp-picked){padding-right:0!important}'
+        + '#musician-page.vp-pk-wz[data-wz="1"] .vp-pk-card .vp-tick{top:6px!important;right:6px!important;transform:none!important}'
+        + '#musician-page .vp-pk-wnav[hidden]{display:none!important}'
+        // "Start again" beside the when buttons
+        + '#musician-page .vp-pk-reset2{font:inherit;font-size:13.5px;margin:10px 0 0;padding:6px 12px;border-radius:999px;border:1.5px solid rgba(234,230,221,.3);background:none;color:var(--vp-muted);cursor:pointer}#musician-page .vp-pk-reset2:hover{color:var(--vp-on-dark);border-color:rgba(234,230,221,.6)}#musician-page .vp-pk-reset2[hidden]{display:none}'
         + '#musician-page.vp-pk-wz .vp-pk-addhead,#musician-page.vp-pk-wz .vp-pk-addtag,#musician-page.vp-pk-wz .vp-pk-next[data-next=result]{display:none!important}'
         + '#musician-page.vp-pk-wz .vp-pk-dots i{width:8px!important;border-radius:50%!important}#musician-page.vp-pk-wz .vp-pk-dots i.vp-cur{width:22px!important;border-radius:4px!important}'
         + '#musician-page.vp-pk-wz .vp-pk-step[data-step=pick] h2{margin-bottom:2px!important}#musician-page.vp-pk-wz .vp-pk-picknote{margin:0 0 10px!important;font-size:14px}'
-        + '#musician-page.vp-pk-wz .vp-pk-card.vp-lineup.vp-has-img:not(.vp-picked){padding-right:92px}'
+        + '#musician-page.vp-pk-wz:not([data-wz="1"]) .vp-pk-card.vp-lineup.vp-has-img:not(.vp-picked){padding-right:92px}'
         + '#musician-page.vp-pk-wz .vp-pk-card:not(.vp-picked)::after{content:"+ Add";position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:13.5px;font-weight:600;line-height:1;color:#0e2628;background:var(--vp-brass);border-radius:999px;padding:8px 13px}'
         + '#musician-page.vp-pk-wz .vp-pk-wnav{display:flex;align-items:center;justify-content:space-between;gap:10px 14px;flex-wrap:wrap;margin-top:14px;padding:10px 10px 10px 16px;border-radius:18px;background:#171d1d;border:1px solid var(--vp-brass)}'
         + '#musician-page.vp-pk-wz .vp-pk-wnav-t{font-size:13.5px;color:var(--vp-on-dark);min-width:0}#musician-page.vp-pk-wz .vp-pk-wnav .vp-btn{margin:0 0 0 auto;padding:10px 18px;font-size:14.5px;white-space:nowrap}'
@@ -862,9 +876,9 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       function setWs(n, back) {
         if (n === ws) return;
         ws = n; render();
-        var vis = step(n === 4 ? 'result' : 'pick');
+        var vis = step(n === 5 ? 'result' : 'pick');
         if (vis) { vis.classList.remove('vp-pk-in-r', 'vp-pk-in-l'); void vis.offsetWidth; vis.classList.add(back ? 'vp-pk-in-l' : 'vp-pk-in-r'); }
-        if (n === 4) { var pk = $('.vp-pk.vp-picked'); if (pk) setTimeout(function () { var row = $('.vp-pk-row'); row.scrollTo({ left: pk.offsetLeft - row.offsetLeft, behavior: 'smooth' }); }, 250); }
+        if (n === 5) { var pk = $('.vp-pk.vp-picked'); if (pk) setTimeout(function () { var row = $('.vp-pk-row'); row.scrollTo({ left: pk.offsetLeft - row.offsetLeft, behavior: 'smooth' }); }, 250); }
         go(wbar);
       }
       // Solo price depends on the part of the day: ceremony & drinks reception from €650, after dinner and Day 2 from €750
@@ -918,15 +932,17 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         var multi = PP.length > 1, curPart = multi ? PP[partIdx] : '';
         var nextPart = multi ? PP.filter(function (e, i) { return i !== partIdx && !(saved[e] && saved[e].main); })[0] || '' : '';
         if (!dj) dx = '';
-        if (partIdx !== wsPart) { if (wsPart !== -1) ws = 1; wsPart = partIdx; }  // a new part of the day starts at its first screen
-        if (ws < 1 || ws > 4 || (ws === 4 && !started)) ws = 1;
+        if (partIdx !== wsPart) { if (wsPart !== -1) { ws = 1; wzFirst = main || ''; } wsPart = partIdx; }  // a new part of the day starts at its first screen
+        if (ws < 1 || ws > 5 || (ws === 5 && !started)) ws = 1;
         root.classList.toggle('vp-pk-wz', wiz());
-        root.setAttribute('data-ws', ws === 4 ? '3' : '2');  // what the older phone styles go by: 2 = choosing, 3 = your package
+        root.setAttribute('data-ws', ws === 5 ? '3' : ws === 1 ? '1' : '2');  // what the older phone styles go by: 1 = pick, 2 = options, 3 = your package
         root.setAttribute('data-wz', String(ws));
+        root.setAttribute('data-wzact', wzAct());
+        var rs2 = $('.vp-pk-reset2'); if (rs2) rs2.hidden = !(main || when.length);
         if (wbar) {
           wbar.querySelector('.vp-pk-back').hidden = ws === 1;
           Array.prototype.forEach.call(wbar.querySelectorAll('.vp-pk-dots i'), function (d, k) { d.classList.toggle('vp-on', k < ws); d.classList.toggle('vp-cur', k === ws - 1); });
-          wbar.querySelector('.vp-pk-wlabel').textContent = 'Step ' + ws + ' of 4 · ' + WL[ws];
+          wbar.querySelector('.vp-pk-wlabel').textContent = 'Step ' + ws + ' of 5 · ' + (ws === 1 ? 'Choose' : ws === 5 ? 'Your package' : WN[wzAct()]);
         }
         // one grid: the main act first, then the other two as add-ons (the last one spans the full width on desktop)
         var mains = $('.vp-pk-mains'), others = ['solo', 'trad', 'dj'].filter(function (x) { return x !== main; });
@@ -961,10 +977,11 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         }
         $('.vp-pk-step[data-step="pick"] h2').textContent = multi ? 'What would you like for ' + partName(curPart) + '?' : 'What would you like?';
         $('.vp-pk-step[data-step="result"] h2').textContent = multi ? 'Your ' + partName(curPart) + ' music' : 'Here\'s what you\'ve built';
-        if (wiz() && ws < 4) {
-          var curOn = has(WID[ws]);
-          $('.vp-pk-step[data-step="pick"] h2').textContent = ['', 'Add a solo musician?', 'Add the trad band?', 'Add a DJ?'][ws];
-          $('.vp-pk-picknote').textContent = curOn ? 'Added. Pick an option below, then tap Next.' : 'Tap to add it, or skip to the next one.';
+        if (wiz() && ws === 1) $('.vp-pk-picknote').textContent = main ? 'Tap one to set it up, or tap Next.' : 'Tap one to start. You can add the others after.';
+        if (wiz() && ws > 1 && ws < 5) {
+          var curId = wzAct(), curOn = has(curId);
+          $('.vp-pk-step[data-step="pick"] h2').textContent = curOn ? { solo: 'Your solo musician', trad: 'Your trad band', dj: 'Your DJ' }[curId] : { solo: 'Add a solo musician?', trad: 'Add the trad band?', dj: 'Add a DJ?' }[curId];
+          $('.vp-pk-picknote').textContent = curOn ? 'Pick an option below, then tap Next.' : 'Tap to add it, or skip to the next one.';
         }
         var npb = $('.vp-pk-nextpart');
         npb.hidden = !(started && nextPart);
@@ -1004,10 +1021,12 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         $('.vp-pk-total strong').textContent = started ? 'From ' + euro(r.price) : '';
         var nbtn = $('.vp-pk-next[data-next="result"] button'); if (nbtn) nbtn.textContent = wiz() ? 'See your package →' : 'Next: see your package ↓';
         var wnt = $('.vp-pk-wnav-t'), wnb = $('.vp-pk-wnext');
-        if (wnt && wnb && ws < 4) {
-          wnt.innerHTML = started ? '<b>' + r.hours + ' hours of music</b> · From ' + euro(r.price) : (ws === 3 ? 'Add at least one to continue' : 'Nothing added yet');
-          wnb.textContent = ws === 3 ? 'See your package →' : (has(WID[ws]) ? 'Next: ' : 'Skip to ') + WL[ws + 1].toLowerCase().replace('dj', 'DJ') + ' →';
-          wnb.disabled = ws === 3 && !started;
+        if (wnt && wnb && ws < 5) {
+          $('.vp-pk-wnav').hidden = ws === 1 && !started;   // first screen: nothing to go on to until one is picked
+          wnt.innerHTML = started ? '<b>' + r.hours + ' hours of music</b> · From ' + euro(r.price) : (ws === 4 ? 'Add at least one to continue' : 'Nothing added yet');
+          var nxId = ws === 1 ? '' : wzSeq()[ws - 1], nxName = nxId ? WN[nxId].toLowerCase().replace('dj', 'DJ') : '';
+          wnb.textContent = ws === 1 ? 'Next →' : ws === 4 ? 'See your package →' : (has(wzAct()) ? 'Next: ' : 'Skip to ') + nxName + ' →';
+          wnb.disabled = ws === 4 && !started;
         }
         var nb = $('.vp-pk-next[data-next="result"] .vp-pk-next-t'); if (nb) nb.innerHTML = started ? '<b>' + r.hours + ' hours of music</b> · From ' + euro(r.price) : 'Happy with your add-ons?';
         var dNow = describe(), items = dNow.items.filter(function (t) { return t.indexOf('Maximum budget') !== 0; });
@@ -1092,6 +1111,10 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       // main act / add-on cards
       $$('.vp-pk-card').forEach(function (b) { b.addEventListener('click', function () {
         var id = b.getAttribute('data-o');
+        if (wiz() && ws === 1) {   // phones, first screen: tapping one adds it (if it isn't in yet) and opens its options
+          if (!has(id)) { if (!main) main = id; else adds.push(id); }
+          wzFirst = id; setWs(2); return;
+        }
         if (!main) { main = id; render(); if (!wiz()) go(b.parentNode); return; }
         if (id === main) { main = adds.shift() || ''; render(); return; }  // tap the main act again to remove it; the first add-on (if any) becomes the main act
         var i = adds.indexOf(id); if (i === -1) adds.push(id); else adds.splice(i, 1);
@@ -1120,11 +1143,12 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         saved[PP[partIdx]] = snapPart(); partIdx = PP.indexOf(nx); loadPart(saved[nx]); render(); go(step('pick'));
       });
       $$('.vp-pk-next').forEach(function (n) { var b = n.querySelector('button'); if (b) b.addEventListener('click', function () {
-        if (wiz() && n.getAttribute('data-next') === 'result') { if (main) setWs(4); return; }
+        if (wiz() && n.getAttribute('data-next') === 'result') { if (main) setWs(5); return; }
         go(step(n.getAttribute('data-next')));
       }); });
       wbar.querySelector('.vp-pk-back').addEventListener('click', function () { if (ws > 1) setWs(ws - 1, true); });
-      var wzNext = function () { if (ws < 3) setWs(ws + 1); else if (ws === 3 && main) setWs(4); };
+      var wzNext = function () { if (ws === 1) { if (main) { if (!wzFirst) wzFirst = main; setWs(2); } } else if (ws < 4) setWs(ws + 1); else if (ws === 4 && main) setWs(5); };
+      var rs2b = $('.vp-pk-reset2'); if (rs2b) rs2b.addEventListener('click', function () { $('.vp-pk-reset').click(); });
       $('.vp-pk-wnext').addEventListener('click', wzNext);
       // swipe left / right between steps on phones
       var sx = 0, sy = 0, sOk = false;
@@ -1134,7 +1158,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           if (!sOk) return; sOk = false;
           var t = e.changedTouches[0], dx2 = t.clientX - sx, dy = t.clientY - sy;
           if (Math.abs(dx2) < 70 || Math.abs(dx2) < Math.abs(dy) * 1.5) return;
-          if (dx2 < 0 && ws < 4) wzNext();
+          if (dx2 < 0 && ws < 5) wzNext();
           else if (dx2 > 0 && ws > 1) setWs(ws - 1, true);
         }, { passive: true });
       });
@@ -1160,10 +1184,10 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         if (bx) { bx.scrollIntoView({ behavior: 'smooth', block: 'center' }); bx.classList.remove('vp-flashfield'); void bx.offsetWidth; bx.classList.add('vp-flashfield'); }
         return false;
       };
-      $('.vp-pk-reset').addEventListener('click', function () { main = ''; adds = []; soloN = '1'; line = 'Duo'; dx = ''; when = []; budget = 650; budgetOk = false; partIdx = 0; saved = {}; ws = 1; render(); go(wiz() ? wbar : step('pick')); });
+      $('.vp-pk-reset').addEventListener('click', function () { main = ''; adds = []; soloN = '1'; line = 'Duo'; dx = ''; when = []; budget = 650; budgetOk = false; partIdx = 0; saved = {}; ws = 1; wzFirst = ''; render(); go(wiz() ? wbar : step('pick')); });
       $('.vp-pk-go').addEventListener('click', function (e) { e.preventDefault(); if (!window.wd2PkCheck()) return; window.wd2OpenForm && window.wd2OpenForm(); });
       var want = (location.search.match(/[?&]package=([^&]+)/) || [])[1], wc = want && PK[decodeURIComponent(want)];
-      if (wc) { main = wc[0]; adds = wc[1].slice(); soloN = wc[2]; ws = 4; }
+      if (wc) { main = wc[0]; adds = wc[1].slice(); soloN = wc[2]; ws = 5; }
       var djSlug = decodeURIComponent((location.search.match(/[?&]dj=([^&]+)/) || [])[1] || '');
       if (djSlug && /^(djs|saxdj|karaoke)$/.test(djSlug)) {
         if (!main) main = 'dj'; else if (adds.indexOf('dj') === -1 && main !== 'dj') adds.push('dj');
