@@ -598,7 +598,10 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       });
       h += '</div>';
       // House of Trad: once a line-up is picked, a small add-on pops up underneath (the céilí package). Ticking it changes the form's line-up to e.g. "Duo + Céilí package"
-      if (m.addon) h += '<div class="vp-lu-addon" hidden><div class="vp-lu-addon-t"><strong>' + esc(m.addon.title) + '?</strong><span>' + esc(m.addon.short || m.addon.text) + '</span></div>'
+      var luV = m.addon && m.addon.video;
+      if (m.addon) h += '<div class="vp-lu-addon" hidden>'
+        + (luV ? '<button type="button" class="vp-lu-vid" aria-label="Play a clip of the céilí"><video src="' + esc(luV.mp4) + '" poster="' + esc(luV.poster || '') + '" preload="none" playsinline loop></video><span class="vp-lu-vp" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5l13 7.5-13 7.5z"/></svg></span></button>' : '')
+        + '<div class="vp-lu-addon-t"><strong>' + esc(m.addon.title) + '?</strong><span>' + esc(m.addon.short || m.addon.text) + '</span></div>'
         + '<button type="button" class="vp-addon-opt vp-lu-ceili" aria-pressed="false" data-addon="' + esc((m.addon.options || ['Add-on'])[0]) + '">' + esc((m.addon.options || ['Add-on'])[0]) + '</button></div>';
       h += '</section>';
       var pool = [];
@@ -849,9 +852,13 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           + '#musician-page .vp-addon-opts{display:flex;flex-wrap:wrap;gap:8px}'
           + '#musician-page .vp-lu-addon{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;padding:10px 12px 10px 14px;border-radius:12px;border:1px dashed rgba(61,194,187,.5);background:rgba(61,194,187,.06);animation:vpLuPop .28s ease both}'
           + '#musician-page .vp-lu-addon[hidden]{display:none!important}#musician-page .vp-lu-addon-t{display:flex;flex-direction:column;gap:1px;min-width:0}#musician-page .vp-lu-addon-t strong{font-size:15px;line-height:1.25}#musician-page .vp-lu-addon-t span{font-size:13px;line-height:1.35;color:var(--vp-muted)}'
-          + '#musician-page .vp-lu-addon .vp-addon-opt{flex:none;font-size:13.5px;padding:7px 13px;white-space:nowrap}'
+          + '#musician-page .vp-lu-addon .vp-addon-opt{flex:none;font-size:13.5px;padding:7px 13px;white-space:nowrap}#musician-page .vp-lu-addon-t{flex:1}'
+          + '#musician-page .vp-lu-vid{position:relative;flex:none;width:58px;aspect-ratio:9/16;padding:0;border:0;border-radius:8px;overflow:hidden;background:#0e2628;cursor:pointer;transition:width .3s ease}'
+          + '#musician-page .vp-lu-vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}'
+          + '#musician-page .vp-lu-vp{position:absolute;left:50%;top:50%;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:rgba(14,38,40,.65);border:1px solid rgba(234,230,221,.7);color:#eae6dd;display:grid;place-items:center;transition:opacity .2s}#musician-page .vp-lu-vp svg{width:11px;height:11px;margin-left:2px}'
+          + '#musician-page .vp-lu-vid.vp-on{width:180px}#musician-page .vp-lu-vid.vp-on .vp-lu-vp{opacity:0}#musician-page .vp-lu-vid:hover .vp-lu-vp{background:#3dc2bb;color:#0e2628}'
           + '@keyframes vpLuPop{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:none}}'
-          + '@media (max-width:520px){#musician-page .vp-lu-addon{flex-wrap:wrap}#musician-page .vp-lu-addon .vp-addon-opt{width:100%}}'
+          + '@media (max-width:520px){#musician-page .vp-lu-addon{flex-wrap:wrap}#musician-page .vp-lu-addon .vp-addon-opt{width:100%}#musician-page .vp-lu-vid.vp-on{width:150px}}'
           + '#musician-page .vp-addon-opt{font:inherit;font-size:14px;font-weight:600;padding:8px 14px;border-radius:999px;border:1.5px solid #3dc2bb;background:none;color:#8fe6e0;cursor:pointer;transition:background .2s,color .2s}'
           + '#musician-page .vp-addon-opt:before{content:"+ "}#musician-page .vp-addon-opt[aria-pressed=true]{background:#3dc2bb;color:#0e2628}#musician-page .vp-addon-opt[aria-pressed=true]:before{content:"\\2713  "}';
         document.head.appendChild(aoCss); }
@@ -1339,6 +1346,13 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           lineSel.classList.remove('vp-flashfield'); void lineSel.offsetWidth; lineSel.classList.add('vp-flashfield');
           pulseForm(on ? 'Added to your form: ' + lineSel.value : 'Removed: ' + luName);
           if (window.wd2RenderList) setTimeout(window.wd2RenderList, 0);
+        });
+        // the little céilí clip beside the add-on: tap to grow it and play with sound, tap again to pause and shrink
+        var luVid = luAdd.querySelector('.vp-lu-vid');
+        if (luVid) luVid.addEventListener('click', function () {
+          var ve = luVid.querySelector('video'), on = !luVid.classList.contains('vp-on');
+          luVid.classList.toggle('vp-on', on);
+          if (on) { ve.muted = false; var pr = ve.play(); if (pr && pr.catch) pr.catch(function () {}); } else ve.pause();
         });
         lineSel.addEventListener('change', function () { luBtn.setAttribute('aria-pressed', lineSel.value.indexOf(luSuffix) !== -1 ? 'true' : 'false'); luSync(); });
       }

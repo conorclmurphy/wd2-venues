@@ -1319,7 +1319,11 @@
         "options": [
           "Céilí package"
         ],
-        "short": "Before the band's set, with an Irish dancer. After dinner or Day 2."
+        "short": "Before the band's set, with an Irish dancer. After dinner or Day 2.",
+        "video": {
+          "mp4": "https://cdn.jsdelivr.net/gh/conorclmurphy/wd2-venues@main/video/house-of-trad-DgAfCm4oCMW.mp4",
+          "poster": "https://cdn.jsdelivr.net/gh/conorclmurphy/wd2-venues@main/img/house-of-trad/DgAfCm4oCMW-poster.jpg"
+        }
       },
       "builder": {
         "step1": "Choose your line-up",
