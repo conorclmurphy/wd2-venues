@@ -576,7 +576,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var OPTS = [
         { id: 'solo', title: 'Solo musician', price: 'From ' + euro(P.soloFrom), text: 'One of our hand-picked singer-guitarists.', image: xImg('second'),
           sub: '<h3 class="vp-pk-group">How many musicians?</h3><div class="vp-pk-pills">' + pill('solo', '1', 'One musician', '2 hours') + pill('solo', '2', 'Two, back to back', '4 hours') + '</div>'
-            + '<div class="vp-pk-budget"><h3 class="vp-pk-group">Maximum budget for your solo musician</h3>'
+            + '<div class="vp-pk-budget" hidden style="display:none!important"><h3 class="vp-pk-group">Maximum budget for your solo musician</h3>'
             + '<p class="vp-pk-bud-note">This will allow us to give you all the options within this budget.</p>'
             + '<output class="vp-pk-bud-val" for="vp-pk-range">€650</output>'
             + '<input type="range" id="vp-pk-range" class="vp-pk-range" min="650" max="1500" step="50" value="650" aria-label="Maximum budget for your solo musician">'
@@ -1081,7 +1081,11 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       $('#vp-pk-range').addEventListener('input', function () { budget = +this.value || 650; budgetOk = false; render(); });
       $('.vp-pk-bud-btn').addEventListener('click', function () { budgetOk = true; render(); });
       // Before sending: every part with a solo musician needs a confirmed budget
+      // 22 Nov 2026: the budget slider is switched off (the solo card just says "From EUR 750" / "From EUR 650"), so nothing has to be confirmed.
+      // To bring it back: set BUDGET_ON to true and take the hidden + style off the vp-pk-budget box above.
+      var BUDGET_ON = false;
       window.wd2PkCheck = function () {
+        if (!BUDGET_ON) return true;
         var PP = parts(), cur = PP[partIdx] || '', bad = '';
         if (has('solo') && !budgetOk) bad = cur || 'here';
         else PP.forEach(function (e) { var st = saved[e]; if (!bad && e !== cur && st && st.main && (st.main === 'solo' || (st.adds || []).indexOf('solo') !== -1) && !st.budgetOk) bad = e; });
