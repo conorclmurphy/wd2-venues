@@ -555,7 +555,9 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     var ig = m.instagram, igHandle = ig && String(ig.handle || '').replace(/^@/, '');
     if (ig && igHandle && /^[A-Za-z0-9._]{2,30}$/.test(igHandle)) {
       var igUrl = /^https:\/\/(www\.)?instagram\.com\//.test(ig.url || '') ? ig.url : 'https://www.instagram.com/' + igHandle + '/', igName = ig.name || m.name;
-      var igTiles = (m.videos || []).slice(0, 3).map(function (x) { return x.poster ? img(x.poster, 500) : (x.base || DATA.videoBase) + x.id + '/thumbnail'; });
+      // tiles: the page's video stills, then the band photo, then any extra images listed in musicians.json as instagram.tiles. Phones show 3, desktop up to 5.
+      var igTiles = (m.videos || []).map(function (x) { return x.poster ? img(x.poster, 500) : (x.base || DATA.videoBase) + x.id + '/thumbnail'; })
+        .concat(m.photo ? [img(m.photo, 750)] : []).concat((ig.tiles || []).map(function (t) { return img(t, 500); })).slice(0, 5);
       h += '<section class="vp-ig">' + (ig.title ? '<h2>' + esc(ig.title) + '</h2>' : '')  // no heading unless "title" is set in musicians.json
         + '<a class="vp-ig-card" href="' + esc(igUrl) + '" target="_blank" rel="noopener" aria-label="' + esc(igName) + ' on Instagram (opens Instagram)">'
         + '<span class="vp-ig-head">' + (m.photo ? '<img class="vp-ig-av" loading="lazy" src="' + esc(img(m.photo, 300)) + '" alt="">' : '')
@@ -841,7 +843,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         + '#musician-page .vp-ig-av{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid #3dc2bb;flex:none}'
         + '#musician-page .vp-ig-id{min-width:0}#musician-page .vp-ig-id strong{display:block;font-size:17px;line-height:1.2;color:var(--vp-on-dark)}#musician-page .vp-ig-id em{font-style:normal;font-size:14px;color:var(--vp-muted)}'
         + '#musician-page .vp-ig-go{margin-left:auto;display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;background:#3dc2bb;color:#0e2628;font-size:14px;font-weight:600;white-space:nowrap}#musician-page .vp-ig-go svg{width:17px;height:17px}'
-        + '#musician-page .vp-ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px}#musician-page .vp-ig-grid span{display:block;aspect-ratio:3/2;overflow:hidden;border-radius:8px;background:#0e2628}#musician-page .vp-ig-grid img{width:100%;height:100%;object-fit:cover;display:block}'
+        + '#musician-page .vp-ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px}#musician-page .vp-ig-grid span:nth-child(n+4){display:none}@media (min-width:1001px){#musician-page .vp-ig-grid{grid-template-columns:repeat(auto-fit,minmax(0,1fr));grid-auto-flow:column}#musician-page .vp-ig-grid span:nth-child(n+4){display:block}#musician-page .vp-ig-grid span{aspect-ratio:4/5}}#musician-page .vp-ig-grid span{display:block;aspect-ratio:3/2;overflow:hidden;border-radius:8px;background:#0e2628}#musician-page .vp-ig-grid img{width:100%;height:100%;object-fit:cover;display:block}'
         + '#musician-page .vp-ig-note{display:block;margin-top:10px;font-size:14px;color:var(--vp-muted)}';
       document.head.appendChild(igCss); }
     if (m.packages) (function () {
