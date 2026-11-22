@@ -636,7 +636,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       + '<a class="vp-btn vp-addpk-btn" href="' + esc(apk.href) + '">Add to a package →</a></section>';
     // DJ pages: show the other DJ options as cards (DJ / DJ & Sax / Karaoke), with this one marked
     if (m.related) {
-      h += '<section><div class="vp-h2row"><h2>' + esc(m.relatedTitle || 'More options') + '</h2></div><div class="vp-similar vp-three vp-rel">';
+      h += '<section><div class="vp-h2row"><h2>' + esc(m.relatedTitle || 'More options') + '</h2></div><div class="vp-similar ' + (m.related.length === 2 ? 'vp-two' : 'vp-three') + ' vp-rel">';
       m.related.forEach(function (sl) {
         var o = DATA.musicians.filter(function (x) { return x.slug === sl; })[0]; if (!o) return;
         var here = o.slug === m.slug;

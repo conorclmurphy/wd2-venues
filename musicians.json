@@ -716,8 +716,7 @@
         "duo": false,
         "related": [
           "trad-duo",
-          "trad-trio",
-          "trad-ceili"
+          "trad-trio"
         ],
         "relatedTitle": "House of Trad options",
         "fieldLabel": "Booking",
@@ -786,8 +785,7 @@
         "duo": false,
         "related": [
           "trad-duo",
-          "trad-trio",
-          "trad-ceili"
+          "trad-trio"
         ],
         "relatedTitle": "House of Trad options",
         "fieldLabel": "Booking",
@@ -857,8 +855,7 @@
         "duo": false,
         "related": [
           "trad-duo",
-          "trad-trio",
-          "trad-ceili"
+          "trad-trio"
         ],
         "relatedTitle": "House of Trad options",
         "fieldLabel": "Booking",
