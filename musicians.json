@@ -706,7 +706,8 @@
         }
       ],
       "gallery": [],
-      "aboutTitle": "About our Modern Trad Band"
+      "aboutTitle": "About our Modern Trad Band",
+      "instagram": { "handle": "", "name": "House of Trad" }
     },
     {
       "slug": "packages",

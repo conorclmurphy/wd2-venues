@@ -549,6 +549,21 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       h += '</div><button type="button" class="vp-os-a vp-os-r" aria-label="Scroll clips right">›</button></div></section>';
     }
 
+    // Instagram box that links straight to an account we own (the trad band's House of Trad page). Set in musicians.json as
+    // "instagram": { "handle": "...", "name": "House of Trad" }. Solo musicians don't get one: their profiles stay anonymous.
+    var ig = m.instagram, igHandle = ig && String(ig.handle || (location.search.match(/[?&]ig=([A-Za-z0-9._]{2,30})\b/) || [])[1] || '').replace(/^@/, '');
+    if (ig && igHandle && /^[A-Za-z0-9._]{2,30}$/.test(igHandle)) {
+      var igUrl = 'https://www.instagram.com/' + igHandle + '/', igName = ig.name || m.name;
+      var igTiles = (m.videos || []).slice(0, 3).map(function (x) { return x.poster ? img(x.poster, 500) : (x.base || DATA.videoBase) + x.id + '/thumbnail'; });
+      h += '<section class="vp-ig"><h2>' + esc(ig.title || 'Follow the band on Instagram') + '</h2>'
+        + '<a class="vp-ig-card" href="' + esc(igUrl) + '" target="_blank" rel="noopener" aria-label="' + esc(igName) + ' on Instagram (opens Instagram)">'
+        + '<span class="vp-ig-head">' + (m.photo ? '<img class="vp-ig-av" loading="lazy" src="' + esc(img(m.photo, 300)) + '" alt="">' : '')
+        + '<span class="vp-ig-id"><strong>' + esc(igName) + '</strong><em>@' + esc(igHandle) + '</em></span>'
+        + '<span class="vp-ig-go"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>View on Instagram</span></span>'
+        + (igTiles.length ? '<span class="vp-ig-grid">' + igTiles.map(function (t) { return '<span><img loading="lazy" src="' + esc(t) + '" alt=""></span>'; }).join('') + '</span>' : '')
+        + '<span class="vp-ig-note">' + esc(ig.text || 'More clips, sessions and behind the scenes.') + '</span></a></section>';
+    }
+
     if (m.gallery && m.gallery.length) h += '<section><h2>Gallery</h2>' + galleryTag(m.gallery, m.name) + '</section>';
 
     // Solo musician profiles: offer to add this musician to a package
@@ -794,6 +809,16 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
     })();
 
     // Packages page behaviour
+    if (m.instagram && !document.getElementById('vp-ig-css')) { var igCss = document.createElement('style'); igCss.id = 'vp-ig-css';
+      igCss.textContent = '#musician-page .vp-ig-card{display:block;max-width:560px;padding:16px;border-radius:var(--vp-radius);border:1px solid rgba(61,194,187,.4);background:rgba(61,194,187,.07);text-decoration:none!important;color:inherit;transition:border-color .2s,box-shadow .2s}'
+        + '#musician-page .vp-ig-card:hover{border-color:#3dc2bb;box-shadow:0 0 0 1px rgba(61,194,187,.5)}'
+        + '#musician-page .vp-ig-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}'
+        + '#musician-page .vp-ig-av{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid #3dc2bb;flex:none}'
+        + '#musician-page .vp-ig-id{min-width:0}#musician-page .vp-ig-id strong{display:block;font-size:17px;line-height:1.2;color:var(--vp-on-dark)}#musician-page .vp-ig-id em{font-style:normal;font-size:14px;color:var(--vp-muted)}'
+        + '#musician-page .vp-ig-go{margin-left:auto;display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;background:#3dc2bb;color:#0e2628;font-size:14px;font-weight:600;white-space:nowrap}#musician-page .vp-ig-go svg{width:17px;height:17px}'
+        + '#musician-page .vp-ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px}#musician-page .vp-ig-grid span{display:block;aspect-ratio:1/1;overflow:hidden;border-radius:8px;background:#0e2628}#musician-page .vp-ig-grid img{width:100%;height:100%;object-fit:cover;display:block}'
+        + '#musician-page .vp-ig-note{display:block;margin-top:10px;font-size:14px;color:var(--vp-muted)}';
+      document.head.appendChild(igCss); }
     if (m.packages) (function () {
       var P = m.packages, euro = function (n) { return '€' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
       var $ = function (q) { return root.querySelector(q); }, $$ = function (q) { return Array.prototype.slice.call(root.querySelectorAll(q)); };
