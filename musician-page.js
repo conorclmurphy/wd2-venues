@@ -607,7 +607,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       OPTS.forEach(function (o) {
         h += '<div class="vp-pk-opt" data-o="' + o.id + '"><button type="button" class="vp-lineup vp-has-img vp-pk-card" data-o="' + o.id + '">'
           + (o.image ? '<span class="vp-x-img"><img loading="lazy" src="' + img(o.image, 600) + '" alt="' + esc(o.title) + ' for weddings in Ireland"></span>' : '')
-          + '<em class="vp-pk-addtag">Add-on</em><strong>' + esc(o.title) + ' <small class="vp-pk-cprice">' + esc(o.price) + '</small></strong><span>' + esc(o.text) + '</span><span class="vp-tick" aria-hidden="true">✓</span></button>'
+          + '<em class="vp-pk-addtag">Add-on</em><strong>' + esc(o.title) + ' <small class="vp-pk-cprice">' + esc(o.price) + '</small></strong><span>' + esc(o.text) + '</span><b class="vp-pk-cta">+ Add to package</b><span class="vp-tick" aria-hidden="true">✓</span></button>'
           + '<div class="vp-pk-sub" hidden>' + o.sub + '</div></div>';
       });
       h += '<div class="vp-pk-addhead" hidden><strong>Add-ons</strong> <span>Optional. Add one or both.</span></div></div>'
@@ -834,6 +834,11 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
       var WL = ['', 'Solo musician', 'Trad band', 'DJ', 'Your package'], WID = ['', 'solo', 'trad', 'dj'];
       var wzCss = document.createElement('style'); wzCss.id = 'vp-pk-wz2-css';
       wzCss.textContent = '#musician-page .vp-pk-wnav{display:none}'
+        // the Add button on each card (bigger screens; phones have their own)
+        + '#musician-page .vp-pk-cta{justify-self:start;margin:10px 20px 0;padding:9px 16px;border-radius:999px;border:1.5px solid #3dc2bb;background:#3dc2bb;color:#0e2628;font-size:14.5px;font-weight:600;line-height:1.2;transition:background .2s,color .2s}'
+        + '#musician-page .vp-pk-card:hover .vp-pk-cta{background:#5ad0c9;border-color:#5ad0c9}'
+        + '#musician-page .vp-pk-card.vp-picked .vp-pk-cta,#musician-page .vp-pk-card.vp-picked:hover .vp-pk-cta{background:none;border-color:rgba(61,194,187,.6);color:#8fe6e0;font-weight:500}'
+        + '#musician-page.vp-pk-wz .vp-pk-cta{display:none}'
         + '#musician-page.vp-pk-wz[data-wz="1"] .vp-pk-opt:not([data-o="solo"]),#musician-page.vp-pk-wz[data-wz="2"] .vp-pk-opt:not([data-o="trad"]),#musician-page.vp-pk-wz[data-wz="3"] .vp-pk-opt:not([data-o="dj"]){display:none!important}'
         + '#musician-page.vp-pk-wz .vp-pk-addhead,#musician-page.vp-pk-wz .vp-pk-addtag,#musician-page.vp-pk-wz .vp-pk-next[data-next=result]{display:none!important}'
         + '#musician-page.vp-pk-wz .vp-pk-dots i{width:8px!important;border-radius:50%!important}#musician-page.vp-pk-wz .vp-pk-dots i.vp-cur{width:22px!important;border-radius:4px!important}'
@@ -923,12 +928,13 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           o.classList.toggle('vp-pk-wide', !!main && id === others[1]);
           o.classList.toggle('vp-on', on);
           o.querySelector('.vp-pk-card').classList.toggle('vp-picked', on);
+          var cta = o.querySelector('.vp-pk-cta'); if (cta) cta.textContent = on ? '\u2713 Added \u00b7 tap to remove' : '+ Add to package';
           o.querySelector('.vp-pk-sub').hidden = !on;
         });
         mains.classList.toggle('vp-pk-started', !!main);
         $('.vp-pk-addhead').hidden = !main;
         $('.vp-pk-next[data-next="result"]').hidden = !main;
-        $('.vp-pk-picknote').textContent = main ? 'Choose the options for your main act (tap it again to change), then add either of the others.' : 'Choose your main act. You can add the others next.';
+        $('.vp-pk-picknote').textContent = main ? 'Pick the options for what you\'ve added, then use the Add buttons to add either of the others.' : 'Add what you\'d like. You can add one, two or all three.';
         step('result').hidden = !started;
         var pb = $('.vp-pk-parts');
         pb.hidden = !multi;
