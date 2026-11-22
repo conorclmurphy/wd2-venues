@@ -623,8 +623,10 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         + '<div class="vp-pk-other"><div><strong>Want something different?</strong><span>Tell us what you have in mind and we\'ll put together something just for you.</span></div><a class="vp-btn vp-btn-ghost" href="/home#enquiremain">Send us a general enquiry →</a></div></section>';
     }
     if (!soloPage && !m.packages) h += '<section class="vp-choose' + (m.related ? ' vp-choose-tight' : '') + '">' + heartBtn('', true) + '<p class="vp-add-note" hidden></p></section>';
-    if (m.related) h += '<section class="vp-addpk"><div><h2>Want live music too?</h2><p>Add a solo musician or our trad band.</p></div>'
-      + '<a class="vp-btn vp-addpk-btn" href="/packages?dj=' + encodeURIComponent(m.slug) + '">Add to a package →</a></section>';
+    // "Add to a package" box on option pages. DJ pages use the wording below; other option pages (House of Trad) set their own in musicians.json as "addpk".
+    var apk = m.addpk || { title: 'Want live music too?', text: 'Add a solo musician or our trad band.', href: '/packages?dj=' + encodeURIComponent(m.slug) };
+    if (m.related) h += '<section class="vp-addpk"><div><h2>' + esc(apk.title) + '</h2><p>' + esc(apk.text) + '</p></div>'
+      + '<a class="vp-btn vp-addpk-btn" href="' + esc(apk.href) + '">Add to a package →</a></section>';
     // DJ pages: show the other DJ options as cards (DJ / DJ & Sax / Karaoke), with this one marked
     if (m.related) {
       h += '<section><div class="vp-h2row"><h2>' + esc(m.relatedTitle || 'More options') + '</h2></div><div class="vp-similar vp-three vp-rel">';
@@ -1162,6 +1164,16 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
         djNote.className = 'vp-pk-with';
         djNote.innerHTML = '<strong>' + (djSlug === 'saxdj' ? 'DJ &amp; Sax' : djSlug === 'karaoke' ? 'DJ &amp; Karaoke' : 'The DJ') + '</strong> is in your package. Now add a solo musician or the trad band.';
         djS.insertBefore(djNote, djS.querySelector('h2'));
+      }
+      // arriving from a House of Trad page (/packages?trad=duo or trio): the trad band is already in the package
+      var tradWant = ((location.search.match(/[?&]trad=(duo|trio)\b/i) || [])[1] || '').toLowerCase();
+      if (tradWant) {
+        if (!main) main = 'trad'; else if (adds.indexOf('trad') === -1 && main !== 'trad') adds.push('trad');
+        line = tradWant === 'trio' ? 'Trio' : 'Duo';
+        var trNote = document.createElement('p'), trS = step('pick');
+        trNote.className = 'vp-pk-with';
+        trNote.innerHTML = '<strong>House of Trad (' + tradWant + ')</strong> is in your package. Now add a solo musician or a DJ.';
+        trS.insertBefore(trNote, trS.querySelector('h2'));
       }
       var withSlug = (location.search.match(/[?&]with=([^&]+)/) || [])[1], withM = null;
       if (withSlug) DATA.musicians.forEach(function (x) { if (x.slug === decodeURIComponent(withSlug) && !x.packages && !x.builder && !x.related) withM = x; });

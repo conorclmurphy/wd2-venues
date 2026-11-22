@@ -709,6 +709,212 @@
       "aboutTitle": "About our Modern Trad Band",
       "instagram": { "handle": "houseoftradmusic", "name": "House of Trad", "url": "https://www.instagram.com/houseoftradmusic/reels/" }
     },
+      {
+        "live": true,
+        "listed": false,
+        "tradBand": false,
+        "duo": false,
+        "related": [
+          "trad-duo",
+          "trad-trio",
+          "trad-ceili"
+        ],
+        "relatedTitle": "House of Trad options",
+        "fieldLabel": "Booking",
+        "gallery": [],
+        "photo": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG",
+        "videos": [
+          {
+            "id": "3162d84a-b047-404b-a97f-1a9dd6c04bc0",
+            "seconds": 41,
+            "shape": "wide"
+          },
+          {
+            "id": "89779ade-6140-426f-9f94-b3ade15c3a76",
+            "seconds": 22,
+            "shape": "tall"
+          },
+          {
+            "id": "28ec977b-4497-4907-ae72-026accbd7a9c",
+            "seconds": 38,
+            "shape": "tall"
+          }
+        ],
+        "instagram": {
+          "handle": "houseoftradmusic",
+          "name": "House of Trad",
+          "url": "https://www.instagram.com/houseoftradmusic/reels/"
+        },
+        "slug": "trad-duo",
+        "name": "Trad Duo",
+        "url": "https://weddingday2.ie/trad-duo",
+        "eyebrow": "House of Trad",
+        "aboutTitle": "About our Trad Duo",
+        "subjectName": "House of Trad (Duo)",
+        "formTitle": "Book the Trad Duo",
+        "cardText": "Guitar and vocals with a fiddle or banjo player.",
+        "facts": [
+          {
+            "label": "Made up of",
+            "value": "Singer-guitarist + fiddle or banjo"
+          }
+        ],
+        "tags": [
+          "Fiddle or banjo"
+        ],
+        "events": [
+          "ceremony",
+          "day2",
+          "afterdinner"
+        ],
+        "bio": [
+          "House of Trad as a duo: a singer-guitarist joined by a fiddle or banjo player.",
+          "Bringing a fresh twist to traditional Irish music, the duo blends contemporary hits, much-loved Irish favourites and lively traditional instrumentals to create a sound that gets everyone involved.",
+          "Want a bigger sound? Go for the trio, or add a céilí to get your guests dancing."
+        ],
+        "addpk": {
+          "title": "Want more music?",
+          "text": "Add a solo musician or a DJ.",
+          "href": "/packages?trad=duo"
+        }
+      },
+      {
+        "live": true,
+        "listed": false,
+        "tradBand": false,
+        "duo": false,
+        "related": [
+          "trad-duo",
+          "trad-trio",
+          "trad-ceili"
+        ],
+        "relatedTitle": "House of Trad options",
+        "fieldLabel": "Booking",
+        "gallery": [],
+        "photo": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG",
+        "videos": [
+          {
+            "id": "3162d84a-b047-404b-a97f-1a9dd6c04bc0",
+            "seconds": 41,
+            "shape": "wide"
+          },
+          {
+            "id": "89779ade-6140-426f-9f94-b3ade15c3a76",
+            "seconds": 22,
+            "shape": "tall"
+          },
+          {
+            "id": "28ec977b-4497-4907-ae72-026accbd7a9c",
+            "seconds": 38,
+            "shape": "tall"
+          }
+        ],
+        "instagram": {
+          "handle": "houseoftradmusic",
+          "name": "House of Trad",
+          "url": "https://www.instagram.com/houseoftradmusic/reels/"
+        },
+        "slug": "trad-trio",
+        "name": "Trad Trio",
+        "url": "https://weddingday2.ie/trad-trio",
+        "eyebrow": "House of Trad",
+        "aboutTitle": "About our Trad Trio",
+        "subjectName": "House of Trad (Trio)",
+        "formTitle": "Book the Trad Trio",
+        "cardText": "Guitar and vocals with fiddle and banjo.",
+        "facts": [
+          {
+            "label": "Made up of",
+            "value": "Singer-guitarist + fiddle + banjo"
+          }
+        ],
+        "tags": [
+          "Fiddle",
+          "Banjo"
+        ],
+        "events": [
+          "ceremony",
+          "day2",
+          "afterdinner"
+        ],
+        "bio": [
+          "House of Trad as a trio: a singer-guitarist with both fiddle and banjo, for the fullest trad sound.",
+          "Bringing a fresh twist to traditional Irish music, the trio blends contemporary hits, much-loved Irish favourites and lively traditional instrumentals to create a sound that gets everyone involved.",
+          "Want to get everyone up dancing? Add a céilí to your trad set."
+        ],
+        "addpk": {
+          "title": "Want more music?",
+          "text": "Add a solo musician or a DJ.",
+          "href": "/packages?trad=trio"
+        }
+      },
+      {
+        "live": true,
+        "listed": false,
+        "tradBand": false,
+        "duo": false,
+        "related": [
+          "trad-duo",
+          "trad-trio",
+          "trad-ceili"
+        ],
+        "relatedTitle": "House of Trad options",
+        "fieldLabel": "Booking",
+        "gallery": [],
+        "photo": "0f16f2b1-d018-4881-9200-3d4fccb2bbd9/780dba9a-26a9-4f8b-9bbd-9b30d045d6d2.JPG",
+        "videos": [
+          {
+            "id": "3162d84a-b047-404b-a97f-1a9dd6c04bc0",
+            "seconds": 41,
+            "shape": "wide"
+          },
+          {
+            "id": "89779ade-6140-426f-9f94-b3ade15c3a76",
+            "seconds": 22,
+            "shape": "tall"
+          },
+          {
+            "id": "28ec977b-4497-4907-ae72-026accbd7a9c",
+            "seconds": 38,
+            "shape": "tall"
+          }
+        ],
+        "instagram": {
+          "handle": "houseoftradmusic",
+          "name": "House of Trad",
+          "url": "https://www.instagram.com/houseoftradmusic/reels/"
+        },
+        "slug": "trad-ceili",
+        "name": "Trad + Céilí",
+        "url": "https://weddingday2.ie/trad-ceili",
+        "eyebrow": "House of Trad",
+        "aboutTitle": "About Trad + Céilí",
+        "subjectName": "House of Trad (Trad + Céilí)",
+        "formTitle": "Book Trad + Céilí",
+        "cardText": "Live trad with a céilí to get everyone dancing.",
+        "facts": [
+          {
+            "label": "Made up of",
+            "value": "Trad band + céilí"
+          }
+        ],
+        "tags": [
+          "Céilí dancing"
+        ],
+        "events": [
+          "day2",
+          "afterdinner"
+        ],
+        "bio": [
+          "House of Trad with a céilí: live trad music and céilí dancing that gets your guests up on the floor together.",
+          "A great way to bring both families together, whether your guests have danced a céilí before or never have."
+        ],
+        "addpk": {
+          "title": "Want more music?",
+          "text": "Add a solo musician or a DJ.",
+          "href": "/packages?trad=duo"
+        }
+      },
     {
       "slug": "packages",
       "name": "Build your package",
