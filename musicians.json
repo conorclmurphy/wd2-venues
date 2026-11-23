@@ -923,7 +923,7 @@
         "afterdinner"
       ],
       "tradBand": false,
-      "duo": true,
+      "duo": false,
       "onstage": [
         {
           "id": "35d237e8-63d8-4587-86a0-4b9cefd943cd",
