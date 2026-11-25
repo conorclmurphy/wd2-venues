@@ -1807,7 +1807,16 @@
         "It includes fully licensed karaoke software with thousands of high-quality backing tracks across every genre, plus professional sound equipment, microphones and everything needed for a smooth, fun karaoke session.",
         "Karaoke can be added to any DJ booking."
       ],
-      "videos": [],
+      "videos": [
+        {
+          "id": "karaoke-promo",
+          "seconds": 22,
+          "shape": "tall",
+          "title": "Karaoke night",
+          "mp4": "https://cdn.jsdelivr.net/gh/conorclmurphy/wd2-venues@main/video/karaoke-promo.mp4",
+          "posterUrl": "https://cdn.jsdelivr.net/gh/conorclmurphy/wd2-venues@main/img/karaoke/karaoke-promo-poster.jpg"
+        }
+      ],
       "theme": "dj"
     }
   ],
