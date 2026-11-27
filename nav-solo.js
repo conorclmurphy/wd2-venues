@@ -102,7 +102,8 @@
     + F + ' .option label input:checked+span:before{font-size:11px}'
     + F + ' .wd2-budget-item{grid-column:1/-1!important;order:6!important}'
     + F + ' .wd2-budget-item input:not(.wd2-budget-range),' + F + ' .wd2-budget-item .description{display:none!important}'
-    + 'html body.homepage .wd2-form-note{margin-top:0;margin-right:0;margin-bottom:14px;padding:0;font:500 13.5px/1.4 Bitter,Georgia,serif;color:#b8b3a8;text-align:left}'
+    + 'html body.homepage .wd2-form-note{display:flex;align-items:center;gap:10px;width:fit-content;max-width:100%;box-sizing:border-box;margin-top:0;margin-right:0;margin-bottom:16px;padding:9px 16px 9px 11px;border:1.5px solid rgba(61,194,187,.65);border-radius:999px;background:rgba(61,194,187,.12);font:600 15px/1.35 Bitter,Georgia,serif;color:#f3efe6;text-align:left;box-shadow:0 0 18px rgba(61,194,187,.18)}'
+    + 'html body.homepage .wd2-form-note svg{flex:none;width:22px;height:22px;color:#3dc2bb}'
     + '.wd2-budget{display:flex;align-items:center;gap:14px;padding:2px 0 0}'
     + '.wd2-budget-out{flex:0 0 auto;min-width:104px;text-align:right;font:600 15px/1.2 Bitter,Georgia,serif;color:#3dc2bb;font-variant-numeric:tabular-nums}'
     + '.wd2-budget-out.wd2-budget-any{color:#b8b3a8;font-weight:500}'
@@ -160,7 +161,7 @@
     var p = host.querySelector('.wd2-form-note');
     if (!p) {
       p = document.createElement('p'); p.className = 'wd2-form-note';
-      p.textContent = 'We will never send spam to your inbox.';
+      p.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l7.5 3v5.5c0 4.6-3.2 8.3-7.5 9.5-4.3-1.2-7.5-4.9-7.5-9.5V6z"/><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M8.5 12.2l2.4 2.4 4.6-4.8"/></svg><span>We will never send spam to your inbox.</span>';
       host.insertBefore(p, host.firstChild);
     }
     // line it up with the left edge of the boxes below it
