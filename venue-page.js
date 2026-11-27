@@ -10,6 +10,20 @@
    Change data-venue to the venue's "slug" from venues.json.
    The page is dark by default; add data-theme="light" to the div for the light sand version. */
 (function () {
+  // After sending: show the date and email they entered so they can spot a wrong year or a typo (like on Clinch Music)
+  function doneCheck(d, e) {
+    var esc2 = function (s) { return String(s || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d || ''), nice = d, past = false;
+    if (m) { var dt = new Date(+m[1], +m[2] - 1, +m[3]), t0 = new Date(); t0.setHours(0, 0, 0, 0); past = dt < t0; try { nice = dt.toLocaleDateString('en-IE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }); } catch (x) {} }
+    if (!d && !e) return '';
+    return '<div class="vp-done-check"><p class="vp-done-h">Please double-check your details:</p>'
+      + (d ? '<p><strong>Event date:</strong> ' + esc2(nice) + '</p>' : '')
+      + (past ? '<p class="vp-done-warn">This date has already passed. Did you mean a different year?</p>' : '')
+      + (e ? '<p><strong>Email:</strong> ' + esc2(e) + '</p>' : '')
+      + '<p class="vp-done-s">If either of these is wrong, please send the form again with the right details.</p></div>'
+      + '<style>.vp-done-check{margin-top:16px;padding:14px 16px;border:1px solid rgba(61,194,187,.45);border-radius:12px;background:rgba(61,194,187,.07)}.vp-done-check p{margin:.3em 0;font-size:16px;line-height:1.45}.vp-done-check .vp-done-h{margin-top:0;font-weight:600}.vp-done-check .vp-done-warn{font-weight:700;color:#e8a33d}.vp-done-check .vp-done-s{margin:.7em 0 0;font-size:14px;opacity:.85}</style>';
+  }
+
   var DATA_URL = 'https://raw.githubusercontent.com/conorclmurphy/wd2-venues/main/venues.json';
   var HLS_URL = 'https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js';
   var FORM_URL = 'https://api.web3forms.com/submit';
@@ -632,7 +646,7 @@ background:var(--vp-bg);color:var(--vp-ink);font-family:var(--vp-body);font-size
           setList([]);
           // tell the Meta pixel a lead came in (for Instagram/Facebook ads)
           try { if (window.fbq) window.fbq('track', 'Lead', { content_name: v.name, content_category: 'Venue' }); } catch (x) {}
-          form.innerHTML = '<div class="vp-done"><h2>Thanks, ' + esc(payload['First name']) + '</h2><p>We have your enquiry' + (all.length > 1 ? ' about ' + all.length + ' options' : ' about ' + esc(v.name)) + ' and will be in touch soon by email.</p></div>';
+          form.innerHTML = '<div class="vp-done"><h2>Thanks, ' + esc(payload['First name']) + '</h2><p>We have your enquiry' + (all.length > 1 ? ' about ' + all.length + ' options' : ' about ' + esc(v.name)) + ' and will be in touch soon by email.</p>' + doneCheck(payload['Event date'], payload['email'] || payload['Email']) + '</div>';
         })
         .catch(function () {
           sendBtn.disabled = false; sendBtn.textContent = 'Send enquiry';

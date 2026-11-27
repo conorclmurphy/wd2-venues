@@ -172,6 +172,38 @@
   build(); note();
 })();
 
+/* Squarespace forms (home page and others): after sending, show the event date and email they entered
+   so they can spot a wrong year or a typo, like on Clinch Music. */
+(function () {
+  var d = '', e = '';
+  function grab(t) {
+    if (!t || !t.closest || !t.closest('.sqs-block-form, form.react-form-contents')) return;
+    if (t.type === 'date' || /date/i.test(t.name || '')) d = t.value;
+    if (t.type === 'email') e = t.value;
+  }
+  document.addEventListener('input', function (ev) { grab(ev.target); }, true);
+  document.addEventListener('change', function (ev) { grab(ev.target); }, true);
+  function esc(s) { return String(s || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function show() {
+    if (!d && !e) return;
+    var n = document.querySelector('.sqs-block-form .form-submission-text, .sqs-block-form [class*="submission-text"]');
+    if (!n || n.parentNode.querySelector('.wd2-confirm')) return;
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d), nice = d, past = false;
+    if (m) { var dt = new Date(+m[1], +m[2] - 1, +m[3]), t0 = new Date(); t0.setHours(0, 0, 0, 0); past = dt < t0; try { nice = dt.toLocaleDateString('en-IE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }); } catch (x) {} }
+    var box = document.createElement('div');
+    box.className = 'wd2-confirm';
+    box.style.cssText = 'margin-top:18px;padding:14px 16px;border:1px solid rgba(61,194,187,.45);border-radius:12px;background:rgba(61,194,187,.08);text-align:left';
+    var P = 'margin:.3em 0;font-size:16px;line-height:1.45;color:inherit';
+    box.innerHTML = '<p style="' + P + ';margin-top:0;font-weight:600">Please double-check your details:</p>'
+      + (d ? '<p style="' + P + '"><strong>Event date:</strong> ' + esc(nice) + '</p>' : '')
+      + (past ? '<p style="' + P + ';font-weight:700;color:#e8a33d">This date has already passed. Did you mean a different year?</p>' : '')
+      + (e ? '<p style="' + P + '"><strong>Email:</strong> ' + esc(e) + '</p>' : '')
+      + '<p style="' + P + ';margin-top:.7em;font-size:14px;opacity:.85">If either of these is wrong, please send the form again with the right details.</p>';
+    n.parentNode.insertBefore(box, n.nextSibling);
+  }
+  new MutationObserver(show).observe(document.documentElement, { childList: true, subtree: true });
+})();
+
 /* Home page image descriptions (for Google and for screen readers). The home page photos were added in
    Squarespace without descriptions, so this fills them in. Matched by the photo's file name. */
 (function () {
